@@ -23,13 +23,19 @@ samples, guidance on mobile development, and a full API reference.
 
 `lib\services` : The Services of the app such as notification_service lies here.
 
-`lib\ui\screens` : The Whole Application Screens lies here.
+`lib\constants` : The constants such as route paths and api keys that lies
 
-`lib\ui\custom` : The Custom Widgets you created can be placed here.
+`lib\managers` : The Managers will be the link between the Services and the UI. 
 
-`lib\ui\styles` : The required styles for the app lies here.
+`lib\ui` : The Overall User Interface required for the application lies here.
 
-`lib\utils\blocs` : The overall business logic lies here.
+`lib\ui\shared` : The Shared Widgets are like helpers that used mostly.
+
+`lib\ui\views` : The Views are the stateless widgets that has a Provider and Consumer as it's root widgets and calls required functions on it's model
+
+`lib\ui\widgets` : The Overall Custom Widgets that are used through out the app lies here.
+
+`lib\viewmodels` : The ViewModels are the classes extending ChangeNotifier that lies here.
 
 ## Coding Guidelines
 
@@ -41,3 +47,14 @@ samples, guidance on mobile development, and a full API reference.
 6. If your dart file has more than two widgets try to create sepearate file.
 7. When it comes to scale our application, try using `provider` or something similar to that.
 8. Know well about advanced concepts in flutter and try to use them properly.
+
+## Steps to contribute:
+1. Clone it :busts_in_silhouette:
+`git clone https://github.com/algokun/ProjectSVUCE.git`
+2. Create a new branch :bangbang:
+`git checkout -b newbranch`
+3. Do the needful changes to solve the issue.
+4. Commit the changes and dont forget to use emoji :dizzy:
+`git commit -m ":cloud: added cloud" `
+5. Now, Push your awesome work to your remote repository using :pushpin:
+`git push -u origin newbranch`
