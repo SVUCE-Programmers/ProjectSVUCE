@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/locator.dart';
+import 'package:svuce_app/services/navigation_service.dart';
+import 'package:svuce_app/ui/router.dart';
+import 'package:svuce_app/ui/views/login_view.dart';
 
 import 'managers/dialog_manager.dart';
 import 'services/dialog_service.dart';
@@ -20,6 +23,9 @@ class MainApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'SVUCE APP',
+      navigatorKey: locator<NavigationService>().navigationKey,
+      home: LoginView(),
+      onGenerateRoute: generateRoute,
     );
   }
 }
