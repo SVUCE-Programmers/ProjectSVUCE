@@ -49,12 +49,12 @@ samples, guidance on mobile development, and a full API reference.
 8. Know well about advanced concepts in flutter and try to use them properly.
 
 ## Steps to contribute:
-1. Clone it :busts_in_silhouette:
+1. Clone it :busts_in_silhouette: <br/>
 `git clone https://github.com/algokun/ProjectSVUCE.git`
-2. Create a new branch :bangbang:
+2. Create a new branch :bangbang: <br/>
 `git checkout -b newbranch`
-3. Do the needful changes to solve the issue.
-4. Commit the changes and dont forget to use emoji :dizzy:
+3. Do the needful changes to solve the issue. <br/>
+4. Commit the changes and dont forget to use emoji :dizzy: <br/>
 `git commit -m ":cloud: added cloud" `
-5. Now, Push your awesome work to your remote repository using :pushpin:
+5. Now, Push your awesome work to your remote repository using :pushpin: <br/>
 `git push -u origin newbranch`
