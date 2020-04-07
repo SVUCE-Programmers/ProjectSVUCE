@@ -1,4 +1,4 @@
-package com.example.svuce_app
+package com.svuce.svuce_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

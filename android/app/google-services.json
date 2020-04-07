@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "805833121682",
+    "firebase_url": "https://svuce-52b0b.firebaseio.com",
+    "project_id": "svuce-52b0b",
+    "storage_bucket": "svuce-52b0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805833121682:android:6d18ec07eb210b18eb6b4b",
+        "android_client_info": {
+          "package_name": "com.example.svuce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805833121682-7enlav5hbqedekvjjsdnm45n61qejoo2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsyg-tk3pYKGDLkny6ZkMRbI5WPn9nXh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805833121682-7enlav5hbqedekvjjsdnm45n61qejoo2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805833121682:android:0f712d7a581fcbedeb6b4b",
+        "android_client_info": {
+          "package_name": "com.svuce.svuce_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805833121682-7enlav5hbqedekvjjsdnm45n61qejoo2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsyg-tk3pYKGDLkny6ZkMRbI5WPn9nXh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805833121682-7enlav5hbqedekvjjsdnm45n61qejoo2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
