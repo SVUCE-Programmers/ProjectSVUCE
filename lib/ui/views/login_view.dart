@@ -15,6 +15,7 @@ class LoginView extends StatelessWidget {
                 padding: EdgeInsets.all(20.0),
                 children: <Widget>[
                   TextField(
+                    key: Key('rollNoTextField'),
                     controller: rollNoController,
                     keyboardType: TextInputType.phone,
                     maxLength: 8,
@@ -23,6 +24,7 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   TextField(
+                    key: Key('passwordTextField'),
                     controller: passwordController,
                     keyboardType: TextInputType.text,
                     maxLength: 12,
@@ -33,7 +35,7 @@ class LoginView extends StatelessWidget {
                   RaisedButton(
                       child: model.busy
                           ? CircularProgressIndicator()
-                          : Text("Submit"),
+                          : Text(model.buttonText),
                       onPressed: () {
                         model.login(
                             rollno: rollNoController.text,
