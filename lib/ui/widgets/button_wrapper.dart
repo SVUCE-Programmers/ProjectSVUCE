@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ButtonWraper extends StatelessWidget {
+class WidgetWrapper extends StatelessWidget {
   final BoxDecoration decoration;
   final Widget child;
-  const ButtonWraper({Key key, this.decoration, this.child}) : super(key: key);
+  const WidgetWrapper({Key key, this.decoration, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(

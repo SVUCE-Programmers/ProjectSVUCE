@@ -5,18 +5,23 @@ const TextStyle heading = TextStyle(
   fontFamily: 'Quicksand',
   fontSize: 30.0,
   fontWeight: FontWeight.bold,
-  color: surfaceLight
+  color: textPrimary
 );
 
 const TextStyle subhead = TextStyle(
   fontFamily: 'Quicksand',
-  fontSize: 20.0,
+  fontSize: 22.0,
   fontWeight: FontWeight.w600,
-  color: secondaryLight
+  color: secondary
 );
 
 const TextStyle buttonText = TextStyle(
   fontFamily: 'Quicksand',
-  fontSize: 15.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.w600,
+);
+
+const TextStyle bodyText = TextStyle(
+  fontFamily: 'WorkSans',
+  fontSize: 15.0,
 );

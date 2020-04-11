@@ -12,13 +12,13 @@ class LoginViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
-  String buttonText = "Submit";
+  String buttonText = "Signin";
 
-  Future login({@required String rollno, @required String password}) async {
+  Future login({@required String email, @required String password}) async {
     setBusy(true);
 
     var result = await _authenticationService.loginAsStudent(
-        rollno: rollno, password: password);
+        email: email, password: password);
 
     setBusy(false);
 
@@ -26,14 +26,14 @@ class LoginViewModel extends BaseModel {
       if (result) {
         _navigationService.navigateTo(HomeViewRoute);
       } else {
-        buttonText = "Failed";
+        buttonText = "Try again";
         await _dialogService.showDialog(
           title: 'Login Failure',
           description: 'General login failure, please try again later',
         );
       }
     } else {
-      buttonText = "Failed";
+      buttonText = "Try again";
       await _dialogService.showDialog(
           title: 'Login Failure', description: result);
     }

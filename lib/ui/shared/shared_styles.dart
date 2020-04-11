@@ -6,3 +6,8 @@ final BoxDecoration buttonDecoration = BoxDecoration(
   border: Border.all(color: primary, width: 3.0),
   borderRadius: BorderRadius.circular(10.0),
 );
+
+final BoxDecoration textFieldDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(10.0),
+  color: secondaryLight
+);

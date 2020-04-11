@@ -17,7 +17,7 @@ class SignUpViewModel extends BaseModel {
     setBusy(true);
 
     var result = await _authenticationService.createStudent(
-        rollno: rollno, password: password);
+        email: rollno, password: password);
 
     setBusy(false);
 

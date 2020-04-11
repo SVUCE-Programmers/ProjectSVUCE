@@ -33,11 +33,12 @@ class SelectUserView extends StatelessWidget {
                     ])),
                     Expanded(
                       child: Container(
+                        alignment: Alignment.center,
                         padding: EdgeInsets.all(30.0),
-                        child: Image.asset(onboarding),
+                        child: Image.asset(onboarding, fit: BoxFit.cover,),
                       ),
                     ),
-                    ButtonWraper(
+                    WidgetWrapper(
                       decoration: buttonDecoration.copyWith(color: primary),
                       child: FlatButton.icon(
                           onPressed: () {},
@@ -50,7 +51,7 @@ class SelectUserView extends StatelessWidget {
                             style: buttonText.apply(color: secondary),
                           )),
                     ),
-                    ButtonWraper(
+                    WidgetWrapper(
                       decoration: buttonDecoration,
                       child: FlatButton.icon(
                           onPressed: () {},
@@ -64,7 +65,7 @@ class SelectUserView extends StatelessWidget {
                             style: buttonText.apply(color: primary),
                           )),
                     ),
-                    ButtonWraper(
+                    WidgetWrapper(
                       decoration: BoxDecoration(
                         color: secondaryLight,
                         border: Border.all(color: secondaryLight, width: 3.0),
@@ -75,11 +76,11 @@ class SelectUserView extends StatelessWidget {
                           onPressed: () {},
                           icon: Icon(
                             FontAwesome.user,
-                            color: surfaceLight,
+                            color: textPrimary,
                           ),
                           label: Text(
                             "\tI\'m a Guest",
-                            style: buttonText.apply(color: surfaceLight),
+                            style: buttonText.apply(color: textPrimary),
                           )),
                     ),
                   ],
