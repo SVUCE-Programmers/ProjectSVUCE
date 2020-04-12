@@ -7,9 +7,12 @@ import 'views/signup_view.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case LoginViewRoute:
+      var isStudent = settings.arguments as bool;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: LoginView(),
+        viewToShow: LoginView(
+          isStudent: isStudent,
+        ),
       );
     case SignUpViewRoute:
       return _getPageRoute(

@@ -11,10 +11,10 @@ import 'package:svuce_app/viewmodels/select_user_viewmodel.dart';
 class SelectUserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<SelectUserViewModel>.withConsumer(
+    return ViewModelProvider<SelectUserViewModel>.withoutConsumer(
         viewModel: SelectUserViewModel(),
         builder: (context, model, child) => Scaffold(
-              backgroundColor: secondary,
+              backgroundColor: secondaryDark,
               body: Container(
                 padding: EdgeInsets.all(20.0),
                 margin: EdgeInsets.only(top: 20.0),
@@ -35,26 +35,33 @@ class SelectUserView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         padding: EdgeInsets.all(30.0),
-                        child: Image.asset(onboarding, fit: BoxFit.cover,),
+                        child: Image.asset(
+                          onboarding,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     WidgetWrapper(
                       decoration: buttonDecoration.copyWith(color: primary),
                       child: FlatButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            model.gotoStudentlogin();
+                          },
                           icon: Icon(
                             FontAwesome5Solid.graduation_cap,
-                            color: secondary,
+                            color: secondaryDark,
                           ),
                           label: Text(
                             "\t\tI\'m a Student",
-                            style: buttonText.apply(color: secondary),
+                            style: buttonText.apply(color: secondaryDark),
                           )),
                     ),
                     WidgetWrapper(
                       decoration: buttonDecoration,
                       child: FlatButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            model.gotoTeacherLogin();
+                          },
                           icon: Icon(
                             FontAwesome5Solid.chalkboard_teacher,
                             color: primary,
@@ -73,7 +80,9 @@ class SelectUserView extends StatelessWidget {
                       ),
                       child: FlatButton.icon(
                           splashColor: secondaryLight,
-                          onPressed: () {},
+                          onPressed: () {
+                            model.signInAsGuest();
+                          },
                           icon: Icon(
                             FontAwesome.user,
                             color: textPrimary,

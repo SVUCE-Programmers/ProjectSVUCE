@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/services/authentication_service.dart';
@@ -12,9 +12,25 @@ class LoginViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   String buttonText = "Signin";
 
-  Future login({@required String email, @required String password}) async {
+  Future login() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    bool isValidated = validateFields(email, password);
+
+    if (!isValidated) {
+      buttonText = "Try again";
+      await _dialogService.showDialog(
+          title: 'Login Failure',
+          description: "Please check your details and try again");
+      return null;
+    }
+
     setBusy(true);
 
     var result = await _authenticationService.loginAsStudent(
@@ -37,5 +53,17 @@ class LoginViewModel extends BaseModel {
       await _dialogService.showDialog(
           title: 'Login Failure', description: result);
     }
+  }
+
+  bool validateFields(String email, String password) {
+    if (email == null ||
+        password == null ||
+        email.length < 5 ||
+        password.length < 5 ||
+        !email.contains("@")) {
+      return false;
+    }
+
+    return true;
   }
 }

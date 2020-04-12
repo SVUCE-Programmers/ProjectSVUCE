@@ -9,10 +9,17 @@ import 'package:svuce_app/ui/widgets/curve_wrapper.dart';
 import 'package:svuce_app/viewmodels/login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final bool isStudent;
+
+  const LoginView({isStudent})
+      : this.isStudent = isStudent != null ? isStudent : true;
+
   @override
   Widget build(BuildContext context) {
+    final inputBorder = OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(color: secondaryLight));
+
     return ViewModelProvider<LoginViewModel>.withConsumer(
         viewModel: LoginViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -27,25 +34,26 @@ class LoginView extends StatelessWidget {
                     children: <Widget>[
                       Text.rich(TextSpan(children: [
                         TextSpan(text: 'Login\n', style: heading),
-                        TextSpan(text: 'Student Version\n', style: subhead),
+                        TextSpan(
+                            text: isStudent
+                                ? 'Student Version\n'
+                                : 'Teacher Version \n',
+                            style: subhead),
                       ])),
                       Expanded(
                         child: Container(
                           margin: EdgeInsets.only(top: 150),
                           alignment: Alignment.center,
                           child: ListView(
-                            physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             children: <Widget>[
                               WidgetWrapper(
                                 decoration: textFieldDecoration,
                                 child: TextField(
-                                  controller: emailController,
+                                  controller: model.emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: secondaryLight)),
+                                      border: inputBorder,
                                       prefixIcon: Icon(
                                         FontAwesome.envelope,
                                         color: textPrimary,
@@ -58,13 +66,11 @@ class LoginView extends StatelessWidget {
                               WidgetWrapper(
                                 decoration: textFieldDecoration,
                                 child: TextField(
-                                  controller: passwordController,
+                                  controller: model.passwordController,
                                   obscureText: true,
                                   keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: secondaryLight)),
+                                      border: inputBorder,
                                       prefixIcon: Icon(
                                         FontAwesome.lock,
                                         color: textPrimary,
@@ -80,9 +86,7 @@ class LoginView extends StatelessWidget {
                                 child: FlatButton(
                                     splashColor: secondaryLight,
                                     onPressed: () {
-                                      model.login(
-                                          email: "themightyking117@gmail.com",
-                                          password: "1231321");
+                                      model.login();
                                     },
                                     child: model.busy
                                         ? CircularProgressIndicator(
@@ -106,18 +110,21 @@ class LoginView extends StatelessWidget {
                                       style: bodyText.apply(color: primary),
                                     )),
                               ),
-                              WidgetWrapper(
-                                decoration: buttonDecoration,
-                                child: FlatButton(
-                                    splashColor: secondaryLight,
-                                    onPressed: () {
-                                      // TODO: Navigate to CreateAccount
-                                    },
-                                    child: Text(
-                                      "Create Account",
-                                      style: buttonText.apply(color: primary),
-                                    )),
-                              ),
+                              isStudent
+                                  ? WidgetWrapper(
+                                      decoration: buttonDecoration,
+                                      child: FlatButton(
+                                          splashColor: secondaryLight,
+                                          onPressed: () {
+                                            // TODO: Navigate to CreateAccount
+                                          },
+                                          child: Text(
+                                            "Create Account",
+                                            style: buttonText.apply(
+                                                color: primary),
+                                          )),
+                                    )
+                                  : SizedBox(),
                             ],
                           ),
                         ),
