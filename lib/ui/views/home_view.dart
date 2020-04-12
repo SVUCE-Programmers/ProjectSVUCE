@@ -7,8 +7,16 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelProvider<HomeViewModel>.withConsumer(
         viewModel: HomeViewModel(),
-        builder: (context, model, child) => Scaffold(
-              body: Center(child: Text("HomeView")),
+        onModelReady: (model) => model.getCurrentUserDetails(),
+        builder: (context, model, child) => WillPopScope(
+              onWillPop: model.onWillPop,
+              child: Scaffold(
+                bottomNavigationBar: RaisedButton(
+                  child: Text("Logout"),
+                  onPressed: model.signOut,
+                ),
+                body: Center(child: Text(model.currentUser.fullName)),
+              ),
             ));
   }
 }

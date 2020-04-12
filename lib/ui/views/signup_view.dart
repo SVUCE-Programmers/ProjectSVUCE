@@ -50,7 +50,42 @@ class SignUpView extends StatelessWidget {
                     shrinkWrap: true,
                     children: <Widget>[
                       WidgetWrapper(
-                        key: Key("EmailField"),
+                        decoration: textFieldDecoration,
+                        child: TextField(
+                          style: buttonText.copyWith(color: textPrimary),
+                          controller: model.fullNameController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              border: textFieldInputBorder,
+                              prefixIcon: Icon(
+                                FontAwesome.user,
+                                color: textPrimary,
+                              ),
+                              hintText: 'Full Name',
+                              hintStyle:
+                                  buttonText.copyWith(color: textPrimary)),
+                        ),
+                      ),
+                      WidgetWrapper(
+                        decoration: textFieldDecoration,
+                        child: TextField(
+                          style: buttonText.copyWith(color: textPrimary),
+                          controller: model.rollNoController,
+                          keyboardType: TextInputType.phone,
+                          maxLength: 8,
+                          decoration: InputDecoration(
+                              border: textFieldInputBorder,
+                              prefixIcon: Icon(
+                                FontAwesome.id_badge,
+                                color: textPrimary,
+                              ),
+                              hintText: 'Roll no.',
+                              counterText: '',
+                              hintStyle:
+                                  buttonText.copyWith(color: textPrimary)),
+                        ),
+                      ),
+                      WidgetWrapper(
                         decoration: textFieldDecoration,
                         child: TextField(
                           style: buttonText.copyWith(color: textPrimary),
@@ -70,7 +105,6 @@ class SignUpView extends StatelessWidget {
                       WidgetWrapper(
                         decoration: textFieldDecoration,
                         child: TextField(
-                          key: Key("PasswordField"),
                           style: buttonText.copyWith(color: textPrimary),
                           controller: model.passwordController,
                           obscureText: true,
@@ -89,7 +123,6 @@ class SignUpView extends StatelessWidget {
                       WidgetWrapper(
                         decoration: buttonDecoration.copyWith(color: primary),
                         child: FlatButton(
-                            key: Key("SigninButton"),
                             splashColor: secondaryLight,
                             onPressed: model.createUser,
                             child: model.busy

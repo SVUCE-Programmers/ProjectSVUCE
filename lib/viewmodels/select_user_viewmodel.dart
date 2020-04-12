@@ -19,6 +19,7 @@ class SelectUserViewModel extends BaseModel {
   }
 
   signInAsGuest() {
+    //TODO: Sign in as guest
     navigationService.navigateTo(HomeViewRoute);
   }
 

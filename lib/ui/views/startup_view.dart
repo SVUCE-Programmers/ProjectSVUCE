@@ -11,10 +11,13 @@ class StartUpView extends StatelessWidget {
         onModelReady: (model) => model.handleStartUpLogic(),
         builder: (context, model, child) => Scaffold(
               body: Center(
-                child: GridTile(
-                  child: Image.asset(onboarding),
-                  footer: CircularProgressIndicator(),
-                ),
+                child: Container(
+                    height: 400,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      onboarding,
+                      fit: BoxFit.contain,
+                    )),
               ),
             ));
   }

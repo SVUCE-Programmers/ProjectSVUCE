@@ -14,14 +14,18 @@ class SignUpViewModel extends BaseModel {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final rollNoController = TextEditingController();
+  final fullNameController = TextEditingController();
 
   String buttonText = "Signup";
 
   Future createUser() async {
     String email = emailController.text;
     String password = passwordController.text;
+    String fullName = fullNameController.text;
+    String rollNo = rollNoController.text;
 
-    bool isValidated = validateFields(email, password);
+    bool isValidated = validateFields(email, password, rollNo, fullName);
 
     if (!isValidated) {
       buttonText = "Try again";
@@ -36,7 +40,7 @@ class SignUpViewModel extends BaseModel {
     //TODO: Do an API Call to check whether email is allowed to register
 
     var result = await _authenticationService.createStudent(
-        email: email, password: password);
+        fullName: fullName, rollNo: rollNo, email: email, password: password);
 
     setBusy(false);
 
@@ -55,15 +59,21 @@ class SignUpViewModel extends BaseModel {
     }
   }
 
-  bool validateFields(String email, String password) {
+  bool validateFields(
+      String email, String password, String rollNo, String fullName) {
     if (email == null ||
         password == null ||
+        rollNo == null ||
+        fullName == null ||
+        rollNo.length > 8 ||
+        rollNo.length < 8 ||
+        fullName.length < 5 ||
         email.length < 5 ||
         password.length < 5 ||
         !email.contains("@")) {
       return false;
     }
-
+    //TODO: Validate Roll No. using Regex
     return true;
   }
 
