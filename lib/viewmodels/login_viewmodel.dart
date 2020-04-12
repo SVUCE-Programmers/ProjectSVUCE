@@ -33,7 +33,7 @@ class LoginViewModel extends BaseModel {
 
     setBusy(true);
 
-    var result = await _authenticationService.loginAsStudent(
+    var result = await _authenticationService.loginUser(
         email: email, password: password);
 
     setBusy(false);
@@ -65,5 +65,9 @@ class LoginViewModel extends BaseModel {
     }
 
     return true;
+  }
+
+  gotoCreateAccount() {
+    _navigationService.navigateTo(SignUpViewRoute);
   }
 }

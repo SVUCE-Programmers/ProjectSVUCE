@@ -35,12 +35,12 @@ void main() {
 
     test("sign in with email and password", () async {
       bool signedIn =
-          await service.loginAsStudent(email: "email", password: "password");
+          await service.loginUser(email: "email", password: "password");
       expect(signedIn, true);
     });
 
     test("sign in fails with incorrect email and password", () async {
-      var signedIn = await service.loginAsStudent(
+      var signedIn = await service.loginUser(
           email: "theemailthatdoesntexist", password: "pass");
       expect(signedIn, 'Error Occured');
     });

@@ -8,6 +8,8 @@ final BoxDecoration buttonDecoration = BoxDecoration(
 );
 
 final BoxDecoration textFieldDecoration = BoxDecoration(
-  borderRadius: BorderRadius.circular(10.0),
-  color: secondaryLight
-);
+    borderRadius: BorderRadius.circular(10.0), color: secondaryLight);
+
+final textFieldInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    borderSide: BorderSide(color: secondaryLight));

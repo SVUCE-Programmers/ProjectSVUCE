@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/services/authentication_service.dart';
@@ -12,12 +12,31 @@ class SignUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
-  Future createStudent(
-      {@required String rollno, @required String password}) async {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  String buttonText = "Signup";
+
+  Future createUser() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    bool isValidated = validateFields(email, password);
+
+    if (!isValidated) {
+      buttonText = "Try again";
+      await _dialogService.showDialog(
+          title: 'Login Failure',
+          description: "Please check your details and try again");
+      return null;
+    }
+
     setBusy(true);
 
+    //TODO: Do an API Call to check whether email is allowed to register
+
     var result = await _authenticationService.createStudent(
-        email: rollno, password: password);
+        email: email, password: password);
 
     setBusy(false);
 
@@ -34,5 +53,21 @@ class SignUpViewModel extends BaseModel {
       await _dialogService.showDialog(
           title: 'Login Failure', description: result);
     }
+  }
+
+  bool validateFields(String email, String password) {
+    if (email == null ||
+        password == null ||
+        email.length < 5 ||
+        password.length < 5 ||
+        !email.contains("@")) {
+      return false;
+    }
+
+    return true;
+  }
+
+  gotoLogin() {
+    _navigationService.pop();
   }
 }

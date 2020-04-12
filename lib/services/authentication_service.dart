@@ -9,7 +9,7 @@ class AuthenticationService extends BaseModel {
       : this.firebaseAuth =
             firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
-  Future loginAsStudent(
+  Future loginUser(
       {@required String email, @required String password}) async {
     try {
       var user = await firebaseAuth.signInWithEmailAndPassword(
@@ -31,5 +31,10 @@ class AuthenticationService extends BaseModel {
     } catch (e) {
       return e.message;
     }
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    var user = await firebaseAuth.currentUser();
+    return user != null;
   }
 }
