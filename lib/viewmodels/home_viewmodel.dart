@@ -4,13 +4,14 @@ import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/authentication_service.dart';
+import 'package:svuce_app/services/base_auth.dart';
 import 'package:svuce_app/services/dialog_service.dart';
 import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
 class HomeViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+      locator<BaseAuth>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 

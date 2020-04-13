@@ -18,7 +18,7 @@ class FirestoreService {
       var userData = await _userColletionReference.document(uid).get();
       return User.fromData(userData.data);
     } catch (e) {
-      return e.message;
+      return e?.message;
     }
   }
 
@@ -34,7 +34,7 @@ class FirestoreService {
 
       return false;
     } catch (e) {
-      return e.message;
+      return e?.message;
     }
   }
 }

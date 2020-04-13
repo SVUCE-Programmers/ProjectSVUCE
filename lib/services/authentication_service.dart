@@ -3,17 +3,19 @@ import 'package:flutter/foundation.dart';
 import 'package:svuce_app/constants/assets.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/models/user.dart';
+import 'package:svuce_app/services/base_auth.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
-class AuthenticationService extends BaseModel {
+class AuthenticationService extends BaseModel implements BaseAuth {
   final FirebaseAuth firebaseAuth;
   final FirestoreService _firestoreService = locator<FirestoreService>();
   //for testing
-  AuthenticationService({firebaseAuth})
+  AuthenticationService({FirebaseAuth firebaseAuth})
       : this.firebaseAuth =
             firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
+  @override
   Future loginUser({@required String email, @required String password}) async {
     try {
       var authResult = await firebaseAuth.signInWithEmailAndPassword(
@@ -30,6 +32,7 @@ class AuthenticationService extends BaseModel {
   User _currentUser;
   User get currentUser => _currentUser;
 
+  @override
   Future createStudent(
       {@required String email,
       @required String password,
@@ -55,6 +58,7 @@ class AuthenticationService extends BaseModel {
     }
   }
 
+  @override
   Future<bool> isUserLoggedIn() async {
     var user = await firebaseAuth.currentUser();
     await _populateCurrentUser(user);
@@ -67,6 +71,7 @@ class AuthenticationService extends BaseModel {
     }
   }
 
+  @override
   Future signOut() async {
     await firebaseAuth.signOut();
   }
