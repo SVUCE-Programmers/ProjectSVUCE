@@ -11,7 +11,7 @@ import 'package:svuce_app/viewmodels/signup_viewmodel.dart';
 class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<SignUpViewModel>.withoutConsumer(
+    return ViewModelProvider<SignUpViewModel>.withConsumer(
         viewModel: SignUpViewModel(),
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomPadding: false,

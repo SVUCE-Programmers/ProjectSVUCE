@@ -3,12 +3,14 @@ import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/services/authentication_service.dart';
 import 'package:svuce_app/services/dialog_service.dart';
+import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
 class SignUpViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
@@ -35,9 +37,24 @@ class SignUpViewModel extends BaseModel {
       return null;
     }
 
-    setBusy(true);
+    var isRollExists = await _firestoreService.isRollNoExists(rollNo);
+
+    if (isRollExists is bool) {
+      if (isRollExists) {
+        await _dialogService.showDialog(
+            title: 'Login Failure', description: "The Roll No. already exists");
+
+        return null;
+      }
+    } else {
+      await _dialogService.showDialog(
+          title: 'Login Failure', description: isRollExists);
+      return isRollExists;
+    }
 
     //TODO: Do an API Call to check whether email is allowed to register
+
+    setBusy(true);
 
     var result = await _authenticationService.createStudent(
         fullName: fullName, rollNo: rollNo, email: email, password: password);

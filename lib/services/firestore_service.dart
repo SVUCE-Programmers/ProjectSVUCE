@@ -6,7 +6,6 @@ class FirestoreService {
       Firestore.instance.collection("users");
 
   Future createUser(User user) async {
-    //TODO: Check whether the rollno exists or not
     try {
       await _userColletionReference.document(user.id).setData(user.toJson());
     } catch (e) {
@@ -18,6 +17,22 @@ class FirestoreService {
     try {
       var userData = await _userColletionReference.document(uid).get();
       return User.fromData(userData.data);
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future isRollNoExists(String rollNo) async {
+    try {
+      var result = await _userColletionReference
+          .where("rollNo", isEqualTo: rollNo)
+          .getDocuments();
+
+      if (result.documents != null) {
+        return result.documents.isNotEmpty;
+      }
+
+      return false;
     } catch (e) {
       return e.message;
     }

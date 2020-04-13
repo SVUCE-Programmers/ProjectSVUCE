@@ -23,7 +23,7 @@ class AuthenticationService extends BaseModel {
 
       return authResult.user != null;
     } catch (e) {
-      return e.message;
+      return e?.message;
     }
   }
 
