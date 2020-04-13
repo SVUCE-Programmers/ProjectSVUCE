@@ -6,6 +6,9 @@ import 'package:svuce_app/services/dialog_service.dart';
 import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
+//Note: When the dialogs are called they completely come from a seperate page. So when writing test
+// make sure to remove dialogs and add notifyListeners for a string to see the error.
+
 class LoginViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
