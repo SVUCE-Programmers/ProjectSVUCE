@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:svuce_app/constants/assets.dart';
 import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/firestore_service.dart';
@@ -43,6 +44,7 @@ class AuthenticationService extends BaseModel {
           email: email,
           fullName: fullName,
           rollNo: rollNo,
+          profileImg: defaultUserImage,
           userType: "STUDENT");
 
       await _firestoreService.createUser(_currentUser);

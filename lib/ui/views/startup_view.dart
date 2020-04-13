@@ -1,6 +1,6 @@
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter/material.dart';
-import 'package:svuce_app/ui/shared/assets.dart';
+import 'package:svuce_app/constants/assets.dart';
 import 'package:svuce_app/viewmodels/startup_viewmodel.dart';
 
 class StartUpView extends StatelessWidget {

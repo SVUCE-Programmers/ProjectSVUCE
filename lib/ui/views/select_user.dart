@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:svuce_app/constants/assets.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
-import 'package:svuce_app/ui/shared/assets.dart';
 import 'package:svuce_app/ui/shared/font_styles.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
 import 'package:svuce_app/ui/widgets/button_wrapper.dart';
