@@ -11,7 +11,7 @@ class SelectUserViewModel extends BaseModel {
   final DialogService dialogService = locator<DialogService>();
 
   gotoStudentlogin() {
-    navigationService.navigateTo(LoginViewRoute, arguments: true);
+    navigationService.navigateTo(SignUpViewRoute);
   }
 
   gotoTeacherLogin() {

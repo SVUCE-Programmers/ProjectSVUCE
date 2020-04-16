@@ -19,7 +19,6 @@ class LoginView extends StatelessWidget {
     return ViewModelProvider<LoginViewModel>.withConsumer(
         viewModel: LoginViewModel(),
         builder: (context, model, child) => Scaffold(
-            resizeToAvoidBottomPadding: false,
             backgroundColor: secondaryDark,
             bottomNavigationBar: isStudent
                 ? Container(
@@ -27,7 +26,7 @@ class LoginView extends StatelessWidget {
                     decoration: buttonDecoration,
                     child: FlatButton(
                         splashColor: secondaryLight,
-                        onPressed: model.gotoCreateAccount,
+                        onPressed: model.gotoSignup,
                         child: Text(
                           "Create Account",
                           style: buttonText.apply(color: primary),
@@ -46,93 +45,91 @@ class LoginView extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
-                child: Text.rich(TextSpan(children: [
-                  TextSpan(text: 'Login\n', style: heading),
-                  TextSpan(
-                      text: isStudent
-                          ? 'Student Version\n'
-                          : 'Teacher Version \n',
-                      style: subhead),
-                ])),
-              ),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+                  child: ListTile(
+                    title: Text.rich(TextSpan(children: [
+                      TextSpan(text: 'Login\n', style: heading),
+                      TextSpan(
+                          text: isStudent
+                              ? 'Student Version\n'
+                              : 'Teacher Version \n',
+                          style: subhead),
+                    ])),
+                    trailing:
+                        IconButton(icon: Icon(Icons.help, color: secondary,), onPressed: () {
+                          //TODO: Implement Forgot Password
+                        }),
+                  )),
               Container(
-                height: MediaQuery.of(context).size.height,
-                padding: EdgeInsets.all(20.0),
-                margin: EdgeInsets.only(top: 150),
-                child: Center(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      WidgetWrapper(
-                        key: Key("EmailField"),
-                        decoration: textFieldDecoration,
-                        child: TextField(
-                          style: buttonText.copyWith(color: textPrimary),
-                          controller: model.emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                              border: textFieldInputBorder,
-                              prefixIcon: Icon(
-                                FontAwesome.envelope,
-                                color: textPrimary,
-                              ),
-                              hintText: 'Email',
-                              hintStyle:
-                                  buttonText.copyWith(color: textPrimary)),
-                        ),
-                      ),
-                      WidgetWrapper(
-                        decoration: textFieldDecoration,
-                        child: TextField(
-                          key: Key("PasswordField"),
-                          style: buttonText.copyWith(color: textPrimary),
-                          controller: model.passwordController,
-                          obscureText: true,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              border: textFieldInputBorder,
-                              prefixIcon: Icon(
-                                FontAwesome.lock,
-                                color: textPrimary,
-                              ),
-                              hintText: 'Password',
-                              hintStyle:
-                                  buttonText.copyWith(color: textPrimary)),
-                        ),
-                      ),
-                      WidgetWrapper(
-                        decoration: buttonDecoration.copyWith(color: primary),
-                        child: FlatButton(
-                            key: Key("SigninButton"),
-                            splashColor: secondaryLight,
-                            onPressed: model.login,
-                            child: model.busy
-                                ? CircularProgressIndicator(
-                                    valueColor:
-                                        AlwaysStoppedAnimation(secondaryDark),
-                                  )
-                                : Text(
-                                    model.buttonText,
-                                    style:
-                                        buttonText.apply(color: secondaryDark),
-                                  )),
-                      ),
-                      WidgetWrapper(
-                        child: FlatButton(
-                            splashColor: secondaryLight,
-                            onPressed: () {
-                              //TODO: Forgot Password
-                            },
-                            child: Text(
-                              "Forgot Password?",
-                              style: bodyText.apply(color: primary),
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                  height: double.infinity,
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height / 3),
+                  child: Form(
+                      key: model.formKey,
+                      child: ListView(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 30.0, horizontal: 20.0),
+                        children: <Widget>[
+                          WidgetWrapper(
+                            key: Key("EmailField"),
+                            decoration: textFieldDecoration,
+                            child: TextFormField(
+                              style: buttonText.copyWith(color: textPrimary),
+                              controller: model.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: model.validateEmail,
+                              decoration: InputDecoration(
+                                  border: textFieldInputBorder,
+                                  prefixIcon: Icon(
+                                    FontAwesome.envelope,
+                                    color: textPrimary,
+                                  ),
+                                  hintText: 'Email',
+                                  hintStyle:
+                                      buttonText.copyWith(color: textPrimary)),
+                            ),
+                          ),
+                          WidgetWrapper(
+                            decoration: textFieldDecoration,
+                            child: TextFormField(
+                              key: Key("PasswordField"),
+                              style: buttonText.copyWith(color: textPrimary),
+                              controller: model.passwordController,
+                              validator: model.validatePassword,
+                              obscureText: true,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  border: textFieldInputBorder,
+                                  prefixIcon: Icon(
+                                    FontAwesome.lock,
+                                    color: textPrimary,
+                                  ),
+                                  hintText: 'Password',
+                                  hintStyle:
+                                      buttonText.copyWith(color: textPrimary)),
+                            ),
+                          ),
+                          WidgetWrapper(
+                            decoration:
+                                buttonDecoration.copyWith(color: primary),
+                            child: FlatButton(
+                                key: Key("SigninButton"),
+                                splashColor: secondaryLight,
+                                onPressed: model.login,
+                                child: model.busy
+                                    ? CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation(
+                                            secondaryDark),
+                                      )
+                                    : Text(
+                                        "Sign in",
+                                        style: buttonText.apply(
+                                            color: secondaryDark),
+                                      )),
+                          ),
+                        ],
+                      ))),
             ])));
   }
 }
