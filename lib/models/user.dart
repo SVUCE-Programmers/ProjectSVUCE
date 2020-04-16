@@ -3,6 +3,7 @@ class User {
   final String id;
   final String email;
   final String rollNo;
+  final String collegeName;
   final String profileImg;
   final String userType;
 
@@ -12,6 +13,7 @@ class User {
       this.email,
       this.userType,
       this.rollNo,
+      this.collegeName,
       this.profileImg});
 
   User.fromData(Map<String, dynamic> data)
@@ -20,6 +22,7 @@ class User {
         rollNo = data['rollNo'],
         fullName = data['fullName'],
         profileImg = data['profileImg'],
+        collegeName = data['collegeName'],
         userType = data['userType'];
 
   Map<String, String> toJson() {
@@ -30,6 +33,7 @@ class User {
       "userType": userType,
       "rollNo": rollNo,
       "profileImg": profileImg,
+      "collegeName": collegeName,
     };
   }
 }

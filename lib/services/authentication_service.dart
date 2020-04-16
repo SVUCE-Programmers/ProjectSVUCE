@@ -48,6 +48,7 @@ class AuthenticationService extends BaseModel implements BaseAuth {
           fullName: fullName,
           rollNo: rollNo,
           profileImg: defaultUserImage,
+          collegeName: "SVUCE",
           userType: "STUDENT");
 
       await _firestoreService.createUser(_currentUser);
