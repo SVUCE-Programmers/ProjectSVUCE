@@ -9,6 +9,9 @@ import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
 class SignUpViewModel extends BaseModel {
+  final GlobalKey<FormState> _pageOneFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _pageTwoFormKey = GlobalKey<FormState>();
+
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
@@ -19,38 +22,54 @@ class SignUpViewModel extends BaseModel {
   final rollNoController = TextEditingController();
   final fullNameController = TextEditingController();
 
-  String buttonText = "Signup";
+  GlobalKey<FormState> get pageOneForm => _pageOneFormKey;
+  GlobalKey<FormState> get pageTwoForm => _pageTwoFormKey;
 
-  Future createUser() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-    String fullName = fullNameController.text;
-    String rollNo = rollNoController.text;
+  int currentIndex = 0;
 
-    bool isValidated = validateFields(email, password, rollNo, fullName);
+  Future gotoNextPage() async {
+    bool validateResult = _pageOneFormKey.currentState.validate();
 
-    if (!isValidated) {
-      buttonText = "Try again";
-      await _dialogService.showDialog(
-          title: 'Login Failure',
-          description: "Please check your details and try again");
+    if (!validateResult) {
       return null;
     }
 
+    String rollNo = rollNoController.text;
+
+    setBusy(true);
+
     var isRollExists = await _firestoreService.isRollNoExists(rollNo);
+
+    setBusy(false);
 
     if (isRollExists is bool) {
       if (isRollExists) {
         await _dialogService.showDialog(
-            title: 'Login Failure', description: "The Roll No. already exists");
+            title: 'Signup Failure',
+            description: "The Roll No. already exists");
 
         return null;
       }
     } else {
       await _dialogService.showDialog(
-          title: 'Login Failure', description: isRollExists);
+          title: 'Signup Failure', description: isRollExists);
       return isRollExists;
     }
+
+    return _movePage();
+  }
+
+  Future createUser() async {
+    bool validateResult = _pageTwoFormKey.currentState.validate();
+
+    if (!validateResult) {
+      return null;
+    }
+
+    String email = emailController.text;
+    String password = passwordController.text;
+    String fullName = fullNameController.text;
+    String rollNo = rollNoController.text;
 
     //TODO: Do an API Call to check whether email is allowed to register
 
@@ -76,25 +95,49 @@ class SignUpViewModel extends BaseModel {
     }
   }
 
-  bool validateFields(
-      String email, String password, String rollNo, String fullName) {
-    if (email == null ||
-        password == null ||
-        rollNo == null ||
-        fullName == null ||
-        rollNo.length > 8 ||
-        rollNo.length < 8 ||
-        fullName.length < 5 ||
-        email.length < 5 ||
-        password.length < 5 ||
-        !email.contains("@")) {
-      return false;
-    }
-    //TODO: Validate Roll No. using Regex
-    return true;
+  gotoLogin() {
+    _navigationService.navigateTo(LoginViewRoute, arguments: true);
   }
 
-  gotoLogin() {
-    _navigationService.pop();
+  String validateEmail(String email) {
+    if (email.isEmpty) {
+      return 'Please Enter Your Email';
+    } else if (email.length < 5) {
+      return 'Your email must be atleast 6';
+    }
+    return null;
+  }
+
+  String validatePassword(String password) {
+    if (password.isEmpty) {
+      return 'Please Enter Your Password';
+    } else if (password.length < 5) {
+      return 'Your password must be atleast 6';
+    }
+    return null;
+  }
+
+  String validateRollNo(String rollNo) {
+    //TODO: Validate Roll No. using Regex
+    if (rollNo.isEmpty) {
+      return 'Please enter your rollno.';
+    } else if (rollNo.length > 8 || rollNo.length < 8) {
+      return 'Please enter a valid rollno.';
+    }
+    return null;
+  }
+
+  String validateName(String name) {
+    if (name.isEmpty) {
+      return 'Please Enter Your Name';
+    } else if (name.length < 5) {
+      return 'Your Name must be atleast 6';
+    }
+    return null;
+  }
+
+  void _movePage() {
+    currentIndex = 1;
+    notifyListeners();
   }
 }

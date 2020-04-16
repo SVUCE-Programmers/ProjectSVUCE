@@ -23,10 +23,10 @@ class LoginViewModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<BaseAuth>();
 
   String validateEmail(String email) {
-    if (email.isEmpty) {
-      return 'Please Enter Your Email';
+    if (email.isEmpty || !email.contains("@")) {
+      return 'Please enter a valid email';
     } else if (email.length < 5) {
-      return 'Your email mush be atleast 6';
+      return 'Your email must be atleast 6';
     }
     return null;
   }
@@ -35,7 +35,7 @@ class LoginViewModel extends BaseModel {
     if (password.isEmpty) {
       return 'Please Enter Your Password';
     } else if (password.length < 5) {
-      return 'Your password mush be atleast 6';
+      return 'Your password must be atleast 6';
     }
     return null;
   }
@@ -73,7 +73,7 @@ class LoginViewModel extends BaseModel {
   }
 
   gotoSignup() {
-    _navigationService.navigateTo(SignUpViewRoute);
+    _navigationService.pop();
   }
 
   Future<bool> onWillPop() async {
