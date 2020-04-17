@@ -47,6 +47,8 @@ class SignUpViewModel extends BaseModel {
       if (isRollExists) {
         await _dialogService.showDialog(
             title: 'Try Login',
+            buttonTitle: 'Okay',
+            cancelTitle: '',
             description: "The Roll No. already exists");
 
         return null;

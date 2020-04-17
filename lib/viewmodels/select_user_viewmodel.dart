@@ -27,6 +27,7 @@ class SelectUserViewModel extends BaseModel {
     var isPressed = await dialogService.showDialog(
         title: 'Exit',
         description: 'Are you sure to exit?',
+        cancelTitle: 'No',
         buttonTitle: 'Yes');
 
     if (isPressed.confirmed) {

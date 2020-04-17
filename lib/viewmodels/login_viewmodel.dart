@@ -62,13 +62,17 @@ class LoginViewModel extends BaseModel {
         _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
-          title: 'Login Failure',
-          description: 'General login failure, please try again later',
-        );
+            title: 'Try again',
+            description: 'General login failure, please try again later',
+            buttonTitle: "okay",
+            cancelTitle: '');
       }
     } else {
       await _dialogService.showDialog(
-          title: 'Login Failure', description: authResult);
+          title: 'Try again',
+          description: authResult,
+          buttonTitle: "Okay",
+          cancelTitle: "");
     }
   }
 
@@ -80,6 +84,7 @@ class LoginViewModel extends BaseModel {
     var isPressed = await _dialogService.showDialog(
         title: 'Exit',
         description: 'Are you sure to exit?',
+        cancelTitle: 'No',
         buttonTitle: 'Yes');
 
     if (isPressed.confirmed) {

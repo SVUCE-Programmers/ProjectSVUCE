@@ -10,8 +10,7 @@ import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
 class HomeViewModel extends BaseModel {
-  final AuthenticationService _authenticationService =
-      locator<BaseAuth>();
+  final AuthenticationService _authenticationService = locator<BaseAuth>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -30,6 +29,7 @@ class HomeViewModel extends BaseModel {
     var isPressed = await _dialogService.showDialog(
         title: 'Exit',
         description: 'Are you sure to exit?',
+        cancelTitle: 'No',
         buttonTitle: 'Yes');
 
     if (isPressed.confirmed) {
@@ -43,6 +43,7 @@ class HomeViewModel extends BaseModel {
     var isPressed = await _dialogService.showDialog(
         title: 'Logout',
         description: 'Are you sure to logout',
+        cancelTitle: 'No',
         buttonTitle: 'Yes');
 
     if (isPressed.confirmed) {
