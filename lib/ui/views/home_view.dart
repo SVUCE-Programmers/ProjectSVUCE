@@ -1,4 +1,3 @@
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
@@ -17,27 +16,22 @@ class HomeView extends StatelessWidget {
         onModelReady: (model) => model.getCurrentUserDetails(),
         builder: (context, model, child) => WillPopScope(
               onWillPop: model.onWillPop,
-              child: HomeWrapper(
-                  appBarIcon: Feather.grid,
-                  appBarTitle: "Home",
-                  homeItems: <Widget>[
-                    Container(
-                      color: secondaryDark,
-                      child: Center(
-                        child: Text("Home"),
-                      ),
-                    ),
-                    NewsFeedView(),
-                    Container(
-                      color: secondaryDark,
-                      child: Center(
-                        child: Text("Timetable"),
-                      ),
-                    ),
-                    UserProfileView()
-                  ],
-                  drawer: CustomDrawer(),
-                  navItems: navItems),
+              child: HomeWrapper(homeItems: <Widget>[
+                Container(
+                  color: secondaryDark,
+                  child: Center(
+                    child: Text("Home"),
+                  ),
+                ),
+                NewsFeedView(),
+                Container(
+                  color: secondaryDark,
+                  child: Center(
+                    child: Text("Timetable"),
+                  ),
+                ),
+                UserProfileView()
+              ], drawer: CustomDrawer(), homeViewItems: homeViewItems),
             ));
   }
 }

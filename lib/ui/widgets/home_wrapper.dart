@@ -1,72 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:svuce_app/models/home_view_item.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
+import 'package:svuce_app/ui/shared/shared_styles.dart';
 
 class HomeWrapper extends StatefulWidget {
   final Widget drawer;
-  final IconData appBarIcon;
-  final String appBarTitle;
-  final List<BottomNavigationBarItem> navItems;
+  final List<HomeViewItem> homeViewItems;
   final List<Widget> homeItems;
 
-  const HomeWrapper(
-      {Key key,
-      this.drawer,
-      this.homeItems,
-      this.appBarIcon,
-      this.appBarTitle,
-      this.navItems})
+  const HomeWrapper({Key key, this.drawer, this.homeItems, this.homeViewItems})
       : super(key: key);
   @override
   _HomeWrapperState createState() => _HomeWrapperState();
 }
 
-class _HomeWrapperState extends State<HomeWrapper>
-    with SingleTickerProviderStateMixin {
-  AnimationController controller;
-
-  bool isCollapsed = true;
+class _HomeWrapperState extends State<HomeWrapper> {
   int currentIndex = 0;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 250),
-        reverseDuration: Duration(milliseconds: 300));
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: secondaryDark,
         elevation: 0,
-        leading:
-            IconButton(icon: Icon(widget.appBarIcon, color: secondary,), onPressed: openDrawer),
         centerTitle: true,
+        title: Text(widget.homeViewItems[currentIndex].title),
+        leading: IconButton(
+            icon: Icon(Feather.grid),
+            onPressed: () {
+              _scaffoldKey.currentState.openDrawer();
+            }),
         actions: <Widget>[
-          IconButton(icon: Icon(Feather.bell, color: secondary,), onPressed: (){}),
+          IconButton(
+              icon: Icon(
+                Feather.bell,
+                color: secondary,
+              ),
+              onPressed: () {}),
         ],
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          widget.drawer,
-          AnimatedPositioned(
-              top: isCollapsed ? 0 : 0.15 * screenHeight,
-              bottom: isCollapsed ? 0 : 0.15 * screenHeight,
-              left: isCollapsed ? 0 : 0.6 * screenWidth,
-              right: isCollapsed ? 0 : -0.4 * screenWidth,
-              child: IndexedStack(
-                index: currentIndex,
-                children: widget.homeItems,
-              ),
-              duration: Duration(milliseconds: 150))
-        ],
+      drawer: widget.drawer,
+      body: IndexedStack(
+        index: currentIndex,
+        children: widget.homeItems,
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -82,7 +67,12 @@ class _HomeWrapperState extends State<HomeWrapper>
               primaryColor: primary,
             ),
             child: BottomNavigationBar(
-              items: widget.navItems,
+              items: homeViewItems.map((item) {
+                return BottomNavigationBarItem(
+                    title: Text(item.title),
+                    activeIcon: Icon(item.activeIcon),
+                    icon: Icon(item.inactiveIcon));
+              }).toList(),
               unselectedItemColor: secondaryLight,
               selectedItemColor: primary,
               onTap: bottomTapped,
@@ -92,26 +82,7 @@ class _HomeWrapperState extends State<HomeWrapper>
     );
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  openDrawer() {
-    setState(() {
-      isCollapsed = !isCollapsed;
-      isCollapsed ? controller.reverse() : controller.forward();
-    });
-  }
-
   void bottomTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
-  void pageChanged(int index) {
     setState(() {
       currentIndex = index;
     });
