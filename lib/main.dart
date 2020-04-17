@@ -33,6 +33,7 @@ class MainApp extends StatelessWidget {
           primaryColor: primary,
           primarySwatch: Colors.lime,
           textTheme: TextTheme(body1: bodyText.copyWith(color: textPrimary)),
+          errorColor: errorColor,
           dialogTheme: DialogTheme(
               titleTextStyle: bodyText.copyWith(color: textPrimary),
               shape: RoundedRectangleBorder(

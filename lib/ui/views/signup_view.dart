@@ -45,7 +45,8 @@ class SignUpView extends StatelessWidget {
                 margin: EdgeInsets.only(top: 150),
                 child: IndexedStack(
                   index: model.currentIndex,
-                  children: [pageOne(model), pageTwo(model)].map((widget) {
+                  children:
+                      [pageOne(model), pageTwo(model, context)].map((widget) {
                     return Center(
                       child: widget,
                     );

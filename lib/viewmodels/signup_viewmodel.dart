@@ -19,6 +19,7 @@ class SignUpViewModel extends BaseModel {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final rollNoController = TextEditingController();
   final fullNameController = TextEditingController();
 
@@ -45,14 +46,14 @@ class SignUpViewModel extends BaseModel {
     if (isRollExists is bool) {
       if (isRollExists) {
         await _dialogService.showDialog(
-            title: 'Signup Failure',
+            title: 'Try Login',
             description: "The Roll No. already exists");
 
         return null;
       }
     } else {
       await _dialogService.showDialog(
-          title: 'Signup Failure', description: isRollExists);
+          title: 'Try again', description: isRollExists);
       return isRollExists;
     }
 
@@ -68,10 +69,20 @@ class SignUpViewModel extends BaseModel {
 
     String email = emailController.text;
     String password = passwordController.text;
+    String password2 = confirmPasswordController.text;
     String fullName = fullNameController.text;
     String rollNo = rollNoController.text;
 
     //TODO: Do an API Call to check whether email is allowed to register
+
+    if(password != password2){
+      _dialogService.showDialog(
+        title: "Try Again",
+        description: "Passwords dont matched, check them and try again",
+        buttonTitle: "Okay"
+      );
+      return null;
+    }
 
     setBusy(true);
 
@@ -85,13 +96,13 @@ class SignUpViewModel extends BaseModel {
         _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
-          title: 'Signup Failure',
+          title: 'Try again',
           description: 'General signup failure, please try again later',
         );
       }
     } else {
       await _dialogService.showDialog(
-          title: 'Login Failure', description: result);
+          title: 'Try again', description: result);
     }
   }
 
@@ -138,6 +149,11 @@ class SignUpViewModel extends BaseModel {
 
   void _movePage() {
     currentIndex = 1;
+    notifyListeners();
+  }
+  
+  void goBack() {
+    currentIndex = 0;
     notifyListeners();
   }
 }

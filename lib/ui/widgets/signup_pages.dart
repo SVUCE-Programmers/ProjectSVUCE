@@ -80,7 +80,7 @@ Widget pageOne(SignUpViewModel model) {
   );
 }
 
-Widget pageTwo(SignUpViewModel model) {
+Widget pageTwo(SignUpViewModel model, BuildContext context) {
   return Form(
     key: model.pageTwoForm,
     child: ListView(
@@ -122,19 +122,58 @@ Widget pageTwo(SignUpViewModel model) {
           ),
         ),
         WidgetWrapper(
-          decoration: buttonDecoration.copyWith(color: primary),
-          child: FlatButton(
-              splashColor: secondaryLight,
-              onPressed: model.createUser,
-              child: model.busy
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(secondaryDark),
-                    )
-                  : Text(
-                      "Signup",
-                      style: buttonText.apply(color: secondaryDark),
-                    )),
+          decoration: textFieldDecoration,
+          child: TextFormField(
+            validator: model.validatePassword,
+            style: buttonText.copyWith(color: textPrimary),
+            controller: model.confirmPasswordController,
+            obscureText: true,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                border: textFieldInputBorder,
+                prefixIcon: Icon(
+                  FontAwesome.lock,
+                  color: textPrimary,
+                ),
+                hintText: 'Confirm Password',
+                hintStyle: buttonText.copyWith(color: textPrimary)),
+          ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            WidgetWrapper(
+              decoration: buttonDecoration,
+              width: MediaQuery.of(context).size.width / 2 - 50,
+              child: FlatButton(
+                  splashColor: secondaryLight,
+                  onPressed: model.goBack,
+                  child: model.busy
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(secondaryDark),
+                        )
+                      : Text(
+                          "Go Back",
+                          style: buttonText.apply(color: primary),
+                        )),
+            ),
+            WidgetWrapper(
+              decoration: buttonDecoration.copyWith(color: primary),
+              width: MediaQuery.of(context).size.width / 2 - 50,
+              child: FlatButton(
+                  splashColor: secondaryLight,
+                  onPressed: model.createUser,
+                  child: model.busy
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(secondaryDark),
+                        )
+                      : Text(
+                          "Signup",
+                          style: buttonText.apply(color: secondaryDark),
+                        )),
+            ),
+          ],
+        )
       ],
     ),
   );

@@ -8,3 +8,4 @@ const Color secondaryDark = Color(0xFF13273D);
 
 //Font Colors
 const Color textPrimary = Color(0xFFFFFFFF);
+const Color errorColor = Color(0xFFde595c);
