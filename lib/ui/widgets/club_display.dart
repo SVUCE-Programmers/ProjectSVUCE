@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-class ClubWidget extends StatefulWidget {
-  String name;
-  String image;
-  ClubWidget({@required this.name, this.image});
+import 'package:svuce_app/ui/shared/ui_helpers.dart';
 
-  @override
-  _ClubWidgetState createState() => _ClubWidgetState(name,image);
-}
+class ProfileClubItem extends StatelessWidget {
+  final String clubName, clubIcon;
 
-class _ClubWidgetState extends State<ClubWidget> {
-  String name,image;
-  _ClubWidgetState(this.name,this.image);
+  const ProfileClubItem({Key key, this.clubName, this.clubIcon})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.only(left:10.0,right:10),
+        padding: const EdgeInsets.only(left: 10.0, right: 10),
         child: Column(
           children: <Widget>[
             CircleAvatar(
@@ -24,16 +20,21 @@ class _ClubWidgetState extends State<ClubWidget> {
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            SizedBox(height: 5,),
-            Container(width: 40,child: Center(
-              child: Text(name,
-              style: TextStyle(fontSize: 10,
-              fontWeight: FontWeight.w600,color: Colors.white.withOpacity(0.7)),),
-            )),
+            verticalSpaceMedium,
+            Container(
+                width: 40,
+                child: Center(
+                  child: Text(
+                    clubName,
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withOpacity(0.7)),
+                  ),
+                )),
           ],
         ),
       ),
-      
     );
   }
 }
