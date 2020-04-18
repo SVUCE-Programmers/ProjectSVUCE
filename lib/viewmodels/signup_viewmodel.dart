@@ -30,7 +30,7 @@ class SignUpViewModel extends BaseModel {
 
   Future gotoNextPage() async {
     bool validateResult = _pageOneFormKey.currentState.validate();
-
+    // TODO: Improve the dialog content for no name changes in future
     if (!validateResult) {
       return null;
     }
@@ -77,12 +77,11 @@ class SignUpViewModel extends BaseModel {
 
     //TODO: Do an API Call to check whether email is allowed to register
 
-    if(password != password2){
+    if (password != password2) {
       _dialogService.showDialog(
-        title: "Try Again",
-        description: "Passwords dont matched, check them and try again",
-        buttonTitle: "Okay"
-      );
+          title: "Try Again",
+          description: "Passwords dont matched, check them and try again",
+          buttonTitle: "Okay");
       return null;
     }
 
@@ -103,8 +102,7 @@ class SignUpViewModel extends BaseModel {
         );
       }
     } else {
-      await _dialogService.showDialog(
-          title: 'Try again', description: result);
+      await _dialogService.showDialog(title: 'Try again', description: result);
     }
   }
 
@@ -153,7 +151,7 @@ class SignUpViewModel extends BaseModel {
     currentIndex = 1;
     notifyListeners();
   }
-  
+
   void goBack() {
     currentIndex = 0;
     notifyListeners();

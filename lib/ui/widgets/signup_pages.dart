@@ -178,3 +178,4 @@ Widget pageTwo(SignUpViewModel model, BuildContext context) {
     ),
   );
 }
+//TODO: add contact and bio fields
