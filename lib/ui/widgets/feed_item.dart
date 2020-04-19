@@ -14,8 +14,8 @@ class FeedItem extends StatelessWidget {
     return Container(
       decoration: textFieldDecoration,
       padding: EdgeInsets.all(20.0),
+      margin: EdgeInsets.symmetric(vertical: 20.0),
       height: 300,
-      margin: EdgeInsets.all(20.0),
       child: GestureDetector(
         onTap: () {},
         child: GridTile(
