@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/ui_helpers.dart';
+import 'package:svuce_app/ui/views/staff_view.dart';
 import 'package:svuce_app/ui/widgets/drawer_widget.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -47,7 +48,10 @@ class CustomDrawer extends StatelessWidget {
               ],)),
           ),
           verticalSpaceHigh,
-          DrawerWidget(icon: Icons.supervised_user_circle,name: "Explore Clubs",),
+          GestureDetector(
+            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Staff())),
+            child: DrawerWidget(icon: Icons.supervised_user_circle,name: "Staff",)
+          ),
           verticalSpaceLow,
           DrawerWidget(icon: Icons.supervised_user_circle,name: "Explore Clubs",),
           verticalSpaceLow,

@@ -129,10 +129,11 @@ class SignUpViewModel extends BaseModel {
   }
 
   String validateRollNo(String rollNo) {
-    //TODO: Validate Roll No. using Regex
+    
+    RegExp regExp=new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
     if (rollNo.isEmpty) {
       return 'Please enter your rollno.';
-    } else if (rollNo.length > 8 || rollNo.length < 8) {
+    } else if (!regExp.hasMatch(rollNo)) {
       return 'Please enter a valid rollno.';
     }
     return null;

@@ -10,10 +10,10 @@ class FirestoreService {
 
   final CollectionReference _feedColletionReference =
       Firestore.instance.collection('feed');
-
+    
   final StreamController<List<Feed>> _feedController =
       StreamController<List<Feed>>.broadcast();
-
+  
   static const int FeedItemLimit = 10;
 
   DocumentSnapshot _lastFeed;
@@ -55,6 +55,7 @@ class FirestoreService {
     }
   }
 
+  
   Stream listenToFeedRealTime() {
     _requestFeedItems();
     return _feedController.stream;
@@ -90,7 +91,6 @@ class FirestoreService {
         var allPosts = _allFeedResults.fold<List<Feed>>(List<Feed>(),
             (initialValue, pageItems) => initialValue..addAll(pageItems));
 
-        // #12: Broadcase all feedItems
         _feedController.add(allPosts);
 
         if (currentRequestIndex == _allFeedResults.length - 1) {

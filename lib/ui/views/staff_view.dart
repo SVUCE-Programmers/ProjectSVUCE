@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/views/staff_tab_view.dart';
 class Staff extends StatefulWidget {
   @override
@@ -17,17 +18,17 @@ class _StaffState extends State<Staff> with SingleTickerProviderStateMixin{
     return Container(
       child: DefaultTabController(length: 3, child: Scaffold(
         appBar: AppBar(
-          title: Text("Staff"),
+          title: Text("Staff",style: TextStyle(),),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: primary,
           elevation: 0,
           bottom: TabBar(
-            indicatorSize: TabBarIndicatorSize.tab,
-            unselectedLabelColor: Colors.redAccent,
+            labelColor: primary,
+            indicatorSize: TabBarIndicatorSize.label,
+            unselectedLabelColor: Colors.white,
             indicator: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.redAccent,Colors.orangeAccent]),
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.redAccent
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+              color: secondaryDark
               ),
             tabs: [
             Tab(

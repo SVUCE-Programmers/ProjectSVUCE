@@ -33,9 +33,9 @@ class _HomeWrapperState extends State<HomeWrapper> {
         backgroundColor: secondaryDark,
         elevation: 0,
         centerTitle: true,
-        title: Text(widget.homeViewItems[currentIndex].title),
+        title: Text(widget.homeViewItems[currentIndex].title,style: TextStyle(color: Colors.white),),
         leading: IconButton(
-            icon: Icon(Feather.grid),
+            icon: Icon(Feather.grid,color: secondary,),
             onPressed: () {
               _scaffoldKey.currentState.openDrawer();
             }),
@@ -43,7 +43,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
           IconButton(
               icon: Icon(
                 Feather.bell,
-                color: secondary,
+                color: primary,
               ),
               onPressed: () {}),
         ],

@@ -60,7 +60,6 @@ class LoginView extends StatelessWidget {
                     ])),
                     trailing:
                         IconButton(icon: Icon(Icons.help, color: secondary,), onPressed: () {
-                          //TODO: Implement Forgot Password
                         }),
                   )),
               Container(
