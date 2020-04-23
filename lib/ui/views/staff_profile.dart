@@ -1,21 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:svuce_app/ui/shared/app_colors.dart';
+import 'package:svuce_app/ui/shared/ui_helpers.dart';
+import 'package:svuce_app/ui/widgets/staff_profile_item.dart';
 class StaffProfile extends StatefulWidget {
-  final String uid;
-  StaffProfile({this.uid});
+  final Map data;
+  StaffProfile({this.data});
   @override
-  _StaffProfileState createState() => _StaffProfileState(uid);
+  _StaffProfileState createState() => _StaffProfileState();
 }
 
 class _StaffProfileState extends State<StaffProfile> {
-  String uid;
-  _StaffProfileState(this.uid);
+ 
   @override
   Widget build(BuildContext context) {
+    print("Got"+widget.data.toString());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: primary,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
@@ -28,144 +30,52 @@ class _StaffProfileState extends State<StaffProfile> {
         title:
          Text("Profile"),        
       ),
-      body: StreamBuilder(
-        stream: Firestore.instance.collection('staff').where("uid",isEqualTo: uid).snapshots(),
-        builder: (context, snapshot) {
-          DocumentSnapshot hm=snapshot.data.documents[0];
-          //print("Snapshot is"+hm.data.toString());
-          return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: Column(
-                          children: <Widget>[
-                            Hero(
-                              tag: "StaffImage",
-                              child: CircleAvatar(
-                                radius: 80,
-                                child: CachedNetworkImage(imageUrl: "${hm["image"]}"),
-                                backgroundColor: Colors.transparent,
-                              ),
-                            ),
-                            SizedBox(height: 30,),
-                            Text("${hm["name"]}",style: TextStyle(
-                            fontSize: 20,fontWeight: FontWeight.w600
-                              ),),
-                            SizedBox(height: 6,),
-                            Text("${hm["position"]}",style: TextStyle(),),
-                            SizedBox(height: 10,),
-
-                          ],
-                        ),
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Icon(Icons.message),
-                          SizedBox(width: 20,),
-                          Icon(Icons.phone,),
-                          SizedBox(width: 20,),
-                          Icon(Icons.email),
-                        ],
-                      ),
-                      SizedBox(height:20),
-                      Text("Basic Information",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
-                      Padding(
-                        padding: EdgeInsets.only(left:5, top:5, right:5, bottom:5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10.0,right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text("Study",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                                Text("ph D"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6,),
-                      Padding(
-                        padding: EdgeInsets.only(left:5, top:5, right:5, bottom:5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10.0,right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text("Email",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                                Text("${hm["email"]}"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6,),
-                        Padding(
-                        padding: EdgeInsets.only(left:5, top:5, right:5, bottom:5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10.0,right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text("Phone",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                                Text("${hm["phone"]}"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 6,),
-                        Padding(
-                        padding: EdgeInsets.only(left:5, top:5, right:5, bottom:5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:10.0,right: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text("Department",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 20),),
-                                Text("Cse"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      
-                    ],
-            ),
-                  ),
-                ),
+      body:SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 50,),
+            Align(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child:CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.transparent,
+                  child: CachedNetworkImage(imageUrl: widget.data["image"]),
+                )
               ),
-          );
-        }
+            ),
+            verticalSpaceMedium,
+            Text(widget.data["name"],style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
+            Text(widget.data["position"],style: TextStyle(fontSize: 14,color: primary,fontWeight: FontWeight.w300),),
+            verticalSpaceHigh,
+            Container(
+              decoration: BoxDecoration(
+                color:secondary,
+                borderRadius: BorderRadius.circular(20)
+              ),
+              width: MediaQuery.of(context).size.width-40,
+              
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("Basic Information",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 18),),
+                  verticalSpaceMedium,
+                  StaffRowItem(title: "Email", desc: widget.data["email"]),
+                  verticalSpaceLow,
+                  StaffRowItem(title: "Phone", desc: widget.data["phone"]),
+                  verticalSpaceLow,
+                  StaffRowItem(title: "Subject", desc: widget.data["subject"]),
+                  verticalSpaceLow,
+                  StaffRowItem(title: "Department", desc: widget.data["dept"]),
+
+                ],
+              ),
+            ),
+          ],
+        ),              
       ),
       
     );

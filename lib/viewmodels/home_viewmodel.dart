@@ -1,12 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/locator.dart';
+import 'package:svuce_app/models/upcoming.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/authentication_service.dart';
 import 'package:svuce_app/services/base_auth.dart';
 import 'package:svuce_app/services/dialog_service.dart';
+import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/services/navigation_service.dart';
 import 'package:svuce_app/ui/widgets/home_spotlight_item.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
@@ -15,6 +16,10 @@ class HomeViewModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<BaseAuth>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+  
+  Upcoming _upcoming;
+  Upcoming get upcomingevent=> _upcoming;
 
   User _currentUser;
   User get currentUser => _currentUser;
@@ -53,32 +58,41 @@ class HomeViewModel extends BaseModel {
         _navigationService.navigateTo(SelectUserViewRoute);
       });
     }
-
     return null;
   }
-  getUpcoming(){
+
+  getUpcoming() async{
     setBusy(true);
-    //  _firestoreService.listenToUpcomingData().listen((feedData) {
-    //   setBusy(false);
-    // });
+    _firestoreService.listenToUpcoming().listen((data) {
+      Upcoming event = data;
+      if (event != null) {
+        _upcoming = event;
+        notifyListeners();
+      }
+      setBusy(false);
+    });
   }
-  getGridMenu(){
+
+   getGridMenu(){
     return Container(
-        height: 200,
-        child: GridView.count(
-          crossAxisCount: 3,
-          children: <Widget>[
-            SpotlightItem(icon: Icons.group, name: "Clubs"),
-            SpotlightItem(icon: Icons.check_box_outline_blank, name: "Faculty"),
-            SpotlightItem(icon: Icons.settings_input_antenna, name: "Announcements"),
-            SpotlightItem(icon: Icons.timeline, name: "Time table"),
-            SpotlightItem(icon: Icons.assignment_turned_in, name: "Attendance"),
-            SpotlightItem(icon: Icons.calendar_today, name: "Calendar Events"),
-            SpotlightItem(icon: Icons.map, name: "About College"),
-            SpotlightItem(icon: Icons.account_balance, name: "About App")
-          ],
-        )
-      );
+      height: 200,
+      child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        crossAxisCount: 4,
+        children: <Widget>[
+          SpotlightItem(icon: Icons.group, name: "Clubs"),
+          SpotlightItem(icon: Icons.check_box_outline_blank, name: "Faculty"),
+          SpotlightItem(icon: Icons.settings_input_antenna, name: "Announcements"),
+          SpotlightItem(icon: Icons.timeline, name: "Time table"),
+          SpotlightItem(icon: Icons.assignment_turned_in, name: "Attendance"),
+          SpotlightItem(icon: Icons.calendar_today, name: "Calendar Events"),
+          SpotlightItem(icon: Icons.map, name: "About College"),
+          SpotlightItem(icon: Icons.account_balance, name: "About App")
+        ],
+      )
+    );
   }
 
 }
