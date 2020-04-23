@@ -93,4 +93,8 @@ class LoginViewModel extends BaseModel {
 
     return false;
   }
+
+  gotoForgotPassword() {
+    _navigationService.navigateTo(ForgotPasswordViewRoute);
+  }
 }

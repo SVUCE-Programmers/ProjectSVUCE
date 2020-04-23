@@ -4,5 +4,4 @@ abstract class BaseAuth {
   Future<bool> isUserLoggedIn();
   Future signOut();
   Future loginUser({String email, String password});
-  
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
+import 'package:svuce_app/ui/views/forgot_password_view.dart';
 import 'package:svuce_app/ui/views/select_user.dart';
 import 'views/home_view.dart';
 import 'views/login_view.dart';
@@ -25,12 +26,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: SelectUserView(),
       );
+    case ForgotPasswordViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ForgotPasswordView(),
+      );
     case HomeViewRoute:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: HomeView(),
       );
-    
+
     default:
       return MaterialPageRoute(
           builder: (_) => Scaffold(

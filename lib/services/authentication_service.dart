@@ -5,9 +5,8 @@ import 'package:svuce_app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/base_auth.dart';
 import 'package:svuce_app/services/firestore_service.dart';
-import 'package:svuce_app/viewmodels/base_model.dart';
 
-class AuthenticationService extends BaseModel implements BaseAuth {
+class AuthenticationService implements BaseAuth {
   final FirebaseAuth firebaseAuth;
   final FirestoreService _firestoreService = locator<FirestoreService>();
   //for testing
@@ -72,8 +71,12 @@ class AuthenticationService extends BaseModel implements BaseAuth {
     }
   }
 
-  Future<void> resetPassword(String email) async{
-    await firebaseAuth.sendPasswordResetEmail(email: email);
+  Future resetPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      return e.message;
+    }
   }
 
   @override

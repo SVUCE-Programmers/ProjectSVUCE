@@ -5,7 +5,6 @@ import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/font_styles.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
 import 'package:svuce_app/ui/shared/ui_helpers.dart';
-import 'package:svuce_app/ui/views/forgot_password.dart';
 import 'package:svuce_app/ui/widgets/button_wrapper.dart';
 import 'package:svuce_app/ui/widgets/custom_clipper.dart';
 import 'package:svuce_app/viewmodels/login_viewmodel.dart';
@@ -58,9 +57,12 @@ class LoginView extends StatelessWidget {
                               : 'Teacher Version \n',
                           style: subhead),
                     ])),
-                    trailing:
-                        IconButton(icon: Icon(Icons.help, color: secondary,), onPressed: () {
-                        }),
+                    trailing: IconButton(
+                        icon: Icon(
+                          Icons.help,
+                          color: secondary,
+                        ),
+                        onPressed: () {}),
                   )),
               Container(
                   height: double.infinity,
@@ -111,12 +113,15 @@ class LoginView extends StatelessWidget {
                                       buttonText.copyWith(color: textPrimary)),
                             ),
                           ),
-                          Align(alignment: Alignment.bottomRight,
-                          child: GestureDetector(
-                            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword())),
-                            child: Text("Forgot Password",
-                            style: TextStyle(color: primary),),
-                          )),
+                          Align(
+                              alignment: Alignment.bottomRight,
+                              child: GestureDetector(
+                                onTap: model.gotoForgotPassword,
+                                child: Text(
+                                  "Forgot Password",
+                                  style: TextStyle(color: primary),
+                                ),
+                              )),
                           verticalSpaceLow,
                           WidgetWrapper(
                             decoration:
