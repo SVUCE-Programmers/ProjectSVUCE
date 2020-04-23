@@ -5,11 +5,14 @@ import 'package:svuce_app/ui/widgets/feed_item.dart';
 import 'package:svuce_app/viewmodels/home_viewmodel.dart';
 import 'package:svuce_app/viewmodels/news_feed_viewmodel.dart';
 
+import '../../locator.dart';
+
 class NewsFeedView extends ProviderWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel homeViewModel) {
-    return ViewModelProvider<NewsFeedViewModel>.withoutConsumer(
-        viewModel: NewsFeedViewModel(),
+    return ViewModelProvider<NewsFeedViewModel>.withConsumer(
+        viewModel: locator<NewsFeedViewModel>(),
+        reuseExisting: true,
         onModelReady: (model) => model.getFeed(),
         builder: (context, model, child) => Scaffold(
               body: model.feedItems != null
@@ -18,13 +21,15 @@ class NewsFeedView extends ProviderWidget<HomeViewModel> {
                       padding: EdgeInsets.all(20),
                       itemBuilder: (context, index) => CreationAwareListItem(
                         itemCreated: () {
-                          if (index % 20 == 0) model.requestMoreData();
+                          if (index % 10 == 0) model.requestMoreData();
                         },
-                        child: GestureDetector(
-                          child: FeedItem(
-                            feed: model.feedItems[index],
-                          ),
-                        ),
+                        child: model.busy
+                            ? CircularProgressIndicator()
+                            : GestureDetector(
+                                child: FeedItem(
+                                  feed: model.feedItems[index],
+                                ),
+                              ),
                       ),
                     )
                   : Center(
