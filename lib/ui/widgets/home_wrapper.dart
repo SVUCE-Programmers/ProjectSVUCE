@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/models/home_view_item.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
+import 'package:svuce_app/ui/views/notifications_view.dart';
 
 class HomeWrapper extends StatefulWidget {
   final Widget drawer;
@@ -33,9 +34,9 @@ class _HomeWrapperState extends State<HomeWrapper> {
         backgroundColor: secondaryDark,
         elevation: 0,
         centerTitle: true,
-        title: Text(widget.homeViewItems[currentIndex].title),
+        title: Text(widget.homeViewItems[currentIndex].title,style: TextStyle(color: Colors.white),),
         leading: IconButton(
-            icon: Icon(Feather.grid),
+            icon: Icon(Feather.grid,color: secondary,),
             onPressed: () {
               _scaffoldKey.currentState.openDrawer();
             }),
@@ -43,9 +44,11 @@ class _HomeWrapperState extends State<HomeWrapper> {
           IconButton(
               icon: Icon(
                 Feather.bell,
-                color: secondary,
+                color: primary,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsView()));
+              }),
         ],
       ),
       drawer: widget.drawer,

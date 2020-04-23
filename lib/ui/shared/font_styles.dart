@@ -26,5 +26,5 @@ const TextStyle bodyText = TextStyle(
 
 const TextStyle subtitle = TextStyle(
   fontFamily: 'Quicksand',
-  fontSize: 15.0,
+  fontSize: 12.0,
 );

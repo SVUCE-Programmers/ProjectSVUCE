@@ -72,6 +72,10 @@ class AuthenticationService extends BaseModel implements BaseAuth {
     }
   }
 
+  Future<void> resetPassword(String email) async{
+    await firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
   @override
   Future signOut() async {
     await firebaseAuth.signOut();

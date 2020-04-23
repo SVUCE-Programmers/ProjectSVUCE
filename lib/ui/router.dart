@@ -30,6 +30,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: HomeView(),
       );
+    
     default:
       return MaterialPageRoute(
           builder: (_) => Scaffold(

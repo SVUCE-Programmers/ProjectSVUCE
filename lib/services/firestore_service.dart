@@ -2,18 +2,28 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:svuce_app/models/feed.dart';
+import 'package:svuce_app/models/upcoming.dart';
 import 'package:svuce_app/models/user.dart';
 
 class FirestoreService {
+
+  final timeStamp=DateTime.now().millisecondsSinceEpoch.toString();
+
   final CollectionReference _userColletionReference =
       Firestore.instance.collection("users");
 
   final CollectionReference _feedColletionReference =
       Firestore.instance.collection('feed');
 
+  final CollectionReference _eventColletionReference =
+      Firestore.instance.collection('events');
+    
   final StreamController<List<Feed>> _feedController =
       StreamController<List<Feed>>.broadcast();
-
+  
+  final StreamController<Upcoming> _upcomingController=
+      StreamController<Upcoming>.broadcast();
+  
   static const int FeedItemLimit = 10;
 
   DocumentSnapshot _lastFeed;
@@ -55,6 +65,23 @@ class FirestoreService {
     }
   }
 
+  Stream listenToUpcoming() {
+    _requestUpcomingData();
+    return _upcomingController.stream;
+  }
+
+  void _requestUpcomingData(){
+    var eventQuery=_eventColletionReference.
+        orderBy("timeStamp").limit(1);
+    eventQuery.snapshots().listen((snapshot){
+      if(snapshot.documents.isNotEmpty){
+       var eventItem=Upcoming.fromDocumentSnapShot(snapshot.documents[0]);
+       print("event item is:"+eventItem.toString());
+        _upcomingController.add(eventItem);
+      }
+    });
+  }
+  
   Stream listenToFeedRealTime() {
     _requestFeedItems();
     return _feedController.stream;
@@ -62,7 +89,7 @@ class FirestoreService {
 
   void _requestFeedItems() {
     var feedQuery =
-        _feedColletionReference.orderBy('timeStamp').limit(FeedItemLimit);
+        _feedColletionReference.orderBy('timeStamp').where("timeStamp",isGreaterThanOrEqualTo: timeStamp).limit(FeedItemLimit);
 
     if (_lastFeed != null) {
       feedQuery = feedQuery.startAfterDocument(_lastFeed);
@@ -90,7 +117,6 @@ class FirestoreService {
         var allPosts = _allFeedResults.fold<List<Feed>>(List<Feed>(),
             (initialValue, pageItems) => initialValue..addAll(pageItems));
 
-        // #12: Broadcase all feedItems
         _feedController.add(allPosts);
 
         if (currentRequestIndex == _allFeedResults.length - 1) {
