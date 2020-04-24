@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
 import 'package:svuce_app/ui/views/forgot_password_view.dart';
+import 'package:svuce_app/ui/views/home_view.dart';
+import 'package:svuce_app/ui/views/login_view.dart';
 import 'package:svuce_app/ui/views/select_user.dart';
-import 'views/home_view.dart';
-import 'views/login_view.dart';
-import 'views/signup_view.dart';
+import 'package:svuce_app/ui/views/signup_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
