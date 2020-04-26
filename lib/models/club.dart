@@ -24,24 +24,3 @@ class Club {
   Club.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
-
-class ClubMember {
-  String name;
-  String uid;
-  String profileImg;
-  String type;
-  DocumentReference reference;
-
-  ClubMember.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map["name"] != null),
-        assert(map["clubBanner"] != null),
-        assert(map["clubLogo"] != null),
-        assert(map["description"] != null),
-        uid = reference.documentID,
-        name = map["name"],
-        profileImg = map["profileImg"],
-        type = map["type"];
-
-  ClubMember.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-}

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
 import 'package:svuce_app/ui/shared/ui_helpers.dart';
-import 'package:svuce_app/ui/views/club_list_view.dart';
 import 'package:svuce_app/ui/views/drawer_view.dart';
 import 'package:svuce_app/ui/views/news_feed_view.dart';
 import 'package:svuce_app/ui/views/user_profile_view.dart';
@@ -31,14 +30,7 @@ class HomeView extends StatelessWidget {
                     child: Text("Timetable"),
                   ),
                 ),
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ClubListView(
-                                user: model.currentUser,
-                              )));
-                    },
-                    child: Text("Goto Clubs"))
+                UserProfileView()
               ], drawer: DrawerView(), homeViewItems: homeViewItems),
             ));
   }
