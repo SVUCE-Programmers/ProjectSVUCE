@@ -4,7 +4,6 @@ import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/authentication_service.dart';
 import 'package:svuce_app/services/base_auth.dart';
 import 'package:svuce_app/services/firestore_service.dart';
-import 'package:svuce_app/ui/views/club_list_view.dart';
 import 'package:svuce_app/viewmodels/base_model.dart';
 
 class ClubListViewModel extends BaseModel {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/responsive/size_config.dart';
-import 'package:svuce_app/ui/shared/app_colors.dart';
 
 class ResponsiveView extends StatelessWidget {
   final Widget Function(BuildContext context, SizeConfig sizeConfig) builder;

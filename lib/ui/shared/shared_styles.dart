@@ -22,9 +22,9 @@ final List<HomeViewItem> homeViewItems = [
   HomeViewItem(
       title: "Feed", activeIcon: feedIconFilled, inactiveIcon: feedIcon),
   HomeViewItem(
-      title: "Events", activeIcon: eventsIcon, inactiveIcon: eventsIconFilled),
+      title: "Events", activeIcon: eventsIconFilled, inactiveIcon: eventsIcon),
   HomeViewItem(
       title: "Action Center",
-      activeIcon: actionCenterIcon,
-      inactiveIcon: actionCenterIconFilled),
+      activeIcon: actionCenterIconFilled,
+      inactiveIcon: actionCenterIcon),
 ];
