@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:svuce_app/constants/icons.dart';
 import 'package:svuce_app/models/home_view_item.dart';
 
 import 'app_colors.dart';
@@ -18,19 +18,13 @@ final textFieldInputBorder = OutlineInputBorder(
 
 final List<HomeViewItem> homeViewItems = [
   HomeViewItem(
-      inactiveIcon: MaterialCommunityIcons.rhombus_outline,
-      activeIcon: MaterialCommunityIcons.rhombus,
-      title: "Home"),
+      title: "Home", activeIcon: homeIconFilled, inactiveIcon: homeIcon),
   HomeViewItem(
-      activeIcon: FontAwesome5Solid.newspaper,
-      inactiveIcon: FontAwesome5.newspaper,
-      title: "Feed"),
+      title: "Feed", activeIcon: feedIconFilled, inactiveIcon: feedIcon),
   HomeViewItem(
-      activeIcon: MaterialCommunityIcons.calendar,
-      inactiveIcon: MaterialCommunityIcons.calendar_outline,
-      title: "Events"),
+      title: "Events", activeIcon: eventsIcon, inactiveIcon: eventsIconFilled),
   HomeViewItem(
-      activeIcon: MaterialIcons.person,
-      inactiveIcon: MaterialIcons.person_outline,
-      title: "Profile"),
+      title: "Action Center",
+      activeIcon: actionCenterIcon,
+      inactiveIcon: actionCenterIconFilled),
 ];
