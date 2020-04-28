@@ -160,7 +160,6 @@ class FirestoreService {
         .document(user.id)
         .setData({
       "id": user.id,
-      "notifyToken": "notifyToken" //TODO: add notifyToken to user
     });
   }
 }

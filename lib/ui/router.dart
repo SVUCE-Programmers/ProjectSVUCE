@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/constants/route_paths.dart';
+import 'package:svuce_app/ui/views/club_list_view.dart';
 import 'package:svuce_app/ui/views/forgot_password_view.dart';
 import 'package:svuce_app/ui/views/home_view.dart';
 import 'package:svuce_app/ui/views/login_view.dart';
@@ -30,6 +31,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: ForgotPasswordView(),
+      );
+    case ClubListRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ClubListView(),
       );
     case HomeViewRoute:
       return _getPageRoute(

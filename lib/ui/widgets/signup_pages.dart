@@ -65,15 +65,11 @@ Widget pageOne(SignUpViewModel model) {
           decoration: buttonDecoration.copyWith(color: primary),
           child: FlatButton(
               splashColor: secondaryLight,
-              onPressed: model.gotoNextPage,
-              child: model.busy
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(secondaryDark),
-                    )
-                  : Text(
-                      "Next",
-                      style: buttonText.apply(color: secondaryDark),
-                    )),
+              onPressed: model.busy ? null : model.gotoNextPage,
+              child: Text(
+                "Next",
+                style: buttonText.apply(color: secondaryDark),
+              )),
         ),
       ],
     ),
@@ -162,15 +158,11 @@ Widget pageTwo(SignUpViewModel model, BuildContext context) {
               width: MediaQuery.of(context).size.width / 2 - 50,
               child: FlatButton(
                   splashColor: secondaryLight,
-                  onPressed: model.createUser,
-                  child: model.busy
-                      ? CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(secondaryDark),
-                        )
-                      : Text(
-                          "Signup",
-                          style: buttonText.apply(color: secondaryDark),
-                        )),
+                  onPressed: model.busy ? null : model.createUser,
+                  child: Text(
+                    "Signup",
+                    style: buttonText.apply(color: secondaryDark),
+                  )),
             ),
           ],
         )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/responsive/size_config.dart';
+import 'package:svuce_app/ui/shared/app_colors.dart';
 
 class ResponsiveView extends StatelessWidget {
   final Widget Function(BuildContext context, SizeConfig sizeConfig) builder;
@@ -29,22 +30,22 @@ class ResponsiveView extends StatelessWidget {
       safeBlockVertical: safeBlockVertical,
       screenHeight: screenHeight,
       screenWidth: screenWidth,
-      scaleOne: TextStyle(
-          fontFamily: 'Quicksand',
-          fontSize: blockSizeHorizontal * 8,
-          fontWeight: FontWeight.bold),
-      scaleTwo: TextStyle(
-          fontFamily: 'Quicksand',
-          fontSize: blockSizeHorizontal * 5.5,
-          fontWeight: FontWeight.w500),
-      scaleThree: TextStyle(
-        fontFamily: 'Quicksand',
-        fontSize: blockSizeHorizontal * 4.8,
-      ),
-      scaleFour: TextStyle(
-        fontFamily: 'Worksans',
-        fontSize: blockSizeHorizontal * 4,
-      ),
+      scaleOne: Theme.of(context)
+          .textTheme
+          .headline
+          .copyWith(fontWeight: FontWeight.bold, color: textPrimary),
+      scaleTwo: Theme.of(context)
+          .textTheme
+          .title
+          .copyWith(fontWeight: FontWeight.w600),
+      scaleThree: Theme.of(context)
+          .textTheme
+          .subhead
+          .copyWith(fontWeight: FontWeight.w600),
+      scaleFour: Theme.of(context)
+          .textTheme
+          .body1
+          .copyWith(fontWeight: FontWeight.w600),
     );
 
     return builder(context, sizingInformation);

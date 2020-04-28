@@ -1,5 +1,5 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/models/home_view_item.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
@@ -31,27 +31,37 @@ class _HomeWrapperState extends State<HomeWrapper> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: secondaryDark,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
-        title: Text(widget.homeViewItems[currentIndex].title,style: TextStyle(color: Colors.white),),
-        leading: IconButton(
-            icon: Icon(Feather.grid,color: secondary,),
-            onPressed: () {
-              _scaffoldKey.currentState.openDrawer();
-            }),
+        title: Text(
+          widget.homeViewItems[currentIndex].title,
+          style: Theme.of(context)
+              .textTheme
+              .headline
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           IconButton(
               icon: Icon(
-                Feather.bell,
-                color: primary,
+                EvaIcons.bell,
               ),
               onPressed: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsView()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationsView()));
+              }),
+          IconButton(
+              icon: Icon(
+                EvaIcons.keypad,
+              ),
+              onPressed: () {
+                _scaffoldKey.currentState.openEndDrawer();
               }),
         ],
       ),
-      drawer: widget.drawer,
+      endDrawer: widget.drawer,
       body: IndexedStack(
         index: currentIndex,
         children: widget.homeItems,

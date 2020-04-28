@@ -30,17 +30,21 @@ class MainApp extends StatelessWidget {
       onGenerateRoute: generateRoute,
       theme: ThemeData(
           fontFamily: 'Quicksand',
-          primaryColor: primary,
-          primarySwatch: Colors.lime,
-          textTheme: TextTheme(body1: bodyText.copyWith(color: textPrimary)),
+          primaryColor: revampMajor,
+          primarySwatch: Colors.cyan,
           errorColor: errorColor,
+          textTheme: TextTheme(
+              body1: Theme.of(context)
+                  .textTheme
+                  .title
+                  .copyWith(fontFamily: 'Quicksand', color: textPrimary)),
           dialogTheme: DialogTheme(
               titleTextStyle: bodyText.copyWith(color: textPrimary),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               backgroundColor: secondaryLight,
               contentTextStyle: bodyText.copyWith(color: textPrimary)),
-          scaffoldBackgroundColor: secondaryDark),
+          scaffoldBackgroundColor: revampBG),
     );
   }
 }

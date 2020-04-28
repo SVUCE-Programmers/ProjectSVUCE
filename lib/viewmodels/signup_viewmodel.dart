@@ -94,7 +94,7 @@ class SignUpViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(ClubListRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Try again',
@@ -129,8 +129,7 @@ class SignUpViewModel extends BaseModel {
   }
 
   String validateRollNo(String rollNo) {
-    
-    RegExp regExp=new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
+    RegExp regExp = new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
     if (rollNo.isEmpty) {
       return 'Please enter your rollno.';
     } else if (!regExp.hasMatch(rollNo)) {

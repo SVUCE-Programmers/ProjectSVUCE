@@ -17,7 +17,7 @@ class SelectUserView extends StatelessWidget {
               onWillPop: model.onWillPop,
               child: ResponsiveView(
                 builder: (context, designInfo) => Scaffold(
-                  backgroundColor: secondaryDark,
+                  backgroundColor: revampBG,
                   body: Container(
                     padding: EdgeInsets.all(20.0),
                     margin: EdgeInsets.only(top: 20.0),
@@ -31,7 +31,8 @@ class SelectUserView extends StatelessWidget {
                           ),
                           TextSpan(
                             text: "\nPlease select the user type to \ncontinue",
-                            style: designInfo.scaleTwo.apply(color: secondary),
+                            style: designInfo.scaleTwo
+                                .apply(color: revampSecondary),
                           ),
                         ])),
                         Expanded(
@@ -65,7 +66,7 @@ class SelectUserView extends StatelessWidget {
                               ),
                               label: Text(
                                 "\t\tI\'m a Student",
-                                style: designInfo.scaleThree
+                                style: designInfo.scaleTwo
                                     .apply(color: secondaryDark),
                               )),
                         ),
@@ -83,7 +84,7 @@ class SelectUserView extends StatelessWidget {
                               label: Text(
                                 "\t\tI\'m a Teacher",
                                 style:
-                                    designInfo.scaleThree.apply(color: primary),
+                                    designInfo.scaleTwo.apply(color: primary),
                               )),
                         ),
                         WidgetWrapper(
@@ -104,7 +105,7 @@ class SelectUserView extends StatelessWidget {
                               ),
                               label: Text(
                                 "\tI\'m a Guest",
-                                style: designInfo.scaleThree
+                                style: designInfo.scaleTwo
                                     .apply(color: textPrimary),
                               )),
                         ),

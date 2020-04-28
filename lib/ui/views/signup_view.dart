@@ -3,7 +3,6 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
 import 'package:svuce_app/ui/shared/font_styles.dart';
 import 'package:svuce_app/ui/widgets/busy_overlay.dart';
-import 'package:svuce_app/ui/widgets/custom_clipper.dart';
 import 'package:svuce_app/ui/widgets/signup_pages.dart';
 import 'package:svuce_app/viewmodels/signup_viewmodel.dart';
 
@@ -26,16 +25,6 @@ class SignUpView extends StatelessWidget {
                     ),
                   ),
                   body: Stack(fit: StackFit.expand, children: <Widget>[
-                    ClipPath(
-                      clipper: CurveClipper(),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: primary,
-                        ),
-                        height: MediaQuery.of(context).size.height,
-                        width: double.infinity,
-                      ),
-                    ),
                     Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 30.0, horizontal: 20.0),

@@ -6,7 +6,6 @@ import 'package:svuce_app/ui/shared/font_styles.dart';
 import 'package:svuce_app/ui/shared/shared_styles.dart';
 import 'package:svuce_app/ui/shared/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/button_wrapper.dart';
-import 'package:svuce_app/ui/widgets/custom_clipper.dart';
 import 'package:svuce_app/viewmodels/login_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
@@ -35,16 +34,6 @@ class LoginView extends StatelessWidget {
                   )
                 : SizedBox(),
             body: Stack(fit: StackFit.expand, children: <Widget>[
-              ClipPath(
-                clipper: CurveClipper(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: primary,
-                  ),
-                  height: MediaQuery.of(context).size.height,
-                  width: double.infinity,
-                ),
-              ),
               Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
