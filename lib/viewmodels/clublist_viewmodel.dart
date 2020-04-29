@@ -21,6 +21,7 @@ class ClubListViewModel extends BaseModel {
       locator<PushNotificationService>();
 
   List<Club> _clubList;
+  List<bool> flags;
   List<Club> get clubs => _clubList;
 
   getClubListOnce() {
@@ -30,6 +31,7 @@ class ClubListViewModel extends BaseModel {
       List<Club> clubList = postsData;
       if (clubList != null && clubList.length > 0) {
         _clubList = clubList;
+        addFlags(_clubList.length);
         notifyListeners();
       }
 
@@ -37,7 +39,7 @@ class ClubListViewModel extends BaseModel {
     });
   }
 
-  followClub(int index) async {
+  Future followClub(int index) async {
     if (index == null) {
       return null;
     }
@@ -54,6 +56,8 @@ class ClubListViewModel extends BaseModel {
       await _firestoreService.followClub(clubs[index].id, user);
 
       await _pushNotifyService.subscribe(clubs[index].topicId);
+
+      flags[index] = true;
 
       setBusy(false);
     } catch (e) {
@@ -80,5 +84,12 @@ class ClubListViewModel extends BaseModel {
 
   gotoHome() {
     _navigationService.navigateTo(HomeViewRoute);
+  }
+
+  addFlags(int length) {
+    flags = [];
+    for (var i = 0; i < length; i++) {
+      flags.add(false);
+    }
   }
 }

@@ -31,7 +31,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: revampBG,
         elevation: 0,
         title: Text(
           widget.homeViewItems[currentIndex].title,
@@ -45,6 +45,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
           IconButton(
               icon: Icon(
                 EvaIcons.bell,
+                color: revampMajor,
               ),
               onPressed: () {
                 Navigator.push(
@@ -55,6 +56,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
           IconButton(
               icon: Icon(
                 EvaIcons.keypad,
+                color: revampMajor,
               ),
               onPressed: () {
                 _scaffoldKey.currentState.openEndDrawer();
@@ -76,8 +78,8 @@ class _HomeWrapperState extends State<HomeWrapper> {
                       width: 2.0))),
           child: Theme(
             data: Theme.of(context).copyWith(
-              canvasColor: secondaryDark,
-              primaryColor: primary,
+              canvasColor: revampSurface,
+              primaryColor: revampMajor,
             ),
             child: BottomNavigationBar(
               items: homeViewItems.map((item) {
@@ -86,8 +88,8 @@ class _HomeWrapperState extends State<HomeWrapper> {
                     activeIcon: Icon(item.activeIcon),
                     icon: Icon(item.inactiveIcon));
               }).toList(),
-              unselectedItemColor: secondaryLight,
-              selectedItemColor: primary,
+              unselectedItemColor: revampSecondary,
+              selectedItemColor: revampMajor,
               onTap: bottomTapped,
               currentIndex: currentIndex,
             ),

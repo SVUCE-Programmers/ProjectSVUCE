@@ -4,10 +4,15 @@ import 'package:svuce_app/ui/shared/app_colors.dart';
 
 class ClubTile extends StatelessWidget {
   final Club club;
-  final bool isBusy;
+  final bool isBusy, success;
   final Function onFollowButtonPressed;
 
-  const ClubTile({Key key, this.club, this.onFollowButtonPressed, this.isBusy})
+  const ClubTile(
+      {Key key,
+      this.club,
+      this.onFollowButtonPressed,
+      this.isBusy,
+      this.success})
       : super(key: key);
 
   @override
@@ -33,9 +38,11 @@ class ClubTile extends StatelessWidget {
           textColor: revampMajor,
           icon: Icon(Icons.add),
           onPressed: onFollowButtonPressed != null
-              ? isBusy ? null : onFollowButtonPressed
+              ? isBusy || success ? null : onFollowButtonPressed
               : null,
-          label: !isBusy ? Text("Follow") : CircularProgressIndicator(),
+          label: !isBusy
+              ? Text(success ? "Followed" : "Follow")
+              : CircularProgressIndicator(),
         ),
       ),
     );

@@ -1,8 +1,6 @@
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:svuce_app/ui/shared/app_colors.dart';
-import 'package:svuce_app/ui/shared/shared_styles.dart';
-import 'package:svuce_app/ui/widgets/button_wrapper.dart';
 import 'package:svuce_app/ui/widgets/club_list_item.dart';
 import 'package:svuce_app/viewmodels/clublist_viewmodel.dart';
 
@@ -33,9 +31,10 @@ class ClubListView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return ClubTile(
                             isBusy: model.busy,
+                            success: model.flags[index],
                             club: model.clubs[index],
                             onFollowButtonPressed: () async {
-                              model.followClub(index);
+                              await model.followClub(index).then((value) {});
                             },
                           );
                         },
