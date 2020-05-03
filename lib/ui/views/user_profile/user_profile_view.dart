@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 
-class SelectClubsView extends StatelessWidget {
+import 'user_profile_viewmodel.dart';
+
+class UserProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScreenBuilder<SelectClubsViewModel>(
-      viewModel: SelectClubsViewModel(),
+    return ScreenBuilder<UserProfileViewModel>(
+      viewModel: UserProfileViewModel(),
       builder: (context, uiHelpers, model) {
         return Scaffold();
       },
