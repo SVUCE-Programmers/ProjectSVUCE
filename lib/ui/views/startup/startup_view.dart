@@ -11,8 +11,8 @@ class StartUpView extends StatelessWidget {
       builder: (context, uiHelpers, model) {
         return Scaffold(
           appBar: AppBar(),
-          body: Center(
-            child: Text("Startup View"),
+          body: Container(
+            alignment: Alignment.center,
           ),
           floatingActionButton: FloatingActionButton(onPressed: () {}),
         );
