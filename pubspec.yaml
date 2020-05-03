@@ -12,10 +12,22 @@ dependencies:
 
   # state management
   stacked: ^1.2.2
+  # third party usable services
+  stacked_services:
+  # navigation
+  auto_route:
+  # inversion of control
+  get_it:
+  injectable:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  #generators
+  build_runner:
+  auto_route_generator:
+  injectable_generator:
 
 flutter:
   uses-material-design: true
