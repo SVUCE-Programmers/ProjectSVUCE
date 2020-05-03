@@ -57,7 +57,7 @@ class UIHelpers {
         fontSize: scalingHelper.size(28));
 
     final TextStyle title = TextStyle(
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
         fontFamily: 'Quicksand',
         fontSize: scalingHelper.size(20));
 
