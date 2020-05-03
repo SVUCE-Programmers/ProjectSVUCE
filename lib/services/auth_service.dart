@@ -13,12 +13,13 @@ abstract class BaseAuth {
 }
 
 class AuthenticationService implements BaseAuth {
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  //for testing
-  AuthenticationService({FirebaseAuth firebaseAuth})
-      : this.firebaseAuth =
-            firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
+
+  // for testing
+  // AuthenticationService({FirebaseAuth firebaseAuth})
+  //     : this.firebaseAuth =
+  //           firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
   @override
   Future loginUser({@required String email, @required String password}) async {

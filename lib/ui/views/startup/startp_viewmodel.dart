@@ -6,7 +6,8 @@ import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:svuce_app/app/router.gr.dart';
 
 class StartUpViewModel extends BaseViewModel {
-  final AuthenticationService _authenticationService = locator<BaseAuth>();
+  final AuthenticationService _authenticationService =
+      locator<AuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationService _notificationService =
       locator<PushNotificationService>();

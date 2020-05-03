@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 
 import 'startp_viewmodel.dart';
@@ -10,11 +11,13 @@ class StartUpView extends StatelessWidget {
       viewModel: StartUpViewModel(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
-          appBar: AppBar(),
           body: Container(
             alignment: Alignment.center,
+            child: Text(
+              "SVUCE APP",
+              style: uiHelpers.title.copyWith(color: textPrimaryColor),
+            ),
           ),
-          floatingActionButton: FloatingActionButton(onPressed: () {}),
         );
       },
     );

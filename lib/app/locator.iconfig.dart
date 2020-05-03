@@ -5,7 +5,6 @@
 // **************************************************************************
 
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:svuce_app/services/register_services.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,7 +12,7 @@ import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
-  final registerExternalServices = _$RegisterExternalServices(g);
+  final registerExternalServices = _$RegisterExternalServices();
   g.registerLazySingleton<AuthenticationService>(
       () => registerExternalServices.authenticationService);
   g.registerLazySingleton<FirestoreService>(
@@ -27,11 +26,8 @@ void $initGetIt(GetIt g, {String environment}) {
 }
 
 class _$RegisterExternalServices extends RegisterExternalServices {
-  final GetIt _g;
-  _$RegisterExternalServices(this._g);
   @override
-  AuthenticationService get authenticationService =>
-      AuthenticationService(firebaseAuth: _g<FirebaseAuth>());
+  AuthenticationService get authenticationService => AuthenticationService();
   @override
   FirestoreService get firestoreService => FirestoreService();
   @override
