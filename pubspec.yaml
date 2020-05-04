@@ -41,7 +41,7 @@ flutter:
 
   assets:
     - assets/illustrations/hexagon_pattern.jpg
-    - assets/illustrations/pattern.png
+    - assets/illustrations/asteroid_pattern.png
 
   fonts:
     - family: Quicksand

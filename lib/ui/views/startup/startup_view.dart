@@ -9,6 +9,7 @@ class StartUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<StartUpViewModel>(
       viewModel: StartUpViewModel(),
+      onModelReady: (model) => model.handleStartUpLogic(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           body: Container(
