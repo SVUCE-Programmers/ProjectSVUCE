@@ -1,7 +1,10 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/services/auth_service.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel {
@@ -29,15 +32,24 @@ class ForgotPasswordViewModel extends BaseViewModel {
     if (resetPasswordResult is String) {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
-        title: "OOPS!",
-        message: 'Check your details and try again',
+        icon: Icon(
+          EvaIcons.info,
+          color: errorColor,
+        ),
+        backgroundColor: surfaceColor,
+        title: commonErrorTitle,
+        message: commonErrorInfo,
       );
     } else {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
-        title: "Done",
-        message:
-            'We have successfully sent you an email with reset password link',
+        title: successEmailSentInfo,
+        backgroundColor: surfaceColor,
+        icon: Icon(
+          EvaIcons.doneAll,
+          color: primaryColor,
+        ),
+        message: successEmailSentInfo,
       );
     }
 

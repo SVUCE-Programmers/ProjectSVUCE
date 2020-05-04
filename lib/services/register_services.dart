@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
+import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 
 @registerModule
 abstract class RegisterExternalServices {
@@ -20,4 +21,7 @@ abstract class RegisterExternalServices {
 
   @lazySingleton
   PushNotificationService get pushNotificationService;
+
+  @lazySingleton
+  LoginViewModel get loginViewModel;
 }
