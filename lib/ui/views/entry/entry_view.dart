@@ -60,7 +60,7 @@ class EntryView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10.0)),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            onPressed: () {},
+                            onPressed: model.gotoLogin,
                             child: Text(
                               "Continue",
                               style: uiHelpers.body,

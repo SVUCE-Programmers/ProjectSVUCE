@@ -15,16 +15,20 @@ import 'package:svuce_app/ui/views/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
 import 'package:svuce_app/ui/views/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/views/notifications/notifications_view.dart';
+import 'package:svuce_app/ui/views/login/login_view.dart';
+import 'package:svuce_app/ui/views/forgot_password/forgot_password_view.dart';
 
 abstract class Routes {
   static const startUpViewRoute = '/start-up-view-route';
   static const homeViewRoute = '/home-view-route';
-  static const entryView = '/entry-view';
-  static const createProfileView = '/create-profile-view';
-  static const selectClubsView = '/select-clubs-view';
-  static const userProfileView = '/user-profile-view';
-  static const timeTableView = '/time-table-view';
-  static const notificationsView = '/notifications-view';
+  static const entryViewRoute = '/entry-view-route';
+  static const createProfileViewRoute = '/create-profile-view-route';
+  static const selectClubsViewRoute = '/select-clubs-view-route';
+  static const userProfileViewRoute = '/user-profile-view-route';
+  static const timeTableViewRoute = '/time-table-view-route';
+  static const notificationsViewRoute = '/notifications-view-route';
+  static const loginViewRoute = '/login-view-route';
+  static const forgotPasswordViewRoute = '/forgot-password-view-route';
 }
 
 class Router extends RouterBase {
@@ -46,34 +50,44 @@ class Router extends RouterBase {
           builder: (context) => HomeView(),
           settings: settings,
         );
-      case Routes.entryView:
+      case Routes.entryViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => EntryView(),
           settings: settings,
         );
-      case Routes.createProfileView:
+      case Routes.createProfileViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => CreateProfileView(),
           settings: settings,
         );
-      case Routes.selectClubsView:
+      case Routes.selectClubsViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => SelectClubsView(),
           settings: settings,
         );
-      case Routes.userProfileView:
+      case Routes.userProfileViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => UserProfileView(),
           settings: settings,
         );
-      case Routes.timeTableView:
+      case Routes.timeTableViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => TimeTableView(),
           settings: settings,
         );
-      case Routes.notificationsView:
+      case Routes.notificationsViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => NotificationsView(),
+          settings: settings,
+        );
+      case Routes.loginViewRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => LoginView(),
+          settings: settings,
+        );
+      case Routes.forgotPasswordViewRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => ForgotPasswordView(),
           settings: settings,
         );
       default:
