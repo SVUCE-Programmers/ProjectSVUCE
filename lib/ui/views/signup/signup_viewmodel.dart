@@ -49,6 +49,10 @@ class SignUpViewModel extends BaseViewModel {
     //TODO: Do an API Call to make sure the user email is available
     await Future.delayed(Duration(seconds: 2));
 
+    _navigationService.navigateTo(Routes.createProfileViewRoute,
+        arguments:
+            CreateProfileViewArguments(email: email, password: password));
+
     setBusy(false);
   }
 

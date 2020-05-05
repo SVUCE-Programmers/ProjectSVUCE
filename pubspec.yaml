@@ -23,9 +23,12 @@ dependencies:
   cloud_firestore: ^0.13.4+2
   firebase_auth:
   firebase_messaging: ^6.0.13
+  firebase_storage: ^3.1.1
   #icons
   eva_icons_flutter: ^2.0.0
   flutter_icons: ^1.0.0+1
+  # utitily to pick images
+  image_picker: ^0.6.3+1
 
 dev_dependencies:
   flutter_test:

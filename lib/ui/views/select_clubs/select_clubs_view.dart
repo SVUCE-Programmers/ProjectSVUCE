@@ -9,9 +9,7 @@ class SelectClubsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<SelectClubsViewModel>(
       viewModel: SelectClubsViewModel(),
-      onModelReady: (model) {
-        model.getClubListOnce();
-      },
+      onModelReady: (model) => model.getClubListOnce(),
       builder: (context, uiHelpers, model) {
         return WillPopScope(
           onWillPop: model.onWillPop,
