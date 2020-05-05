@@ -6,6 +6,7 @@ import 'package:svuce_app/ui/views/home/home_view.dart';
 import 'package:svuce_app/ui/views/login/login_view.dart';
 import 'package:svuce_app/ui/views/notifications/notifications_view.dart';
 import 'package:svuce_app/ui/views/select_clubs/select_clubs_view.dart';
+import 'package:svuce_app/ui/views/signup/signup_view.dart';
 import 'package:svuce_app/ui/views/startup/startup_view.dart';
 import 'package:svuce_app/ui/views/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
@@ -21,5 +22,6 @@ class $Router {
   TimeTableView timeTableViewRoute;
   NotificationsView notificationsViewRoute;
   LoginView loginViewRoute;
+  SignUpView signUpViewRoute;
   ForgotPasswordView forgotPasswordViewRoute;
 }

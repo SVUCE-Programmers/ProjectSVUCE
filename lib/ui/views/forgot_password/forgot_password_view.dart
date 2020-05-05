@@ -1,7 +1,7 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
 
@@ -16,6 +16,12 @@ class ForgotPasswordView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
+            leading: IconButton(
+                icon: Icon(
+                  backIcon,
+                  color: textPrimaryColor,
+                ),
+                onPressed: model.goBack),
             title: Text(
               "Forgot Password",
               style: uiHelpers.headline.copyWith(color: Colors.white),
@@ -34,8 +40,9 @@ class ForgotPasswordView extends StatelessWidget {
                 ),
                 InputField(
                   title: "Enter your email..",
-                  iconData: EvaIcons.email,
+                  iconData: emailIcon,
                   validator: model.validateEmail,
+                  controller: model.emailTextEditingController,
                   keyboardType: TextInputType.emailAddress,
                 ),
                 Container(

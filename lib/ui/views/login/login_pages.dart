@@ -1,8 +1,9 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/_viewmodel_widget.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/utils/validators.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
@@ -35,16 +36,16 @@ class LoginPage extends ViewModelWidget<LoginViewModel> {
             controller: model.emailController,
             title: "Your email here..",
             keyboardType: TextInputType.emailAddress,
-            iconData: EvaIcons.email,
-            validator: model.validateEmail,
+            iconData: emailIcon,
+            validator: validateEmail,
           ),
           InputField(
             controller: model.passwordController,
             title: "Your password here",
-            keyboardType: TextInputType.emailAddress,
-            iconData: EvaIcons.lock,
+            keyboardType: TextInputType.text,
+            iconData: passwordIcon,
             isSecure: true,
-            validator: model.validatePassword,
+            validator: validatePassword,
           ),
           Row(
             mainAxisAlignment: isStudent

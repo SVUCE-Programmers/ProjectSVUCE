@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 
 class Button extends StatelessWidget {
   final bool isBusy;
@@ -13,7 +14,7 @@ class Button extends StatelessWidget {
         elevation: 0,
         backgroundColor: primaryColor,
         foregroundColor: backgroundColor,
-        child: isBusy ? CircularProgressIndicator() : Icon(Icons.arrow_forward),
+        child: isBusy ? CircularProgressIndicator() : Icon(forwardIcon),
         onPressed: isBusy ? null : onPressed ?? null);
   }
 }

@@ -1,8 +1,8 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/services/auth_service.dart';
@@ -16,6 +16,7 @@ class ForgotPasswordViewModel extends BaseViewModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   void resetPassword() async {
     bool result = _formKey.currentState.validate();
@@ -33,7 +34,7 @@ class ForgotPasswordViewModel extends BaseViewModel {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
         icon: Icon(
-          EvaIcons.info,
+          infoIcon,
           color: errorColor,
         ),
         backgroundColor: surfaceColor,
@@ -43,10 +44,10 @@ class ForgotPasswordViewModel extends BaseViewModel {
     } else {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
-        title: successEmailSentInfo,
+        title: successEmailSentTitle,
         backgroundColor: surfaceColor,
         icon: Icon(
-          EvaIcons.doneAll,
+          doneIcon,
           color: primaryColor,
         ),
         message: successEmailSentInfo,
@@ -63,5 +64,9 @@ class ForgotPasswordViewModel extends BaseViewModel {
       return null;
     }
     return "Email is not valid";
+  }
+
+  goBack() {
+    _navigationService.back();
   }
 }

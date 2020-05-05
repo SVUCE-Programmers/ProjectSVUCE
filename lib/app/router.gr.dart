@@ -16,6 +16,7 @@ import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
 import 'package:svuce_app/ui/views/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/views/notifications/notifications_view.dart';
 import 'package:svuce_app/ui/views/login/login_view.dart';
+import 'package:svuce_app/ui/views/signup/signup_view.dart';
 import 'package:svuce_app/ui/views/forgot_password/forgot_password_view.dart';
 
 abstract class Routes {
@@ -28,6 +29,7 @@ abstract class Routes {
   static const timeTableViewRoute = '/time-table-view-route';
   static const notificationsViewRoute = '/notifications-view-route';
   static const loginViewRoute = '/login-view-route';
+  static const signUpViewRoute = '/sign-up-view-route';
   static const forgotPasswordViewRoute = '/forgot-password-view-route';
 }
 
@@ -83,6 +85,11 @@ class Router extends RouterBase {
       case Routes.loginViewRoute:
         return MaterialPageRoute<dynamic>(
           builder: (context) => LoginView(),
+          settings: settings,
+        );
+      case Routes.signUpViewRoute:
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => SignUpView(),
           settings: settings,
         );
       case Routes.forgotPasswordViewRoute:

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
@@ -67,7 +67,7 @@ class SelectClubsViewModel extends BaseViewModel {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
         icon: Icon(
-          EvaIcons.info,
+          infoIcon,
           color: errorColor,
         ),
         backgroundColor: surfaceColor,

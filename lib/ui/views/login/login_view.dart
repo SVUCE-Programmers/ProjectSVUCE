@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/ui/widgets/login_wrapper.dart';
@@ -21,7 +22,7 @@ class LoginView extends StatelessWidget {
             teacher: LoginPage(uiHelpers: uiHelpers, isStudent: false),
             info: PopupMenuButton(
               icon: Icon(
-                Icons.help,
+                infoIcon,
                 color: primaryColor,
               ),
               color: surfaceColor,

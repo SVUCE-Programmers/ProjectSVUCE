@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
@@ -37,27 +37,6 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  String validateEmail(String email) {
-    RegExp reg = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-    if (!reg.hasMatch(email)) {
-      return 'Please enter a valid email';
-    } else if (email.length < 5) {
-      return 'Your email must be atleast 6';
-    }
-    return null;
-  }
-
-  String validatePassword(String password) {
-    if (password.isEmpty) {
-      return 'Please Enter Your Password';
-    } else if (password.length < 5) {
-      return 'Your password must be atleast 6';
-    }
-    return null;
-  }
-
   void handleLogin() async {
     bool result = _formKey.currentState.validate();
 
@@ -82,7 +61,7 @@ class LoginViewModel extends BaseViewModel {
         _snackbarService.showCustomSnackBar(
           duration: Duration(seconds: 5),
           icon: Icon(
-            EvaIcons.info,
+            infoIcon,
             color: errorColor,
           ),
           backgroundColor: surfaceColor,
@@ -94,7 +73,7 @@ class LoginViewModel extends BaseViewModel {
       _snackbarService.showCustomSnackBar(
         duration: Duration(seconds: 5),
         icon: Icon(
-          EvaIcons.info,
+          infoIcon,
           color: errorColor,
         ),
         backgroundColor: surfaceColor,
@@ -105,7 +84,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   gotoSignup() {
-    //TODO: Go to signup
+    _navigationService.navigateTo(Routes.signUpViewRoute);
   }
 
   continueAsGuest() {
