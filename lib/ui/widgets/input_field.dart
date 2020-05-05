@@ -8,6 +8,7 @@ class InputField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool isSecure;
   final int maxLength;
+  final int maxLines;
   final Function(String) validator;
 
   final IconData iconData;
@@ -20,6 +21,7 @@ class InputField extends StatelessWidget {
       this.iconData,
       this.isSecure = false,
       this.maxLength,
+      this.maxLines,
       this.validator})
       : super(key: key);
 
@@ -46,6 +48,7 @@ class InputField extends StatelessWidget {
             color: textSecondaryColor,
           ),
         ),
+        maxLines: maxLines,
         obscureText: isSecure,
         validator: validator ?? null,
         keyboardType: keyboardType,

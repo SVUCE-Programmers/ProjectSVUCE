@@ -28,4 +28,5 @@ const IconData passwordIcon = EvaIcons.lock;
 const IconData infoIcon = EvaIcons.info;
 const IconData doneIcon = EvaIcons.doneAll;
 const IconData forwardIcon = EvaIcons.arrowForward;
+const IconData backwardIcon = EvaIcons.arrowBack;
 const IconData backIcon = EvaIcons.arrowCircleLeft;
