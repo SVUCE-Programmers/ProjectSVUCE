@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -75,7 +77,7 @@ class LoginViewModel extends BaseViewModel {
 
     if (authResult is bool) {
       if (authResult) {
-        _navigationService.navigateTo(Routes.createProfileViewRoute);
+        _navigationService.navigateTo(Routes.homeViewRoute);
       } else {
         _snackbarService.showCustomSnackBar(
           duration: Duration(seconds: 5),
@@ -106,7 +108,24 @@ class LoginViewModel extends BaseViewModel {
     //TODO: Go to signup
   }
 
-  continueAsGuest(){
+  continueAsGuest() {
     //TODO: Implement guest sign in
+  }
+
+  Future<bool> onWillPop() async {
+    await _snackbarService.showCustomSnackBar(
+        title: 'Exit',
+        duration: Duration(seconds: 5),
+        message: 'Are you sure to exit?',
+        backgroundColor: surfaceColor,
+        mainButton: FlatButton(
+          textColor: textPrimaryColor,
+          onPressed: () {
+            exit(0);
+          },
+          child: Text("Yes"),
+        ));
+
+    return false;
   }
 }

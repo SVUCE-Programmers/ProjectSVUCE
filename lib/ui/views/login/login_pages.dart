@@ -4,9 +4,8 @@ import 'package:stacked/_viewmodel_widget.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
-
-import 'button.dart';
-import 'input_field.dart';
+import 'package:svuce_app/ui/widgets/button.dart';
+import 'package:svuce_app/ui/widgets/input_field.dart';
 
 class LoginPage extends ViewModelWidget<LoginViewModel> {
   final bool isStudent;

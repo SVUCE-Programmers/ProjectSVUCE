@@ -27,14 +27,14 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
           builder: (context, model, child) =>
               SafeArea(child: builder(context, uiHelpers, model)),
           disposeViewModel: disposeViewModel,
-          onModelReady: onModelReady,
+          onModelReady: onModelReady ?? null,
           viewModelBuilder: () => viewModel);
     } else {
       return ViewModelBuilder<T>.nonReactive(
           builder: (context, model, child) =>
               SafeArea(child: builder(context, uiHelpers, model)),
           disposeViewModel: disposeViewModel,
-          onModelReady: onModelReady,
+          onModelReady: onModelReady ?? null,
           viewModelBuilder: () => viewModel);
     }
   }

@@ -6,4 +6,8 @@ final themeData = ThemeData(
     primaryColor: primaryColor,
     primarySwatch: Colors.teal,
     errorColor: errorColor,
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: surfaceColor,
+      actionTextColor: textPrimaryColor,
+    ),
     scaffoldBackgroundColor: backgroundColor);
