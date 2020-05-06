@@ -57,6 +57,8 @@ class AuthenticationService implements BaseAuth {
       var authResult = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
+      await updateUserProfile(displayName: fullName, profileImg: profileImg);
+
       _currentUser = User(
           id: authResult.user.uid,
           email: email,
@@ -65,7 +67,7 @@ class AuthenticationService implements BaseAuth {
           contact: contact,
           profileImg: profileImg,
           rollNo: rollNo,
-          collegeName: "SVUCE          ",
+          collegeName: "SVUCE",
           userType: "STUDENT");
 
       await _firestoreService.createUser(_currentUser);
@@ -100,5 +102,14 @@ class AuthenticationService implements BaseAuth {
   @override
   Future signOut() async {
     await firebaseAuth.signOut();
+  }
+
+  Future updateUserProfile({String displayName, String profileImg}) async {
+    UserUpdateInfo updateInfo = UserUpdateInfo();
+    updateInfo.displayName = displayName;
+    updateInfo.photoUrl = profileImg;
+
+    FirebaseUser user = await firebaseAuth.currentUser();
+    user.updateProfile(updateInfo);
   }
 }

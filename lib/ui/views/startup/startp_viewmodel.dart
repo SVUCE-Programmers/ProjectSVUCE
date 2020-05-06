@@ -22,7 +22,5 @@ class StartUpViewModel extends BaseViewModel {
     } else {
       _navigationService.navigateTo(Routes.entryViewRoute);
     }
-
-    //TODO: Navigate to Profile View
   }
 }
