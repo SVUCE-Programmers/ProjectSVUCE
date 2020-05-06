@@ -11,8 +11,11 @@ import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/services/auth_service.dart';
 
 class LoginViewModel extends BaseViewModel {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> get formKey => _formKey;
+  final GlobalKey<FormState> _formKeyStudent = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyTeacher = GlobalKey<FormState>();
+
+  GlobalKey<FormState> get studentKey => _formKeyStudent;
+  GlobalKey<FormState> get teacherKey => _formKeyTeacher;
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -37,8 +40,10 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  void handleLogin() async {
-    bool result = _formKey.currentState.validate();
+  void handleLogin({bool isStudent = true}) async {
+    bool result = isStudent
+        ? _formKeyStudent.currentState.validate()
+        : _formKeyTeacher.currentState.validate();
 
     if (!result) {
       return null;
@@ -81,6 +86,8 @@ class LoginViewModel extends BaseViewModel {
         message: commonErrorInfo,
       );
     }
+
+    clearInputs();
   }
 
   gotoSignup() {
@@ -106,5 +113,10 @@ class LoginViewModel extends BaseViewModel {
         ));
 
     return false;
+  }
+
+  clearInputs() {
+    emailController.text = "";
+    passwordController.text = "";
   }
 }

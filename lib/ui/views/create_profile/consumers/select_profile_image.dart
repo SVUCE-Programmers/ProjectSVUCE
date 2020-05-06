@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/views/create_profile/create_profile_viewmodel.dart';
 
-class SelectProfileImage extends StatelessWidget {
-  final ImageProvider image;
-  final Function chooseImage;
+class SelectProfileImage extends ViewModelWidget<CreateProfileViewModel> {
+  final UIHelpers uiHelpers;
 
-  const SelectProfileImage({Key key, this.image, this.chooseImage})
-      : super(key: key);
+  SelectProfileImage(this.uiHelpers);
 
   @override
-  Widget build(BuildContext context) {
-    final UIHelpers uiHelpers = UIHelpers.fromContext(context);
+  Widget build(BuildContext context, CreateProfileViewModel model) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -27,10 +26,12 @@ class SelectProfileImage extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           child: GestureDetector(
-            onTap: chooseImage,
+            onTap: () => model.chooseImage(),
             child: CircleAvatar(
               radius: uiHelpers.blockSizeHorizontal * 20,
-              backgroundImage: image != null ? image : null,
+              backgroundImage: model.profileImage == null
+                  ? null
+                  : FileImage(model.profileImage),
             ),
           ),
         ),

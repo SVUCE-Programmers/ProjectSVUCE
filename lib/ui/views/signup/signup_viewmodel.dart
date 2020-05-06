@@ -42,6 +42,8 @@ class SignUpViewModel extends BaseViewModel {
         title: commonErrorTitle,
         message: passwordMatchErrorInfo,
       );
+
+      return null;
     }
 
     setBusy(true);

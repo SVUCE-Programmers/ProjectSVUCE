@@ -75,4 +75,11 @@ class CreateProfileViewModel extends BaseViewModel {
 
     notifyListeners();
   }
+
+  removePhoto() {
+    profileImage?.delete();
+    profileImage = null;
+    showBottomBar = false;
+    notifyListeners();
+  }
 }

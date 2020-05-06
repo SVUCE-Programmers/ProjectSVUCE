@@ -21,7 +21,7 @@ class InputField extends StatelessWidget {
       this.iconData,
       this.isSecure = false,
       this.maxLength,
-      this.maxLines,
+      this.maxLines = 1,
       this.validator})
       : super(key: key);
 

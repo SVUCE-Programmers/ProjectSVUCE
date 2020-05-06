@@ -3,10 +3,10 @@ import 'package:stacked/_viewmodel_widget.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/utils/validators.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
+import 'package:svuce_app/utils/validators.dart';
 
 class LoginPage extends ViewModelWidget<LoginViewModel> {
   final bool isStudent;
@@ -17,7 +17,7 @@ class LoginPage extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     return Form(
-      key: model.formKey,
+      key: isStudent ? model.studentKey : model.teacherKey,
       child: ListView(
         padding: EdgeInsets.all(20.0),
         children: <Widget>[
@@ -70,7 +70,7 @@ class LoginPage extends ViewModelWidget<LoginViewModel> {
                   : SizedBox(),
               Button(
                 isBusy: model.isBusy,
-                onPressed: model.handleLogin,
+                onPressed: () => model.handleLogin(isStudent: isStudent),
               ),
             ],
           )

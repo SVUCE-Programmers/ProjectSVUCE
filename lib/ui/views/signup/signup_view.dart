@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/utils/validators.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
+import 'package:svuce_app/utils/validators.dart';
 
 import 'signup_viewmodel.dart';
 
