@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
@@ -12,7 +14,9 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var random = Random();
     return FloatingActionButton(
+        heroTag: random.nextInt(100),
         elevation: 0,
         backgroundColor: primaryColor,
         foregroundColor: backgroundColor,

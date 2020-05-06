@@ -21,6 +21,7 @@ class CreateProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<CreateProfileViewModel>(
       viewModel: CreateProfileViewModel(),
+      onModelReady: (model) => model.init(email, password),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           key: _globalKey,
@@ -59,7 +60,7 @@ class CreateProfileView extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.only(left: 30.0),
                     child: Button(
-                      isBusy: model.isBusy,
+                      isBusy: false,
                       isBack: true,
                       onPressed: model.moveBackward,
                     ),

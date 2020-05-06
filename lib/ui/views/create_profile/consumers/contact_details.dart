@@ -13,29 +13,35 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
 
   @override
   Widget build(BuildContext context, CreateProfileViewModel model) {
-    return ListView(
-      children: <Widget>[
-        Text.rich(TextSpan(children: [
-          TextSpan(
-              text: "Your Contact Info\n",
-              style: uiHelpers.title.copyWith(color: textPrimaryColor)),
-          TextSpan(
-              text: "Enter your details to let others see your info.\n\n",
-              style: uiHelpers.body.copyWith(color: textSecondaryColor)),
-        ])),
-        InputField(
-          iconData: messageIcon,
-          title: "Your Contact",
-          keyboardType: TextInputType.text,
-        ),
-        InputField(
-          iconData: bulbIcon,
-          title: "Bio",
-          keyboardType: TextInputType.text,
-          maxLength: 150,
-          maxLines: 4,
-        ),
-      ],
+    return Form(
+      key: model.contactDetailsFormKey,
+      child: ListView(
+        children: <Widget>[
+          Text.rich(TextSpan(children: [
+            TextSpan(
+                text: "Your Contact Info\n",
+                style: uiHelpers.title.copyWith(color: textPrimaryColor)),
+            TextSpan(
+                text: "Enter your details to let others see your info.\n\n",
+                style: uiHelpers.body.copyWith(color: textSecondaryColor)),
+          ])),
+          InputField(
+            iconData: messageIcon,
+            title: "Your Contact",
+            keyboardType: TextInputType.number,
+            maxLength: 10,
+            controller: model.contactController,
+          ),
+          InputField(
+            iconData: bulbIcon,
+            title: "Bio",
+            keyboardType: TextInputType.text,
+            maxLength: 150,
+            maxLines: 4,
+            controller: model.bioController,
+          ),
+        ],
+      ),
     );
   }
 }

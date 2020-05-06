@@ -18,3 +18,16 @@ String validatePassword(String password) {
   }
   return null;
 }
+
+String validateRollNo(String rollNo) {
+  RegExp regExp = new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
+  if (rollNo.isEmpty) {
+    return 'Please enter your rollno.';
+  } else if (!regExp.hasMatch(rollNo) || rollNo.length < 8) {
+    return 'Please enter a valid rollno.';
+  } else {
+    return null;
+  }
+}
+
+//TODO: Add name and contact validator

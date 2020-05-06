@@ -34,6 +34,21 @@ class SelectClubsView extends StatelessWidget {
                       );
                     },
                   ),
+            bottomNavigationBar: Container(
+              margin: EdgeInsets.all(20.0),
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(color: primaryColor, width: 4),
+                  borderRadius: BorderRadius.circular(10)),
+              child: FlatButton(
+                  onPressed: model.gotoHome,
+                  child: Center(
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(color: primaryColor, fontSize: 16),
+                    ),
+                  )),
+            ),
           ),
         );
       },

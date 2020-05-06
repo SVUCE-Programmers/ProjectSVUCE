@@ -6,7 +6,13 @@ import 'package:svuce_app/services/firestore_service.dart';
 
 abstract class BaseAuth {
   Future createStudent(
-      {String email, String password, String fullName, String rollNo});
+      {String email,
+      String password,
+      String fullName,
+      String rollNo,
+      String contact,
+      String profileImg,
+      String bio});
   Future<bool> isUserLoggedIn();
   Future signOut();
   Future loginUser({String email, String password});
@@ -43,7 +49,10 @@ class AuthenticationService implements BaseAuth {
       {@required String email,
       @required String password,
       @required String fullName,
-      @required String rollNo}) async {
+      @required String rollNo,
+      @required String contact,
+      @required String profileImg,
+      @required String bio}) async {
     try {
       var authResult = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -52,6 +61,9 @@ class AuthenticationService implements BaseAuth {
           id: authResult.user.uid,
           email: email,
           fullName: fullName,
+          bio: bio,
+          contact: contact,
+          profileImg: profileImg,
           rollNo: rollNo,
           collegeName: "SVUCE          ",
           userType: "STUDENT");

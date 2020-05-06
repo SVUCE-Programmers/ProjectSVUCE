@@ -14,16 +14,19 @@ import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
 
 @MaterialAutoRouter()
 class $Router {
+  @initial
   StartUpView startUpViewRoute;
-  HomeView homeViewRoute;
+
   EntryView entryViewRoute;
+  LoginView loginViewRoute;
+  ForgotPasswordView forgotPasswordViewRoute;
+  SignUpView signUpViewRoute;
   CreateProfileView createProfileViewRoute;
   SelectClubsView selectClubsViewRoute;
+
+  HomeView homeViewRoute;
+  FeedView feedViewRoute;
   UserProfileView userProfileViewRoute;
   TimeTableView timeTableViewRoute;
   NotificationsView notificationsViewRoute;
-  LoginView loginViewRoute;
-  FeedView feedViewRoute;
-  SignUpView signUpViewRoute;
-  ForgotPasswordView forgotPasswordViewRoute;
 }
