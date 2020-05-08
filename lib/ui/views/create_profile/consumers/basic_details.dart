@@ -31,6 +31,7 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
             title: "Your Full Name",
             keyboardType: TextInputType.text,
             controller: model.fullNameController,
+            validator: validateName,
           ),
           InputField(
             iconData: idIcon,
