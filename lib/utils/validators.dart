@@ -30,4 +30,24 @@ String validateRollNo(String rollNo) {
   }
 }
 
-//TODO: Add name and contact validator
+String validatePhoneNo(String phone){
+  RegExp regex=new RegExp(r"^[0-9]{10}$");
+  if (phone.isEmpty){
+    return "Please enter your contact details";
+  }else if(!regex.hasMatch(phone)){
+    return "Please enter a valid number";
+  }else{
+    return null;
+  }
+}
+
+String validateName(String name){
+  RegExp reg=new RegExp(r"^[a-zA-Z ]{6,}$");
+  if(name.isEmpty){
+    return "Please Enter your name";
+  }
+  else if(!reg.hasMatch(name)){
+    return "Enter a valid name";
+  }
+  return null;
+}

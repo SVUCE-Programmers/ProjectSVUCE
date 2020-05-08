@@ -6,6 +6,8 @@ import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/create_profile/create_profile_viewmodel.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
 
+import '../../../../utils/validators.dart';
+
 class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
   final UIHelpers uiHelpers;
 
@@ -31,6 +33,7 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
             keyboardType: TextInputType.number,
             maxLength: 10,
             controller: model.contactController,
+            validator: validatePhoneNo,
           ),
           InputField(
             iconData: bulbIcon,
