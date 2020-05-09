@@ -11,9 +11,9 @@ dependencies:
     sdk: flutter
 
   # state management
-  stacked: ^1.2.2
+  stacked: ^1.4.2
   # third party usable services
-  stacked_services:
+  stacked_services: ^0.2.2
   # navigation
   auto_route:
   # inversion of control

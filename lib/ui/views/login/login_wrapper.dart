@@ -45,8 +45,8 @@ class _LoginWrapperState extends State<LoginWrapper>
               child: TabBar(
                 controller: _tabController,
                 tabs: [
-                  Tab(text: "Teacher"),
                   Tab(text: "Student"),
+                  Tab(text: "Teacher"),
                 ],
                 indicatorColor: primaryColor,
                 indicatorPadding: EdgeInsets.all(0),
@@ -63,8 +63,8 @@ class _LoginWrapperState extends State<LoginWrapper>
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            widget.teacher,
             widget.student,
+            widget.teacher,
           ]),
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(20.0),

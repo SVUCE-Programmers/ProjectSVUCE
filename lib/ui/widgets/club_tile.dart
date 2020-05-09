@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/_viewmodel_widget.dart';
+import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
@@ -28,14 +28,13 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
           club?.name,
           style: Theme.of(context)
               .textTheme
-              .title
+              .headline
               .copyWith(color: textPrimaryColor),
         ),
         subtitle: Text(
           club?.moto,
           style: Theme.of(context)
-              .textTheme
-              .subhead
+              .textTheme.headline
               .copyWith(color: textSecondaryColor),
         ),
         trailing: FlatButton.icon(

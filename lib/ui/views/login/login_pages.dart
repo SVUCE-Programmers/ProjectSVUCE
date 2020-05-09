@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/_viewmodel_widget.dart';
+import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';

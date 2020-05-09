@@ -4,9 +4,9 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
-import 'package:svuce_app/ui/widgets/login_wrapper.dart';
 
 import 'login_pages.dart';
+import 'login_wrapper.dart';
 
 class LoginView extends StatelessWidget {
   @override
