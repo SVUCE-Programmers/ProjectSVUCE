@@ -27,8 +27,8 @@ class FirestoreService {
   final StreamController<List<Club>> _clubStreamController =
       StreamController<List<Club>>.broadcast();
 
-  final StreamController<Upcoming> _upcomingController =
-      StreamController<Upcoming>.broadcast();
+  final StreamController<Event> _upcomingController =
+      StreamController<Event>.broadcast();
 
   static const int FeedItemLimit = 10;
 
@@ -80,7 +80,7 @@ class FirestoreService {
     var eventQuery = _eventColletionReference.orderBy("timeStamp").limit(1);
     eventQuery.snapshots().listen((snapshot) {
       if (snapshot.documents.isNotEmpty) {
-        var eventItem = Upcoming.fromDocumentSnapShot(snapshot.documents[0]);
+        var eventItem = Event.fromDocumentSnapShot(snapshot.documents[0]);
         print("event item is:" + eventItem.toString());
         _upcomingController.add(eventItem);
       }

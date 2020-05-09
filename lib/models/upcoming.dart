@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//TODO: Update the fields and class name
 
-class Upcoming {
+class Event {
   String eventName;
   String imageUrl;
   String organiser;
   String timeStamp;
   String place;
-  Upcoming({
+  Event({
     this.eventName,
     this.imageUrl,
     this.organiser,
     this.place,
     this.timeStamp,
   });
-  Upcoming.fromData(Map<String, dynamic> data)
+  Event.fromData(Map<String, dynamic> data)
       : assert(data['eventName'] != null),
         assert(data['imageUrl'] != null),
         assert(data['organiser'] != null),
@@ -27,10 +26,10 @@ class Upcoming {
         timeStamp = data['timeStamp'],
         place = data['place'];
 
-  static Upcoming fromDocumentSnapShot(DocumentSnapshot snapshot) {
+  static Event fromDocumentSnapShot(DocumentSnapshot snapshot) {
     if (!snapshot.exists || snapshot.data == null) return null;
 
-    return Upcoming.fromData(snapshot.data);
+    return Event.fromData(snapshot.data);
   }
 
   Map<String, String> toJson() {
