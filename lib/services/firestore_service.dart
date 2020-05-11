@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/feed.dart';
 import 'package:svuce_app/models/upcoming.dart';
 import 'package:svuce_app/models/user.dart';
 
+@lazySingleton
 class FirestoreService {
   final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
 

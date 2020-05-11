@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class CloudStorageService {
   Future<CloudStorageResult> uploadImage({@required File imageToUpload}) async {
     var imageFileName = DateTime.now().millisecondsSinceEpoch.toString();

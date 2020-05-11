@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/firestore_service.dart';
@@ -18,6 +19,7 @@ abstract class BaseAuth {
   Future loginUser({String email, String password});
 }
 
+@lazySingleton
 class AuthenticationService implements BaseAuth {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
