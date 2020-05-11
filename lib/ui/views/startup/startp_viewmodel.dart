@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/assets.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
@@ -12,7 +14,10 @@ class StartUpViewModel extends BaseViewModel {
   final PushNotificationService _notificationService =
       locator<PushNotificationService>();
 
-  Future handleStartUpLogic() async {
+  Future handleStartUpLogic(BuildContext context) async {
+
+    await precacheImage(AssetImage(hexagonPattern), context);
+
     await _notificationService.initialise();
 
     var userLoggedIn = await _authenticationService.isUserLoggedIn();

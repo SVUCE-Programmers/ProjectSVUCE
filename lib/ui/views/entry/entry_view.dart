@@ -8,6 +8,7 @@ import 'entry_viewmodel.dart';
 class EntryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ImageProvider hexagonImage = AssetImage(hexagonPattern);
     return ScreenBuilder<EntryViewModel>(
       viewModel: EntryViewModel(),
       builder: (context, uiHelpers, model) {
@@ -16,11 +17,13 @@ class EntryView extends StatelessWidget {
             fit: StackFit.expand,
             children: <Widget>[
               // Image as background
-              Image.asset(
-                hexagonPattern,
+              Image(
                 fit: BoxFit.cover,
-                color: primaryColor.withOpacity(.5),
+                width: uiHelpers.width,
+                height: uiHelpers.height,
+                color: primaryColor.withOpacity(.6),
                 colorBlendMode: BlendMode.multiply,
+                image: hexagonImage,
               ),
               // Here comes the container raising from bottom
               Positioned(
