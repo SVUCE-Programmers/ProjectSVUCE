@@ -29,6 +29,12 @@ class AuthenticationService implements BaseAuth {
   //     : this.firebaseAuth =
   //           firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
+  /// This method uses FirebaseAuth to Sign in
+  /// It will generate Firebase User if there are no errors and we return
+  ///  [true] if there is a user. The main advantage with this approach is that
+  ///  we can catch the errors and can return the error message.
+  /// After Login we even get the profile of the user from firestore and store it
+  ///  in [currentUser]
   @override
   Future loginUser({@required String email, @required String password}) async {
     try {
@@ -46,6 +52,9 @@ class AuthenticationService implements BaseAuth {
   User _currentUser;
   User get currentUser => _currentUser;
 
+  /// This method creates a Firebase user with FirebaseAuth API and returns
+  ///  Firebase User as AuthResult if there is no errors and at the same we
+  ///  get the profile of the user from Firestore and stores it in [currentUser]
   @override
   Future createStudent(
       {@required String email,
@@ -80,6 +89,9 @@ class AuthenticationService implements BaseAuth {
     }
   }
 
+  /// An utility function to check whether the [User] Logged in.
+  /// If user is logged in we get the profile from Firestore and store it
+  ///   in [currentUser]
   @override
   Future<bool> isUserLoggedIn() async {
     var user = await firebaseAuth.currentUser();
@@ -87,12 +99,14 @@ class AuthenticationService implements BaseAuth {
     return user != null;
   }
 
+  /// This function is responsible for getting user profile from Firestore.
   Future _populateCurrentUser(FirebaseUser user) async {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
     }
   }
 
+  /// This function will help users reset their password by using FirebaseAuth API
   Future resetPassword(String email) async {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email);

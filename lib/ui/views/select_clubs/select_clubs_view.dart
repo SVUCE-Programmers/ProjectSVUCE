@@ -31,6 +31,7 @@ class SelectClubsView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return ClubTile(
                         index: index,
+                        headline: uiHelpers.title,
                       );
                     },
                   ),

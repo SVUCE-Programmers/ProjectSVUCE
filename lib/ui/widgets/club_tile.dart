@@ -6,11 +6,9 @@ import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
   final int index;
+  final TextStyle headline;
 
-  ClubTile({
-    Key key,
-    this.index,
-  });
+  ClubTile({Key key, this.index, this.headline});
 
   @override
   Widget build(BuildContext context, SelectClubsViewModel model) {
@@ -26,16 +24,11 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
         ),
         title: Text(
           club?.name,
-          style: Theme.of(context)
-              .textTheme
-              .headline
-              .copyWith(color: textPrimaryColor),
+          style: headline.copyWith(color: textPrimaryColor),
         ),
         subtitle: Text(
           club?.moto,
-          style: Theme.of(context)
-              .textTheme.headline
-              .copyWith(color: textSecondaryColor),
+          style: TextStyle(color: textSecondaryColor),
         ),
         trailing: FlatButton.icon(
           textColor: primaryColor,
