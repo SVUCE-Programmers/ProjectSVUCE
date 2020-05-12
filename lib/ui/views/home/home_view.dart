@@ -39,7 +39,8 @@ class HomeView extends StatelessWidget{
                 child: Text("Action"),
               ),
             ),
-          ], drawer: DrawerView(), homeViewItems: uiHelpers.homeViewItems),
+          ], drawer: DrawerView(), 
+          homeViewItems: uiHelpers.homeViewItems),
         );
       }
     );
