@@ -17,7 +17,7 @@ dependencies:
   http: ^0.12.1
 
   # state management
-  stacked: ^1.4.2
+  stacked: ^1.4.3
   # third party usable services
   stacked_services: ^0.2.2
   # navigation

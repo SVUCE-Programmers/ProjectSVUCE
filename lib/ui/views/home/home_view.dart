@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/views/drawer/drawer_view.dart';
+import 'package:svuce_app/ui/views/home/home_view_items.dart';
 import 'package:svuce_app/ui/widgets/home_wrapper.dart';
 
 import 'home_viewmodel.dart';
@@ -40,7 +41,7 @@ class HomeView extends StatelessWidget{
               ),
             ),
           ], drawer: DrawerView(), 
-          homeViewItems: uiHelpers.homeViewItems),
+          homeViewItems: homeViewItems),
         );
       }
     );

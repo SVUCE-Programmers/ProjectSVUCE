@@ -23,7 +23,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'SVUCE App',
       theme: themeData,
-      initialRoute: Routes.startUpViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       debugShowCheckedModeBanner: false,

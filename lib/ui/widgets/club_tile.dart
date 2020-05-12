@@ -6,11 +6,9 @@ import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
   final int index;
+  final TextStyle headline;
 
-  ClubTile({
-    Key key,
-    this.index,
-  });
+  ClubTile({Key key, this.index, this.headline});
 
   @override
   Widget build(BuildContext context, SelectClubsViewModel model) {
