@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/ui/views/drawer/drawer_view.dart';
+import 'package:svuce_app/ui/widgets/home_wrapper.dart';
 
-import 'home_view_items.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget{
@@ -11,34 +12,34 @@ class HomeView extends StatelessWidget{
     return ScreenBuilder<HomeViewModel>(
       viewModel: HomeViewModel(),
       builder: (context, uiHelpers, model) {
-        return Scaffold(
-          body: Center(
-            child: Text("Home"),
-          ),
-          bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border(
-                      top: BorderSide(
-                          color: textSecondaryColor,
-                          style: BorderStyle.solid,
-                          width: 2.0))),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  canvasColor: surfaceColor,
-                  primaryColor: primaryColor,
-                ),
-                child: BottomNavigationBar(
-                  items: homeViewItems.map((item) {
-                    return BottomNavigationBarItem(
-                        title: Text(item.title),
-                        activeIcon: Icon(item.activeIcon),
-                        icon: Icon(item.inactiveIcon));
-                  }).toList(),
-                  unselectedItemColor: textSecondaryColor,
-                  selectedItemColor: primaryColor,
-                ),
-              )),
+        return WillPopScope(
+          onWillPop: model.onWillPop,
+          child: HomeWrapper(homeItems: <Widget>[
+            Container(
+              color: textSecondaryColor,
+              child: Center(
+                child: Text("Home"),
+              ),
+            ),
+            Container(
+              color: textSecondaryColor,
+              child: Center(
+                child: Text("Feed"),
+              ),
+            ),
+            Container(
+              color: textSecondaryColor,
+              child: Center(
+                child: Text("Calendar"),
+              ),
+            ),
+            Container(
+              color: textSecondaryColor,
+              child: Center(
+                child: Text("Action"),
+              ),
+            ),
+          ], drawer: DrawerView(), homeViewItems: uiHelpers.homeViewItems),
         );
       }
     );

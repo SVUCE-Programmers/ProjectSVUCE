@@ -62,7 +62,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
           widget.homeViewItems[currentIndex].title,
           style: Theme.of(context)
               .textTheme
-              .headline
+              .headline6
               .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         automaticallyImplyLeading: false,

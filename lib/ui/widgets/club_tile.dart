@@ -28,13 +28,13 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
           club?.name,
           style: Theme.of(context)
               .textTheme
-              .headline
+              .headline6
               .copyWith(color: textPrimaryColor),
         ),
         subtitle: Text(
           club?.moto,
           style: Theme.of(context)
-              .textTheme.headline
+              .textTheme.headline6
               .copyWith(color: textSecondaryColor),
         ),
         trailing: FlatButton.icon(
