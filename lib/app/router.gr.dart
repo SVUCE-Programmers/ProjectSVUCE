@@ -33,11 +33,27 @@ abstract class Routes {
   static const userProfileViewRoute = '/user-profile-view-route';
   static const timeTableViewRoute = '/time-table-view-route';
   static const notificationsViewRoute = '/notifications-view-route';
+  static const all = {
+    startUpViewRoute,
+    entryViewRoute,
+    loginViewRoute,
+    forgotPasswordViewRoute,
+    signUpViewRoute,
+    createProfileViewRoute,
+    selectClubsViewRoute,
+    homeViewRoute,
+    feedViewRoute,
+    userProfileViewRoute,
+    timeTableViewRoute,
+    notificationsViewRoute,
+  };
 }
 
 class Router extends RouterBase {
-  //This will probably be removed in future versions
-  //you should call ExtendedNavigator.ofRouter<Router>() directly
+  @override
+  Set<String> get allRoutes => Routes.all;
+
+  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
   static ExtendedNavigatorState get navigator =>
       ExtendedNavigator.ofRouter<Router>();
 
@@ -119,9 +135,9 @@ class Router extends RouterBase {
   }
 }
 
-//**************************************************************************
+// *************************************************************************
 // Arguments holder classes
-//***************************************************************************
+// **************************************************************************
 
 //CreateProfileView arguments holder class
 class CreateProfileViewArguments {

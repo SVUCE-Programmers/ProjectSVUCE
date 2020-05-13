@@ -5,29 +5,15 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 
-abstract class BaseAuth {
-  Future createStudent(
-      {String email,
-      String password,
-      String fullName,
-      String rollNo,
-      String contact,
-      String profileImg,
-      String bio});
-  Future<bool> isUserLoggedIn();
-  Future signOut();
-  Future loginUser({String email, String password});
-}
-
 @lazySingleton
-class AuthenticationService implements BaseAuth {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+class AuthenticationService {
+  final FirebaseAuth firebaseAuth;
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
   // for testing
-  // AuthenticationService({FirebaseAuth firebaseAuth})
-  //     : this.firebaseAuth =
-  //           firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
+  AuthenticationService({FirebaseAuth firebaseAuth})
+      : this.firebaseAuth =
+            firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
   /// This method uses FirebaseAuth to Sign in
   /// It will generate Firebase User if there are no errors and we return
@@ -35,7 +21,6 @@ class AuthenticationService implements BaseAuth {
   ///  we can catch the errors and can return the error message.
   /// After Login we even get the profile of the user from firestore and store it
   ///  in [currentUser]
-  @override
   Future loginUser({@required String email, @required String password}) async {
     try {
       var authResult = await firebaseAuth.signInWithEmailAndPassword(
@@ -55,7 +40,6 @@ class AuthenticationService implements BaseAuth {
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we
   ///  get the profile of the user from Firestore and stores it in [currentUser]
-  @override
   Future createStudent(
       {@required String email,
       @required String password,
@@ -92,7 +76,6 @@ class AuthenticationService implements BaseAuth {
   /// An utility function to check whether the [User] Logged in.
   /// If user is logged in we get the profile from Firestore and store it
   ///   in [currentUser]
-  @override
   Future<bool> isUserLoggedIn() async {
     var user = await firebaseAuth.currentUser();
     await _populateCurrentUser(user);
@@ -115,7 +98,6 @@ class AuthenticationService implements BaseAuth {
     }
   }
 
-  @override
   Future signOut() async {
     await firebaseAuth.signOut();
   }

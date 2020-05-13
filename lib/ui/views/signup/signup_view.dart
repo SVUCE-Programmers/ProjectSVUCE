@@ -54,7 +54,7 @@ class SignUpView extends StatelessWidget {
                   title: "Your email here..",
                   keyboardType: TextInputType.emailAddress,
                   iconData: emailIcon,
-                  validator: validateEmail,
+                  validator: Validators.validateEmail,
                 ),
                 InputField(
                   controller: model.passwordController,
@@ -62,7 +62,7 @@ class SignUpView extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
                   isSecure: true,
-                  validator: validatePassword,
+                  validator: Validators.validatePassword,
                 ),
                 InputField(
                   controller: model.confirmPasswordController,
@@ -70,7 +70,7 @@ class SignUpView extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
                   isSecure: true,
-                  validator: validatePassword,
+                  validator: Validators.validatePassword,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

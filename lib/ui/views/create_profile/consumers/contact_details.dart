@@ -33,7 +33,7 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
             keyboardType: TextInputType.number,
             maxLength: 10,
             controller: model.contactController,
-            validator: validatePhoneNo,
+            validator: Validators.validatePhoneNo,
           ),
           InputField(
             iconData: bulbIcon,
