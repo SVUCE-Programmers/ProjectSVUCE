@@ -33,5 +33,5 @@ class StaffAdapter extends TypeAdapter<Staff> {
   }
 
   @override
-  final typeId=0;
+  int get typeId => 0;
 }
