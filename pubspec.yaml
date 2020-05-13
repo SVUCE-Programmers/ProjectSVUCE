@@ -9,6 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # For os-specific path directory
+  path_provider: ^1.6.7
+  # Hive
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
+  http: ^0.12.1
 
   # state management
   stacked: ^1.4.3
@@ -35,7 +41,8 @@ dev_dependencies:
     sdk: flutter
 
   #generators
-  build_runner:
+  hive_generator: ^0.5.1
+  build_runner: 
   auto_route_generator:
   injectable_generator:
 

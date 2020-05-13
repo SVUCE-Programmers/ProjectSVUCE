@@ -24,11 +24,16 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
         ),
         title: Text(
           club?.name,
-          style: headline.copyWith(color: textPrimaryColor),
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: textPrimaryColor),
         ),
         subtitle: Text(
           club?.moto,
-          style: TextStyle(color: textSecondaryColor),
+          style: Theme.of(context)
+              .textTheme.headline6
+              .copyWith(color: textSecondaryColor),
         ),
         trailing: FlatButton.icon(
           textColor: primaryColor,

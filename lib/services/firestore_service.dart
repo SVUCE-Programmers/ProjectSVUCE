@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/feed.dart';
-import 'package:svuce_app/models/upcoming.dart';
+import 'package:svuce_app/models/event.dart';
 import 'package:svuce_app/models/user.dart';
 
 @lazySingleton
@@ -29,7 +29,7 @@ class FirestoreService {
   final StreamController<List<Club>> _clubStreamController =
       StreamController<List<Club>>.broadcast();
 
-  final StreamController<Event> _upcomingController =
+  final StreamController<Event> _eventController =
       StreamController<Event>.broadcast();
 
   static const int FeedItemLimit = 10;
@@ -75,7 +75,7 @@ class FirestoreService {
 
   Stream listenToUpcoming() {
     _requestUpcomingData();
-    return _upcomingController.stream;
+    return _eventController.stream;
   }
 
   void _requestUpcomingData() {
@@ -84,7 +84,7 @@ class FirestoreService {
       if (snapshot.documents.isNotEmpty) {
         var eventItem = Event.fromDocumentSnapShot(snapshot.documents[0]);
         print("event item is:" + eventItem.toString());
-        _upcomingController.add(eventItem);
+        _eventController.add(eventItem);
       }
     });
   }

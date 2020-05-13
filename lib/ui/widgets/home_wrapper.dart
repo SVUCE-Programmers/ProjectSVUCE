@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
@@ -35,40 +34,17 @@ class _HomeWrapperState extends State<HomeWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          elevation: 0,
-          title: Text(
-            widget.homeViewItems[currentIndex].title,
-            style: Theme.of(context)
-                .textTheme
-                .headline
-                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  EvaIcons.bell,
-                  color: primaryColor,
-                ),
-                onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => NotificationsView()));
-                }),
-            IconButton(
-                icon: Icon(
-                  EvaIcons.keypad,
-                  color: primaryColor,
-                ),
-                onPressed: () {
-                  _scaffoldKey.currentState.openEndDrawer();
-                }),
-          ],
-        ),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        elevation: 0,
+        title: Text(
+          widget.homeViewItems[currentIndex].title,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        )),
         endDrawer: widget.drawer,
         body: IndexedStack(
           index: currentIndex,

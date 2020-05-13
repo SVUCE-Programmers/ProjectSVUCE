@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/views/home/home_viewmodel.dart';
+import 'package:svuce_app/ui/views/staff/staff_view.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
 
 class DrawerView extends StatelessWidget {
@@ -53,8 +54,11 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Faculty",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>StaffView()));
+                  },
                   iconData: FontAwesome5Solid.chalkboard_teacher,
+
                 ),
                 DrawerItem(
                   title: "Placements",
