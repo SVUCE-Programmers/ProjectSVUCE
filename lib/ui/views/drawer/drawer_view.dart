@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/views/home/home_viewmodel.dart';
 import 'package:svuce_app/ui/views/staff/staff_view.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
@@ -11,28 +11,27 @@ class DrawerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<HomeViewModel>(
       viewModel: HomeViewModel(),
-      onModelReady: (model)=>model.getCurrentUserDetails(),
+      onModelReady: (model) => model.getCurrentUserDetails(),
       builder: (context, uiHelpers, model) => Drawer(
         child: Container(
             color: backgroundColor,
             child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.all(20.0),
               children: <Widget>[
                 ListTile(
                   contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                   leading: CircleAvatar(
-                   maxRadius: 50,
-                   child: model.currentUser?.profileImg != null
-                       ? Image.network(
-                           model.currentUser?.profileImg,
-                           fit: BoxFit.cover,
-                         )
-                       : SizedBox(),
-                    ),
+                    radius: 30,
+                    backgroundImage: model.currentUser.profileImg != null
+                        ? NetworkImage(
+                            model.currentUser?.profileImg,
+                          )
+                        : SizedBox(),
+                  ),
                   title: Text.rich(TextSpan(children: [
                     TextSpan(
                       text: model.currentUser.fullName ?? "Harry Potter",
-                      style: uiHelpers.body.apply(color: textPrimaryColor),
+                      style: uiHelpers.title.apply(color: textPrimaryColor),
                     ),
                     TextSpan(
                       text: "\n",
@@ -44,7 +43,7 @@ class DrawerView extends StatelessWidget {
                   ])),
                   trailing: IconButton(
                       icon: Icon(
-                        Icons.exit_to_app,
+                        backIcon,
                         color: textSecondaryColor,
                       ),
                       onPressed: () {}),
@@ -55,35 +54,40 @@ class DrawerView extends StatelessWidget {
                 DrawerItem(
                   title: "Faculty",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>StaffView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => StaffView()));
                   },
-                  iconData: FontAwesome5Solid.chalkboard_teacher,
-
+                  iconData: facultyIcon,
                 ),
                 DrawerItem(
-                  title: "Placements",
+                  title: "Explore Clubs",
                   onTap: () {},
-                  iconData: FontAwesome5Solid.chart_bar,
+                  iconData: clubsIcon,
                 ),
                 DrawerItem(
-                  title: "Calender Events",
+                  title: "Timetable",
                   onTap: () {},
-                  iconData: FontAwesome5Solid.calendar,
+                  iconData: timeTableIcon,
                 ),
                 DrawerItem(
-                  title: "Announcements",
+                  title: "Attendance",
                   onTap: () {},
-                  iconData: FontAwesome5Solid.bullhorn,
+                  iconData: attendanceIcon,
+                ),
+                DrawerItem(
+                  title: "Campus Map",
+                  onTap: () {},
+                  iconData: campusIcon,
                 ),
                 DrawerItem(
                   title: "About College",
                   onTap: () {},
-                  iconData: FontAwesome5Solid.school,
+                  iconData: schoolIcon,
                 ),
                 DrawerItem(
                   title: "About App",
                   onTap: () {},
-                  iconData: FontAwesome5Solid.info_circle,
+                  iconData: infoIcon,
                 ),
               ],
             )),

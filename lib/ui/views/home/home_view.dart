@@ -7,43 +7,37 @@ import 'package:svuce_app/ui/widgets/home_wrapper.dart';
 
 import 'home_viewmodel.dart';
 
-class HomeView extends StatelessWidget{
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<HomeViewModel>(
-      viewModel: HomeViewModel(),
-      builder: (context, uiHelpers, model) {
-        return WillPopScope(
-          onWillPop: model.onWillPop,
-          child: HomeWrapper(homeItems: <Widget>[
-            Container(
-              color: textSecondaryColor,
-              child: Center(
-                child: Text("Home"),
+        viewModel: HomeViewModel(),
+        builder: (context, uiHelpers, model) {
+          return WillPopScope(
+            onWillPop: model.onWillPop,
+            child: HomeWrapper(homeItems: <Widget>[
+              Container(
+                child: Center(
+                  child: Text("Home"),
+                ),
               ),
-            ),
-            Container(
-              color: textSecondaryColor,
-              child: Center(
-                child: Text("Feed"),
+              Container(
+                child: Center(
+                  child: Text("Feed"),
+                ),
               ),
-            ),
-            Container(
-              color: textSecondaryColor,
-              child: Center(
-                child: Text("Calendar"),
+              Container(
+                child: Center(
+                  child: Text("Calendar"),
+                ),
               ),
-            ),
-            Container(
-              color: textSecondaryColor,
-              child: Center(
-                child: Text("Action"),
+              Container(
+                child: Center(
+                  child: Text("Action"),
+                ),
               ),
-            ),
-          ], drawer: DrawerView(), 
-          homeViewItems: homeViewItems),
-        );
-      }
-    );
+            ], drawer: DrawerView(), homeViewItems: homeViewItems),
+          );
+        });
   }
 }

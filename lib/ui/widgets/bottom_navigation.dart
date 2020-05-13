@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/models/home_view_item.dart';
 import 'package:svuce_app/ui/widgets/navbar_button.dart';
+
 class AnimatedBottomBar extends StatelessWidget {
   final ValueChanged<int> itemTapped;
-  final int cI;
-  final List<BarItem> items;
+  final int currentIndex;
+  final List<HomeViewItem> items;
 
-  const AnimatedBottomBar({this.items, this.itemTapped, this.cI = 0});
+  const AnimatedBottomBar({this.items, this.itemTapped, this.currentIndex = 0});
 
-  BarItem get selectedItem => cI >= 0 && cI < items.length ? items[cI] : null;
+  HomeViewItem get selectedItem =>
+      currentIndex >= 0 && currentIndex < items.length
+          ? items[currentIndex]
+          : null;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> buttonWidgets = items.map((data) {
-      return NavbarButton(
-        data, data == selectedItem, 
-        onTap: () {
-        var index = items.indexOf(data);
+    List<Widget> buttonWidgets = items.map((homeViewItem) {
+      return NavbarButton(homeViewItem, homeViewItem == selectedItem,
+          onTap: () {
+        var index = items.indexOf(homeViewItem);
         itemTapped(index);
       });
     }).toList();
@@ -25,8 +29,11 @@ class AnimatedBottomBar extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(12, 8, 8, 10),
       decoration: BoxDecoration(
-        color: backgroundColor,
-      ),
+          color: surfaceColor,
+          border: Border(
+              top: BorderSide(
+            color: textSecondaryColor,
+          ))),
       height: 80,
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -35,12 +42,4 @@ class AnimatedBottomBar extends StatelessWidget {
       ),
     );
   }
-}
-
-class BarItem {
-  final String text;
-  final IconData iconData;
-  final double width;
-
-  BarItem({this.text, this.iconData, this.width});
 }
