@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/views/home/home_viewmodel.dart';
+import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/views/home/main_home_viewmodel.dart';
 import 'package:svuce_app/ui/views/staff/staff_view.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
 
 class DrawerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScreenBuilder<HomeViewModel>(
-      viewModel: HomeViewModel(),
+    final uiHelpers = UIHelpers.fromContext(context);
+
+    return ViewModelBuilder<MainHomeViewModel>.reactive(
+      viewModelBuilder: () => MainHomeViewModel(),
       onModelReady: (model) => model.getCurrentUserDetails(),
-      builder: (context, uiHelpers, model) => Drawer(
+      builder: (context, model, child) => Drawer(
         child: Container(
             color: backgroundColor,
             child: ListView(

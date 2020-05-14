@@ -38,5 +38,4 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
           viewModelBuilder: () => viewModel);
     }
   }
-  
 }

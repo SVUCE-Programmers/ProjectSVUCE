@@ -8,8 +8,9 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/auth_service.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final AuthenticationService _authenticationService = locator<AuthenticationService>();
+class MainHomeViewModel extends BaseViewModel {
+  final AuthenticationService _authenticationService =
+      locator<AuthenticationService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
@@ -33,13 +34,13 @@ class HomeViewModel extends BaseViewModel {
     return false;
   }
 
-  String getGreeting(){
-    var h=DateTime.now().hour;
-    if(h<12){
+  String getGreeting() {
+    var h = DateTime.now().hour;
+    if (h < 12) {
       return "Good Morning";
-    }else if(h<17){
+    } else if (h < 17) {
       return "Good Afternoon";
-    }else{
+    } else {
       return "Good Evening";
     }
   }
@@ -50,5 +51,4 @@ class HomeViewModel extends BaseViewModel {
       _currentUser = user;
     }
   }
-
 }
