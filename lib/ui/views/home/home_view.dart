@@ -26,7 +26,7 @@ class HomeView extends StatelessWidget {
                   child: Text("Feed"),
                 ),
               ),
-              CalendarEvents(),
+              CalenderEventsView(),
               Container(
                 child: Center(
                   child: Text("Action"),

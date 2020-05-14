@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 
-final themeData = ThemeData(
+final themeData = (BuildContext context) => ThemeData(
     fontFamily: 'Quicksand',
     primaryColor: primaryColor,
     primarySwatch: Colors.teal,
@@ -10,4 +10,8 @@ final themeData = ThemeData(
       backgroundColor: surfaceColor,
       actionTextColor: textPrimaryColor,
     ),
+    iconTheme: IconThemeData(color: primaryColor),
+    textTheme: Theme.of(context)
+        .textTheme
+        .apply(bodyColor: textPrimaryColor, fontFamily: 'Quicksand'),
     scaffoldBackgroundColor: backgroundColor);

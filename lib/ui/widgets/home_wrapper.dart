@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/models/home_view_item.dart';
+import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
 import 'package:svuce_app/ui/widgets/bottom_navigation.dart';
 
@@ -28,18 +29,15 @@ class _HomeWrapperState extends State<HomeWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: Text(
-          widget.homeViewItems[currentIndex].title,
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-        )),
+        key: _scaffoldKey,
+        appBar: AppBar(
+            backgroundColor: backgroundColor,
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            title: Text(widget.homeViewItems[currentIndex].title,
+                style: UIHelpers.fromContext(context)
+                    .headline
+                    .copyWith(color: textPrimaryColor))),
         endDrawer: widget.drawer,
         body: IndexedStack(
           index: currentIndex,

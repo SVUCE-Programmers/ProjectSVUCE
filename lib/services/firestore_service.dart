@@ -31,7 +31,7 @@ class FirestoreService {
 
   final StreamController<Event> _upcomingController =
       StreamController<Event>.broadcast();
-  
+
   final StreamController<List<Event>> _eventController =
       StreamController<List<Event>>.broadcast();
 
@@ -76,15 +76,14 @@ class FirestoreService {
     }
   }
 
-  void _requestEventsData(){
-    var eventQuery=_eventColletionReference.orderBy("timeStamp");
+  void _requestEventsData() {
+    var eventQuery = _eventColletionReference.orderBy("timeStamp");
     eventQuery.snapshots().listen((event) {
       var item = event.documents
-            .map((snapshot) => Event.fromDocumentSnapShot(snapshot))
-            .toList();
+          .map((snapshot) => Event.fromDocumentSnapShot(snapshot))
+          .toList();
       _eventController.add(item);
     });
-
   }
 
   Stream listenToEventsData() {
