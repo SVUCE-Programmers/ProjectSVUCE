@@ -39,3 +39,4 @@ const IconData galleryIcon = EvaIcons.imageOutline;
 const IconData cameraIcon = EvaIcons.cameraOutline;
 const IconData deleteIcon = EvaIcons.trash2Outline;
 const IconData keyPadIcon = EvaIcons.keypad;
+const IconData notificationIcon = EvaIcons.bell;

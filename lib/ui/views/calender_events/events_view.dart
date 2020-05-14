@@ -30,7 +30,14 @@ class CalenderEventsView extends StatelessWidget {
                       builders: buildCalendarBuilders(uiHelpers),
                     ),
                   ),
-                  ...showEvents(model.selectedEvents)
+                  ...model.selectedEvents.length != 0
+                      ? model.selectedEvents
+                          .map((event) => EventListItem(
+                                event: event as Event,
+                                onTap: () => model.gotoDetailsPage(event),
+                              ))
+                          .toList()
+                      : [SizedBox()]
                 ],
               )
             : Center(
@@ -78,15 +85,5 @@ class CalenderEventsView extends StatelessWidget {
       headerMargin: EdgeInsets.symmetric(vertical: 10),
       titleTextStyle: uiHelpers.title.copyWith(color: textPrimaryColor),
     );
-  }
-
-  List showEvents(List events) {
-    return events.length != 0
-        ? events
-            .map((event) => EventListItem(
-                  event: event as Event,
-                ))
-            .toList()
-        : [SizedBox()];
   }
 }

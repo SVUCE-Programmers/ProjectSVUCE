@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/models/home_view_item.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
@@ -31,13 +32,32 @@ class _HomeWrapperState extends State<HomeWrapper> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-            backgroundColor: backgroundColor,
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            title: Text(widget.homeViewItems[currentIndex].title,
-                style: UIHelpers.fromContext(context)
-                    .headline
-                    .copyWith(color: textPrimaryColor))),
+          backgroundColor: backgroundColor,
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          title: Text(widget.homeViewItems[currentIndex].title,
+              style: UIHelpers.fromContext(context)
+                  .headline
+                  .copyWith(color: textPrimaryColor)),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  notificationIcon,
+                  color: primaryColor,
+                ),
+                onPressed: () {
+                  //TODO: Go to Notifications
+                }),
+            IconButton(
+                icon: Icon(
+                  keyPadIcon,
+                  color: primaryColor,
+                ),
+                onPressed: () {
+                  _scaffoldKey.currentState.openEndDrawer();
+                }),
+          ],
+        ),
         endDrawer: widget.drawer,
         body: IndexedStack(
           index: currentIndex,

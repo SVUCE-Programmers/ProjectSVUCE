@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route_annotations.dart';
+import 'package:svuce_app/ui/views/calender_events/event_detail.dart';
 import 'package:svuce_app/ui/views/create_profile/create_profile_view.dart';
 import 'package:svuce_app/ui/views/entry/entry_view.dart';
 import 'package:svuce_app/ui/views/feed/feed_view.dart';
@@ -29,4 +30,5 @@ class $Router {
   UserProfileView userProfileViewRoute;
   TimeTableView timeTableViewRoute;
   NotificationsView notificationsViewRoute;
+  EventDetailsView eventDetailsView;
 }

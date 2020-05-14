@@ -1,11 +1,14 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/models/event.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   List<Event> _eventList = List<Event>();
   Map<DateTime, List<dynamic>> get eventsList => groupEvents(_eventList);
@@ -42,5 +45,10 @@ class CalendarEventsViewModel extends BaseViewModel {
   onDaySelected(DateTime dateTime, List events) {
     _selectedevents = events;
     notifyListeners();
+  }
+
+  gotoDetailsPage(Event event) {
+    _navigationService.navigateTo(Routes.eventDetailsView,
+        arguments: EventDetailsViewArguments(event: event));
   }
 }

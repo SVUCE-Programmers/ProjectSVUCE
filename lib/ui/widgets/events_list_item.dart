@@ -6,7 +6,9 @@ import 'package:svuce_app/models/event.dart';
 class EventListItem extends StatelessWidget {
   final Event event;
 
-  const EventListItem({Key key, this.event}) : super(key: key);
+  final Function onTap;
+
+  const EventListItem({Key key, this.event, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class EventListItem extends StatelessWidget {
         color: textPrimaryColor,
       ),
       isThreeLine: true,
+      onTap: onTap,
     );
   }
 }

@@ -19,6 +19,8 @@ import 'package:svuce_app/ui/views/feed/feed_view.dart';
 import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
 import 'package:svuce_app/ui/views/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/views/notifications/notifications_view.dart';
+import 'package:svuce_app/ui/views/calender_events/event_detail.dart';
+import 'package:svuce_app/models/event.dart';
 
 abstract class Routes {
   static const startUpViewRoute = '/';
@@ -33,6 +35,7 @@ abstract class Routes {
   static const userProfileViewRoute = '/user-profile-view-route';
   static const timeTableViewRoute = '/time-table-view-route';
   static const notificationsViewRoute = '/notifications-view-route';
+  static const eventDetailsView = '/event-details-view';
   static const all = {
     startUpViewRoute,
     entryViewRoute,
@@ -46,6 +49,7 @@ abstract class Routes {
     userProfileViewRoute,
     timeTableViewRoute,
     notificationsViewRoute,
+    eventDetailsView,
   };
 }
 
@@ -129,6 +133,17 @@ class Router extends RouterBase {
           builder: (context) => NotificationsView(),
           settings: settings,
         );
+      case Routes.eventDetailsView:
+        if (hasInvalidArgs<EventDetailsViewArguments>(args)) {
+          return misTypedArgsRoute<EventDetailsViewArguments>(args);
+        }
+        final typedArgs =
+            args as EventDetailsViewArguments ?? EventDetailsViewArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) =>
+              EventDetailsView(key: typedArgs.key, event: typedArgs.event),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -145,4 +160,11 @@ class CreateProfileViewArguments {
   final String email;
   final String password;
   CreateProfileViewArguments({this.key, this.email, this.password});
+}
+
+//EventDetailsView arguments holder class
+class EventDetailsViewArguments {
+  final Key key;
+  final Event event;
+  EventDetailsViewArguments({this.key, this.event});
 }
