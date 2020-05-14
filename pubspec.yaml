@@ -16,6 +16,9 @@ dependencies:
   hive_flutter: ^0.3.0+2
   http: ^0.12.1
 
+  #Calendar
+  table_calendar: ^2.2.3
+
   # state management
   stacked: ^1.4.3
   # third party usable services

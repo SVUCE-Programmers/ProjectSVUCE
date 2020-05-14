@@ -29,8 +29,11 @@ class FirestoreService {
   final StreamController<List<Club>> _clubStreamController =
       StreamController<List<Club>>.broadcast();
 
-  final StreamController<Event> _eventController =
+  final StreamController<Event> _upcomingController =
       StreamController<Event>.broadcast();
+  
+  final StreamController<List<Event>> _eventController =
+      StreamController<List<Event>>.broadcast();
 
   static const int FeedItemLimit = 10;
 
@@ -73,9 +76,25 @@ class FirestoreService {
     }
   }
 
+  void _requestEventsData(){
+    var eventQuery=_eventColletionReference.orderBy("timeStamp");
+    eventQuery.snapshots().listen((event) {
+      var item = event.documents
+            .map((snapshot) => Event.fromDocumentSnapShot(snapshot))
+            .toList();
+      _eventController.add(item);
+    });
+
+  }
+
+  Stream listenToEventsData() {
+    _requestEventsData();
+    return _eventController.stream;
+  }
+
   Stream listenToUpcoming() {
     _requestUpcomingData();
-    return _eventController.stream;
+    return _upcomingController.stream;
   }
 
   void _requestUpcomingData() {
@@ -84,7 +103,7 @@ class FirestoreService {
       if (snapshot.documents.isNotEmpty) {
         var eventItem = Event.fromDocumentSnapShot(snapshot.documents[0]);
         print("event item is:" + eventItem.toString());
-        _eventController.add(eventItem);
+        _upcomingController.add(eventItem);
       }
     });
   }

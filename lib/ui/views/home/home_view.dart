@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/ui/views/calender_events/events_view.dart';
 import 'package:svuce_app/ui/views/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
 import 'package:svuce_app/ui/widgets/home_wrapper.dart';
@@ -26,11 +26,7 @@ class HomeView extends StatelessWidget {
                   child: Text("Feed"),
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Text("Calendar"),
-                ),
-              ),
+              CalendarEvents(),
               Container(
                 child: Center(
                   child: Text("Action"),

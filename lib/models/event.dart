@@ -7,12 +7,14 @@ class Event {
   String organiser;
   String timeStamp;
   String place;
+  String description;
   Event({
     this.eventName,
     this.imageUrl,
     this.organiser,
     this.place,
     this.timeStamp,
+    this.description
   });
   Event.fromData(Map<String, dynamic> data)
       : assert(data['eventName'] != null),
@@ -20,11 +22,13 @@ class Event {
         assert(data['organiser'] != null),
         assert(data['timeStamp'] != null),
         assert(data['place'] != null),
+        assert(data['description']!=null),
         eventName = data['eventName'],
         imageUrl = data['imageUrl'],
         organiser = data['organiser'],
         timeStamp = data['timeStamp'],
-        place = data['place'];
+        place = data['place'],
+        description=data['description'];
 
   static Event fromDocumentSnapShot(DocumentSnapshot snapshot) {
     if (!snapshot.exists || snapshot.data == null) return null;
@@ -39,6 +43,7 @@ class Event {
       "organiser": organiser,
       "place": place,
       "timeStamp": timeStamp,
+      "description":description,
     };
   }
 }

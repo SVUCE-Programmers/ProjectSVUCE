@@ -1,10 +1,6 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/models/home_view_item.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
 import 'package:svuce_app/ui/widgets/bottom_navigation.dart';
 
@@ -32,26 +28,18 @@ class _HomeWrapperState extends State<HomeWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          title: Text(widget.homeViewItems[currentIndex].title,
-              style: UIHelpers.fromContext(context)
-                  .headline
-                  .copyWith(color: textPrimaryColor)),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  keyPadIcon,
-                  color: primaryColor,
-                ),
-                onPressed: () {
-                  _scaffoldKey.currentState.openEndDrawer();
-                })
-          ],
-        ),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        title: Text(
+          widget.homeViewItems[currentIndex].title,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        )),
         endDrawer: widget.drawer,
         body: IndexedStack(
           index: currentIndex,
