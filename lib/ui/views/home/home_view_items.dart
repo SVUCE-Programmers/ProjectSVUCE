@@ -26,35 +26,14 @@ final List<HomeViewItem> homeViewItems = [
       scaleRatio: 35),
 ];
 
-final List<SpotlightItem> spotLightItems=[
-  SpotlightItem(
-    icon: Icons.group, 
-    name: "Hall of Fame", 
-    onTap: (){},
-  ),
-  SpotlightItem(
-    icon: Icons.check_box_outline_blank, 
-    name: "Faculty",
-    onTap: (){}
-  ),
-  SpotlightItem(
-    icon: Icons.settings_input_antenna, 
-    name: "Announcements",
-    onTap: (){}
-  ),
-  SpotlightItem(
-    icon: Icons.timeline, 
-    name: "Time table",
-    onTap: (){}
-  ),
-  SpotlightItem(
-    icon: Icons.assignment_turned_in, 
-    name: "Attendance",
-    onTap: (){}
-  ),
-  SpotlightItem(
-    icon: Icons.calendar_today, 
-    name: "Clubs",
-    onTap: (){}
-  ),
+final List<SpotlightItem> firstRowSpotlight = [
+  SpotlightItem(icon: clubsIcon, name: "Explore Clubs", onTap: () {}),
+  SpotlightItem(icon: facultyIcon, name: "Faculty", onTap: () {}),
+  SpotlightItem(icon: attendanceIcon, name: "Attendance", onTap: () {}),
+];
+
+final List<SpotlightItem> secondRowSpotlight = [
+  SpotlightItem(icon: hallOfFameIcon, name: "Hall of Fame", onTap: () {}),
+  SpotlightItem(icon: timeTableIcon, name: "Time table", onTap: () {}),
+  SpotlightItem(icon: campusIcon, name: "Campus", onTap: () {}),
 ];

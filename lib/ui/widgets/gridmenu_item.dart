@@ -5,27 +5,38 @@ class SpotlightItem extends StatelessWidget {
   final IconData icon;
   final String name;
   final Function onTap;
-  const SpotlightItem({Key key, @required this.icon, 
-      @required this.name,@required this.onTap}) : super(key: key);
+  const SpotlightItem(
+      {Key key, @required this.icon, @required this.name, @required this.onTap})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: 50,
-            width: 50,
+    return Wrap(
+      direction: Axis.vertical,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: <Widget>[
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(bottom: 10.0),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: surfaceColor.withOpacity(0.4)
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: surfaceColor),
+            child: Icon(
+              icon,
+              color: primaryColor,
             ),
-            child:  Icon(icon,color: primaryColor,size: 26,),
-            
+            padding: EdgeInsets.all(20.0),
           ),
-          Container(width:50,child: Center(child: Text(name,style: TextStyle(fontSize: 10),))),
-        ],
-      ),
+        ),
+        Text(
+          name,
+          style: Theme.of(context)
+              .textTheme
+              .caption
+              .copyWith(color: textPrimaryColor),
+        )
+      ],
     );
   }
 }
