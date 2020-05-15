@@ -59,6 +59,7 @@ class FeedItem extends StatelessWidget {
                     ])),
               ],
             ),
+            Text("From Cache : ${feed?.isFromCache}")
           ],
         ),
       ),

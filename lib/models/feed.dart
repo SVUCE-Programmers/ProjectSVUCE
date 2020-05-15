@@ -10,6 +10,7 @@ class Feed {
   final String category;
   final String timeStamp;
   final String profileImg;
+  final bool isFromCache;
 
   Feed(
       {this.fullName,
@@ -19,10 +20,11 @@ class Feed {
       this.description,
       this.link,
       this.timeStamp,
+      this.isFromCache,
       this.category,
       this.profileImg});
 
-  Feed.fromData(Map<String, dynamic> data, String feedId)
+  Feed.fromData(Map<String, dynamic> data, String feedId, bool isFromCache)
       : assert(data['uid'] != null),
         assert(data['link'] != null),
         assert(data['fullName'] != null),
@@ -39,12 +41,14 @@ class Feed {
         title = data['title'],
         description = data['description'],
         timeStamp = data['timeStamp'],
+        isFromCache = isFromCache,
         category = data['category'];
 
   static Feed fromDocumentSnapShot(DocumentSnapshot snapshot) {
     if (!snapshot.exists || snapshot.data == null) return null;
 
-    return Feed.fromData(snapshot.data, snapshot.documentID);
+    return Feed.fromData(
+        snapshot.data, snapshot.documentID, snapshot.metadata?.isFromCache);
   }
 
   Map<String, String> toJson() {
