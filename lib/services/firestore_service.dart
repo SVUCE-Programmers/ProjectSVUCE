@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/models/annnouncement.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/feed.dart';
 import 'package:svuce_app/models/event.dart';
@@ -23,8 +24,14 @@ class FirestoreService {
   final CollectionReference _eventColletionReference =
       Firestore.instance.collection('events');
 
+  final CollectionReference _announcementsCollectionReference=
+      Firestore.instance.collection("announcements");
+
   final StreamController<List<Feed>> _feedController =
       StreamController<List<Feed>>.broadcast();
+
+  final StreamController<List<Announcement>> _announceController =
+      StreamController<List<Announcement>>.broadcast();
 
   final StreamController<List<Club>> _clubStreamController =
       StreamController<List<Club>>.broadcast();
@@ -153,6 +160,49 @@ class FirestoreService {
         _hasMoreFeedItems = feedItems.length == FeedItemLimit;
       }
     });
+  }
+
+  Stream listenToAnnouncement(){
+    _requestAnnounceData();
+    return _announceController.stream;
+
+  }
+
+  void _requestAnnounceData(){
+    var query=_announcementsCollectionReference.orderBy("timeStamp");
+    query.snapshots().listen((snapshot){
+      if(snapshot.documents.isNotEmpty){
+        var item = snapshot.documents
+            .map((snapshot) => Announcement.fromSnapshot(snapshot))
+            .toList();
+        print(item.toString());
+        _announceController.add(item);
+      }
+    });
+  }
+
+  getTimeAgo(DateTime dateTime) {
+    final present = DateTime.now();
+    final diff = present.difference(dateTime);
+    if ((diff.inDays / 365).floor() >= 1) {
+      return '${(diff.inDays / 365).floor()} years ago';
+    } else if ((diff.inDays / 30).floor() >= 1) {
+      return '${(diff.inDays / 365).floor()} months ago';
+    }  else if ((diff.inDays / 7).floor() >= 1) {
+      return '${(diff.inDays / 7).floor()} weeks ago';
+    } else if (diff.inDays >= 2) {
+      return '${diff.inDays} days ago';
+    } else if (diff.inDays >= 1) {
+      return 'Yesterday';
+    } else if (diff.inHours >= 1) {
+      return '${diff.inHours} hours ago';
+    } else if (diff.inMinutes >= 1) {
+      return '${diff.inMinutes} minutes ago';
+    } else if (diff.inSeconds >= 2) {
+      return '${diff.inSeconds} seconds ago';
+    } else {
+      return 'Just now';
+    }
   }
 
   void requestMoreData() => _requestFeedItems();
