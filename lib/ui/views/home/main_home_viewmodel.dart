@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/auth_service.dart';
 
@@ -13,6 +14,7 @@ class MainHomeViewModel extends BaseViewModel {
       locator<AuthenticationService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   User _currentUser;
   User get currentUser => _currentUser;
@@ -50,5 +52,10 @@ class MainHomeViewModel extends BaseViewModel {
     if (user != null) {
       _currentUser = user;
     }
+  }
+
+  // Navigations
+  gotoTimeTable() async {
+    await _navigationService.navigateTo(Routes.timeTableViewRoute);
   }
 }

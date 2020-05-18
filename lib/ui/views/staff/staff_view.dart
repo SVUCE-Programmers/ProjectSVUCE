@@ -10,6 +10,7 @@ class StaffView extends StatelessWidget {
     return ScreenBuilder<StaffViewModel>(
       viewModel: StaffViewModel(),
       disposeViewModel: false,
+      onModelReady: (model) => model.getStaff(),
       builder: (context, uiHelpers, model) {
         return Container(
           child: DefaultTabController(length: 3, child: Scaffold(

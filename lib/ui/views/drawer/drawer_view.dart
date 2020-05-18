@@ -69,7 +69,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Timetable",
-                  onTap: () {},
+                  onTap: () => model.gotoTimeTable(),
                   iconData: timeTableIcon,
                 ),
                 DrawerItem(
