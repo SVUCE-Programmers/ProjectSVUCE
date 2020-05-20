@@ -49,20 +49,38 @@ getStudentYear(String rollNo) {
 
   int currentYear = DateTime.now().year;
 
+  int month=DateTime.now().month;
+
   int difference = currentYear - int.parse(rollNo);
 
   switch (difference) {
     case 1:
-      year = "first_year";
+      if(month<=6){
+        year = "first_year";
+      }else{
+        year="second_year";
+      }
       break;
     case 2:
-      year = "second_year";
+      if(month<=6){
+        year = "second_year";
+      }else{
+        year="third_year";
+      }
       break;
     case 3:
-      year = "third_year";
+      if(month<=6){
+        year = "third_year";
+      }else{
+        year="final_year";
+      }
       break;
     case 4:
-      year = "final_year";
+      if(month<=6){
+        year = "final_year";
+      }else{
+        year="passed_out";
+      }
       break;
   }
 
