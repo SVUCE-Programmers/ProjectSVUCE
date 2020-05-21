@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/views/time_table/utils.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 import 'package:svuce_app/ui/widgets/week_day_selector.dart';
 
@@ -15,6 +13,7 @@ class TimeTableView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       viewModel: TimeTableViewModel(),
       builder: (context, uiHelpers, model) {
+        List<dynamic> timeTableItems = model.getCurrentDayTimeTable();
         return Scaffold(
           appBar: AppBar(
             // leading: IconButton(
@@ -36,13 +35,18 @@ class TimeTableView extends StatelessWidget {
             children: <Widget>[
               WeekDaySelector(),
               uiHelpers.verticalSpaceLow,
-              ...model
-                  .getCurrentDayTimeTable()
-                  //TODO: Implement [Remaind Me] Feature
-                  .map((eachTimeTable) => TimeTableItem(
-                        timeTable: eachTimeTable,
-                      ))
-                  .toList()
+              if (timeTableItems.length > 0)
+                ...timeTableItems
+                    //TODO: Implement [Remaind Me] Feature
+                    .map((eachTimeTable) => TimeTableItem(
+                          timeTable: eachTimeTable,
+                        ))
+                    .toList()
+              else
+                Text(
+                  "No Classes Today",
+                  textAlign: TextAlign.center,
+                )
             ],
           ),
         );
