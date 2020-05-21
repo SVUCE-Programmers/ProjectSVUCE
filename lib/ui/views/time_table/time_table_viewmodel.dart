@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/colors.dart';
@@ -19,39 +18,44 @@ class TimeTableViewModel extends BaseViewModel {
       locator<AuthenticationService>();
   final SnackbarService snackbarService = locator<SnackbarService>();
 
-  var url="https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
+  var url =
+      "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
 
-  getTimeTable() async{
+  getTimeTable() async {
     bool exists = await hiveService.isExists(boxName: "TimeTable");
+
     if (exists) {
-      print("Getting from hive");
+      // Getting data from Hive
       setBusy(true);
+
       List<dynamic> temp = await hiveService.getBoxes<TimeTable>("TimeTable");
-      for(var item in temp){
-        if (item.year==authenticationService.getStudentPresentYear()){
+
+      for (var item in temp) {
+        if (item.year == authenticationService.getStudentPresentYear()) {
           _classes.add(item);
         }
       }
+
       setBusy(false);
     } else {
-      print("Getting from Api");
+      // Getting data from API and storing in hive for later usage
       setBusy(true);
+
       try {
         var result = await apiService.fetchData(url: url);
+
         (result as List).map((item) {
           TimeTable staffItem = TimeTable(
-            className : item["class_name"],
-            startTime : item["start_time"],
-            endTime : item["end_time"],
-            day : item["day"],
-            year: item["year"]
-          );
+              className: item["class_name"],
+              startTime: item["start_time"],
+              endTime: item["end_time"],
+              day: item["day"],
+              year: item["year"]);
           _classes.add(staffItem);
         }).toList();
-        final openBox = await Hive.openBox("TimeTable");
-        for (var item in _classes) {
-            openBox.add(item);
-        }
+
+        await hiveService.addBoxes<TimeTable>(_classes, "TimeTable");
+
         setBusy(false);
       } catch (e) {
         setBusy(false);
@@ -86,5 +90,11 @@ class TimeTableViewModel extends BaseViewModel {
   init() {
     getTimeTable();
     currentIndex = weekDates.indexOf(DateTime.now().day);
+  }
+
+  List<dynamic> getCurrentDayTimeTable() {
+    var currentWeekDay = weekDays[currentIndex];
+    var result = _classes.where((element) => element.day == currentWeekDay);
+    return result.toList();
   }
 }

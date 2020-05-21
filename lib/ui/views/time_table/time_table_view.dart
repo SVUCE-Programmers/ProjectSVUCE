@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/views/time_table/utils.dart';
+import 'package:svuce_app/ui/widgets/time_table_item.dart';
 import 'package:svuce_app/ui/widgets/week_day_selector.dart';
 
 import 'time_table_viewmodel.dart';
@@ -33,47 +35,18 @@ class TimeTableView extends StatelessWidget {
             padding: EdgeInsets.all(20.0),
             children: <Widget>[
               WeekDaySelector(),
-              ...getCurrentDayTimeTable(weekDays[model.currentIndex],model)
-                  .map((eachTimeTable) {
-                return Container(
-                  padding: EdgeInsets.all(10),
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: surfaceColor,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(eachTimeTable.startTime+" - "+eachTimeTable.endTime,
-                            style: TextStyle(color: primaryColor,fontSize: 10),),
-                            uiHelpers.verticalSpaceLow,
-                            Text(eachTimeTable.className,
-                            style: TextStyle(color: textPrimaryColor,fontSize: 20,fontWeight: FontWeight.bold
-                            ,fontFamily: "Quicksand"),)
-                          ],
-                        ),
-                        Icon(Icons.notifications_active)
-                      ],
-                    ),
-                  ),
-                );
-              }).toList()
+              uiHelpers.verticalSpaceLow,
+              ...model
+                  .getCurrentDayTimeTable()
+                  //TODO: Implement [Remaind Me] Feature
+                  .map((eachTimeTable) => TimeTableItem(
+                        timeTable: eachTimeTable,
+                      ))
+                  .toList()
             ],
           ),
         );
       },
     );
-  }
-
-  List<dynamic> getCurrentDayTimeTable(String day,TimeTableViewModel model) {
-    var res=model.classes.where((element) => element.day==day);
-    print("Res2 is:"+res.toString());
-    return res.toList();
   }
 }

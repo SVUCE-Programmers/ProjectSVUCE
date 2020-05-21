@@ -99,8 +99,8 @@ class AuthenticationService {
     }
   }
 
-  getStudentPresentYear(){
-    String roll=currentUser.rollNo;
+  getStudentPresentYear() {
+    String roll = currentUser.rollNo;
     return getStudentYear(roll);
   }
 
