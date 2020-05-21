@@ -26,13 +26,31 @@ final List<HomeViewItem> homeViewItems = [
 ];
 
 final List<SpotlightItem> firstRowSpotlight = [
-  SpotlightItem(icon: clubsIcon, name: "Explore Clubs", onTap: () {}),
-  SpotlightItem(icon: facultyIcon, name: "Faculty", onTap: () {}),
-  SpotlightItem(icon: attendanceIcon, name: "Attendance", onTap: () {}),
+  SpotlightItem(
+    icon: clubsIcon,
+    name: "Explore Clubs",
+  ),
+  SpotlightItem(
+    icon: facultyIcon,
+    name: "Faculty",
+  ),
+  SpotlightItem(
+    icon: attendanceIcon,
+    name: "Attendance",
+  ),
 ];
 
 final List<SpotlightItem> secondRowSpotlight = [
-  SpotlightItem(icon: hallOfFameIcon, name: "Hall of Fame", onTap: () {}),
-  SpotlightItem(icon: timeTableIcon, name: "Time table", onTap: () {}),
-  SpotlightItem(icon: campusIcon, name: "Campus", onTap: () {}),
+  SpotlightItem(
+    icon: hallOfFameIcon,
+    name: "Hall of Fame",
+  ),
+  SpotlightItem(
+    icon: timeTableIcon,
+    name: "Time table",
+  ),
+  SpotlightItem(
+    icon: campusIcon,
+    name: "Campus",
+  ),
 ];

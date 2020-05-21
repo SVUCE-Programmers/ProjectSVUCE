@@ -23,12 +23,12 @@ class DrawerView extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   contentPadding: EdgeInsets.symmetric(vertical: 20.0),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: model.currentUser.profileImg != null
-                        ? NetworkImage(
-                            model.currentUser?.profileImg,
-                          )
+                  leading: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(uiHelpers.scalingHelper.size(80)),
+                    child: model.currentUser?.profileImg != null
+                        ? Image.network(model.currentUser.profileImg,
+                            fit: BoxFit.cover, width: 50, height: 50)
                         : SizedBox(),
                   ),
                   title: Text.rich(TextSpan(children: [

@@ -5,6 +5,10 @@ import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 import 'package:svuce_app/ui/widgets/club_tile.dart';
 
 class SelectClubsView extends StatelessWidget {
+  final bool isSelectClubs;
+
+  const SelectClubsView({Key key, this.isSelectClubs}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<SelectClubsViewModel>(
@@ -12,12 +16,12 @@ class SelectClubsView extends StatelessWidget {
       onModelReady: (model) => model.getClubListOnce(),
       builder: (context, uiHelpers, model) {
         return WillPopScope(
-          onWillPop: model.onWillPop,
+          onWillPop: isSelectClubs ? model.onWillPop : null,
           child: Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
               title: Text(
-                "Explore Clubs",
+                isSelectClubs ? "Select Clubs" : "Explore Clubs",
                 style: uiHelpers.headline.copyWith(color: textPrimaryColor),
               ),
               elevation: 0,
@@ -32,24 +36,28 @@ class SelectClubsView extends StatelessWidget {
                       return ClubTile(
                         index: index,
                         headline: uiHelpers.title,
+                        body: uiHelpers.body,
+                        isSelectClubs: isSelectClubs,
                       );
                     },
                   ),
-            bottomNavigationBar: Container(
-              margin: EdgeInsets.all(20.0),
-              height: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(color: primaryColor, width: 4),
-                  borderRadius: BorderRadius.circular(10)),
-              child: FlatButton(
-                  onPressed: model.gotoHome,
-                  child: Center(
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(color: primaryColor, fontSize: 16),
-                    ),
-                  )),
-            ),
+            bottomNavigationBar: isSelectClubs
+                ? Container(
+                    margin: EdgeInsets.all(20.0),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: primaryColor, width: 4),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: FlatButton(
+                        onPressed: model.gotoHome,
+                        child: Center(
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(color: primaryColor, fontSize: 16),
+                          ),
+                        )),
+                  )
+                : null,
           ),
         );
       },

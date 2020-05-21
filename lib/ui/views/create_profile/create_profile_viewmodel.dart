@@ -168,7 +168,8 @@ class CreateProfileViewModel extends BaseViewModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(Routes.selectClubsViewRoute);
+        _navigationService.navigateTo(Routes.selectClubsViewRoute,
+            arguments: SelectClubsViewArguments(isSelectClubs: true));
       } else {
         await _snackbarService.showCustomSnackBar(
           duration: Duration(seconds: 5),

@@ -104,8 +104,14 @@ class Router extends RouterBase {
           settings: settings,
         );
       case Routes.selectClubsViewRoute:
+        if (hasInvalidArgs<SelectClubsViewArguments>(args)) {
+          return misTypedArgsRoute<SelectClubsViewArguments>(args);
+        }
+        final typedArgs =
+            args as SelectClubsViewArguments ?? SelectClubsViewArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (context) => SelectClubsView(),
+          builder: (context) => SelectClubsView(
+              key: typedArgs.key, isSelectClubs: typedArgs.isSelectClubs),
           settings: settings,
         );
       case Routes.homeViewRoute:
@@ -160,6 +166,13 @@ class CreateProfileViewArguments {
   final String email;
   final String password;
   CreateProfileViewArguments({this.key, this.email, this.password});
+}
+
+//SelectClubsView arguments holder class
+class SelectClubsViewArguments {
+  final Key key;
+  final bool isSelectClubs;
+  SelectClubsViewArguments({this.key, this.isSelectClubs});
 }
 
 //EventDetailsView arguments holder class

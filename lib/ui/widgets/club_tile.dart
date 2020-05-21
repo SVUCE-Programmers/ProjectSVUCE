@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
   final int index;
   final TextStyle headline;
+  final TextStyle body;
+  final bool isSelectClubs;
 
-  ClubTile({Key key, this.index, this.headline});
+  ClubTile({Key key, this.index, this.headline, this.isSelectClubs, this.body});
 
   @override
   Widget build(BuildContext context, SelectClubsViewModel model) {
@@ -24,27 +27,24 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
         ),
         title: Text(
           club?.name,
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(color: textPrimaryColor),
+          style: headline.copyWith(color: textPrimaryColor),
         ),
         subtitle: Text(
           club?.moto,
-          style: Theme.of(context)
-              .textTheme.headline6
-              .copyWith(color: textSecondaryColor),
+          style: body.copyWith(color: textSecondaryColor),
         ),
-        trailing: FlatButton.icon(
-          textColor: primaryColor,
-          icon: Icon(Icons.add),
-          onPressed: onFollowButtonPressed != null
-              ? model.isBusy || success ? null : onFollowButtonPressed
-              : null,
-          label: !model.isBusy
-              ? Text(success ? "Followed" : "Follow")
-              : CircularProgressIndicator(),
-        ),
+        trailing: isSelectClubs
+            ? FlatButton.icon(
+                textColor: primaryColor,
+                icon: Icon(Icons.add),
+                onPressed: onFollowButtonPressed != null
+                    ? model.isBusy || success ? null : onFollowButtonPressed
+                    : null,
+                label: !model.isBusy
+                    ? Text(success ? "Followed" : "Follow")
+                    : CircularProgressIndicator(),
+              )
+            : Icon(forwardIcon),
       ),
     );
   }

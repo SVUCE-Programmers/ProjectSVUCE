@@ -54,7 +54,16 @@ class MainHomeView extends StatelessWidget {
             ),
             uiHelpers.verticalSpaceLow,
             Wrap(
-              children: firstRowSpotlight,
+              children: firstRowSpotlight.map((eachSpotLight) {
+                if (eachSpotLight.name == "Explore Clubs") {
+                  return GestureDetector(
+                    onTap: () => model.gotoClubs(),
+                    child: eachSpotLight,
+                  );
+                } else {
+                  return eachSpotLight;
+                }
+              }).toList(),
               alignment: WrapAlignment.spaceBetween,
             ),
             uiHelpers.verticalSpaceMedium,
