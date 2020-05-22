@@ -31,7 +31,7 @@ class AuthenticationService {
 
       return authResult.user != null;
     } catch (e) {
-      return e?.message;
+      return e;
     }
   }
 
@@ -99,7 +99,7 @@ class AuthenticationService {
     }
   }
 
-  getStudentPresentYear() {
+  String getStudentPresentYear() {
     String roll = currentUser.rollNo;
     return getStudentYear(roll);
   }

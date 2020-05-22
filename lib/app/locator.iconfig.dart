@@ -13,6 +13,7 @@ import 'package:svuce_app/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
+import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -31,6 +32,7 @@ void $initGetIt(GetIt g, {String environment}) {
       () => PushNotificationService());
   g.registerLazySingleton<SnackbarService>(
       () => registerExternalServices.snackbarService);
+  g.registerLazySingleton<TimeTableService>(() => TimeTableService());
   g.registerLazySingleton<AuthenticationService>(
       () => AuthenticationService(firebaseAuth: g<FirebaseAuth>()));
 }

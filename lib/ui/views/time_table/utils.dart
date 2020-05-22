@@ -38,7 +38,7 @@ List<int> generateCurrentWeekDays() {
   return weekDays;
 }
 
-getStudentYear(String rollNo) {
+String getStudentYear(String rollNo) {
   if (rollNo == null || rollNo.isEmpty) {
     return "";
   }
@@ -49,37 +49,37 @@ getStudentYear(String rollNo) {
 
   int currentYear = DateTime.now().year;
 
-  int month=DateTime.now().month;
+  int month = DateTime.now().month;
 
   int difference = currentYear - int.parse(rollNo);
 
   switch (difference) {
     case 1:
-      if(month<=6){
+      if (month <= 6) {
         year = "first_year";
-      }else{
-        year="second_year";
+      } else {
+        year = "second_year";
       }
       break;
     case 2:
-      if(month<=6){
+      if (month <= 6) {
         year = "second_year";
-      }else{
-        year="third_year";
+      } else {
+        year = "third_year";
       }
       break;
     case 3:
-      if(month<=6){
+      if (month <= 6) {
         year = "third_year";
-      }else{
-        year="final_year";
+      } else {
+        year = "final_year";
       }
       break;
     case 4:
-      if(month<=6){
+      if (month <= 6) {
         year = "final_year";
-      }else{
-        year="passed_out";
+      } else {
+        year = "passed_out";
       }
       break;
   }
@@ -87,7 +87,7 @@ getStudentYear(String rollNo) {
   return year;
 }
 
-getCurrentWeekDay(int weekDay) {
+String getCurrentWeekDay(int weekDay) {
   String returnWeekDay = "";
 
   switch (weekDay) {

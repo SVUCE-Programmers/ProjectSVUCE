@@ -5,7 +5,7 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/hive_db/staff.dart';
+import 'package:svuce_app/hive_db/models/staff.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/hive_service.dart';
 

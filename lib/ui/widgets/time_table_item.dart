@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/hive_db/time_table.dart';
+import 'package:svuce_app/hive_db/models/time_table.dart';
 
 class TimeTableItem extends StatelessWidget {
   final TimeTable timeTable;

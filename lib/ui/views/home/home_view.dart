@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
         MainHomeView(),
         FeedView(),
         CalenderEventsView(),
-        ActionCenter(),
+        Container(),
       ],
       drawer: DrawerView(),
       homeViewItems: homeViewItems,
