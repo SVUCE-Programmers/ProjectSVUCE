@@ -4,6 +4,7 @@ import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/hive_service.dart';
+import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class TimeTableService {
@@ -26,24 +27,20 @@ class TimeTableService {
       // Getting data from Hive
       List<TimeTable> temp = await hiveService.getBoxes<TimeTable>("TimeTable");
 
-      List<TimeTable> streamData = List<TimeTable>();
-
       for (var item in temp) {
         if (item.year == studentYear) {
           streamData.add(item);
         }
       }
 
-      return streamData;
+      return true;
     } else {
       // Getting data from API and storing in hive for later usage
 
       try {
         var result = await apiService.fetchData(url: url);
 
-        List<TimeTable> streamData = List<TimeTable>();
-
-        (result as List).map((item) {
+        (result as List).forEach((item) {
           TimeTable timeTable = TimeTable(
               className: item["class_name"],
               startTime: item["start_time"],
@@ -51,17 +48,31 @@ class TimeTableService {
               day: item["day"],
               year: item["year"]);
 
-          streamData.add(timeTable);
-        }).toList();
+          if (timeTable.year == studentYear) {
+            streamData.add(timeTable);
+          }
+        });
 
         await hiveService.addBoxes<TimeTable>(streamData, "TimeTable");
 
-        return streamData
-            .where((element) => element.year == studentYear)
-            .toList();
+        return true;
       } catch (e) {
-        return e;
+        return e.toString();
       }
     }
+  }
+
+  List<TimeTable> getCurrentDayClasses() {
+    var currentWeekDay = getCurrentWeekDay(DateTime.now().weekday);
+
+    var result = streamData.where((element) => element.day == currentWeekDay);
+
+    return result.toList();
+  }
+
+  List<TimeTable> getClassesOfDay(String currentWeekDay) {
+    var result = streamData.where((element) => element.day == currentWeekDay);
+
+    return result.toList();
   }
 }

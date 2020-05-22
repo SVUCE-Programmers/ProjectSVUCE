@@ -20,21 +20,21 @@ class TimeTableViewModel extends BaseViewModel {
   List<TimeTable> _timeTableItems;
   List<TimeTable> get timeTable => _timeTableItems;
 
-  getTimeTable() async {
-    setBusy(true);
+  // getTimeTable() async {
+  //   setBusy(true);
 
-    var result = await timeTableService.getTimeTable();
+  //   var result = await timeTableService.getTimeTable();
 
-    setBusy(false);
+  //   setBusy(false);
 
-    if (result is String) {
-      //TODO: Show Error Message
-      return;
-    }
+  //   if (result is String) {
+  //     //TODO: Show Error Message
+  //     return;
+  //   }
 
-    _timeTableItems = (result as List);
-    notifyListeners();
-  }
+  //   _timeTableItems = (result as List);
+  //   notifyListeners();
+  // }
 
   changeCurrentDay(int index) {
     currentDay = weekDates[index];
@@ -48,8 +48,12 @@ class TimeTableViewModel extends BaseViewModel {
   int currentIndex;
 
   init() async {
-    await getTimeTable();
     currentIndex = weekDates.indexOf(DateTime.now().day);
+    List<TimeTable> items = timeTableService.streamData;
+
+    if (items != null) {
+      _timeTableItems = items;
+    }
   }
 
   List<TimeTable> getCurrentDayTimeTable() {

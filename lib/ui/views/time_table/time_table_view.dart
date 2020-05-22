@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
+// import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 import 'package:svuce_app/ui/widgets/week_day_selector.dart';
 
