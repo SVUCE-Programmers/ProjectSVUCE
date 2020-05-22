@@ -1,42 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'attendance.dart';
+part of 'time_table.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class AttendanceAdapter extends TypeAdapter<Attendance> {
+class TimeTableAdapter extends TypeAdapter<TimeTable> {
   @override
-  Attendance read(BinaryReader reader) {
+  TimeTable read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Attendance(
-      subject: fields[0] as String,
-      present: fields[1] as int,
-      absent: fields[2] as int,
-      total: fields[3] as int,
-      lastUpdated: fields[4] as String,
+    return TimeTable(
+      className: fields[0] as String,
+      startTime: fields[1] as String,
+      endTime: fields[2] as String,
+      day: fields[3] as String,
+      year: fields[4] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Attendance obj) {
+  void write(BinaryWriter writer, TimeTable obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.subject)
+      ..write(obj.className)
       ..writeByte(1)
-      ..write(obj.present)
+      ..write(obj.startTime)
       ..writeByte(2)
-      ..write(obj.absent)
+      ..write(obj.endTime)
       ..writeByte(3)
-      ..write(obj.total)
+      ..write(obj.day)
       ..writeByte(4)
-      ..write(obj.lastUpdated);
+      ..write(obj.year);
   }
+
   @override
-  int get typeId =>2;
+  int get typeId => 1;
 }
