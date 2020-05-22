@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/ui/utils/scaling.dart';
 
 class UIHelpers {
@@ -28,9 +27,6 @@ class UIHelpers {
   SizedBox horizontalSpaceMedium;
   SizedBox horizontalSpaceHigh;
 
-  BoxDecoration textFieldDecoration;
-  OutlineInputBorder textFieldInputBorder;
-
   UIHelpers.fromContext(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
@@ -53,13 +49,6 @@ class UIHelpers {
         fontWeight: FontWeight.w600,
         fontFamily: 'Quicksand',
         fontSize: scalingHelper.size(18));
-
-    textFieldDecoration = BoxDecoration(
-    borderRadius: BorderRadius.circular(10.0), color: textSecondaryColor);
-
-    textFieldInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10.0),
-    borderSide: BorderSide(color: textSecondaryColor));
 
     blockSizeHorizontal = screenWidth / 100;
     blockSizeVertical = screenHeight / 100;

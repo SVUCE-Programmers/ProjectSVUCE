@@ -10,6 +10,7 @@ class Staff{
   final String fullName;
   @HiveField(2)
   final String avatar;
+ 
 
   Staff({this.email, this.fullName, this.avatar});
 }

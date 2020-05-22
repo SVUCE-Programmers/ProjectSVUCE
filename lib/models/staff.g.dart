@@ -17,6 +17,7 @@ class StaffAdapter extends TypeAdapter<Staff> {
       email: fields[0] as String,
       fullName: fields[1] as String,
       avatar: fields[2] as String,
+      
     );
   }
 
@@ -33,5 +34,5 @@ class StaffAdapter extends TypeAdapter<Staff> {
   }
 
   @override
-  int get typeId => 0;
+  int get typeId =>0;
 }

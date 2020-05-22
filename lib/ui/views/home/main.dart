@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
 
@@ -24,9 +25,10 @@ class MainHomeView extends StatelessWidget {
                       style: uiHelpers.title,
                     ),
                     TextSpan(
-                      text: "\nHey " + model.currentUser.fullName,
-                      style: uiHelpers.body
-                          .copyWith(fontWeight: FontWeight.normal),
+                      text: "\n" + model.currentUser.fullName,
+                      style: uiHelpers.body.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: textSecondaryColor),
                     )
                   ],
                 ),
@@ -40,19 +42,18 @@ class MainHomeView extends StatelessWidget {
                     : SizedBox(),
               ),
             ),
-            uiHelpers.verticalSpaceMedium,
-            Text("Upcoming Event",
+            Text("\nUpcoming Event\n",
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20)),
-            uiHelpers.verticalSpaceMedium,
-            Text(
-              "In the spotlight",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+            Container(
+              height: uiHelpers.blockSizeVertical * 20,
+              decoration: BoxDecoration(
+                  color: surfaceColor,
+                  borderRadius: BorderRadius.circular(10.0)),
             ),
-            uiHelpers.verticalSpaceLow,
+            Text(
+              "\nIn the spotlight\n",
+              style: uiHelpers.title,
+            ),
             Wrap(
               children: firstRowSpotlight.map((eachSpotLight) {
                 if (eachSpotLight.name == "Explore Clubs") {
@@ -66,7 +67,7 @@ class MainHomeView extends StatelessWidget {
               }).toList(),
               alignment: WrapAlignment.spaceBetween,
             ),
-            uiHelpers.verticalSpaceMedium,
+            uiHelpers.verticalSpaceLow,
             Wrap(
               children: secondRowSpotlight,
               alignment: WrapAlignment.spaceBetween,

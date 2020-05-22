@@ -57,5 +57,10 @@ class MainHomeViewModel extends BaseViewModel {
   gotoClubs() {
     _navigationService.navigateTo(Routes.selectClubsViewRoute,
         arguments: SelectClubsViewArguments(isSelectClubs: false));
+    // Navigations
+  }
+
+  gotoTimeTable() async {
+    await _navigationService.navigateTo(Routes.timeTableViewRoute);
   }
 }

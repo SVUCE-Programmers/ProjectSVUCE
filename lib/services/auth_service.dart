@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/firestore_service.dart';
+import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class AuthenticationService {
@@ -96,6 +97,11 @@ class AuthenticationService {
     } catch (e) {
       return e.message;
     }
+  }
+
+  getStudentPresentYear() {
+    String roll = currentUser.rollNo;
+    return getStudentYear(roll);
   }
 
   Future signOut() async {
