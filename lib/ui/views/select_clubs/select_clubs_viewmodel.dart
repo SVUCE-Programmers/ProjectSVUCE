@@ -79,9 +79,9 @@ class SelectClubsViewModel extends BaseViewModel {
 
   Future<bool> onWillPop() async {
     await _snackbarService.showCustomSnackBar(
-        title: 'Exit',
+        title: confirmExitInfo,
         duration: Duration(seconds: 5),
-        message: 'Are you sure to exit?',
+        message: confirmExitMessage,
         backgroundColor: surfaceColor,
         mainButton: FlatButton(
           textColor: textPrimaryColor,

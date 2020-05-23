@@ -36,7 +36,7 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
         trailing: isSelectClubs
             ? FlatButton.icon(
                 textColor: primaryColor,
-                icon: Icon(Icons.add),
+                icon: Icon(addIcon),
                 onPressed: onFollowButtonPressed != null
                     ? model.isBusy || success ? null : onFollowButtonPressed
                     : null,
