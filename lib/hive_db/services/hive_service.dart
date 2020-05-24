@@ -1,16 +1,19 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/locator.dart';
 
 @lazySingleton
 class HiveService {
+  final _hiveInterface = locator<HiveInterface>();
+
   isExists({String boxName}) async {
-    final openBox = await Hive.openBox(boxName);
+    final openBox = await _hiveInterface.openBox(boxName);
     int length = openBox.length;
     return length != 0;
   }
 
   addBoxes<T>(List<T> items, String boxName) async {
-    final openBox = await Hive.openBox(boxName);
+    final openBox = await _hiveInterface.openBox(boxName);
     for (var item in items) {
       openBox.add(item);
     }
@@ -19,7 +22,7 @@ class HiveService {
   getBoxes<T>(String boxName) async {
     List<T> boxList = List<T>();
 
-    final openBox = await Hive.openBox(boxName);
+    final openBox = await _hiveInterface.openBox(boxName);
 
     int length = openBox.length;
 
@@ -31,13 +34,13 @@ class HiveService {
   }
 
   getBoxAtIndex<T>(String boxName, int index) async {
-    int length = Hive.box(boxName).length;
+    int length = _hiveInterface.box(boxName).length;
 
     if (index >= length) {
       return "INDEX_ERROR";
     }
 
-    final openBox = await Hive.openBox(boxName);
+    final openBox = await _hiveInterface.openBox(boxName);
 
     var result = openBox.getAt(index);
 
@@ -45,7 +48,7 @@ class HiveService {
   }
 
   updateBoxAtIndex<T>(String boxName, var newBox, int oldBoxIndex) async {
-    int length = Hive.box(boxName).length;
+    int length = _hiveInterface.box(boxName).length;
 
     if (oldBoxIndex >= length) {
       return "INDEX_ERROR";
@@ -53,7 +56,7 @@ class HiveService {
 
     newBox = newBox as T;
 
-    final openBox = await Hive.openBox(boxName);
+    final openBox = await _hiveInterface.openBox(boxName);
 
     await openBox.putAt(oldBoxIndex, newBox);
   }

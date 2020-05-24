@@ -9,6 +9,7 @@ import 'package:svuce_app/services/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:svuce_app/services/register_third_party_services.dart';
 import 'package:svuce_app/services/firestore_service.dart';
+import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -24,6 +25,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<FirebaseAuth>(
       () => registerExternalServices.firebaseAuth);
   g.registerLazySingleton<FirestoreService>(() => FirestoreService());
+  g.registerLazySingleton<HiveInterface>(() => registerExternalServices.hive);
   g.registerLazySingleton<HiveService>(() => HiveService());
   g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   g.registerLazySingleton<NavigationService>(
