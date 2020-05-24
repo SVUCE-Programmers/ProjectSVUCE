@@ -1,36 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'staff.dart';
+part of 'placement.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class StaffAdapter extends TypeAdapter<Staff> {
+class PlacementAdapter extends TypeAdapter<Placement> {
   @override
-  Staff read(BinaryReader reader) {
+  Placement read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Staff(
-      email: fields[0] as String,
-      fullName: fields[1] as String,
-      avatar: fields[2] as String,
+    return Placement(
+      year: fields[0] as String,
+      no: fields[1] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Staff obj) {
+  void write(BinaryWriter writer, Placement obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.email)
+      ..write(obj.year)
       ..writeByte(1)
-      ..write(obj.fullName)
-      ..writeByte(2)
-      ..write(obj.avatar);
+      ..write(obj.no);
   }
+
   @override
-  int get typeId => 0;
+  int get typeId => 3;
 }

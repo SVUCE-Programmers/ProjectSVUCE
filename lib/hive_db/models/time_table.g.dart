@@ -37,7 +37,6 @@ class TimeTableAdapter extends TypeAdapter<TimeTable> {
       ..writeByte(4)
       ..write(obj.year);
   }
-
   @override
   int get typeId => 1;
 }

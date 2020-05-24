@@ -37,7 +37,6 @@ class AttendanceAdapter extends TypeAdapter<Attendance> {
       ..writeByte(4)
       ..write(obj.lastUpdated);
   }
-
   @override
   int get typeId => 2;
 }
