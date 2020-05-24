@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
+import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/hive_service.dart';
@@ -15,16 +12,19 @@ import 'package:svuce_app/services/hive_service.dart';
 class AttendanceViewModel extends BaseViewModel {
   final HiveService hiveService = locator<HiveService>();
   final APIService apiService = locator<APIService>();
+  final TimeTableService timeTableService = locator<TimeTableService>();
   final SnackbarService snackbarService = locator<SnackbarService>();
   final AuthenticationService authenticationService =
       locator<AuthenticationService>();
 
-  List<Attendance> _attList = [];
-  List<Attendance> get atList => _attList;
+  final String boxName = "Attendance";
+
+  List<Attendance> _attendanceList = [];
+  List<Attendance> get atList => _attendanceList;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  var url =
+  final String url =
       "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
 
   getStatus(int present, int total) {
@@ -71,107 +71,77 @@ class AttendanceViewModel extends BaseViewModel {
   }
 
   getSubjectList() async {
-    bool exists = await hiveService.isExists(boxName: "Attendance");
+    bool exists = await hiveService.isExists(boxName: boxName);
+
     if (exists) {
       setBusy(true);
-      _attList = await hiveService.getBoxes<Attendance>("Attendance");
+
+      _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
+
       setBusy(false);
     } else {
       setBusy(true);
-      bool subExists = await hiveService.isExists(boxName: "TimeTable");
-      if (subExists) {
-        final openBox = await Hive.openBox("Attendance");
-        List<dynamic> temp = await hiveService.getBoxes<TimeTable>("TimeTable");
-        List<String> dummy = [];
-        print("Temp ata atterndance:" + temp.toString());
-        for (var item in temp) {
-          if (item.year == authenticationService.getStudentPresentYear()) {
-            print("Item at adding in temp:" + item.year.toString());
-            Attendance atitem = Attendance(
-                subject: item.className,
-                present: 0,
-                absent: 0,
-                total: 0,
-                lastUpdated: "Nothing");
-            print("Attendance item at creation:" + atitem.toString());
-            if (!dummy.contains(atitem.subject)) {
-              openBox.add(atitem);
-              dummy.add(atitem.subject);
-              _attList.add(atitem);
-            }
-          }
+
+      List<TimeTable> timeTable = timeTableService.streamData;
+
+      List<String> dummy = [];
+
+      for (var item in timeTable) {
+        Attendance atitem = Attendance(
+            subject: item.className,
+            present: 0,
+            absent: 0,
+            total: 0,
+            lastUpdated: "Nothing");
+
+        if (!dummy.contains(atitem.subject)) {
+          dummy.add(atitem.subject);
+          _attendanceList.add(atitem);
         }
-        setBusy(false);
-      } else {
-        getTT();
       }
+
+      await hiveService.addBoxes<Attendance>(_attendanceList, boxName);
+
+      setBusy(false);
     }
   }
 
   addPresent(String subject, int index) async {
     setBusy(true);
-    var box = Hive.box("Attendance").getAt(index) as Attendance;
-    Attendance at = Attendance(
+
+    var box = await hiveService.getBoxAtIndex<Attendance>(boxName, index);
+
+    Attendance newAttendance = Attendance(
         subject: box.subject,
         total: box.total + 1,
         present: box.present + 1,
         absent: box.absent,
         lastUpdated: "Present");
-    Hive.box("Attendance").putAt(index, at);
-    _attList = await hiveService.getBoxes<Attendance>("Attendance");
+
+    await hiveService.updateBoxAtIndex(boxName, newAttendance, index);
+
+    _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
 
     setBusy(false);
-    notifyListeners();
   }
 
   addAbsent(String subject, int index) async {
     setBusy(true);
-    var box = Hive.box("Attendance").getAt(index) as Attendance;
-    Attendance at = Attendance(
+
+    var box = hiveService.getBoxAtIndex<Attendance>("", index);
+
+    Attendance newAttendance = Attendance(
         subject: box.subject,
         total: box.total + 1,
         present: box.present,
         absent: box.absent + 1,
         lastUpdated: "Absent");
-    Hive.box("Attendance").putAt(index, at);
-    _attList = await hiveService.getBoxes<Attendance>("Attendance");
+
+    await hiveService.updateBoxAtIndex(boxName, newAttendance, index);
+
+    _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
 
     setBusy(false);
-    notifyListeners();
-  }
-
-  getTT() async {
-    List<dynamic> temp = [];
-    setBusy(true);
-    try {
-      var result = await apiService.fetchData(url: url);
-      (result as List).map((item) {
-        TimeTable staffItem = TimeTable(
-            className: item["class_name"],
-            startTime: item["start_time"],
-            endTime: item["end_time"],
-            day: item["day"],
-            year: item["year"]);
-        temp.add(staffItem);
-      }).toList();
-      final openBox = await Hive.openBox("TimeTable");
-      for (var item in temp) {
-        openBox.add(item);
-      }
-      setBusy(false);
-    } catch (e) {
-      setBusy(false);
-      return snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-        backgroundColor: surfaceColor,
-        title: commonErrorTitle,
-        message: commonErrorInfo,
-      );
-    }
   }
 
   init() {

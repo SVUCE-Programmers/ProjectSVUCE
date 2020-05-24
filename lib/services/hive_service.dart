@@ -29,4 +29,32 @@ class HiveService {
 
     return boxList;
   }
+
+  getBoxAtIndex<T>(String boxName, int index) async {
+    int length = Hive.box(boxName).length;
+
+    if (index >= length) {
+      return "INDEX_ERROR";
+    }
+
+    final openBox = await Hive.openBox(boxName);
+
+    var result = openBox.getAt(index);
+
+    return result as T;
+  }
+
+  updateBoxAtIndex<T>(String boxName, var newBox, int oldBoxIndex) async {
+    int length = Hive.box(boxName).length;
+
+    if (oldBoxIndex >= length) {
+      return "INDEX_ERROR";
+    }
+
+    newBox = newBox as T;
+
+    final openBox = await Hive.openBox(boxName);
+
+    await openBox.putAt(oldBoxIndex, newBox);
+  }
 }
