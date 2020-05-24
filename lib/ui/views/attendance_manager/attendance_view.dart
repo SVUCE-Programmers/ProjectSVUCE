@@ -28,7 +28,7 @@ class _AttendanceViewState extends State<AttendanceView> {
           ),
         ),
         body: ListView.builder(
-          itemCount: model.atList.length,
+          itemCount: model.attendanceList.length,
           itemBuilder: (context, int index) {
             return Container(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -50,11 +50,12 @@ class _AttendanceViewState extends State<AttendanceView> {
                                 height: 50,
                                 width: 10,
                                 decoration: BoxDecoration(
-                                    color: model.atList[index].total == 0
+                                    color: model.attendanceList[index].total ==
+                                            0
                                         ? Colors.greenAccent
-                                        : (model.atList[index].present /
-                                                    model
-                                                        .atList[index].total) >=
+                                        : (model.attendanceList[index].present /
+                                                    model.attendanceList[index]
+                                                        .total) >=
                                                 0.75
                                             ? Colors.green
                                             : Colors.red,
@@ -62,7 +63,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                model.atList[index].subject,
+                                model.attendanceList[index].subject,
                                 style: TextStyle(color: textPrimaryColor),
                               )
                             ],
@@ -73,10 +74,11 @@ class _AttendanceViewState extends State<AttendanceView> {
                                 style: TextStyle(color: textSecondaryColor),
                                 children: <TextSpan>[
                                   TextSpan(
-                                      text: (model.atList[index].present
+                                      text: (model.attendanceList[index].present
                                               .toString() +
                                           "/" +
-                                          model.atList[index].total.toString()),
+                                          model.attendanceList[index].total
+                                              .toString()),
                                       style: TextStyle(color: textPrimaryColor))
                                 ]),
                           ),
@@ -88,8 +90,9 @@ class _AttendanceViewState extends State<AttendanceView> {
                                   TextSpan(
                                       text: (model
                                           .getStatus(
-                                              model.atList[index].present,
-                                              model.atList[index].total)
+                                              model.attendanceList[index]
+                                                  .present,
+                                              model.attendanceList[index].total)
                                           .toString()),
                                       style: TextStyle(color: textPrimaryColor))
                                 ]),
@@ -117,41 +120,13 @@ class _AttendanceViewState extends State<AttendanceView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Container(
-                                      padding: EdgeInsets.all(5.0),
-                                      decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: GestureDetector(
-                                          onTap: () async {
-                                            await model.addPresent(
-                                                model.atList[index].subject,
-                                                index);
-                                          },
-                                          child: Icon(addIcon,
-                                              color: Colors.white, size: 15)),
+                                    IconButton(
+                                      icon: Icon(Icons.add),
+                                      onPressed: () => model.addPresent(index),
                                     ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(3),
-                                      decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            model.addAbsent(
-                                                model.atList[index].subject,
-                                                index);
-                                          },
-                                          child: Icon(
-                                            Icons.work,
-                                            color: Colors.white,
-                                            size: 15,
-                                          )),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () => model.addAbsent(index),
                                     )
                                   ],
                                 )

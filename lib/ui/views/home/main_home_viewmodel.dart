@@ -9,6 +9,7 @@ import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/services/auth_service.dart';
+import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
 
 class MainHomeViewModel extends BaseViewModel {
   final AuthenticationService _authenticationService =
@@ -63,5 +64,10 @@ class MainHomeViewModel extends BaseViewModel {
 
   gotoTimeTable() async {
     await _navigationService.navigateTo(Routes.timeTableViewRoute);
+  }
+
+  gotoAttendance() async {
+    await _navigationService.navigateWithTransition(AttendanceView(),
+        transition: "fade");
   }
 }

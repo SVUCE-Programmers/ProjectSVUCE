@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
-import 'package:svuce_app/hive_db/models/time_table.dart';
+import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
-import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/services/api_service.dart';
-import 'package:svuce_app/services/auth_service.dart';
 
 class AttendanceViewModel extends BaseViewModel {
-  final HiveService hiveService = locator<HiveService>();
-  final APIService apiService = locator<APIService>();
-  final TimeTableService timeTableService = locator<TimeTableService>();
-  final SnackbarService snackbarService = locator<SnackbarService>();
-  final AuthenticationService authenticationService =
-      locator<AuthenticationService>();
+  final HiveService _hiveService = locator<HiveService>();
+  final AttendanceService _attendanceService = locator<AttendanceService>();
 
   final String boxName = "Attendance";
 
   List<Attendance> _attendanceList = [];
-  List<Attendance> get atList => _attendanceList;
+  List<Attendance> get attendanceList => _attendanceList;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final String url =
-      "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
 
   getStatus(int present, int total) {
     if (total != 0) {
@@ -70,81 +59,38 @@ class AttendanceViewModel extends BaseViewModel {
     return count;
   }
 
-  getSubjectList() async {
-    bool exists = await hiveService.isExists(boxName: boxName);
+  addPresent(int index) async {
+    setBusy(true);
 
-    if (exists) {
-      setBusy(true);
+    await _attendanceService.addPresent(index);
 
-      _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
+    setBusy(false);
+  }
 
-      setBusy(false);
-    } else {
-      setBusy(true);
+  addAbsent(int index) async {
+    setBusy(true);
 
-      List<TimeTable> timeTable = timeTableService.streamData;
+    await _attendanceService.addAbsent(index);
 
-      List<String> dummy = [];
+    setBusy(false);
+  }
 
-      for (var item in timeTable) {
-        Attendance atitem = Attendance(
-            subject: item.className,
-            present: 0,
-            absent: 0,
-            total: 0,
-            lastUpdated: "Nothing");
+  init() async {
+    await getAttendance();
+  }
 
-        if (!dummy.contains(atitem.subject)) {
-          dummy.add(atitem.subject);
-          _attendanceList.add(atitem);
+  getAttendance() async {
+    var result = await _attendanceService.init();
+
+    if (result is bool) {
+      if (result) {
+        List<Attendance> items = _attendanceService.attendanceList;
+
+        if (items != null) {
+          _attendanceList = items;
+          notifyListeners();
         }
       }
-
-      await hiveService.addBoxes<Attendance>(_attendanceList, boxName);
-
-      setBusy(false);
     }
-  }
-
-  addPresent(String subject, int index) async {
-    setBusy(true);
-
-    var box = await hiveService.getBoxAtIndex<Attendance>(boxName, index);
-
-    Attendance newAttendance = Attendance(
-        subject: box.subject,
-        total: box.total + 1,
-        present: box.present + 1,
-        absent: box.absent,
-        lastUpdated: "Present");
-
-    await hiveService.updateBoxAtIndex(boxName, newAttendance, index);
-
-    _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
-
-    setBusy(false);
-  }
-
-  addAbsent(String subject, int index) async {
-    setBusy(true);
-
-    var box = hiveService.getBoxAtIndex<Attendance>("", index);
-
-    Attendance newAttendance = Attendance(
-        subject: box.subject,
-        total: box.total + 1,
-        present: box.present,
-        absent: box.absent + 1,
-        lastUpdated: "Absent");
-
-    await hiveService.updateBoxAtIndex(boxName, newAttendance, index);
-
-    _attendanceList = await hiveService.getBoxes<Attendance>(boxName);
-
-    setBusy(false);
-  }
-
-  init() {
-    getSubjectList();
   }
 }
