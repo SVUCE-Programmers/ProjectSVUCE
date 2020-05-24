@@ -4,10 +4,10 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
+import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:svuce_app/services/hive_service.dart';
 
 class AttendanceViewModel extends BaseViewModel {
   final HiveService hiveService = locator<HiveService>();

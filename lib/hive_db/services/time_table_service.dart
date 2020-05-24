@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
+import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:svuce_app/services/hive_service.dart';
 import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
