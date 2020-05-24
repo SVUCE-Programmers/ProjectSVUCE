@@ -31,7 +31,7 @@ List<int> generateCurrentWeekDays() {
       break;
   }
 
-  for (var i = 0; i < 7; i++) {
+  for (var i = 0; i <= 7; i++) {
     weekDays.add(alpha + i);
   }
 

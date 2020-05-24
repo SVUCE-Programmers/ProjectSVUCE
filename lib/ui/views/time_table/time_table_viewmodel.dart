@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -20,22 +21,6 @@ class TimeTableViewModel extends BaseViewModel {
   List<TimeTable> _timeTableItems;
   List<TimeTable> get timeTable => _timeTableItems;
 
-  // getTimeTable() async {
-  //   setBusy(true);
-
-  //   var result = await timeTableService.getTimeTable();
-
-  //   setBusy(false);
-
-  //   if (result is String) {
-  //     //TODO: Show Error Message
-  //     return;
-  //   }
-
-  //   _timeTableItems = (result as List);
-  //   notifyListeners();
-  // }
-
   changeCurrentDay(int index) {
     currentDay = weekDates[index];
     currentIndex = index;
@@ -49,6 +34,7 @@ class TimeTableViewModel extends BaseViewModel {
 
   init() async {
     currentIndex = weekDates.indexOf(DateTime.now().day);
+
     List<TimeTable> items = timeTableService.streamData;
 
     if (items != null) {
@@ -61,5 +47,11 @@ class TimeTableViewModel extends BaseViewModel {
     var result =
         _timeTableItems.where((element) => element.day == currentWeekDay);
     return result.toList();
+  }
+
+  getTimeTable() {
+    return _timeTableItems != null
+        ? currentIndex == 6 ? Text("RELAX") : getCurrentDayTimeTable()
+        : [];
   }
 }
