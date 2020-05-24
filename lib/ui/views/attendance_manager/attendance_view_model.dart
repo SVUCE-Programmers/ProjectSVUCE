@@ -3,10 +3,8 @@ import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
-import 'package:svuce_app/hive_db/services/hive_service.dart';
 
 class AttendanceViewModel extends BaseViewModel {
-  final HiveService _hiveService = locator<HiveService>();
   final AttendanceService _attendanceService = locator<AttendanceService>();
 
   final String boxName = "Attendance";

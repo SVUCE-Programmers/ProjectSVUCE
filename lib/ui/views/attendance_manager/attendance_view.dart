@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/views/attendance_manager/attendance_view_model.dart';
+import 'package:svuce_app/ui/widgets/attendance_item.dart';
 
-class AttendanceView extends StatefulWidget {
+class AttendanceView extends StatelessWidget {
   @override
-  _AttendanceViewState createState() => _AttendanceViewState();
-}
-
-class _AttendanceViewState extends State<AttendanceView> {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<AttendanceViewModel>(
       viewModel: AttendanceViewModel(),
       onModelReady: (model) => model.init(),
-      disposeViewModel: true,
+      disposeViewModel: false,
       builder: (context, uiHelpers, model) => Scaffold(
-        key: model.scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
@@ -28,121 +23,10 @@ class _AttendanceViewState extends State<AttendanceView> {
           ),
         ),
         body: ListView.builder(
+          padding: EdgeInsets.all(20),
           itemCount: model.attendanceList.length,
-          itemBuilder: (context, int index) {
-            return Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                    color: surfaceColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                height: 50,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                    color: model.attendanceList[index].total ==
-                                            0
-                                        ? Colors.greenAccent
-                                        : (model.attendanceList[index].present /
-                                                    model.attendanceList[index]
-                                                        .total) >=
-                                                0.75
-                                            ? Colors.green
-                                            : Colors.red,
-                                    borderRadius: BorderRadius.circular(10)),
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                model.attendanceList[index].subject,
-                                style: TextStyle(color: textPrimaryColor),
-                              )
-                            ],
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                text: "Attendance:",
-                                style: TextStyle(color: textSecondaryColor),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: (model.attendanceList[index].present
-                                              .toString() +
-                                          "/" +
-                                          model.attendanceList[index].total
-                                              .toString()),
-                                      style: TextStyle(color: textPrimaryColor))
-                                ]),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                text: "Status:",
-                                style: TextStyle(color: textPrimaryColor),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: (model
-                                          .getStatus(
-                                              model.attendanceList[index]
-                                                  .present,
-                                              model.attendanceList[index].total)
-                                          .toString()),
-                                      style: TextStyle(color: textPrimaryColor))
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: backgroundColor,
-                                  child: Container(),
-                                ),
-                                SizedBox(height: 5.0),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(Icons.add),
-                                      onPressed: () => model.addPresent(index),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.delete),
-                                      onPressed: () => model.addAbsent(index),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            IconButton(
-                                icon: Icon(Icons.more_vert),
-                                onPressed: () => model.scaffoldKey.currentState
-                                    .showBottomSheet(
-                                        (context) => bottomSheet(context)))
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ));
+          itemBuilder: (context, index) {
+            return AttendanceItem(index);
           },
         ),
       ),
