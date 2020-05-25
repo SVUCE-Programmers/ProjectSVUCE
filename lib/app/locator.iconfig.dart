@@ -4,11 +4,11 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
+import 'package:http/src/client.dart';
+import 'package:svuce_app/services/register_third_party_services.dart';
 import 'package:svuce_app/services/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:svuce_app/services/register_third_party_services.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
@@ -16,13 +16,14 @@ import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
+import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final registerExternalServices = _$RegisterExternalServices();
-  g.registerLazySingleton<APIService>(() => APIService());
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
+  g.registerLazySingleton<Client>(() => registerExternalServices.client);
   g.registerLazySingleton<CloudStorageService>(() => CloudStorageService());
   g.registerLazySingleton<FirebaseAuth>(
       () => registerExternalServices.firebaseAuth);
@@ -37,6 +38,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<SnackbarService>(
       () => registerExternalServices.snackbarService);
   g.registerLazySingleton<TimeTableService>(() => TimeTableService());
+  g.registerLazySingleton<APIService>(() => APIService(client: g<Client>()));
   g.registerLazySingleton<AuthenticationService>(
       () => AuthenticationService(firebaseAuth: g<FirebaseAuth>()));
 }

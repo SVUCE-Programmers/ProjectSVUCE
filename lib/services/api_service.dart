@@ -2,17 +2,23 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/locator.dart';
 
 @lazySingleton
 class APIService {
+  final http.Client client;
+
+  APIService({http.Client client})
+      : this.client = client == null ? locator<http.Client>() : client;
+
   fetchData({String url}) async {
     final fetchUrl = Uri.encodeFull(url);
     final headers = {"Accept": "application/json"};
 
-    final response = await http.get(fetchUrl, headers: headers);
+    final response = await client.get(fetchUrl, headers: headers);
 
-    if (response.statusCode != 200) {
-      throw "Error While Retrieving Data from Firebase";
+    if (response?.statusCode != 200) {
+      throw Exception("Error While Retrieving Data from Url");
     }
 
     JsonDecoder _decoder = new JsonDecoder();
