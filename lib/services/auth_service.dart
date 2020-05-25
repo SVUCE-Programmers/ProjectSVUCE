@@ -8,13 +8,10 @@ import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class AuthenticationService {
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
   // for testing
-  AuthenticationService({FirebaseAuth firebaseAuth})
-      : this.firebaseAuth =
-            firebaseAuth == null ? FirebaseAuth.instance : firebaseAuth;
 
   /// This method uses FirebaseAuth to Sign in
   /// It will generate Firebase User if there are no errors and we return
@@ -24,7 +21,7 @@ class AuthenticationService {
   ///  in [currentUser]
   Future loginUser({@required String email, @required String password}) async {
     try {
-      var authResult = await firebaseAuth.signInWithEmailAndPassword(
+      var authResult = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
       await _populateCurrentUser(authResult.user);
@@ -50,7 +47,7 @@ class AuthenticationService {
       @required String profileImg,
       @required String bio}) async {
     try {
-      var authResult = await firebaseAuth.createUserWithEmailAndPassword(
+      var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       await updateUserProfile(displayName: fullName, profileImg: profileImg);
@@ -78,7 +75,7 @@ class AuthenticationService {
   /// If user is logged in we get the profile from Firestore and store it
   ///   in [currentUser]
   Future<bool> isUserLoggedIn() async {
-    var user = await firebaseAuth.currentUser();
+    var user = await _firebaseAuth.currentUser();
     await _populateCurrentUser(user);
     return user != null;
   }
@@ -93,7 +90,7 @@ class AuthenticationService {
   /// This function will help users reset their password by using FirebaseAuth API
   Future resetPassword(String email) async {
     try {
-      await firebaseAuth.sendPasswordResetEmail(email: email);
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (e) {
       return e.message;
     }
@@ -105,7 +102,7 @@ class AuthenticationService {
   }
 
   Future signOut() async {
-    await firebaseAuth.signOut();
+    await _firebaseAuth.signOut();
   }
 
   Future updateUserProfile({String displayName, String profileImg}) async {
@@ -113,7 +110,7 @@ class AuthenticationService {
     updateInfo.displayName = displayName;
     updateInfo.photoUrl = profileImg;
 
-    FirebaseUser user = await firebaseAuth.currentUser();
+    FirebaseUser user = await _firebaseAuth.currentUser();
     user.updateProfile(updateInfo);
   }
 }

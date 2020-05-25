@@ -74,7 +74,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Attendance",
-                  onTap: () {},
+                  onTap: () => model.gotoAttendance(),
                   iconData: attendanceIcon,
                 ),
                 DrawerItem(

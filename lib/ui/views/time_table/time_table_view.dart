@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/hive_db/models/time_table.dart';
-// import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 import 'package:svuce_app/ui/widgets/week_day_selector.dart';
 
@@ -15,8 +13,7 @@ class TimeTableView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       viewModel: TimeTableViewModel(),
       builder: (context, uiHelpers, model) {
-        List<TimeTable> timeTableItems =
-            model.timeTable != null ? model.getCurrentDayTimeTable() : [];
+        var timeTableItems = model.getTimeTable();
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -33,18 +30,20 @@ class TimeTableView extends StatelessWidget {
                   children: <Widget>[
                     WeekDaySelector(),
                     uiHelpers.verticalSpaceLow,
-                    if (timeTableItems.length > 0)
+                    if (timeTableItems is List && timeTableItems.length > 0)
                       ...timeTableItems
                           //TODO: Implement [Remaind Me] Feature
                           .map((eachTimeTable) => TimeTableItem(
                                 timeTable: eachTimeTable,
                               ))
                           .toList()
-                    else
+                    else if (timeTableItems is List)
                       Text(
                         "No Classes Today",
                         textAlign: TextAlign.center,
                       )
+                    else
+                      Text("Relax")
                   ],
                 )
               : Center(child: CircularProgressIndicator()),
