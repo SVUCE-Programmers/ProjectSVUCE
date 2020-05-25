@@ -22,6 +22,7 @@ class DrawerView extends StatelessWidget {
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
                 ListTile(
+                  onTap: () => model.viewUserProfile(),
                   contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                   leading: ClipRRect(
                     borderRadius:
@@ -69,12 +70,12 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Timetable",
-                  onTap: () => model.gotoTimeTable(),
+                  onTap: () => model.viewTimeTable(),
                   iconData: timeTableIcon,
                 ),
                 DrawerItem(
                   title: "Attendance",
-                  onTap: () => model.gotoAttendance(),
+                  onTap: () => model.viewAttendance(),
                   iconData: attendanceIcon,
                 ),
                 DrawerItem(

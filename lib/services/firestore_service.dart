@@ -8,6 +8,7 @@ import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/feed.dart';
 import 'package:svuce_app/models/event.dart';
 import 'package:svuce_app/models/user.dart';
+import 'package:svuce_app/models/user_club.dart';
 
 @lazySingleton
 class FirestoreService {
@@ -44,6 +45,9 @@ class FirestoreService {
 
   final StreamController<List<Event>> _eventController =
       StreamController<List<Event>>.broadcast();
+
+  final StreamController<List<UserClub>> _userClubController =
+      StreamController<List<UserClub>>.broadcast();
 
   static const int FeedItemLimit = 10;
 
@@ -177,7 +181,7 @@ class FirestoreService {
         var item = snapshot.documents
             .map((snapshot) => Announcement.fromSnapshot(snapshot))
             .toList();
-        print(item.toString());
+
         _announceController.add(item);
       }
     });
@@ -233,5 +237,29 @@ class FirestoreService {
         .setData({
       "id": user.id,
     });
+  }
+
+  Future addClubToUser(UserClub userClub, String userId) async {
+    await _userColletionReference
+        .document(userId)
+        .collection("clubs")
+        .document(userClub.clubId)
+        .setData(userClub.toJson());
+  }
+
+  Stream getUserClubs(String userId) {
+    var query = _userColletionReference.document(userId).collection("clubs");
+
+    query.snapshots().listen((snapshot) {
+      if (snapshot.documents.isNotEmpty) {
+        var items = snapshot.documents
+            .map((snapshot) => UserClub.fromSnapshot(snapshot))
+            .toList();
+
+        _userClubController.add(items);
+      }
+    });
+
+    return _userClubController.stream;
   }
 }

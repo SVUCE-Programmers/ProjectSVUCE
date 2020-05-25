@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 @registerModule
 abstract class RegisterDependencies {
@@ -16,5 +16,5 @@ abstract class RegisterDependencies {
   HiveInterface get hive => Hive;
 
   @lazySingleton
-  http.Client get client => http.Client();
+  Client get client => Client();
 }

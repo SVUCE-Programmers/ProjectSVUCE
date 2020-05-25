@@ -10,6 +10,7 @@ import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/user.dart';
+import 'package:svuce_app/models/user_club.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
@@ -56,7 +57,16 @@ class SelectClubsViewModel extends BaseViewModel {
     }
 
     try {
-      await _firestoreService.followClub(clubs[index].id, user);
+      var selectedClub = clubs[index];
+
+      await _firestoreService.followClub(selectedClub.id, user);
+
+      await _firestoreService.addClubToUser(
+          UserClub(
+              clubId: selectedClub.id,
+              clubLogo: selectedClub.clubLogo,
+              name: selectedClub.name),
+          user.id);
 
       await _pushNotifyService.subscribe(clubs[index].topicId);
 

@@ -60,7 +60,7 @@ class MainHomeView extends StatelessWidget {
                 children: firstRowSpotlight.map((eachSpotLight) {
                   if (eachSpotLight.name == "Explore Clubs") {
                     return GestureDetector(
-                      onTap: () => model.gotoClubs(),
+                      onTap: () => model.exploreClubs(),
                       child: eachSpotLight,
                     );
                   } else {

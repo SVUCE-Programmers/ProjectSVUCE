@@ -56,18 +56,22 @@ class MainHomeViewModel extends BaseViewModel {
     }
   }
 
-  gotoClubs() {
+  exploreClubs() {
     _navigationService.navigateTo(Routes.selectClubsViewRoute,
         arguments: SelectClubsViewArguments(isSelectClubs: false));
     // Navigations
   }
 
-  gotoTimeTable() async {
+  viewTimeTable() async {
     await _navigationService.navigateTo(Routes.timeTableViewRoute);
   }
 
-  gotoAttendance() async {
+  viewAttendance() async {
     await _navigationService.navigateWithTransition(AttendanceView(),
         transition: "fade");
+  }
+
+  viewUserProfile() async {
+    await _navigationService.navigateTo(Routes.userProfileViewRoute);
   }
 }
