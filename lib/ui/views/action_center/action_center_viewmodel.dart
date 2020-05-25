@@ -1,23 +1,23 @@
-import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
+import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/models/graph.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:svuce_app/services/hive_service.dart';
+
 import 'package:svuce_app/ui/views/action_center/dataset.dart';
 
 class ActionCenterViewModel extends BaseViewModel {
   final TimeTableService timeTableService = locator<TimeTableService>();
+  final AttendanceService _attendanceService = locator<AttendanceService>();
   final APIService apiService = locator<APIService>();
   final AuthenticationService authenticationService =
       locator<AuthenticationService>();
   final SnackbarService snackbarService = locator<SnackbarService>();
-  final HiveService hiveService = locator<HiveService>();
 
   List<TimeTable> timeTableData = List<TimeTable>();
 
@@ -28,45 +28,29 @@ class ActionCenterViewModel extends BaseViewModel {
   List<String> get subjects => _subjects;
 
   getPercentage() async {
-    bool exists = await hiveService.isExists(boxName: "Attendance");
-    if (exists) {
-      setBusy(true);
-      List<dynamic> dummy = await hiveService.getBoxes("Attendance");
-      for (var item in dummy) {
-        if (item.total != 0) {
-          _percentages.add(((item.present) / (item.total)));
-        } else {
-          _percentages.add(0);
-        }
+    setBusy(true);
 
-        _subjects.add(item.subject);
-      }
-      setBusy(false);
-    } else {
-      setBusy(true);
-      final openBox = await Hive.openBox("Attendance");
-      List<dynamic> temp = await hiveService.getBoxes<TimeTable>("TimeTable");
-      List<String> dummy = [];
-      for (var item in temp) {
-        if (item.year == authenticationService.getStudentPresentYear()) {
-          Attendance atitem = Attendance(
-              subject: item.className,
-              present: 0,
-              absent: 0,
-              total: 0,
-              lastUpdated: "Nothing");
-          if (!dummy.contains(atitem.subject)) {
-            openBox.add(atitem);
-            dummy.add(atitem.subject);
-            _subjects.add(atitem.subject);
-            atitem.total==0?_percentages.add(0.0):_percentages.add((atitem.present/atitem.total).toDouble());
+    var result = await _attendanceService.init();
+
+    if (result is bool) {
+      if (result) {
+        List<Attendance> items = _attendanceService.attendanceList;
+
+        if (items != null) {
+          for (var item in items) {
+            if (item.total != 0) {
+              _percentages.add(((item.present) / (item.total)));
+            } else {
+              _percentages.add(0);
+            }
+
+            _subjects.add(item.subject);
           }
         }
       }
-      setBusy(false);
     }
 
-    getGraph();
+    setBusy(false);
   }
 
   getGraph() {
@@ -81,7 +65,7 @@ class ActionCenterViewModel extends BaseViewModel {
     return graph;
   }
 
-  getTimeTable() async {
+  init() async {
     getPercentage();
 
     var result = await timeTableService.getTimeTable();
@@ -98,4 +82,3 @@ class ActionCenterViewModel extends BaseViewModel {
     }
   }
 }
-

@@ -78,17 +78,11 @@ class AttendanceViewModel extends BaseViewModel {
   }
 
   getAttendance() async {
-    var result = await _attendanceService.init();
+    List<Attendance> items = _attendanceService.attendanceList;
 
-    if (result is bool) {
-      if (result) {
-        List<Attendance> items = _attendanceService.attendanceList;
-
-        if (items != null) {
-          _attendanceList = items;
-          notifyListeners();
-        }
-      }
+    if (items != null) {
+      _attendanceList = items;
+      notifyListeners();
     }
   }
 }
