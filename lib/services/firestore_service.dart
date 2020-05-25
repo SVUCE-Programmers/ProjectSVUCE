@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/annnouncement.dart';
 import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/feed.dart';
@@ -12,20 +13,22 @@ import 'package:svuce_app/models/user.dart';
 class FirestoreService {
   final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
 
-  final CollectionReference _userColletionReference =
-      Firestore.instance.collection("users");
+  static Firestore _firestore = locator<Firestore>();
 
-  final CollectionReference _feedColletionReference =
-      Firestore.instance.collection('feed');
+  static CollectionReference _userColletionReference =
+      _firestore.collection("users");
 
-  final CollectionReference _clubsColletionReference =
-      Firestore.instance.collection('clubs');
+  static CollectionReference _feedColletionReference =
+      _firestore.collection('feed');
 
-  final CollectionReference _eventColletionReference =
-      Firestore.instance.collection('events');
+  static CollectionReference _clubsColletionReference =
+      _firestore.collection('clubs');
 
-  final CollectionReference _announcementsCollectionReference=
-      Firestore.instance.collection("announcements");
+  static CollectionReference _eventColletionReference =
+      _firestore.collection('events');
+
+  static CollectionReference _announcementsCollectionReference =
+      _firestore.collection("announcements");
 
   final StreamController<List<Feed>> _feedController =
       StreamController<List<Feed>>.broadcast();
@@ -162,16 +165,15 @@ class FirestoreService {
     });
   }
 
-  Stream listenToAnnouncement(){
+  Stream listenToAnnouncement() {
     _requestAnnounceData();
     return _announceController.stream;
-
   }
 
-  void _requestAnnounceData(){
-    var query=_announcementsCollectionReference.orderBy("timeStamp");
-    query.snapshots().listen((snapshot){
-      if(snapshot.documents.isNotEmpty){
+  void _requestAnnounceData() {
+    var query = _announcementsCollectionReference.orderBy("timeStamp");
+    query.snapshots().listen((snapshot) {
+      if (snapshot.documents.isNotEmpty) {
         var item = snapshot.documents
             .map((snapshot) => Announcement.fromSnapshot(snapshot))
             .toList();
@@ -188,7 +190,7 @@ class FirestoreService {
       return '${(diff.inDays / 365).floor()} years ago';
     } else if ((diff.inDays / 30).floor() >= 1) {
       return '${(diff.inDays / 365).floor()} months ago';
-    }  else if ((diff.inDays / 7).floor() >= 1) {
+    } else if ((diff.inDays / 7).floor() >= 1) {
       return '${(diff.inDays / 7).floor()} weeks ago';
     } else if (diff.inDays >= 2) {
       return '${diff.inDays} days ago';

@@ -6,10 +6,7 @@ import 'package:svuce_app/app/locator.dart';
 
 @lazySingleton
 class APIService {
-  final http.Client client;
-
-  APIService({http.Client client})
-      : this.client = client == null ? locator<http.Client>() : client;
+  final http.Client client = locator<http.Client>();
 
   fetchData({String url}) async {
     final fetchUrl = Uri.encodeFull(url);
