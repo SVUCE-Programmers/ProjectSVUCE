@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/annnouncement.dart';
-import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 
 class AnnounceItem extends StatelessWidget {
@@ -28,7 +27,7 @@ class AnnounceItem extends StatelessWidget {
         break;
       default:
     }
-    FirestoreService _firestore = locator<FirestoreService>();
+
     return type == "all"
         ? Container(
             padding: EdgeInsets.all(20.0),
@@ -56,7 +55,7 @@ class AnnounceItem extends StatelessWidget {
                     )),
                 uiHelpers.verticalSpaceLow,
                 Text(
-                  _firestore.getTimeAgo(DateTime.parse(announce.timeStamp)),
+                  "",
                   style: TextStyle(fontWeight: FontWeight.w200, fontSize: 10),
                 ),
               ],
@@ -90,7 +89,7 @@ class AnnounceItem extends StatelessWidget {
                         )),
                     uiHelpers.verticalSpaceLow,
                     Text(
-                      _firestore.getTimeAgo(DateTime.parse(announce.timeStamp)),
+                      "",
                       style:
                           TextStyle(fontWeight: FontWeight.w200, fontSize: 10),
                     ),

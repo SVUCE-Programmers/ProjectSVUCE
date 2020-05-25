@@ -3,21 +3,21 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/models/user_club.dart';
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:svuce_app/services/firestore_service.dart';
+import 'package:svuce_app/services/firestore/user_club_service.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final UserClubService _userClubService = locator<UserClubService>();
 
   User user;
 
   List<UserClub> _userClubs;
   List<UserClub> get userClubs => _userClubs;
 
-  bool get hasUserClubs => _userClubs.isNotEmpty && _userClubs.length > 0;
+  bool get hasUserClubs => _userClubs != null && _userClubs.isNotEmpty;
 
   init() {
     var currentUser = _authenticationService.currentUser;
@@ -31,7 +31,7 @@ class UserProfileViewModel extends BaseViewModel {
   getUserClubList(String userId) {
     setBusy(true);
 
-    _firestoreService.getUserClubs(userId).listen((clubsData) {
+    _userClubService.getUserClubs(userId).listen((clubsData) {
       List<UserClub> updatedPosts = clubsData;
 
       print(updatedPosts);

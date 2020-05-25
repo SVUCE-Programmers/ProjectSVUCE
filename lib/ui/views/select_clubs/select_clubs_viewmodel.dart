@@ -12,14 +12,16 @@ import 'package:svuce_app/models/club.dart';
 import 'package:svuce_app/models/user.dart';
 import 'package:svuce_app/models/user_club.dart';
 import 'package:svuce_app/services/auth_service.dart';
-import 'package:svuce_app/services/firestore_service.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
+import 'package:svuce_app/services/firestore/clubs_service.dart';
+import 'package:svuce_app/services/firestore/user_club_service.dart';
 
 class SelectClubsViewModel extends BaseViewModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final ClubsService _clubsService = locator<ClubsService>();
+  final UserClubService _userClubService = locator<UserClubService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationService _pushNotifyService =
       locator<PushNotificationService>();
@@ -31,7 +33,7 @@ class SelectClubsViewModel extends BaseViewModel {
   getClubListOnce() {
     setBusy(true);
 
-    _firestoreService.getClubListStream().listen((postsData) {
+    _clubsService.getClubs().listen((postsData) {
       List<Club> clubList = postsData;
       if (clubList != null && clubList.length > 0) {
         _clubList = clubList;
@@ -59,9 +61,9 @@ class SelectClubsViewModel extends BaseViewModel {
     try {
       var selectedClub = clubs[index];
 
-      await _firestoreService.followClub(selectedClub.id, user);
+      await _clubsService.followClub(selectedClub.id, user.id);
 
-      await _firestoreService.addClubToUser(
+      await _userClubService.addClubToUser(
           UserClub(
               clubId: selectedClub.id,
               clubLogo: selectedClub.clubLogo,

@@ -3,11 +3,11 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/models/event.dart';
-import 'package:svuce_app/services/firestore_service.dart';
+import 'package:svuce_app/services/firestore/event_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final EventsService _eventsService = locator<EventsService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   List<Event> _eventList = List<Event>();
@@ -32,7 +32,7 @@ class CalendarEventsViewModel extends BaseViewModel {
 
   getEvents() {
     setBusy(true);
-    _firestoreService.listenToEventsData().listen((feedData) {
+    _eventsService.getEvents().listen((feedData) {
       List<Event> eventData = feedData;
       if (eventData != null) {
         _eventList = eventData;

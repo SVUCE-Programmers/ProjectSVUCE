@@ -10,7 +10,7 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/cloud_storage_service.dart';
-import 'package:svuce_app/services/firestore_service.dart';
+import 'package:svuce_app/services/firestore/user_service.dart';
 import 'package:svuce_app/utils/image_selector.dart';
 
 class CreateProfileViewModel extends BaseViewModel {
@@ -18,7 +18,7 @@ class CreateProfileViewModel extends BaseViewModel {
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final UserService _userService = locator<UserService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final CloudStorageService _cloudStorageService =
       locator<CloudStorageService>();
@@ -204,9 +204,13 @@ class CreateProfileViewModel extends BaseViewModel {
 
     setBusy(true);
 
-    var isRollExists = await _firestoreService.isRollNoExists(rollNo);
+    var isRollExists = await _userService.isRollNoExists(rollNo);
 
     setBusy(false);
+
+    if (!(isRollExists is bool)) {
+      return false;
+    }
 
     if (isRollExists) {
       await _snackbarService.showCustomSnackBar(

@@ -3,13 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
-import 'package:svuce_app/services/firestore_service.dart';
+import 'package:svuce_app/services/firestore/user_service.dart';
 import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  final UserService _userService = locator<UserService>();
 
   // for testing
 
@@ -63,7 +63,7 @@ class AuthenticationService {
           collegeName: "SVUCE",
           userType: "STUDENT");
 
-      await _firestoreService.createUser(_currentUser);
+      await _userService.storeUser(_currentUser);
 
       return authResult.user != null;
     } catch (e) {
@@ -83,7 +83,7 @@ class AuthenticationService {
   /// This function is responsible for getting user profile from Firestore.
   Future _populateCurrentUser(FirebaseUser user) async {
     if (user != null) {
-      _currentUser = await _firestoreService.getUser(user.uid);
+      _currentUser = await _userService.getUser(user.uid);
     }
   }
 
