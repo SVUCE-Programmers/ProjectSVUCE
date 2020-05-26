@@ -8,10 +8,11 @@ import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class AuthenticationService {
-  final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
+  final FirebaseAuth _firebaseAuth;
   final UserService _userService = locator<UserService>();
 
   // for testing
+  AuthenticationService(this._firebaseAuth);
 
   /// This method uses FirebaseAuth to Sign in
   /// It will generate Firebase User if there are no errors and we return

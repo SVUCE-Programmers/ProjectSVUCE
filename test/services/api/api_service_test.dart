@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'dart:convert';
 
@@ -17,13 +16,7 @@ main() {
   final headers = {"Accept": "application/json"};
   final fetchUrl = Uri.encodeFull(url);
 
-  setUpAll(() {
-    setupLocator();
-  });
-
-  locator.allowReassignment = true;
-  locator.registerSingleton<http.Client>(client);
-  final APIService apiService = APIService();
+  final APIService apiService = APIService(client);
 
   group('Fetch data Using API', () {
     test('returns data if the http call completes successfully', () async {

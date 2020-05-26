@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/user.dart';
 
 class UserService {
-  static Firestore _firestore = locator<Firestore>();
+  final Firestore firestore;
 
-  static CollectionReference _userRef = _firestore.collection("users");
+  final CollectionReference _userRef;
+
+  UserService(this.firestore) : this._userRef = firestore.collection("users");
 
   Future storeUser(User user) async {
     try {

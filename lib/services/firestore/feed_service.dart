@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/feed.dart';
 
 class FeedService {
-  static Firestore _firestore = locator<Firestore>();
+  final Firestore firestore;
 
-  static CollectionReference _feedRef = _firestore.collection("feed");
+  final CollectionReference _feedRef;
+
+  // For Testing
+  FeedService(this.firestore) : this._feedRef = firestore.collection("feed");
 
   final StreamController<List<Feed>> _feedController =
       StreamController<List<Feed>>.broadcast();

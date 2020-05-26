@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/event.dart';
 
 class EventsService {
-  static Firestore _firestore = locator<Firestore>();
+  final Firestore firestore;
 
-  static CollectionReference _eventRef = _firestore.collection("events");
+  final CollectionReference _eventRef;
+
+  // For Testing
+  EventsService(this.firestore) : _eventRef = firestore.collection("events");
 
   final StreamController<List<Event>> _eventStreamController =
       StreamController<List<Event>>.broadcast();

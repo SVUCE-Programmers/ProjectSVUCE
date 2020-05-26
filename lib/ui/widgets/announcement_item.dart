@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/annnouncement.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 

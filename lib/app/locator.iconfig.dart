@@ -4,17 +4,10 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:svuce_app/services/api_service.dart';
-import 'package:svuce_app/services/firestore/announcement_service.dart';
-import 'package:svuce_app/services/firestore/register_firestore_services.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
-import 'package:svuce_app/services/auth_service.dart';
 import 'package:http/src/client.dart';
 import 'package:svuce_app/services/register_dependencies.dart';
 import 'package:svuce_app/services/cloud_storage_service.dart';
-import 'package:svuce_app/services/firestore/clubs_service.dart';
-import 'package:svuce_app/services/firestore/event_service.dart';
-import 'package:svuce_app/services/firestore/feed_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
@@ -25,26 +18,23 @@ import 'package:svuce_app/services/register_third_party_services.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/services/firestore/user_club_service.dart';
+import 'package:svuce_app/services/firestore/register_firestore_services.dart';
 import 'package:svuce_app/services/firestore/user_service.dart';
+import 'package:svuce_app/services/api_service.dart';
+import 'package:svuce_app/services/firestore/announcement_service.dart';
+import 'package:svuce_app/services/auth_service.dart';
+import 'package:svuce_app/services/firestore/clubs_service.dart';
+import 'package:svuce_app/services/firestore/event_service.dart';
+import 'package:svuce_app/services/firestore/feed_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
-  final registerFirestoreServices = _$RegisterFirestoreServices();
   final registerDependencies = _$RegisterDependencies();
   final registerExternalServices = _$RegisterExternalServices();
-  g.registerLazySingleton<APIService>(() => APIService());
-  g.registerLazySingleton<AnnouncementService>(
-      () => registerFirestoreServices.announcementService);
+  final registerFirestoreServices = _$RegisterFirestoreServices(g);
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
-  g.registerLazySingleton<AuthenticationService>(() => AuthenticationService());
   g.registerLazySingleton<Client>(() => registerDependencies.client);
   g.registerLazySingleton<CloudStorageService>(() => CloudStorageService());
-  g.registerLazySingleton<ClubsService>(
-      () => registerFirestoreServices.clubsService);
-  g.registerLazySingleton<EventsService>(
-      () => registerFirestoreServices.eventsService);
-  g.registerLazySingleton<FeedService>(
-      () => registerFirestoreServices.feedService);
   g.registerLazySingleton<FirebaseAuth>(
       () => registerDependencies.firebaseAuth);
   g.registerLazySingleton<Firestore>(() => registerDependencies.firestore);
@@ -62,21 +52,17 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.userClubService);
   g.registerLazySingleton<UserService>(
       () => registerFirestoreServices.userService);
-}
-
-class _$RegisterFirestoreServices extends RegisterFirestoreServices {
-  @override
-  AnnouncementService get announcementService => AnnouncementService();
-  @override
-  ClubsService get clubsService => ClubsService();
-  @override
-  EventsService get eventsService => EventsService();
-  @override
-  FeedService get feedService => FeedService();
-  @override
-  UserClubService get userClubService => UserClubService();
-  @override
-  UserService get userService => UserService();
+  g.registerLazySingleton<APIService>(() => APIService(g<Client>()));
+  g.registerLazySingleton<AnnouncementService>(
+      () => registerFirestoreServices.announcementService);
+  g.registerLazySingleton<AuthenticationService>(
+      () => AuthenticationService(g<FirebaseAuth>()));
+  g.registerLazySingleton<ClubsService>(
+      () => registerFirestoreServices.clubsService);
+  g.registerLazySingleton<EventsService>(
+      () => registerFirestoreServices.eventsService);
+  g.registerLazySingleton<FeedService>(
+      () => registerFirestoreServices.feedService);
 }
 
 class _$RegisterDependencies extends RegisterDependencies {}
@@ -86,4 +72,22 @@ class _$RegisterExternalServices extends RegisterExternalServices {
   NavigationService get navigationService => NavigationService();
   @override
   SnackbarService get snackbarService => SnackbarService();
+}
+
+class _$RegisterFirestoreServices extends RegisterFirestoreServices {
+  final GetIt _g;
+  _$RegisterFirestoreServices(this._g);
+  @override
+  UserClubService get userClubService => UserClubService(_g<Firestore>());
+  @override
+  UserService get userService => UserService(_g<Firestore>());
+  @override
+  AnnouncementService get announcementService =>
+      AnnouncementService(_g<Firestore>());
+  @override
+  ClubsService get clubsService => ClubsService(_g<Firestore>());
+  @override
+  EventsService get eventsService => EventsService(_g<Firestore>());
+  @override
+  FeedService get feedService => FeedService(_g<Firestore>());
 }

@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/models/club.dart';
 
 class ClubsService {
-  static Firestore _firestore = locator<Firestore>();
+  final Firestore firestore;
 
-  static CollectionReference _clubsRef = _firestore.collection("clubs");
+  final CollectionReference _clubsRef;
 
   final StreamController<List<Club>> _clubStreamController =
       StreamController<List<Club>>.broadcast();
+
+  ClubsService(this.firestore) : this._clubsRef = firestore.collection("clubs");
 
   Stream getClubs() {
     // Register the handler for when the posts data changes
