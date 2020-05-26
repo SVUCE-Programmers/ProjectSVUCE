@@ -222,7 +222,6 @@ class ForegroundPainter extends CustomPainter {
         super(repaint: Listenable.merge([graph, selectedFade]));
   double dataY(List<double> values, int index) {
     final y = ((values[index] - _graph.rangeStart) / _graph.rangeEnd)*10;
-    print("Y is :"+y.toString());
     return y;
   }
 

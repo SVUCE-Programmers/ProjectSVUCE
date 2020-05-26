@@ -1,39 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/models/graph.dart';
+import 'package:svuce_app/ui/views/action_center/graph_representation.dart';
 import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
-import 'package:svuce_app/ui/widgets/graph_widget.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 
 import 'action_center_viewmodel.dart';
-
-class ActionCenter extends StatefulWidget {
-  @override
-  _ActionCenterState createState() => _ActionCenterState();
-}
-
-class _ActionCenterState extends State<ActionCenter> with SingleTickerProviderStateMixin{
-  AnimationController _controller;
-  Graph _graph;
-  
-  @override
-  void initState() {
-    _graph=ActionCenterViewModel().getGraph();
-    _controller=AnimationController(vsync: this);
-    _controller.addListener(() { 
-      final d=_controller.value-_graph.domainStart;
-     if (d < 0) {
-        _graph.domainStart += d;
-        _graph.domainEnd += d;
-      } else {
-        _graph.domainEnd += d;
-        _graph.domainStart += d;
-      }
-    });
-    super.initState();
-  }
-
+class ActionCenter extends StatelessWidget{  
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<ActionCenterViewModel>(
@@ -71,13 +44,9 @@ class _ActionCenterState extends State<ActionCenter> with SingleTickerProviderSt
                       .toList(),
                 ),
               ),
-              Container(
-                child: Center(
-                  child: GraphWidget(
-                    graph: model.getGraph(),
-                    subjects: model.subjects,
-                  ),
-                ),
+              GraphRepresentation(
+                graph: model.getGraph(),
+                subject: model.subjects,
               )
             ],
           ),

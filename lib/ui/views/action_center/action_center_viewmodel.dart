@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -20,6 +21,7 @@ class ActionCenterViewModel extends BaseViewModel {
   final HiveService hiveService = locator<HiveService>();
 
   List<TimeTable> timeTableData = List<TimeTable>();
+  AnimationController controller;
 
   List<double> _percentages = [];
   List<double> get percentages => _percentages;
@@ -71,19 +73,16 @@ class ActionCenterViewModel extends BaseViewModel {
 
   getGraph() {
     DataSet dataSet = DataSet(percentages);
-    Graph graph = Graph([dataSet], "", "%");
-    graph = Graph([dataSet], "", "\%");
+    Graph graph = Graph([dataSet], "", "%");    
     graph.domainStart = 0;
-    graph.domainEnd = 5;
+    graph.domainEnd = 4;
     graph.rangeStart = 0;
     graph.rangeEnd = 10;
     graph.selectedDataPoint = 1;
     return graph;
   }
-
   getTimeTable() async {
     getPercentage();
-
     var result = await timeTableService.getTimeTable();
 
     if (result is bool) {
