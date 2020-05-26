@@ -29,7 +29,7 @@ main() {
         List<Announcement> announcements = event;
 
         for (var i = 0; i < announcements.length; i++) {
-          print(verifyData(announcements[i], i));
+          expect(verifyData(announcements[i], i), true);
         }
       });
     });

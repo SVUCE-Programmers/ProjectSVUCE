@@ -17,7 +17,7 @@ class Club {
         assert(map["clubLogo"] != null),
         assert(map["topicId"] != null),
         assert(map["description"] != null),
-        id = reference.documentID,
+        id = map["id"] ?? reference.documentID,
         name = map["name"],
         moto = map["moto"],
         clubBanner = map["clubBanner"],
@@ -28,4 +28,17 @@ class Club {
 
   Club.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
+
+  toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "moto": moto,
+      "clubBanner": clubBanner,
+      "clubLogo": clubLogo,
+      "description": description,
+      "topicId": topicId,
+      "followers": followers
+    };
+  }
 }

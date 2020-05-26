@@ -31,13 +31,13 @@ class ClubsService {
 
   Future followClub(String clubId, String userId) async {
     try {
+      Map<String, dynamic> map = {"id": userId};
+
       await _clubsRef
           .document(clubId)
           .collection("followers")
           .document(userId)
-          .setData({
-        "id": userId,
-      });
+          .setData(map);
 
       return true;
     } catch (e) {
