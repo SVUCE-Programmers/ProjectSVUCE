@@ -5,6 +5,8 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/services/api_service.dart';
 import 'dart:convert';
 
+import 'mock_data.dart';
+
 class MockClient extends Mock implements http.Client {}
 
 main() {
@@ -27,9 +29,6 @@ main() {
     test('returns data if the http call completes successfully', () async {
       // Use Mockito to return a successful response when it calls the
       // provided http.Client.
-
-      final responseString =
-          '[{"class_name": "VHDL Lab" , "start_time": "09:30" , "end_time": "12:30" , "day": "MON" , "year": "first_year" }, {"class_name": "VHDL Lab" , "start_time": "09:30" , "end_time": "12:30" , "day": "MON" , "year": "first_year" }, {"class_name": "VHDL Lab" , "start_time": "09:30" , "end_time": "12:30" , "day": "MON" , "year": "first_year" }]';
 
       when(client.get(fetchUrl, headers: headers))
           .thenAnswer((_) async => http.Response(responseString, 200));
