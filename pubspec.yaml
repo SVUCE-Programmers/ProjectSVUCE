@@ -48,7 +48,10 @@ dev_dependencies:
   build_runner:
   auto_route_generator:
   injectable_generator:
+  
+  #testing
   mockito:
+  cloud_firestore_mocks:
 
 flutter:
   uses-material-design: true

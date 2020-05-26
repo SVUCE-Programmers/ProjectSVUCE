@@ -30,6 +30,7 @@ class Announcement{
       "type": type,
       "desc": desc,
       "timeStamp": timeStamp,
+      "imgUrl": imgUrl,
     };
   }
 
