@@ -22,7 +22,7 @@ class PlacementAdapter extends TypeAdapter<Placement> {
   @override
   void write(BinaryWriter writer, Placement obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.year)
       ..writeByte(1)

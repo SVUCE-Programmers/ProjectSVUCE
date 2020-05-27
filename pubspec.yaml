@@ -49,6 +49,7 @@ dev_dependencies:
   auto_route_generator:
   injectable_generator:
 
+
 flutter:
   uses-material-design: true
 

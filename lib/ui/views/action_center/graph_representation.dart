@@ -5,7 +5,8 @@ import 'package:svuce_app/ui/widgets/graph_widget.dart';
 class GraphRepresentation extends StatefulWidget {
   final Graph graph;
   final List<String> subject;
-  const GraphRepresentation({Key key, this.graph, this.subject})
+  final List<String> yAxis;
+  const GraphRepresentation({Key key,@required this.graph,@required this.subject,@required this.yAxis})
       : super(key: key);
   @override
   _GraphRepresentationState createState() => _GraphRepresentationState();
@@ -44,10 +45,12 @@ class _GraphRepresentationState extends State<GraphRepresentation>
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 300,
       child: Center(
         child: GraphWidget(
           graph: widget.graph,
           subjects: widget.subject,
+          yAxis: widget.yAxis,
         ),
       ),
     );

@@ -11,6 +11,8 @@ class APIService {
 
     final response = await http.get(fetchUrl, headers: headers);
 
+    print("Response at apiservice:"+response.body.toString());
+
     if (response.statusCode != 200) {
       throw "Error While Retrieving Data from Firebase";
     }

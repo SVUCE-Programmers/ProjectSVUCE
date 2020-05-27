@@ -6,7 +6,8 @@ import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 
 import 'action_center_viewmodel.dart';
-class ActionCenter extends StatelessWidget{  
+
+class ActionCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<ActionCenterViewModel>(
@@ -23,7 +24,8 @@ class ActionCenter extends StatelessWidget{
                 ),
                 subtitle: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AttendanceView()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AttendanceView()));
                   },
                   child: Text(
                     "See All",
@@ -47,6 +49,14 @@ class ActionCenter extends StatelessWidget{
               GraphRepresentation(
                 graph: model.getGraph(),
                 subject: model.subjects,
+                yAxis: [
+                  '\100',
+                  '\80',
+                  '\60',
+                  '\40',
+                  '\20',
+                  '0',
+                ],
               )
             ],
           ),
