@@ -12,7 +12,7 @@ class ActionCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<ActionCenterViewModel>(
       viewModel: ActionCenterViewModel(),
-      onModelReady: (model) => model.getGraph(),
+      onModelReady: (model) => model.init(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           body: ListView(
