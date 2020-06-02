@@ -4,7 +4,7 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/home/main_home_viewmodel.dart';
-import 'package:svuce_app/ui/views/staff/staff_view.dart';
+import 'package:svuce_app/ui/views/placements/placements_view.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
 
 class DrawerView extends StatelessWidget {
@@ -59,7 +59,7 @@ class DrawerView extends StatelessWidget {
                   title: "Faculty",
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => StaffView()));
+                        MaterialPageRoute(builder: (context) => PlacementView()));
                   },
                   iconData: facultyIcon,
                 ),

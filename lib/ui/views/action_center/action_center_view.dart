@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/ui/views/action_center/graph_representation.dart';
 import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
 import 'package:svuce_app/ui/widgets/time_table_item.dart';
 
@@ -11,7 +12,7 @@ class ActionCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<ActionCenterViewModel>(
       viewModel: ActionCenterViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.getGraph(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           body: ListView(
@@ -45,6 +46,18 @@ class ActionCenter extends StatelessWidget {
                       .toList(),
                 ),
               ),
+              GraphRepresentation(
+                graph: model.getGraph(),
+                subject: model.subjects,
+                yAxis: [
+                  '\100',
+                  '\80',
+                  '\60',
+                  '\40',
+                  '\20',
+                  '0',
+                ],
+              )
             ],
           ),
         );

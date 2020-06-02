@@ -78,7 +78,7 @@ class Graph extends ChangeNotifier {
   set domainEnd(double domainEnd) {
     if (domainEnd == _domainEnd)
       return;
-    _domainEnd = domainEnd.clamp(_domainStart + 1.2, _maxDomain);
+    _domainEnd=domainEnd;
 
     notifyListeners();
   }

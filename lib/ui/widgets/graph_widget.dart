@@ -5,8 +5,9 @@ import 'dart:ui' as ui;
 class GraphWidget extends StatefulWidget {
   final Graph graph;
   final List<String> subjects;
+  final List<String> yAxis;
 
-  const GraphWidget({Key key, this.graph, this.subjects}) : super(key: key);
+  const GraphWidget({Key key, this.graph, this.subjects,this.yAxis}) : super(key: key);
   @override
   _GraphWidgetState createState() => _GraphWidgetState();
 }
@@ -34,14 +35,8 @@ class _GraphWidgetState extends State<GraphWidget>
 
   @override
   Widget build(BuildContext context) {
-    final List<String> yAxisLabels = [
-      '\100',
-      '\80',
-      '\60',
-      '\40',
-      '\20',
-      '0',
-    ];
+    print("Graph is:"+widget.graph.domainEnd.toString());
+    final List<String> yAxisLabels = widget.yAxis;
     String label0Text;
     double label0Y;
     if (widget.graph.selectedDataPoint != -1) {
@@ -209,6 +204,7 @@ class _GraphWidgetState extends State<GraphWidget>
 }
 
 class ForegroundPainter extends CustomPainter {
+  
   Graph _graph;
   Animation<double> _selectedFade;
   List<Color> _backgroundColors;
@@ -222,10 +218,9 @@ class ForegroundPainter extends CustomPainter {
         super(repaint: Listenable.merge([graph, selectedFade]));
   double dataY(List<double> values, int index) {
     final y = ((values[index] - _graph.rangeStart) / _graph.rangeEnd)*10;
-    print("Y is :"+y.toString());
+    print("Returning y is:"+y.toString());
     return y;
   }
-
   void paintChartData(
       Graph graph,
       int dataSetIndex,
@@ -234,9 +229,11 @@ class ForegroundPainter extends CustomPainter {
       ui.Canvas canvas,
       Size size) {
     final range = graph.domainEnd - graph.domainStart;
+    
     final dataOffset = (int index) {
       final x =
           ((index.toDouble() - graph.domainStart) / range) * size.width + 28;
+      print("On foreground:"+graph.dataSets[0].toString());
       final y = dataY(graph.dataSets[dataSetIndex].values, index) * size.height;
       return Offset(x, y);
     };
@@ -381,6 +378,7 @@ class GraphPainter extends CustomPainter {
     for (int i = _graph.domainStart.round();
         i < _graph.domainEnd.round();
         ++i) {
+      print("Xlabels are:"+xLabel.toString());
       xLabel.add(subjects[i]);
     }
     final double start = _graph.domainStart;
