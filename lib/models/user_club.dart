@@ -7,8 +7,7 @@ class UserClub {
   DocumentReference reference;
 
   UserClub.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map["clubId"] != null),
-        assert(map["clubLogo"] != null),
+      : assert(map["clubLogo"] != null),
         assert(map["name"] != null),
         name = map["name"],
         clubId = reference.documentID,

@@ -12,47 +12,56 @@ dependencies:
 
   # for os-specific path directory
   path_provider: ^1.6.7
+
   # Hive
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  # utility for managing HTTP Requests
-  http: ^0.12.1
+
   # state management
   stacked: ^1.4.3
+
   # third party usable services
   stacked_services: ^0.2.2
+
   # navigation
   auto_route:
+
   # inversion of control
   get_it:
   injectable:
+
   # firebase
   cloud_firestore: ^0.13.4+2
   firebase_auth:
   firebase_messaging: ^6.0.13
   firebase_storage: ^3.1.1
-  #icons
+
+  # icons
   eva_icons_flutter: ^2.0.0
   flutter_icons: ^1.0.0+1
-  # utitily to pick images
+
+  # main utilities
   image_picker: ^0.6.3+1
-  # utility to pick dates
+  http: ^0.12.1
   table_calendar: ^2.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  #generators
+  # generators
   hive_generator: ^0.5.1
   build_runner:
   auto_route_generator:
   injectable_generator:
-  
-  #testing
+
+  # for models
+  freezed: ^0.10.9
+  json_serializable: ^3.3.0
+
+  # testing
   mockito:
   cloud_firestore_mocks:
-
 
 flutter:
   uses-material-design: true
