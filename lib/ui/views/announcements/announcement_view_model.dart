@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/models/annnouncement.dart';
+import 'package:svuce_app/models/announcement/announcement.dart';
+
 import 'package:svuce_app/services/firestore/announcement_service.dart';
 
 class AnnouncementViewModel extends BaseViewModel {

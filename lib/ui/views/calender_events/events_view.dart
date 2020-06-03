@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/calender_events/events_viewmodel.dart';
 import 'package:svuce_app/ui/widgets/events_list_item.dart';

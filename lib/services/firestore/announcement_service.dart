@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/annnouncement.dart';
+import 'package:svuce_app/models/announcement/announcement.dart';
 
 class AnnouncementService {
   final Firestore firestore;
@@ -19,7 +19,7 @@ class AnnouncementService {
     query.snapshots().listen((snapshot) {
       if (snapshot.documents.isNotEmpty) {
         var items = snapshot.documents
-            .map((snapshot) => Announcement.fromDocumentSnapShot(snapshot))
+            .map((snapshot) => Announcement.fromDocument(snapshot))
             .toList();
 
         _announcementStreamController.add(items);

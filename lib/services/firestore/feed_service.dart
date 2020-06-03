@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/feed.dart';
+import 'package:svuce_app/models/feed/feed.dart';
 
 class FeedService {
   final Firestore firestore;
@@ -46,7 +46,7 @@ class FeedService {
     feedQuery.snapshots().listen((postsSnapshot) {
       if (postsSnapshot.documents.isNotEmpty) {
         var feedItems = postsSnapshot.documents
-            .map((snapshot) => Feed.fromDocumentSnapShot(snapshot))
+            .map((snapshot) => Feed.fromDocument(snapshot))
             .where((mappedItem) => mappedItem.title != null)
             .toList();
 

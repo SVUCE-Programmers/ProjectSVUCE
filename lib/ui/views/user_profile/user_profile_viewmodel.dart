@@ -1,7 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/models/user.dart';
-import 'package:svuce_app/models/user_club.dart';
+import 'package:svuce_app/models/user/user.dart';
+import 'package:svuce_app/models/user_club/user_club.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/firestore/user_club_service.dart';
 

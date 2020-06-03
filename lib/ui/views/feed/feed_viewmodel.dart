@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/models/feed.dart';
+import 'package:svuce_app/models/feed/feed.dart';
 import 'package:svuce_app/services/firestore/feed_service.dart';
 
 class FeedViewModel extends BaseViewModel {

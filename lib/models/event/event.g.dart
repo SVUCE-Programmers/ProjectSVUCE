@@ -13,6 +13,7 @@ _$_Event _$_$_EventFromJson(Map<String, dynamic> json) {
     organiser: json['organiser'] as String,
     place: json['place'] as String,
     timeStamp: json['timeStamp'] as String,
+    imageUrl: json['imageUrl'] as String,
     description: json['description'] as String,
   );
 }
@@ -23,5 +24,6 @@ Map<String, dynamic> _$_$_EventToJson(_$_Event instance) => <String, dynamic>{
       'organiser': instance.organiser,
       'place': instance.place,
       'timeStamp': instance.timeStamp,
+      'imageUrl': instance.imageUrl,
       'description': instance.description,
     };

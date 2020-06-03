@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/club.dart';
+import 'package:svuce_app/models/club/club.dart';
 
 class ClubsService {
   final Firestore firestore;
@@ -18,7 +18,7 @@ class ClubsService {
     _clubsRef.snapshots().listen((snapshots) {
       if (snapshots.documents.isNotEmpty) {
         var posts = snapshots.documents
-            .map((snapshot) => Club.fromSnapshot(snapshot))
+            .map((snapshot) => Club.fromDocument(snapshot))
             .toList();
 
         // Add the [items] onto the controller

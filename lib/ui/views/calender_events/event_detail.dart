@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 
 class EventDetailsView extends StatelessWidget {
   final Event event;
@@ -95,7 +95,7 @@ class EventDetailsView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 10),
                     child: Text(
-                      event.eventName,
+                      event.name,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,

@@ -8,9 +8,9 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/models/club.dart';
-import 'package:svuce_app/models/user.dart';
-import 'package:svuce_app/models/user_club.dart';
+import 'package:svuce_app/models/club/club.dart';
+import 'package:svuce_app/models/user/user.dart';
+import 'package:svuce_app/models/user_club/user_club.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:svuce_app/services/firestore/clubs_service.dart';
@@ -65,12 +65,12 @@ class SelectClubsViewModel extends BaseViewModel {
 
       await _userClubService.addClubToUser(
           UserClub(
-              clubId: selectedClub.id,
+              id: selectedClub.id,
               clubLogo: selectedClub.clubLogo,
               name: selectedClub.name),
           user.id);
 
-      await _pushNotifyService.subscribe(clubs[index].topicId);
+      await _pushNotifyService.subscribe(clubs[index].id);
 
       flags[index] = true;
 

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 import 'package:svuce_app/services/firestore/event_service.dart';
 
 import 'mock_data.dart';
@@ -34,7 +34,7 @@ main() {
 bool verifyData(Event club, int index) {
   var mockData = mockEventsData[index];
 
-  return club.eventName == mockData['eventName'] &&
+  return club.name == mockData['eventName'] &&
       club.description == mockData['description'] &&
       club.organiser == mockData['organiser'] &&
       club.timeStamp == mockData['timeStamp'] &&

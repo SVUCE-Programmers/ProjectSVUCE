@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 
 class EventListItem extends StatelessWidget {
   final Event event;
@@ -22,7 +22,7 @@ class EventListItem extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      title: Text(event.eventName),
+      title: Text(event.name),
       subtitle: Text(
         event.place + "|" + DateTime.parse(event.timeStamp).toString(),
       ),

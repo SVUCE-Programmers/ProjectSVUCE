@@ -14,6 +14,7 @@ abstract class Event implements _$Event {
       String organiser,
       String place,
       String timeStamp,
+      String imageUrl,
       String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _Event;
 
@@ -28,6 +29,7 @@ abstract class Event implements _$Event {
         place: document.data["place"],
         timeStamp: document.data["timeStamp"],
         description: document.data["description"],
+        imageUrl: document.data["imageUrl"],
         id: document.documentID,
         documentReference: document.reference);
   }
@@ -39,6 +41,7 @@ abstract class Event implements _$Event {
         organiser: '',
         place: '',
         timeStamp: '',
+        imageUrl: '',
         description: '',
         documentReference: null);
   }

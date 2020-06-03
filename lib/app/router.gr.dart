@@ -20,7 +20,7 @@ import 'package:svuce_app/ui/views/user_profile/user_profile_view.dart';
 import 'package:svuce_app/ui/views/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/views/notifications/notifications_view.dart';
 import 'package:svuce_app/ui/views/calender_events/event_detail.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 
 abstract class Routes {
   static const startUpViewRoute = '/';

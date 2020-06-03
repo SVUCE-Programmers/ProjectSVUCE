@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/models/club.dart';
+import 'package:svuce_app/models/club/club.dart';
 import 'package:svuce_app/ui/views/select_clubs/select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {

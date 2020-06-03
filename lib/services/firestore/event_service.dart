@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/event.dart';
+import 'package:svuce_app/models/event/event.dart';
 
 class EventsService {
   final Firestore firestore;
@@ -20,7 +20,7 @@ class EventsService {
     query.snapshots().listen((snapshot) {
       if (snapshot.documents.isNotEmpty) {
         var items = snapshot.documents
-            .map((snapshot) => Event.fromDocumentSnapShot(snapshot))
+            .map((snapshot) => Event.fromDocument(snapshot))
             .toList();
 
         _eventStreamController.add(items);

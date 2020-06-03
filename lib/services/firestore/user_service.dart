@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/user.dart';
+import 'package:svuce_app/models/user/user.dart';
 
 class UserService {
   final Firestore firestore;
@@ -19,7 +19,7 @@ class UserService {
   Future getUser(String userId) async {
     try {
       var userData = await _userRef.document(userId).get();
-      return User.fromData(userData.data);
+      return User.fromDocument(userData);
     } catch (e) {
       return e?.message ?? "Something went wrong";
     }
