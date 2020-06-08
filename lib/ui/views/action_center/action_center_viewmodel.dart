@@ -66,7 +66,6 @@ class ActionCenterViewModel extends BaseViewModel {
   }
 
   init() async {
-    getPercentage();
     var result = await timeTableService.getTimeTable();
 
     if (result is bool) {
@@ -79,7 +78,7 @@ class ActionCenterViewModel extends BaseViewModel {
         }
       }
     }
-
+    await getPercentage();
     getGraph();
   }
 }
