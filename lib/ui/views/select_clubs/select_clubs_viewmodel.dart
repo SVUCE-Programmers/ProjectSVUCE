@@ -16,7 +16,8 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/services/firestore/clubs_service.dart';
 import 'package:svuce_app/core/services/firestore/user_club_service.dart';
-import 'package:svuce_app/core/services/push_notification_service.dart';
+import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
+import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 
 class SelectClubsViewModel extends BaseViewModel {
   final AuthServiceImpl _authenticationService = locator<AuthService>();
@@ -24,7 +25,7 @@ class SelectClubsViewModel extends BaseViewModel {
   final ClubsService _clubsService = locator<ClubsService>();
   final UserClubService _userClubService = locator<UserClubService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final PushNotificationService _pushNotifyService =
+  final PushNotificationServiceImp _pushNotifyService =
       locator<PushNotificationService>();
 
   List<Club> _clubList;

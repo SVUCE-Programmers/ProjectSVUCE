@@ -4,9 +4,9 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:http/http.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
+import 'package:http/src/client.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +16,8 @@ import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/core/services/register_third_party_services.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/core/services/push_notification_service.dart';
+import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
+import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/core/services/firestore/register_firestore_services.dart';
 import 'package:svuce_app/core/services/firestore/user_club_service.dart';
@@ -40,8 +41,6 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   g.registerLazySingleton<NavigationService>(
       () => registerExternalServices.navigationService);
-  g.registerLazySingleton<PushNotificationService>(
-      () => PushNotificationService());
   g.registerLazySingleton<SnackbarService>(
       () => registerExternalServices.snackbarService);
   g.registerLazySingleton<TimeTableService>(() => TimeTableService());
@@ -64,6 +63,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<FirebaseAuth>(registerDependencies.firebaseAuth);
   g.registerSingleton<Firestore>(registerDependencies.firestore);
   g.registerSingleton<HiveInterface>(registerDependencies.hive);
+  g.registerSingleton<PushNotificationService>(PushNotificationServiceImp());
   g.registerSingleton<APIService>(APIServiceImpl(g<Client>()));
   g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
 }

@@ -5,11 +5,14 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 
-@lazySingleton
-class PushNotificationService {
+import 'push_notification_service.dart';
+
+@Singleton(as: PushNotificationService)
+class PushNotificationServiceImp implements PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final NavigationService _navigationService = locator<NavigationService>();
 
+  @override
   Future initialise() async {
     if (Platform.isIOS) {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
@@ -43,6 +46,7 @@ class PushNotificationService {
     }
   }
 
+  @override
   Future subscribe(String topic) async {
     try {
       await _fcm.subscribeToTopic(topic);
