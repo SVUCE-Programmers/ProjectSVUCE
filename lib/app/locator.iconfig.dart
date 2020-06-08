@@ -21,7 +21,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
-import 'package:svuce_app/core/services/register_third_party_services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
@@ -35,7 +34,6 @@ import 'package:get_it/get_it.dart';
 void $initGetIt(GetIt g, {String environment}) {
   final registerFirestoreServices = _$RegisterFirestoreServices();
   final registerDependencies = _$RegisterDependencies();
-  final registerExternalServices = _$RegisterExternalServices();
   g.registerLazySingleton<AnnouncementService>(
       () => registerFirestoreServices.announcementService);
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
@@ -48,9 +46,9 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<HiveService>(() => HiveService());
   g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   g.registerLazySingleton<NavigationService>(
-      () => registerExternalServices.navigationService);
+      () => registerDependencies.navigationService);
   g.registerLazySingleton<SnackbarService>(
-      () => registerExternalServices.snackbarService);
+      () => registerDependencies.snackbarService);
   g.registerLazySingleton<TimeTableService>(() => TimeTableService());
   g.registerLazySingleton<UserClubService>(
       () => registerFirestoreServices.userClubService);
@@ -83,9 +81,7 @@ class _$RegisterFirestoreServices extends RegisterFirestoreServices {
   UserService get userService => UserService();
 }
 
-class _$RegisterDependencies extends RegisterDependencies {}
-
-class _$RegisterExternalServices extends RegisterExternalServices {
+class _$RegisterDependencies extends RegisterDependencies {
   @override
   NavigationService get navigationService => NavigationService();
   @override
