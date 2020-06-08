@@ -4,9 +4,9 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:http/http.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
-import 'package:http/src/client.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,11 +36,6 @@ void $initGetIt(GetIt g, {String environment}) {
   final registerExternalServices = _$RegisterExternalServices();
   final registerFirestoreServices = _$RegisterFirestoreServices(g);
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
-  g.registerLazySingleton<Client>(() => registerDependencies.client);
-  g.registerLazySingleton<FirebaseAuth>(
-      () => registerDependencies.firebaseAuth);
-  g.registerLazySingleton<Firestore>(() => registerDependencies.firestore);
-  g.registerLazySingleton<HiveInterface>(() => registerDependencies.hive);
   g.registerLazySingleton<HiveService>(() => HiveService());
   g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
   g.registerLazySingleton<NavigationService>(
@@ -64,7 +59,11 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.feedService);
 
   //Eager singletons must be registered in the right order
+  g.registerSingleton<Client>(registerDependencies.client);
   g.registerSingleton<CloudStorageService>(CloudStorageServiceImpl());
+  g.registerSingleton<FirebaseAuth>(registerDependencies.firebaseAuth);
+  g.registerSingleton<Firestore>(registerDependencies.firestore);
+  g.registerSingleton<HiveInterface>(registerDependencies.hive);
   g.registerSingleton<APIService>(APIServiceImpl(g<Client>()));
   g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
 }

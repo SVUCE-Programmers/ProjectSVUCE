@@ -6,15 +6,15 @@ import 'package:http/http.dart';
 
 @module
 abstract class RegisterDependencies {
-  @lazySingleton
+  @singleton
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
-  @lazySingleton
+  @singleton
   Firestore get firestore => Firestore.instance;
 
-  @lazySingleton
+  @singleton
   HiveInterface get hive => Hive;
 
-  @lazySingleton
+  @singleton
   Client get client => Client();
 }

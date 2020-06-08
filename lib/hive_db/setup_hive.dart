@@ -9,7 +9,6 @@ import 'models/staff.dart';
 import 'models/time_table.dart';
 
 void setupHive() async {
-  WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   final _hiveInterface = locator<HiveInterface>();
 
@@ -19,5 +18,5 @@ void setupHive() async {
   _hiveInterface.registerAdapter(StaffAdapter());
   _hiveInterface.registerAdapter(TimeTableAdapter());
   _hiveInterface.registerAdapter(AttendanceAdapter());
-  Hive.registerAdapter(PlacementAdapter());
+  _hiveInterface.registerAdapter(PlacementAdapter());
 }
