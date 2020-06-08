@@ -4,32 +4,30 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-import 'package:http/http.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
-import 'package:svuce_app/services/register_dependencies.dart';
-import 'package:svuce_app/services/cloud_storage_service.dart';
+import 'package:svuce_app/core/services/register_dependencies.dart';
+import 'package:http/src/client.dart';
+import 'package:svuce_app/core/services/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
-import 'package:svuce_app/services/register_third_party_services.dart';
+import 'package:svuce_app/core/services/register_third_party_services.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/services/push_notification_service.dart';
+import 'package:svuce_app/core/services/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/services/firestore/register_firestore_services.dart';
-import 'package:svuce_app/services/firestore/user_club_service.dart';
-import 'package:svuce_app/services/firestore/user_service.dart';
-import 'package:svuce_app/services/api/api_service_impl.dart';
-import 'package:svuce_app/services/api/api_service.dart';
-import 'package:svuce_app/services/firestore/announcement_service.dart';
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/services/auth/auth_service.dart';
-
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/services/firestore/clubs_service.dart';
-import 'package:svuce_app/services/firestore/event_service.dart';
-import 'package:svuce_app/services/firestore/feed_service.dart';
+import 'package:svuce_app/core/services/firestore/register_firestore_services.dart';
+import 'package:svuce_app/core/services/firestore/user_club_service.dart';
+import 'package:svuce_app/core/services/firestore/user_service.dart';
+import 'package:svuce_app/core/services/api/api_service_impl.dart';
+import 'package:svuce_app/core/services/api/api_service.dart';
+import 'package:svuce_app/core/services/firestore/announcement_service.dart';
+import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/firestore/clubs_service.dart';
+import 'package:svuce_app/core/services/firestore/event_service.dart';
+import 'package:svuce_app/core/services/firestore/feed_service.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {

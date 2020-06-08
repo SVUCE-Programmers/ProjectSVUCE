@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-import 'package:svuce_app/services/api/api_service_impl.dart';
+import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'dart:convert';
 
 import 'mock_data.dart';

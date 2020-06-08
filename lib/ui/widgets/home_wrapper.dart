@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/models/home_view_item.dart';
+import 'package:svuce_app/core/models/home_view_item.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/home/home_view_items.dart';
 import 'package:svuce_app/ui/widgets/bottom_navigation.dart';

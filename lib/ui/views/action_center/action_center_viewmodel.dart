@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/models/graph.dart';
-import 'package:svuce_app/services/auth/auth_service.dart';
-
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/models/graph.dart';
+import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 
 import 'package:svuce_app/ui/views/action_center/dataset.dart';
 

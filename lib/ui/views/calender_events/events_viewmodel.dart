@@ -2,8 +2,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
-import 'package:svuce_app/models/event/event.dart';
-import 'package:svuce_app/services/firestore/event_service.dart';
+import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/core/services/firestore/event_service.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {

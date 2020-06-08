@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/club/club.dart';
+import 'package:svuce_app/core/models/club/club.dart';
 
 class ClubsService {
   final Firestore firestore;

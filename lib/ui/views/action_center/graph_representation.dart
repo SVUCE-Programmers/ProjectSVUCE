@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/models/graph.dart';
+import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
 class GraphRepresentation extends StatefulWidget {

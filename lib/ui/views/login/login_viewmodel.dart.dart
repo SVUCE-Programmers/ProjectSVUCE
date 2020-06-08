@@ -9,9 +9,9 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
 
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 
 @lazySingleton
 class LoginViewModel extends BaseViewModel {

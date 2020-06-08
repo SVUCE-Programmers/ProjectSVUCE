@@ -1,7 +1,7 @@
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:svuce_app/models/club/club.dart';
-import 'package:svuce_app/services/firestore/clubs_service.dart';
+import 'package:svuce_app/core/models/club/club.dart';
+import 'package:svuce_app/core/services/firestore/clubs_service.dart';
 
 import 'mock_data.dart';
 

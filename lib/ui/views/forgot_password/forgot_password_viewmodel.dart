@@ -5,8 +5,8 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/services/auth/auth_service.dart';
-import 'package:svuce_app/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

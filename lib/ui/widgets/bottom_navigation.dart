@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/models/home_view_item.dart';
+import 'package:svuce_app/core/models/home_view_item.dart';
 import 'package:svuce_app/ui/widgets/navbar_button.dart';
 
 class AnimatedBottomBar extends StatelessWidget {

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/models/graph.dart';
 import 'dart:ui' as ui;
+
+import 'package:svuce_app/core/models/graph.dart';
 
 class GraphWidget extends StatefulWidget {
   final Graph graph;
   final List<String> subjects;
   final List<String> yAxis;
 
-  const GraphWidget({Key key, this.graph, this.subjects,this.yAxis}) : super(key: key);
+  const GraphWidget({Key key, this.graph, this.subjects, this.yAxis})
+      : super(key: key);
   @override
   _GraphWidgetState createState() => _GraphWidgetState();
 }
@@ -35,15 +37,18 @@ class _GraphWidgetState extends State<GraphWidget>
 
   @override
   Widget build(BuildContext context) {
-    print("Graph is:"+widget.graph.domainEnd.toString());
+    print("Graph is:" + widget.graph.domainEnd.toString());
     final List<String> yAxisLabels = widget.yAxis;
     String label0Text;
     double label0Y;
     if (widget.graph.selectedDataPoint != -1) {
       label0Text = numberToPriceString(
-          (widget.graph.dataSets[0].values[widget.graph.selectedDataPoint]*100));
-      label0Y =
-          (150 )* (MediaQuery.of(context).size.height / 480)* (1.0 - widget.graph.selectedY(0)) + 10;
+          (widget.graph.dataSets[0].values[widget.graph.selectedDataPoint] *
+              100));
+      label0Y = (150) *
+              (MediaQuery.of(context).size.height / 480) *
+              (1.0 - widget.graph.selectedY(0)) +
+          10;
     }
 
     final appSize = MediaQuery.of(context).size;
@@ -83,7 +88,7 @@ class _GraphWidgetState extends State<GraphWidget>
             ),
             Positioned(
               left: 4,
-              height: (150 )* (appSize.height / 480),
+              height: (150) * (appSize.height / 480),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: yAxisLabels
@@ -204,7 +209,6 @@ class _GraphWidgetState extends State<GraphWidget>
 }
 
 class ForegroundPainter extends CustomPainter {
-  
   Graph _graph;
   Animation<double> _selectedFade;
   List<Color> _backgroundColors;
@@ -217,10 +221,11 @@ class ForegroundPainter extends CustomPainter {
         _foregroundColors = foregroundColors,
         super(repaint: Listenable.merge([graph, selectedFade]));
   double dataY(List<double> values, int index) {
-    final y = ((values[index] - _graph.rangeStart) / _graph.rangeEnd)*10;
-    print("Returning y is:"+y.toString());
+    final y = ((values[index] - _graph.rangeStart) / _graph.rangeEnd) * 10;
+    print("Returning y is:" + y.toString());
     return y;
   }
+
   void paintChartData(
       Graph graph,
       int dataSetIndex,
@@ -229,11 +234,11 @@ class ForegroundPainter extends CustomPainter {
       ui.Canvas canvas,
       Size size) {
     final range = graph.domainEnd - graph.domainStart;
-    
+
     final dataOffset = (int index) {
       final x =
           ((index.toDouble() - graph.domainStart) / range) * size.width + 28;
-      print("On foreground:"+graph.dataSets[0].toString());
+      print("On foreground:" + graph.dataSets[0].toString());
       final y = dataY(graph.dataSets[dataSetIndex].values, index) * size.height;
       return Offset(x, y);
     };
@@ -378,7 +383,7 @@ class GraphPainter extends CustomPainter {
     for (int i = _graph.domainStart.round();
         i < _graph.domainEnd.round();
         ++i) {
-      print("Xlabels are:"+xLabel.toString());
+      print("Xlabels are:" + xLabel.toString());
       xLabel.add(subjects[i]);
     }
     final double start = _graph.domainStart;

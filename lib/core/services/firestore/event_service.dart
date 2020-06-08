@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/event/event.dart';
+import 'package:svuce_app/core/models/event/event.dart';
 
 class EventsService {
   final Firestore firestore;

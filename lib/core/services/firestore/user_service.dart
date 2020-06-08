@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/user/user.dart';
+import 'package:svuce_app/core/models/user/user.dart';
 
 class UserService {
   final Firestore firestore;

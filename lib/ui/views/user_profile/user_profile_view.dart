@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/assets.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/models/user_club/user_club.dart';
+import 'package:svuce_app/core/models/user_club/user_club.dart';
 
 import 'user_profile_viewmodel.dart';
 

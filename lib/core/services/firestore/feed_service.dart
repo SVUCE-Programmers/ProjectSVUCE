@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/feed/feed.dart';
+import 'package:svuce_app/core/models/feed/feed.dart';
 
 class FeedService {
   final Firestore firestore;

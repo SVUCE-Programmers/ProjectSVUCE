@@ -5,10 +5,10 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/hive_db/models/placement.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
-import 'package:svuce_app/models/graph.dart';
-import 'package:svuce_app/services/api/api_service.dart';
+import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/ui/views/action_center/dataset.dart';
 
 class PlacementViewModel extends BaseViewModel {

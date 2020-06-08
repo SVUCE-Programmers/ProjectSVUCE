@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:svuce_app/models/announcement/announcement.dart';
+import 'package:svuce_app/core/models/announcement/announcement.dart';
 
 class AnnouncementService {
   final Firestore firestore;
