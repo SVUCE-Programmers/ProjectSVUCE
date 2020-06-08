@@ -4,9 +4,9 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:http/http.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
-import 'package:http/src/client.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
