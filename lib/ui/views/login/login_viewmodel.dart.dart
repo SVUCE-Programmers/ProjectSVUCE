@@ -24,8 +24,7 @@ class LoginViewModel extends BaseViewModel {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final AuthServiceImpl _authenticationService =
-      locator<AuthService>();
+  final AuthServiceImpl _authenticationService = locator<AuthService>();
 
   final NavigationService _navigationService = locator<NavigationService>();
 

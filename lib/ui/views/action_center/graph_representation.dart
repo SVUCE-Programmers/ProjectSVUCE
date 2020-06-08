@@ -6,7 +6,11 @@ class GraphRepresentation extends StatefulWidget {
   final Graph graph;
   final List<String> subject;
   final List<String> yAxis;
-  const GraphRepresentation({Key key,@required this.graph,@required this.subject,@required this.yAxis})
+  const GraphRepresentation(
+      {Key key,
+      @required this.graph,
+      @required this.subject,
+      @required this.yAxis})
       : super(key: key);
   @override
   _GraphRepresentationState createState() => _GraphRepresentationState();
@@ -36,8 +40,9 @@ class _GraphRepresentationState extends State<GraphRepresentation>
     });
     super.initState();
   }
+
   @override
-  void dispose() { 
+  void dispose() {
     _controller.dispose();
     super.dispose();
   }

@@ -3,14 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Rotation3d extends StatelessWidget {
-  static const double degrees2Radians = pi/180;
+  static const double degrees2Radians = pi / 180;
 
   final Widget child;
   final double rotationX;
   final double rotationY;
   final double rotationZ;
 
-  const Rotation3d({Key key, @required this.child, this.rotationX=0, this.rotationY=0, this.rotationZ=0}) : super(key: key);
+  const Rotation3d(
+      {Key key,
+      @required this.child,
+      this.rotationX = 0,
+      this.rotationY = 0,
+      this.rotationZ = 0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

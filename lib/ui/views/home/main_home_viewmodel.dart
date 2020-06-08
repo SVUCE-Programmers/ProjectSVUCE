@@ -14,8 +14,7 @@ import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
 
 class MainHomeViewModel extends BaseViewModel {
-  final AuthServiceImpl _authenticationService =
-      locator<AuthService>();
+  final AuthServiceImpl _authenticationService = locator<AuthService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();

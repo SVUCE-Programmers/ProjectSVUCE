@@ -9,8 +9,7 @@ import 'package:svuce_app/core/services/firestore/user_club_service.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services
-  final AuthServiceImpl _authenticationService =
-      locator<AuthService>();
+  final AuthServiceImpl _authenticationService = locator<AuthService>();
 
   final UserClubService _userClubService = locator<UserClubService>();
 

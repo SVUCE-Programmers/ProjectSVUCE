@@ -31,6 +31,7 @@ class StaffAdapter extends TypeAdapter<Staff> {
       ..writeByte(2)
       ..write(obj.avatar);
   }
+
   @override
   int get typeId => 0;
 }

@@ -1,4 +1,4 @@
- class DataSet {
+class DataSet {
   List<double> _values;
 
   DataSet(List<double> values) : _values = values;

@@ -55,7 +55,7 @@ void main() {
       expect(result, "Please enter a valid rollno.");
     });
   });
-  
+
   group("Phone no. Validation", () {
     test("Empty phone_no. generates error", () {
       final result = Validators.validatePhoneNo('');

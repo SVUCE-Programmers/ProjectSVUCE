@@ -17,7 +17,8 @@ class Graph extends ChangeNotifier {
         _domainEnd = 0 {
     _maxDomain = double.maxFinite;
     for (var dataSet in _dataSets) {
-      if (dataSet.values.length < _maxDomain) _maxDomain = dataSet.values.length.toDouble();
+      if (dataSet.values.length < _maxDomain)
+        _maxDomain = dataSet.values.length.toDouble();
     }
     _domainEnd = _maxDomain;
     _selectedDataPoint = -1;
@@ -29,7 +30,8 @@ class Graph extends ChangeNotifier {
   double min() {
     double result = double.maxFinite;
     for (var dataSet in _dataSets)
-      for (var value in dataSet.values.sublist(_domainStart.round(), _domainEnd.round()))
+      for (var value
+          in dataSet.values.sublist(_domainStart.round(), _domainEnd.round()))
         if (value < result) result = value;
     return result;
   }
@@ -37,20 +39,26 @@ class Graph extends ChangeNotifier {
   double max() {
     double result = 0;
     for (var dataSet in _dataSets)
-      for (var value in dataSet.values.sublist(_domainStart.round(), _domainEnd.round()))
+      for (var value
+          in dataSet.values.sublist(_domainStart.round(), _domainEnd.round()))
         if (value > result) result = value;
     return result;
   }
 
   double mean(int setIndex) {
-    final values = _dataSets[setIndex].values.sublist(_domainStart.round(), _domainEnd.round());
+    final values = _dataSets[setIndex]
+        .values
+        .sublist(_domainStart.round(), _domainEnd.round());
     return values.fold(0.0, (a, b) => a + b) / values.length;
   }
 
   double median(int setIndex) {
     assert(setIndex >= 0 && setIndex < _dataSets.length);
 
-    final sortedValues = _dataSets[setIndex].values.sublist(_domainStart.round(), _domainEnd.round())..sort();
+    final sortedValues = _dataSets[setIndex]
+        .values
+        .sublist(_domainStart.round(), _domainEnd.round())
+          ..sort();
 
     double result;
     if (sortedValues.length < 2) {
@@ -68,17 +76,15 @@ class Graph extends ChangeNotifier {
   }
 
   set domainStart(double domainStart) {
-    if (domainStart == _domainStart)
-      return;
+    if (domainStart == _domainStart) return;
 
     _domainStart = domainStart.clamp(0, _domainEnd - 1.2);
     notifyListeners();
   }
 
   set domainEnd(double domainEnd) {
-    if (domainEnd == _domainEnd)
-      return;
-    _domainEnd=domainEnd;
+    if (domainEnd == _domainEnd) return;
+    _domainEnd = domainEnd;
 
     notifyListeners();
   }
@@ -127,7 +133,9 @@ class Graph extends ChangeNotifier {
 
   double selectedY(int dataSetIndex) {
     if (_selectedDataPoint == -1) return 0;
-    final y = ((_dataSets[dataSetIndex].values[_selectedDataPoint] - rangeStart) / rangeEnd);
+    final y =
+        ((_dataSets[dataSetIndex].values[_selectedDataPoint] - rangeStart) /
+            rangeEnd);
     return y;
   }
 }

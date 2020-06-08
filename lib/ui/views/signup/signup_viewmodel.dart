@@ -15,7 +15,6 @@ class SignUpViewModel extends BaseViewModel {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  
 
   final NavigationService _navigationService = locator<NavigationService>();
 

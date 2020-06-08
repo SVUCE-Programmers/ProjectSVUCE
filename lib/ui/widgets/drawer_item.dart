@@ -23,8 +23,8 @@ class DrawerItem extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: TextStyle(
-                color: textSecondaryColor, fontFamily: "Quicksand"),
+            style:
+                TextStyle(color: textSecondaryColor, fontFamily: "Quicksand"),
           ),
         ),
       ),

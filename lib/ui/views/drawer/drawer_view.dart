@@ -58,8 +58,10 @@ class DrawerView extends StatelessWidget {
                 DrawerItem(
                   title: "Faculty",
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PlacementView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PlacementView()));
                   },
                   iconData: facultyIcon,
                 ),

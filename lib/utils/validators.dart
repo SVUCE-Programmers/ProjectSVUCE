@@ -26,7 +26,7 @@ class Validators {
       return 'Please Enter Your Password';
     } else if (password.length < 6) {
       return 'Your password must be atleast 6';
-    } 
+    }
     return null;
   }
 
