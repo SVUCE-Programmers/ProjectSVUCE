@@ -1,14 +1,16 @@
 List<Map<String, dynamic>> mockEventsData = [
   {
-    "eventName": "Hackathon",
+    "name": "Hackathon",
     "imageUrl": "imageUrl",
     "organiser": "iSiddishDev",
     "place": "Silicon Valley",
     "timeStamp": "14 Jan 2021",
     "description": "Come and win",
+    "id": '2313',
   },
   {
-    "eventName": "Algo Builder",
+    "name": "Algo Builder",
+    "id": '2314',
     "imageUrl": "imageUrl",
     "organiser": "AlgoKun",
     "place": "Some where on the earth",

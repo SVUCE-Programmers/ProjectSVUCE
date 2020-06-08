@@ -1,16 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/user_club/user_club.dart';
 
 class UserClubService {
-  final Firestore firestore;
+  static Firestore firestore = locator<Firestore>();
 
-  final CollectionReference _userRef;
-
-  // For Testing
-  UserClubService(this.firestore)
-      : this._userRef = firestore.collection("users");
+  static CollectionReference _userRef = firestore.collection("users");
 
   final StreamController<List<UserClub>> _userClubStreamController =
       StreamController<List<UserClub>>.broadcast();

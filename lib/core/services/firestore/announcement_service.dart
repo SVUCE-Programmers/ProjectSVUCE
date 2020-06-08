@@ -1,14 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
 
 class AnnouncementService {
-  final Firestore firestore;
-  final CollectionReference _announcementRef;
-  // For Testing
-  AnnouncementService(this.firestore)
-      : _announcementRef = firestore.collection("announcements");
+  static Firestore firestore = locator<Firestore>();
+  static CollectionReference _announcementRef =
+      firestore.collection("announcements");
 
   final StreamController<List<Announcement>> _announcementStreamController =
       StreamController<List<Announcement>>.broadcast();

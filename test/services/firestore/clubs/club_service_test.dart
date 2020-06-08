@@ -1,14 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/club/club.dart';
 import 'package:svuce_app/core/services/firestore/clubs_service.dart';
 
 import 'mock_data.dart';
 
 main() {
-  final MockFirestoreInstance mockFirestoreInstance = MockFirestoreInstance();
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    locator.allowReassignment = true;
+  });
 
-  final ClubsService clubsService = ClubsService(mockFirestoreInstance);
+  final MockFirestoreInstance mockFirestoreInstance = MockFirestoreInstance();
 
   group("Clubs Service Test", () {
     test("Get Stream of Clubs", () async {
@@ -24,6 +30,9 @@ main() {
           .document(mockClubData[1]['id'])
           .setData(mockClubData[1]);
 
+      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      final ClubsService clubsService = locator<ClubsService>();
+
       Stream announcementStream = clubsService.getClubs();
 
       announcementStream.listen((event) {
@@ -38,6 +47,9 @@ main() {
     test("Follow Club", () async {
       String clubId = "clubId1";
       String userId = "userId";
+
+      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      final ClubsService clubsService = locator<ClubsService>();
 
       expect(await clubsService.followClub(clubId, userId), true);
     });
