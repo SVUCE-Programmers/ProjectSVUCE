@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-import 'package:svuce_app/core/services/api/api_service_impl.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/api/api_service.dart';
 import 'dart:convert';
 
 import 'mock_data.dart';
@@ -9,6 +11,12 @@ import 'mock_data.dart';
 class MockClient extends Mock implements http.Client {}
 
 main() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    setupLocator();
+    locator.allowReassignment = true;
+  });
+
   final String url =
       "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
 
@@ -18,7 +26,8 @@ main() {
   group('Fetch data Using API', () {
     test('Constructing Service should find correct dependencies', () {
       final client = MockClient();
-      final apiService = APIServiceImpl(client);
+      locator.registerSingleton<Client>(client);
+      final apiService = locator<APIService>();
       expect(apiService != null, true);
     });
 
@@ -29,10 +38,12 @@ main() {
       when(client.get(fetchUrl, headers: headers))
           .thenAnswer((_) async => http.Response(responseString, 200));
 
+      locator.registerSingleton<Client>(client);
+
       JsonDecoder _decoder = new JsonDecoder();
       var result = _decoder.convert(responseString);
 
-      final apiService = APIServiceImpl(client);
+      final apiService = locator<APIService>();
 
       expect(await apiService.fetchData(url: fetchUrl), result);
     });
@@ -44,7 +55,9 @@ main() {
       when(client.get(fetchUrl, headers: headers))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      final apiService = APIServiceImpl(client);
+      locator.registerSingleton<Client>(client);
+
+      final apiService = locator<APIService>();
       expect(apiService.fetchData(url: url), throwsException);
     });
   });
