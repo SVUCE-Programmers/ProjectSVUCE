@@ -7,7 +7,8 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/hive_db/models/staff.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
-import 'package:svuce_app/services/api_service.dart';
+import 'package:svuce_app/services/api/api_service.dart';
+import 'package:svuce_app/services/api/api_service_impl.dart';
 
 class StaffViewModel extends BaseViewModel {
   int length;
@@ -15,7 +16,7 @@ class StaffViewModel extends BaseViewModel {
   List<Staff> get staffList => _staffList;
 
   final HiveService hiveService = locator<HiveService>();
-  final APIService apiService = locator<APIService>();
+  final APIServiceImpl apiService = locator<APIService>();
   final SnackbarService snackbarService = locator<SnackbarService>();
 
   final String url =

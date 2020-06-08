@@ -7,7 +7,6 @@ import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/models/graph.dart';
-import 'package:svuce_app/services/api_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 
 import 'package:svuce_app/ui/views/action_center/dataset.dart';
@@ -15,7 +14,7 @@ import 'package:svuce_app/ui/views/action_center/dataset.dart';
 class ActionCenterViewModel extends BaseViewModel {
   final TimeTableService timeTableService = locator<TimeTableService>();
   final AttendanceService _attendanceService = locator<AttendanceService>();
-  final APIService apiService = locator<APIService>();
+
   final AuthenticationService authenticationService =
       locator<AuthenticationService>();
   final SnackbarService snackbarService = locator<SnackbarService>();

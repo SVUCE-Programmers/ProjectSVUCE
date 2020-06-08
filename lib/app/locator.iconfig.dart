@@ -13,15 +13,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/services/register_third_party_services.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/services/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/services/firestore/user_club_service.dart';
 import 'package:svuce_app/services/firestore/register_firestore_services.dart';
+import 'package:svuce_app/services/firestore/user_club_service.dart';
 import 'package:svuce_app/services/firestore/user_service.dart';
-import 'package:svuce_app/services/api_service.dart';
+import 'package:svuce_app/services/api/api_service_impl.dart';
+import 'package:svuce_app/services/api/api_service.dart';
 import 'package:svuce_app/services/firestore/announcement_service.dart';
+import 'package:svuce_app/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/services/auth/auth_service.dart';
 import 'package:svuce_app/services/auth_service.dart';
 import 'package:svuce_app/services/firestore/clubs_service.dart';
 import 'package:svuce_app/services/firestore/event_service.dart';
@@ -52,7 +55,6 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.userClubService);
   g.registerLazySingleton<UserService>(
       () => registerFirestoreServices.userService);
-  g.registerLazySingleton<APIService>(() => APIService(g<Client>()));
   g.registerLazySingleton<AnnouncementService>(
       () => registerFirestoreServices.announcementService);
   g.registerLazySingleton<AuthenticationService>(
@@ -63,6 +65,10 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.eventsService);
   g.registerLazySingleton<FeedService>(
       () => registerFirestoreServices.feedService);
+
+  //Eager singletons must be registered in the right order
+  g.registerSingleton<APIService>(APIServiceImpl(g<Client>()));
+  g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
 }
 
 class _$RegisterDependencies extends RegisterDependencies {}

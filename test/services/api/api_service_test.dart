@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-import 'package:svuce_app/services/api_service.dart';
+import 'package:svuce_app/services/api/api_service_impl.dart';
 import 'dart:convert';
 
 import 'mock_data.dart';
@@ -16,7 +16,7 @@ main() {
   final headers = {"Accept": "application/json"};
   final fetchUrl = Uri.encodeFull(url);
 
-  final APIService apiService = APIService(client);
+  final apiService = APIServiceImpl(client);
 
   group('Fetch data Using API', () {
     test('returns data if the http call completes successfully', () async {

@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:http/http.dart';
 
-@registerModule
+@module
 abstract class RegisterDependencies {
   @lazySingleton
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;

@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
-class APIService {
+import 'api_service.dart';
+
+@Singleton(as: APIService)
+class APIServiceImpl implements APIService {
   final http.Client _client;
 
   // For testing
-  APIService(this._client);
+  const APIServiceImpl(this._client);
 
-  fetchData({String url}) async {
+  @override
+  Future fetchData({String url}) async {
     final fetchUrl = Uri.encodeFull(url);
     final headers = {"Accept": "application/json"};
 
