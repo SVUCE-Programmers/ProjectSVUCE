@@ -9,7 +9,9 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/services/auth_service.dart';
+import 'package:svuce_app/services/auth/auth_service.dart';
+
+import 'package:svuce_app/services/auth/auth_service_impl.dart';
 
 @lazySingleton
 class LoginViewModel extends BaseViewModel {
@@ -22,8 +24,8 @@ class LoginViewModel extends BaseViewModel {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+  final AuthServiceImpl _authenticationService =
+      locator<AuthService>();
 
   final NavigationService _navigationService = locator<NavigationService>();
 

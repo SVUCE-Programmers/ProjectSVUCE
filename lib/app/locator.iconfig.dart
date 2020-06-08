@@ -25,7 +25,8 @@ import 'package:svuce_app/services/api/api_service.dart';
 import 'package:svuce_app/services/firestore/announcement_service.dart';
 import 'package:svuce_app/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/services/auth/auth_service.dart';
-import 'package:svuce_app/services/auth_service.dart';
+
+import 'package:svuce_app/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/services/firestore/clubs_service.dart';
 import 'package:svuce_app/services/firestore/event_service.dart';
 import 'package:svuce_app/services/firestore/feed_service.dart';
@@ -57,8 +58,6 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.userService);
   g.registerLazySingleton<AnnouncementService>(
       () => registerFirestoreServices.announcementService);
-  g.registerLazySingleton<AuthenticationService>(
-      () => AuthenticationService(g<FirebaseAuth>()));
   g.registerLazySingleton<ClubsService>(
       () => registerFirestoreServices.clubsService);
   g.registerLazySingleton<EventsService>(

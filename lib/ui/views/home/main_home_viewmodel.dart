@@ -8,12 +8,14 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/models/user/user.dart';
-import 'package:svuce_app/services/auth_service.dart';
+import 'package:svuce_app/services/auth/auth_service.dart';
+
+import 'package:svuce_app/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/ui/views/attendance_manager/attendance_view.dart';
 
 class MainHomeViewModel extends BaseViewModel {
-  final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
+  final AuthServiceImpl _authenticationService =
+      locator<AuthService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
