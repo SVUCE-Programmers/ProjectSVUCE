@@ -7,7 +7,8 @@
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
 import 'package:http/src/client.dart';
-import 'package:svuce_app/core/services/cloud_storage_service.dart';
+import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
+import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
@@ -36,7 +37,6 @@ void $initGetIt(GetIt g, {String environment}) {
   final registerFirestoreServices = _$RegisterFirestoreServices(g);
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
   g.registerLazySingleton<Client>(() => registerDependencies.client);
-  g.registerLazySingleton<CloudStorageService>(() => CloudStorageService());
   g.registerLazySingleton<FirebaseAuth>(
       () => registerDependencies.firebaseAuth);
   g.registerLazySingleton<Firestore>(() => registerDependencies.firestore);
@@ -64,6 +64,7 @@ void $initGetIt(GetIt g, {String environment}) {
       () => registerFirestoreServices.feedService);
 
   //Eager singletons must be registered in the right order
+  g.registerSingleton<CloudStorageService>(CloudStorageServiceImpl());
   g.registerSingleton<APIService>(APIServiceImpl(g<Client>()));
   g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
 }

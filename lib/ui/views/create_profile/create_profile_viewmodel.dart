@@ -11,7 +11,8 @@ import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/core/services/cloud_storage_service.dart';
+import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
+import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/firestore/user_service.dart';
 import 'package:svuce_app/utils/image_selector.dart';
 
@@ -21,7 +22,7 @@ class CreateProfileViewModel extends BaseViewModel {
   final AuthServiceImpl _authenticationService = locator<AuthService>();
   final UserService _userService = locator<UserService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final CloudStorageService _cloudStorageService =
+  final CloudStorageServiceImpl _cloudStorageService =
       locator<CloudStorageService>();
   final ImageSelector imageSelector = ImageSelector();
 
