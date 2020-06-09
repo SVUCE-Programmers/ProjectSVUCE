@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 import 'package:svuce_app/core/repositories/register_firestore_services.dart';
 import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
-import 'package:svuce_app/core/repositories/announcement_service.dart';
+import 'package:svuce_app/core/repositories/announcement_repository/announcement_repository_impl.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
@@ -34,7 +34,7 @@ import 'package:get_it/get_it.dart';
 void $initGetIt(GetIt g, {String environment}) {
   final registerFirestoreServices = _$RegisterFirestoreServices();
   final registerDependencies = _$RegisterDependencies();
-  g.registerLazySingleton<AnnouncementService>(
+  g.registerLazySingleton<AnnouncementRepositoryImpl>(
       () => registerFirestoreServices.announcementService);
   g.registerLazySingleton<AttendanceService>(() => AttendanceService());
   g.registerLazySingleton<ClubsService>(
@@ -68,7 +68,7 @@ void $initGetIt(GetIt g, {String environment}) {
 
 class _$RegisterFirestoreServices extends RegisterRepos {
   @override
-  AnnouncementService get announcementService => AnnouncementService();
+  AnnouncementRepositoryImpl get announcementService => AnnouncementRepositoryImpl();
   @override
   ClubsService get clubsService => ClubsService();
   @override

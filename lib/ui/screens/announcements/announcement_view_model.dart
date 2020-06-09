@@ -2,10 +2,10 @@ import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
 
-import 'package:svuce_app/core/repositories/announcement_service.dart';
+import 'package:svuce_app/core/repositories/announcement_repository/announcement_repository_impl.dart';
 
 class AnnouncementViewModel extends BaseViewModel {
-  final AnnouncementService _firestoreService = locator<AnnouncementService>();
+  final AnnouncementRepositoryImpl _firestoreService = locator<AnnouncementRepositoryImpl>();
 
   List<Announcement> _items;
   List<Announcement> get items => _items;

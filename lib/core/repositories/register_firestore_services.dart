@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import 'announcement_service.dart';
+import 'announcement_repository/announcement_repository_impl.dart';
 import 'clubs_service.dart';
 import 'event_service.dart';
 import 'feed_service.dart';
@@ -10,7 +10,7 @@ import 'user_service.dart';
 @module
 abstract class RegisterRepos {
   @lazySingleton
-  AnnouncementService get announcementService;
+  AnnouncementRepositoryImpl get announcementService;
 
   @lazySingleton
   ClubsService get clubsService;

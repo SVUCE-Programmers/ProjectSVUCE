@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
+import 'package:svuce_app/core/repositories/announcement_repository/announcement_repository.dart';
 
-class AnnouncementService {
+class AnnouncementRepositoryImpl implements AnnouncementRepository {
   static Firestore firestore = locator<Firestore>();
   static CollectionReference _announcementRef =
       firestore.collection("announcements");
@@ -12,6 +13,7 @@ class AnnouncementService {
   final StreamController<List<Announcement>> _announcementStreamController =
       StreamController<List<Announcement>>.broadcast();
 
+  @override
   Stream getAnnouncements() {
     var query = _announcementRef.orderBy("timeStamp");
 
@@ -26,5 +28,6 @@ class AnnouncementService {
     });
 
     return _announcementStreamController.stream;
+    throw UnimplementedError();
   }
 }
