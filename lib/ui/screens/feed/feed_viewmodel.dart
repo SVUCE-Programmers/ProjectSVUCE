@@ -1,10 +1,10 @@
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/feed/feed.dart';
-import 'package:svuce_app/core/repositories/feed_service.dart';
+import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 
 class FeedViewModel extends BaseViewModel {
-  final FeedService _feedService = locator<FeedService>();
+  final FeedRepository _feedRepository = locator<FeedRepository>();
 
   List<Feed> _feedItems;
   List<Feed> get feedItems => _feedItems;
@@ -12,7 +12,7 @@ class FeedViewModel extends BaseViewModel {
   getFeed() {
     setBusy(true);
 
-    _feedService.listenToFeedRealTime().listen((feedData) {
+    _feedRepository.getFeed().listen((feedData) {
       List<Feed> updatedPosts = feedData;
       if (updatedPosts != null && updatedPosts.length > 0) {
         _feedItems = updatedPosts;
@@ -23,5 +23,5 @@ class FeedViewModel extends BaseViewModel {
     });
   }
 
-  void requestMoreData() => _feedService.requestMoreData();
+  void requestMoreData() => _feedRepository.requestMoreData();
 }

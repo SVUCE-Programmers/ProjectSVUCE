@@ -3,10 +3,10 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/core/models/event/event.dart';
-import 'package:svuce_app/core/repositories/event_service.dart';
+import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
-  final EventsService _eventsService = locator<EventsService>();
+  final EventsRepository _eventsRepository = locator<EventsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   List<Event> _eventList = List<Event>();
@@ -29,7 +29,7 @@ class CalendarEventsViewModel extends BaseViewModel {
 
   getEvents() {
     setBusy(true);
-    _eventsService.getEvents().listen((feedData) {
+    _eventsRepository.getEvents().listen((feedData) {
       List<Event> eventData = feedData;
       if (eventData != null) {
         _eventList = eventData;

@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
-import 'package:svuce_app/core/repositories/announcement_repository/announcement_repository.dart';
 
-class AnnouncementRepositoryImpl implements AnnouncementRepository {
+import 'announcements_repository.dart';
+
+@Singleton(as: AnnouncementsRepository)
+class AnnouncementsRepositoryImpl implements AnnouncementsRepository {
   static Firestore firestore = locator<Firestore>();
   static CollectionReference _announcementRef =
       firestore.collection("announcements");
@@ -28,6 +31,5 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
     });
 
     return _announcementStreamController.stream;
-    throw UnimplementedError();
   }
 }

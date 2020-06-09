@@ -14,16 +14,17 @@ import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/core/repositories/clubs_service.dart';
-import 'package:svuce_app/core/repositories/user_club_service.dart';
+import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository.dart';
+import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 
 class SelectClubsViewModel extends BaseViewModel {
   final AuthServiceImpl _authenticationService = locator<AuthService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
-  final ClubsService _clubsService = locator<ClubsService>();
-  final UserClubService _userClubService = locator<UserClubService>();
+  final ClubsRepository _clubsRepository = locator<ClubsRepository>();
+  final UserClubsRepository _userClubsRepository =
+      locator<UserClubsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationServiceImp _pushNotifyService =
       locator<PushNotificationService>();
@@ -35,7 +36,7 @@ class SelectClubsViewModel extends BaseViewModel {
   getClubListOnce() {
     setBusy(true);
 
-    _clubsService.getClubs().listen((postsData) {
+    _clubsRepository.getClubs().listen((postsData) {
       List<Club> clubList = postsData;
       if (clubList != null && clubList.length > 0) {
         _clubList = clubList;
@@ -63,9 +64,9 @@ class SelectClubsViewModel extends BaseViewModel {
     try {
       var selectedClub = clubs[index];
 
-      await _clubsService.followClub(selectedClub.id, user.id);
+      await _clubsRepository.followClub(selectedClub.id, user.id);
 
-      await _userClubService.addClubToUser(
+      await _userClubsRepository.addClubToUser(
           UserClub(
               id: selectedClub.id,
               clubLogo: selectedClub.clubLogo,

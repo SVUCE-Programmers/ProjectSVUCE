@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/feed/feed.dart';
+import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 
-class FeedService {
+@Singleton(as: FeedRepository)
+class FeedRepositoryImpl implements FeedRepository {
   static Firestore firestore = locator<Firestore>();
 
   static CollectionReference _feedRef = firestore.collection("feed");
@@ -21,11 +24,6 @@ class FeedService {
   bool _hasMoreFeedItems = true;
 
   final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-
-  Stream listenToFeedRealTime() {
-    _requestFeedItems();
-    return _feedController.stream;
-  }
 
   void _requestFeedItems() {
     var feedQuery = _feedRef
@@ -70,5 +68,12 @@ class FeedService {
     });
   }
 
+  @override
+  Stream getFeed() {
+    _requestFeedItems();
+    return _feedController.stream;
+  }
+
+  @override
   void requestMoreData() => _requestFeedItems();
 }

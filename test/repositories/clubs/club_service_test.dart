@@ -3,7 +3,7 @@ import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/club/club.dart';
-import 'package:svuce_app/core/repositories/clubs_service.dart';
+import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository.dart';
 
 import 'mock_data.dart';
 
@@ -31,9 +31,9 @@ main() {
           .setData(mockClubData[1]);
 
       locator.registerSingleton<Firestore>(mockFirestoreInstance);
-      final ClubsService clubsService = locator<ClubsService>();
+      final ClubsRepository _clubsRepo = locator<ClubsRepository>();
 
-      Stream announcementStream = clubsService.getClubs();
+      Stream announcementStream = _clubsRepo.getClubs();
 
       announcementStream.listen((event) {
         List<Club> clubs = event;
@@ -49,9 +49,9 @@ main() {
       String userId = "userId";
 
       locator.registerSingleton<Firestore>(mockFirestoreInstance);
-      final ClubsService clubsService = locator<ClubsService>();
+      final ClubsRepository _clubsRepo = locator<ClubsRepository>();
 
-      expect(await clubsService.followClub(clubId, userId), true);
+      expect(await _clubsRepo.followClub(clubId, userId), true);
     });
   });
 }

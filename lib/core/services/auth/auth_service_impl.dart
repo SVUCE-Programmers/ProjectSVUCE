@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/user/user.dart';
-import 'package:svuce_app/core/repositories/user_service.dart';
+import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 
 import 'auth_service.dart';
@@ -11,7 +11,7 @@ import 'auth_service.dart';
 @Singleton(as: AuthService)
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth _firebaseAuth;
-  final UserService _userService = locator<UserService>();
+  final UsersRepository _userService = locator<UsersRepository>();
 
   // for testing
   AuthServiceImpl(this._firebaseAuth);

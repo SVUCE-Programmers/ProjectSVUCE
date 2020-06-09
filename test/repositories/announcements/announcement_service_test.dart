@@ -3,7 +3,7 @@ import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
-import 'package:svuce_app/core/repositories/announcement_repository/announcement_repository_impl.dart';
+import 'package:svuce_app/core/repositories/announcements_repository/announcements_repository_impl.dart';
 
 import 'mock_data.dart';
 
@@ -30,8 +30,8 @@ main() {
 
       locator.registerSingleton<Firestore>(mockFirestoreInstance);
 
-      final AnnouncementRepositoryImpl announcementService =
-          locator<AnnouncementRepositoryImpl>();
+      final AnnouncementsRepositoryImpl announcementService =
+          locator<AnnouncementsRepositoryImpl>();
 
       Stream announcementStream = announcementService.getAnnouncements();
 
