@@ -14,8 +14,7 @@ import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 import 'package:svuce_app/ui/screens/signup/signup_view.dart';
 import 'package:svuce_app/ui/screens/create_profile/create_profile_view.dart';
 import 'package:svuce_app/ui/screens/select_clubs/select_clubs_view.dart';
-import 'package:svuce_app/ui/screens/home/home_view.dart';
-import 'package:svuce_app/ui/screens/feed/feed_view.dart';
+import 'package:svuce_app/ui/screens/main/main_view.dart';
 import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/notifications/notifications_view.dart';
@@ -30,8 +29,7 @@ abstract class Routes {
   static const signUpViewRoute = '/sign-up-view-route';
   static const createProfileViewRoute = '/create-profile-view-route';
   static const selectClubsViewRoute = '/select-clubs-view-route';
-  static const homeViewRoute = '/home-view-route';
-  static const feedViewRoute = '/feed-view-route';
+  static const mainViewRoute = '/main-view-route';
   static const userProfileViewRoute = '/user-profile-view-route';
   static const timeTableViewRoute = '/time-table-view-route';
   static const notificationsViewRoute = '/notifications-view-route';
@@ -44,8 +42,7 @@ abstract class Routes {
     signUpViewRoute,
     createProfileViewRoute,
     selectClubsViewRoute,
-    homeViewRoute,
-    feedViewRoute,
+    mainViewRoute,
     userProfileViewRoute,
     timeTableViewRoute,
     notificationsViewRoute,
@@ -114,14 +111,9 @@ class Router extends RouterBase {
               key: typedArgs.key, isSelectClubs: typedArgs.isSelectClubs),
           settings: settings,
         );
-      case Routes.homeViewRoute:
+      case Routes.mainViewRoute:
         return MaterialPageRoute<dynamic>(
-          builder: (context) => HomeView(),
-          settings: settings,
-        );
-      case Routes.feedViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => FeedView(),
+          builder: (context) => MainView(),
           settings: settings,
         );
       case Routes.userProfileViewRoute:

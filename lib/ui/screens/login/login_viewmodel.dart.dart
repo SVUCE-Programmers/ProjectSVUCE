@@ -65,7 +65,7 @@ class LoginViewModel extends BaseViewModel with Validators {
 
     if (authResult is bool) {
       if (authResult) {
-        _navigationService.navigateTo(Routes.homeViewRoute);
+        _navigationService.navigateTo(Routes.mainViewRoute);
       } else {
         _snackbarService.showCustomSnackBar(
           duration: Duration(seconds: 5),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/screens/home/main_home_viewmodel.dart';
+import 'package:svuce_app/ui/screens/home/home_viewmodel.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
@@ -12,8 +12,8 @@ class DrawerView extends StatelessWidget {
   Widget build(BuildContext context) {
     final uiHelpers = UIHelpers.fromContext(context);
 
-    return ViewModelBuilder<MainHomeViewModel>.reactive(
-      viewModelBuilder: () => MainHomeViewModel(),
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.getCurrentUserDetails(),
       builder: (context, model, child) => Drawer(
         child: Container(

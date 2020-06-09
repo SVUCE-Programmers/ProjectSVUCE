@@ -109,7 +109,7 @@ class SelectClubsViewModel extends BaseViewModel {
   }
 
   gotoHome() {
-    _navigationService.navigateTo(Routes.homeViewRoute);
+    _navigationService.navigateTo(Routes.mainViewRoute);
   }
 
   addFlags(int length) {

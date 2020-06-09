@@ -13,7 +13,7 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
 
-class MainHomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel {
   final AuthServiceImpl _authenticationService = locator<AuthService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
