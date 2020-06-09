@@ -4,10 +4,9 @@ import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
-
-import 'package:svuce_app/ui/views/time_table/utils.dart';
 
 @lazySingleton
 class TimeTableService {

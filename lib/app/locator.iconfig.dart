@@ -20,7 +20,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
-import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
+import 'package:svuce_app/ui/screens/login/login_viewmodel.dart.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';

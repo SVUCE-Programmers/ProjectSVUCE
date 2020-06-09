@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/ui/views/attendance_manager/attendance_view_model.dart';
+import 'package:svuce_app/ui/screens/attendance_manager/attendance_view_model.dart';
 
 class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
   final int index;

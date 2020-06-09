@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/ui/views/time_table/time_table_viewmodel.dart';
-import 'package:svuce_app/ui/views/time_table/utils.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
+import 'package:svuce_app/ui/screens/time_table/time_table_viewmodel.dart';
 
 class WeekDaySelector extends ViewModelWidget<TimeTableViewModel> {
   @override
