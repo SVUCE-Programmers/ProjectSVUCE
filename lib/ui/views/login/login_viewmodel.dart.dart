@@ -12,9 +12,10 @@ import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
+import 'package:svuce_app/core/utils/validators.dart';
 
 @lazySingleton
-class LoginViewModel extends BaseViewModel {
+class LoginViewModel extends BaseViewModel with Validators {
   final GlobalKey<FormState> _formKeyStudent = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyTeacher = GlobalKey<FormState>();
 

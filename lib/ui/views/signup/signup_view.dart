@@ -4,7 +4,6 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
-import 'package:svuce_app/utils/validators.dart';
 
 import 'signup_viewmodel.dart';
 
@@ -54,7 +53,7 @@ class SignUpView extends StatelessWidget {
                   title: "Your email here..",
                   keyboardType: TextInputType.emailAddress,
                   iconData: emailIcon,
-                  validator: Validators.validateEmail,
+                  validator: model.validateEmail,
                 ),
                 InputField(
                   controller: model.passwordController,
@@ -62,7 +61,7 @@ class SignUpView extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
                   isSecure: true,
-                  validator: Validators.validatePassword,
+                  validator: model.validatePassword,
                 ),
                 InputField(
                   controller: model.confirmPasswordController,
@@ -70,7 +69,7 @@ class SignUpView extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
                   isSecure: true,
-                  validator: Validators.validatePassword,
+                  validator: model.validatePassword,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

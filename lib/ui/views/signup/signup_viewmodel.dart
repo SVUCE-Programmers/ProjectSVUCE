@@ -6,8 +6,9 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/router.gr.dart';
+import 'package:svuce_app/core/utils/validators.dart';
 
-class SignUpViewModel extends BaseViewModel {
+class SignUpViewModel extends BaseViewModel with Validators {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
 

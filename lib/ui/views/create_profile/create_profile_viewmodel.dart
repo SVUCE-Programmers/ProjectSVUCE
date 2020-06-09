@@ -14,9 +14,10 @@ import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/firestore/user_service.dart';
-import 'package:svuce_app/utils/image_selector.dart';
+import 'package:svuce_app/core/utils/image_selector.dart';
+import 'package:svuce_app/core/utils/validators.dart';
 
-class CreateProfileViewModel extends BaseViewModel {
+class CreateProfileViewModel extends BaseViewModel with Validators {
   // Services
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final AuthServiceImpl _authenticationService = locator<AuthService>();

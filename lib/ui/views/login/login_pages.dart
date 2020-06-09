@@ -6,7 +6,6 @@ import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
-import 'package:svuce_app/utils/validators.dart';
 
 class LoginPage extends ViewModelWidget<LoginViewModel> {
   final bool isStudent;
@@ -37,7 +36,7 @@ class LoginPage extends ViewModelWidget<LoginViewModel> {
             title: "Your email here..",
             keyboardType: TextInputType.emailAddress,
             iconData: emailIcon,
-            validator: Validators.validateEmail,
+            validator: model.validateEmail,
           ),
           InputField(
             controller: model.passwordController,
@@ -45,7 +44,7 @@ class LoginPage extends ViewModelWidget<LoginViewModel> {
             keyboardType: TextInputType.text,
             iconData: passwordIcon,
             isSecure: true,
-            validator: Validators.validatePassword,
+            validator: model.validatePassword,
           ),
           Row(
             mainAxisAlignment: isStudent

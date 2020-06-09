@@ -5,7 +5,6 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/views/create_profile/create_profile_viewmodel.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
-import 'package:svuce_app/utils/validators.dart';
 
 class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
   final UIHelpers uiHelpers;
@@ -31,13 +30,13 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
             title: "Your Full Name",
             keyboardType: TextInputType.text,
             controller: model.fullNameController,
-            validator: Validators.validateName,
+            validator: model.validateName,
           ),
           InputField(
             iconData: idIcon,
             title: "Your Roll No.",
             maxLength: 8,
-            validator: Validators.validateRollNo,
+            validator: model.validateRollNo,
             keyboardType: TextInputType.number,
             controller: model.rollNoController,
           ),

@@ -1,5 +1,5 @@
-class Validators {
-  static String validateName(String name) {
+mixin Validators {
+  String validateName(String name) {
     RegExp reg = new RegExp(r"^[a-zA-Z ]{6,}$");
     if (name.isEmpty) {
       return "Please Enter your name";
@@ -9,7 +9,7 @@ class Validators {
     return null;
   }
 
-  static String validateEmail(String email) {
+  String validateEmail(String email) {
     RegExp reg = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
@@ -21,7 +21,7 @@ class Validators {
     return null;
   }
 
-  static String validatePassword(String password) {
+  String validatePassword(String password) {
     if (password.isEmpty) {
       return 'Please Enter Your Password';
     } else if (password.length < 6) {
@@ -30,7 +30,7 @@ class Validators {
     return null;
   }
 
-  static String validateRollNo(String rollNo) {
+  String validateRollNo(String rollNo) {
     RegExp regExp = new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
     if (rollNo.isEmpty) {
       return 'Please enter your rollno.';
@@ -41,7 +41,7 @@ class Validators {
     }
   }
 
-  static String validatePhoneNo(String phone) {
+  String validatePhoneNo(String phone) {
     RegExp regex = new RegExp(r"^[0-9]{10}$");
     if (phone.isEmpty) {
       return "Please enter your contact details";
