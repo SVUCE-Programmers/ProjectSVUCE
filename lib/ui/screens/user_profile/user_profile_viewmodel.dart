@@ -4,14 +4,14 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
-import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services
-  final AuthServiceImpl _authenticationService = locator<AuthService>();
+  final AuthService _authenticationService = locator<AuthService>();
 
-  final UserClubsRepository _UserClubsRepository = locator<UserClubsRepository>();
+  final UserClubsRepository _userClubsRepository =
+      locator<UserClubsRepository>();
 
   User user;
 
@@ -32,7 +32,7 @@ class UserProfileViewModel extends BaseViewModel {
   getUserClubList(String userId) {
     setBusy(true);
 
-    _UserClubsRepository.getUserClubs(userId).listen((clubsData) {
+    _userClubsRepository.getUserClubs(userId).listen((clubsData) {
       List<UserClub> updatedPosts = clubsData;
 
       print(updatedPosts);

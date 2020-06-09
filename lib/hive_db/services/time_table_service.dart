@@ -1,9 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
-import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
-import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
@@ -11,8 +9,8 @@ import 'package:svuce_app/hive_db/services/hive_service.dart';
 @lazySingleton
 class TimeTableService {
   final HiveService hiveService = locator<HiveService>();
-  final APIServiceImpl apiService = locator<APIService>();
-  final AuthServiceImpl authenticationService = locator<AuthService>();
+  final APIService apiService = locator<APIService>();
+  final AuthService authenticationService = locator<AuthService>();
 
   List<TimeTable> streamData = List<TimeTable>();
 

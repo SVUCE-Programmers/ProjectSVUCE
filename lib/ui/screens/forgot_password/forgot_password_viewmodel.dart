@@ -6,7 +6,6 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
-import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -14,7 +13,7 @@ class ForgotPasswordViewModel extends BaseViewModel {
   GlobalKey<FormState> get formKey => _formKey;
 
   final emailTextEditingController = TextEditingController();
-  final AuthServiceImpl _authenticationService = locator<AuthService>();
+  final AuthService _authenticationService = locator<AuthService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
 

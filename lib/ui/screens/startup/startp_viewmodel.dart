@@ -5,15 +5,13 @@ import 'package:svuce_app/app/assets.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
-import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
-import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 
 class StartUpViewModel extends BaseViewModel {
-  final AuthServiceImpl _authenticationService = locator<AuthService>();
+  final AuthService _authenticationService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final PushNotificationServiceImp _notificationService =
+  final PushNotificationService _notificationService =
       locator<PushNotificationService>();
 
   Future handleStartUpLogic(BuildContext context) async {

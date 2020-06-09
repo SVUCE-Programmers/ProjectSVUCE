@@ -35,8 +35,7 @@ class AuthServiceImpl implements AuthService {
     }
   }
 
-  User _currentUser;
-  User get currentUser => _currentUser;
+  User currentUser;
 
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we
@@ -55,7 +54,7 @@ class AuthServiceImpl implements AuthService {
 
       await updateUserProfile(displayName: fullName, profileImg: profileImg);
 
-      _currentUser = User(
+      currentUser = User(
           id: authResult.user.uid,
           email: email,
           fullName: fullName,
@@ -66,7 +65,7 @@ class AuthServiceImpl implements AuthService {
           collegeName: "SVUCE",
           userType: "STUDENT");
 
-      await _userService.storeUser(_currentUser);
+      await _userService.storeUser(currentUser);
 
       return authResult.user != null;
     } catch (e) {
@@ -86,7 +85,7 @@ class AuthServiceImpl implements AuthService {
   /// This function is responsible for getting user profile from Firestore.
   Future _populateCurrentUser(FirebaseUser user) async {
     if (user != null) {
-      _currentUser = await _userService.getUser(user.uid);
+      currentUser = await _userService.getUser(user.uid);
     }
   }
 

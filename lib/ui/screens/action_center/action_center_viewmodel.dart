@@ -8,13 +8,12 @@ import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/core/models/graph.dart';
-import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 
 class ActionCenterViewModel extends BaseViewModel {
   final TimeTableService timeTableService = locator<TimeTableService>();
   final AttendanceService _attendanceService = locator<AttendanceService>();
 
-  final AuthServiceImpl authenticationService = locator<AuthService>();
+  final AuthService authenticationService = locator<AuthService>();
   final SnackbarService snackbarService = locator<SnackbarService>();
 
   List<TimeTable> timeTableData = List<TimeTable>();

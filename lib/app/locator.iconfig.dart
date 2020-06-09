@@ -4,13 +4,13 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:http/http.dart';
 import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/core/repositories/announcements_repository/announcements_repository_impl.dart';
 import 'package:svuce_app/core/repositories/announcements_repository/announcements_repository.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
-import 'package:http/src/client.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository_impl.dart';
@@ -38,30 +38,33 @@ import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final registerDependencies = _$RegisterDependencies();
-  g.registerLazySingleton<AttendanceService>(() => AttendanceService());
-  g.registerLazySingleton<HiveService>(() => HiveService());
-  g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+
+  // Top Level Dependencies
+  g.registerSingleton<FirebaseAuth>(registerDependencies.firebaseAuth);
+  g.registerSingleton<Firestore>(registerDependencies.firestore);
+  g.registerSingleton<HiveInterface>(registerDependencies.hive);
+  g.registerSingleton<Client>(registerDependencies.client);
   g.registerLazySingleton<NavigationService>(
       () => registerDependencies.navigationService);
   g.registerLazySingleton<SnackbarService>(
       () => registerDependencies.snackbarService);
-  g.registerLazySingleton<TimeTableService>(() => TimeTableService());
 
-  //Eager singletons must be registered in the right order
-  g.registerSingleton<APIService>(APIServiceImpl());
   g.registerSingleton<AnnouncementsRepository>(AnnouncementsRepositoryImpl());
-  g.registerSingleton<Client>(registerDependencies.client);
-  g.registerSingleton<CloudStorageService>(CloudStorageServiceImpl());
   g.registerSingleton<ClubsRepository>(ClubsRepositoryImpl());
   g.registerSingleton<EventsRepository>(EventsRepositoryImpl());
   g.registerSingleton<FeedRepository>(FeedRepositoryImpl());
-  g.registerSingleton<FirebaseAuth>(registerDependencies.firebaseAuth);
-  g.registerSingleton<Firestore>(registerDependencies.firestore);
-  g.registerSingleton<HiveInterface>(registerDependencies.hive);
-  g.registerSingleton<PushNotificationService>(PushNotificationServiceImp());
   g.registerSingleton<UserClubsRepository>(UserClubsRepositoryImpl());
   g.registerSingleton<UsersRepository>(UsersRepositoryImpl());
+
+  g.registerSingleton<APIService>(APIServiceImpl());
   g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
+  g.registerSingleton<CloudStorageService>(CloudStorageServiceImpl());
+  g.registerSingleton<PushNotificationService>(PushNotificationServiceImp());
+
+  g.registerLazySingleton<AttendanceService>(() => AttendanceService());
+  g.registerLazySingleton<HiveService>(() => HiveService());
+  g.registerLazySingleton<LoginViewModel>(() => LoginViewModel());
+  g.registerLazySingleton<TimeTableService>(() => TimeTableService());
 }
 
 class _$RegisterDependencies extends RegisterDependencies {
