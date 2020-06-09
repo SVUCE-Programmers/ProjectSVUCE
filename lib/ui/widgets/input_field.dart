@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class InputField extends StatelessWidget {
   final String title;

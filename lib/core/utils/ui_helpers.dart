@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/ui/utils/scaling.dart';
+import 'package:svuce_app/core/utils/scaling.dart';
 
 class UIHelpers {
   double width;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/create_profile/create_profile_viewmodel.dart';
 
 class SelectProfileImage extends ViewModelWidget<CreateProfileViewModel> {

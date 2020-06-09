@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/announcement_item.dart';
 
 import 'announcement_view_model.dart';

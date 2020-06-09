@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class AnnounceItem extends StatelessWidget {
   final Announcement announce;

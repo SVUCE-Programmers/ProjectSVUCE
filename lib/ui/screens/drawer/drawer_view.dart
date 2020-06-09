@@ -4,7 +4,7 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/home/main_home_viewmodel.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
 
 class DrawerView extends StatelessWidget {
