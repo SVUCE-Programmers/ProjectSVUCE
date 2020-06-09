@@ -14,8 +14,8 @@ import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/core/services/firestore/clubs_service.dart';
-import 'package:svuce_app/core/services/firestore/user_club_service.dart';
+import 'package:svuce_app/core/repositories/clubs_service.dart';
+import 'package:svuce_app/core/repositories/user_club_service.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 

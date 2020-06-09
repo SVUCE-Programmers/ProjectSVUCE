@@ -10,6 +10,8 @@ import 'events_viewmodel.dart';
 import 'widgets/events_list_item.dart';
 
 class CalenderEventsView extends StatelessWidget {
+  final CalendarController _controller = CalendarController();
+
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<CalendarEventsViewModel>(
@@ -24,7 +26,7 @@ class CalenderEventsView extends StatelessWidget {
                     child: TableCalendar(
                       startingDayOfWeek: StartingDayOfWeek.sunday,
                       onDaySelected: model.onDaySelected,
-                      calendarController: model.controller,
+                      calendarController: _controller,
                       events: model.eventsList,
                       calendarStyle: buildCalendarStyle(),
                       headerStyle: buildHeaderStyle(uiHelpers),

@@ -3,8 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/core/models/event/event.dart';
-import 'package:svuce_app/core/services/firestore/event_service.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:svuce_app/core/repositories/event_service.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
   final EventsService _eventsService = locator<EventsService>();
@@ -24,10 +23,8 @@ class CalendarEventsViewModel extends BaseViewModel {
     return data;
   }
 
-  CalendarController _controller = CalendarController();
   List _selectedevents = [];
 
-  CalendarController get controller => _controller;
   List get selectedEvents => _selectedevents;
 
   getEvents() {

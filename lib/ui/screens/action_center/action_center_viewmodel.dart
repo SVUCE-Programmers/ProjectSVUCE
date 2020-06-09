@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -19,7 +18,6 @@ class ActionCenterViewModel extends BaseViewModel {
   final SnackbarService snackbarService = locator<SnackbarService>();
 
   List<TimeTable> timeTableData = List<TimeTable>();
-  AnimationController controller;
 
   List<double> _percentages = [];
   List<double> get percentages => _percentages;

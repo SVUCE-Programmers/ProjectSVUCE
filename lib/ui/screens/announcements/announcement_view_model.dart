@@ -2,7 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/announcement/announcement.dart';
 
-import 'package:svuce_app/core/services/firestore/announcement_service.dart';
+import 'package:svuce_app/core/repositories/announcement_service.dart';
 
 class AnnouncementViewModel extends BaseViewModel {
   final AnnouncementService _firestoreService = locator<AnnouncementService>();

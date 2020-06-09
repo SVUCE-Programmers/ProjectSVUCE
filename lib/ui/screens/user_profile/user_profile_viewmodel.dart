@@ -5,7 +5,7 @@ import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
-import 'package:svuce_app/core/services/firestore/user_club_service.dart';
+import 'package:svuce_app/core/repositories/user_club_service.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services

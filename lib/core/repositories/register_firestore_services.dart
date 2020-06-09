@@ -1,14 +1,14 @@
 import 'package:injectable/injectable.dart';
-import 'package:svuce_app/core/services/firestore/user_service.dart';
 
 import 'announcement_service.dart';
 import 'clubs_service.dart';
 import 'event_service.dart';
 import 'feed_service.dart';
 import 'user_club_service.dart';
+import 'user_service.dart';
 
 @module
-abstract class RegisterFirestoreServices {
+abstract class RegisterRepos {
   @lazySingleton
   AnnouncementService get announcementService;
 

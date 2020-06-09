@@ -4,18 +4,18 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:http/http.dart';
+import 'package:svuce_app/core/repositories/register_firestore_services.dart';
 import 'package:svuce_app/core/services/api/api_service_impl.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
-import 'package:svuce_app/core/services/firestore/register_firestore_services.dart';
-import 'package:svuce_app/core/services/firestore/announcement_service.dart';
+import 'package:svuce_app/core/repositories/announcement_service.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/core/services/register_dependencies.dart';
-import 'package:http/src/client.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
-import 'package:svuce_app/core/services/firestore/clubs_service.dart';
-import 'package:svuce_app/core/services/firestore/event_service.dart';
-import 'package:svuce_app/core/services/firestore/feed_service.dart';
+import 'package:svuce_app/core/repositories/clubs_service.dart';
+import 'package:svuce_app/core/repositories/event_service.dart';
+import 'package:svuce_app/core/repositories/feed_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
@@ -25,8 +25,8 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service_impl.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/core/services/firestore/user_club_service.dart';
-import 'package:svuce_app/core/services/firestore/user_service.dart';
+import 'package:svuce_app/core/repositories/user_club_service.dart';
+import 'package:svuce_app/core/repositories/user_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:get_it/get_it.dart';
@@ -66,7 +66,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerSingleton<AuthService>(AuthServiceImpl(g<FirebaseAuth>()));
 }
 
-class _$RegisterFirestoreServices extends RegisterFirestoreServices {
+class _$RegisterFirestoreServices extends RegisterRepos {
   @override
   AnnouncementService get announcementService => AnnouncementService();
   @override

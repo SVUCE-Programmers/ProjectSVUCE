@@ -13,7 +13,7 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service_impl.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service_impl.dart';
-import 'package:svuce_app/core/services/firestore/user_service.dart';
+import 'package:svuce_app/core/repositories/user_service.dart';
 import 'package:svuce_app/core/utils/image_selector.dart';
 import 'package:svuce_app/core/utils/validators.dart';
 

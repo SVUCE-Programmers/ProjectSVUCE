@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
@@ -11,8 +10,6 @@ class AttendanceViewModel extends BaseViewModel {
 
   List<Attendance> _attendanceList = [];
   List<Attendance> get attendanceList => _attendanceList;
-
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   getStatus(int present, int total) {
     if (total != 0) {
