@@ -14,10 +14,11 @@ main() {
     locator.allowReassignment = true;
   });
 
-  final MockFirestoreInstance mockFirestoreInstance = MockFirestoreInstance();
-
   group("Clubs Service Test", () {
     test("Get Stream of Clubs", () async {
+      final MockFirestoreInstance mockFirestoreInstance =
+          MockFirestoreInstance();
+
       /// Adding Mock Club Data to
       /// Mock Firestore Instance
       await mockFirestoreInstance
@@ -47,6 +48,9 @@ main() {
     test("Follow Club", () async {
       String clubId = "clubId1";
       String userId = "userId";
+
+      final MockFirestoreInstance mockFirestoreInstance =
+          MockFirestoreInstance();
 
       locator.registerSingleton<Firestore>(mockFirestoreInstance);
       final ClubsRepository _clubsRepo = locator<ClubsRepository>();
