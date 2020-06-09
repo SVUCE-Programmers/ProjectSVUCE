@@ -4,10 +4,10 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/widgets/events_list_item.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'events_viewmodel.dart';
+import 'widgets/events_list_item.dart';
 
 class CalenderEventsView extends StatelessWidget {
   @override

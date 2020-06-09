@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
-import 'package:svuce_app/ui/widgets/time_table_item.dart';
+import 'package:svuce_app/ui/screens/time_table/widgets/time_table_item.dart';
 
 import 'action_center_viewmodel.dart';
 import 'graph_representation.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/widgets/club_tile.dart';
 
+import 'consumers/club_tile.dart';
 import 'select_clubs_viewmodel.dart';
 
 class SelectClubsView extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/widgets/attendance_item.dart';
+import 'widgets/attendance_item.dart';
 
 import 'attendance_view_model.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/widgets/creation_aware_list_item.dart';
-import 'package:svuce_app/ui/widgets/feed_item.dart';
+
+import 'widgets/feed_item.dart';
 
 import 'feed_viewmodel.dart';
 

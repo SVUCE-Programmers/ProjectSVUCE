@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/widgets/time_table_item.dart';
-import 'package:svuce_app/ui/widgets/week_day_selector.dart';
+
+import 'widgets/time_table_item.dart';
+import 'consumers/week_day_selector.dart';
 
 import 'time_table_viewmodel.dart';
 
