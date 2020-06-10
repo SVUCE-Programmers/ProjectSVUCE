@@ -3,6 +3,7 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/theme.dart';
 import 'package:svuce_app/ui/screens/login/consumers/login_body.dart';
 import 'package:svuce_app/ui/screens/main/widgets/lazy_indexed_stack.dart';
 
@@ -27,8 +28,7 @@ class LoginView extends StatelessWidget {
             child: Scaffold(
               appBar: PreferredSize(
                 child: Theme(
-                    data: ThemeData(
-                        canvasColor: backgroundColor, fontFamily: 'Quicksand'),
+                    data: commonThemeData,
                     child: BottomNavigationBar(
                         fixedColor: primaryColor,
                         currentIndex: model.index,

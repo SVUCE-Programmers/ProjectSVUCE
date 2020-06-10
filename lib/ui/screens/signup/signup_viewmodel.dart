@@ -96,25 +96,20 @@ class SignUpViewModel extends BaseViewModel with Validators {
           message: "Your account already exists, try logging in",
         );
       } else {
-        _navigationService.navigateTo(Routes.createProfileViewRoute,
-            arguments:
-                CreateProfileViewArguments(email: email, password: password));
+        gotoProfile();
       }
     } else {
-      _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-        backgroundColor: surfaceColor,
-        title: commonErrorTitle,
-        message: commonErrorInfo,
-      );
+      gotoProfile();
     }
   }
 
   gotoLogin() {
     _navigationService.back();
+  }
+
+  gotoProfile() {
+    _navigationService.navigateTo(Routes.createProfileViewRoute,
+        arguments:
+            CreateProfileViewArguments(email: email, password: password));
   }
 }

@@ -1,6 +1,6 @@
 mixin Validators {
   String validateName(String name) {
-    RegExp reg = new RegExp(r"^[a-zA-Z ]{6,}$");
+    RegExp reg = new RegExp(r"^[a-zA-Z ]{5,}$");
     if (name.isEmpty) {
       return "Please Enter your name";
     } else if (!reg.hasMatch(name)) {

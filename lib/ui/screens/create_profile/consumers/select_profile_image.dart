@@ -11,8 +11,7 @@ class SelectProfileImage extends ViewModelWidget<CreateProfileViewModel> {
 
   @override
   Widget build(BuildContext context, CreateProfileViewModel model) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: <Widget>[
         Text.rich(TextSpan(children: [
           TextSpan(

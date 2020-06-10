@@ -14,8 +14,10 @@ import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/image_selector.dart';
 import 'package:svuce_app/core/utils/validators.dart';
+import 'package:svuce_app/core/will_pop.dart';
 
-class CreateProfileViewModel extends BaseViewModel with Validators {
+class CreateProfileViewModel extends BaseViewModel
+    with Validators, WillPopHelper {
   // Services
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final AuthService _authenticationService = locator<AuthService>();
@@ -26,18 +28,48 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
 
   final ImageSelector imageSelector = ImageSelector();
 
-  // TextEditingControllers
-  final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController rollNoController = TextEditingController();
-  final TextEditingController contactController = TextEditingController();
-  final TextEditingController bioController = TextEditingController();
+  void init(String email, String password) {
+    _email = email;
+    _password = password;
+  }
 
-  //Form keys for validation
-  final GlobalKey<FormState> _basicDetails = GlobalKey<FormState>();
-  final GlobalKey<FormState> _contactDetails = GlobalKey<FormState>();
+  // Required Fields
 
-  GlobalKey<FormState> get basicDetailsFormKey => _basicDetails;
-  GlobalKey<FormState> get contactDetailsFormKey => _contactDetails;
+  String _fullName;
+  String get fullName => _fullName;
+  String fullNameError = '';
+  updateFullName(String fullName) {
+    _fullName = fullName;
+    fullNameError = validateName(fullName);
+    notifyListeners();
+  }
+
+  String _rollNo;
+  String get rollNo => _rollNo;
+  String rollNoError = '';
+  updateRollNo(String rollNo) {
+    _rollNo = rollNo;
+    rollNoError = validateRollNo(rollNo);
+    notifyListeners();
+  }
+
+  String _contact;
+  String get contact => _contact;
+  String contactError = '';
+  updateContact(String contact) {
+    _contact = contact;
+    contactError = validatePhoneNo(contact);
+    notifyListeners();
+  }
+
+  String _bio;
+  String get bio => _bio;
+  updateBio(String bio) {
+    _bio = bio;
+    notifyListeners();
+  }
+
+  final String collegeName = "SVUCE";
 
   File profileImage;
 
@@ -45,6 +77,7 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
 
   bool showBottomBar = false;
 
+  // For Signing up
   String _email = "";
   String _password = "";
 
@@ -53,86 +86,41 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
     notifyListeners();
   }
 
-  void moveForward() async {
+  void moveForward() {
     showBottomBar = false;
 
-    bool result = handleValidation();
+    bool validated = fullNameError.isEmpty &&
+        rollNoError.isEmpty &&
+        fullName.isNotEmpty &&
+        rollNo.isNotEmpty;
 
-    if (!result) {
+    if (!validated) {
       return null;
     }
 
-    if (currentPage == 1) {
-      result = await rollNoCheck();
-
-      if (!result) {
-        return null;
-      }
-    }
-
-    if (currentPage == 2) {
-      return createUser();
-    }
-  }
-
-  void moveBackward() async {}
-
-  void chooseImage() async {
-    showBottomBar = true;
-    setBusy(false);
-  }
-
-  selectImage({bool fromGallery = false}) async {
-    File file = await imageSelector.selectImage(
-        source: fromGallery ? ImageSource.gallery : ImageSource.camera);
-
-    if (file == null) {
-      return null;
-    }
-
-    int size = await file.length();
-
-    if (size > 1000000) {
-      await _snackbarService.showCustomSnackBar(
-          title: "OOPS",
-          message: "The image you selected is > 1MB, please try again",
-          duration: Duration(seconds: 5));
-
-      return null;
-    }
-
-    profileImage = file;
-    showBottomBar = false;
+    currentPage++;
 
     notifyListeners();
   }
 
-  removePhoto() {
-    profileImage?.delete();
-    profileImage = null;
-    showBottomBar = false;
+  void moveBackward() {
+    currentPage--;
     notifyListeners();
   }
 
-  bool handleValidation() {
-    if (currentPage == 1) {
-      bool result = basicDetailsFormKey.currentState.validate();
+  createProfile() async {
+    bool isValidated = fullNameError.isEmpty &&
+        rollNoError.isEmpty &&
+        contactError.isEmpty &&
+        fullName.isNotEmpty &&
+        rollNo.isNotEmpty &&
+        contactError.isNotEmpty;
 
-      return result;
-    } else if (currentPage == 2) {
-      bool result = contactDetailsFormKey.currentState.validate();
-
-      return result;
-    } else {
-      return true;
+    if (!isValidated) {
+      print("OOPS");
+      return null;
     }
-  }
 
-  void createUser() async {
-    String fullName = fullNameController.text;
-    String contact = contactController.text;
-    String rollNo = rollNoController.text;
-    String bio = bioController.text;
     String profileImgURL =
         "https://www.tenforums.com/geek/gars/images/2/types/thumb__ser.png";
 
@@ -181,14 +169,44 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
     }
   }
 
-  void init(String email, String password) {
-    _email = email;
-    _password = password;
+  void chooseImage() {
+    showBottomBar = true;
+    setBusy(false);
+  }
+
+  selectImage({bool fromGallery = false}) async {
+    File file = await imageSelector.selectImage(
+        source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+
+    if (file == null) {
+      return null;
+    }
+
+    int size = await file.length();
+
+    if (size > 1000000) {
+      await _snackbarService.showCustomSnackBar(
+          title: "OOPS",
+          message: "The image you selected is > 1MB, please try again",
+          duration: Duration(seconds: 5));
+
+      return null;
+    }
+
+    profileImage = file;
+    showBottomBar = false;
+
+    notifyListeners();
+  }
+
+  removePhoto() {
+    profileImage?.delete();
+    profileImage = null;
+    showBottomBar = false;
+    notifyListeners();
   }
 
   Future rollNoCheck() async {
-    String rollNo = rollNoController.text;
-
     setBusy(true);
 
     var isRollExists = await _userService.isRollNoExists(rollNo);
@@ -224,8 +242,8 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
   }
 }
 
-/// 1. Store the image
-/// 2. Get the basic details with validation
+/// 1. Get the basic details with validation
+/// 2. Store the image
 /// 3. Get the contact details with validation
 /// 4. After user has been okay to continue
 ///   a. Upload the image to cloud firestore

@@ -13,47 +13,46 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
 
   @override
   Widget build(BuildContext context, CreateProfileViewModel model) {
-    return Form(
-      key: model.basicDetailsFormKey,
-      child: ListView(
-        children: <Widget>[
-          Text.rich(TextSpan(children: [
-            TextSpan(
-                text: "Your Basic Details\n",
-                style: uiHelpers.title.copyWith(color: textPrimaryColor)),
-            TextSpan(
-                text: "Drop your basic details here\n\n",
-                style: uiHelpers.body.copyWith(color: textSecondaryColor)),
-          ])),
-          InputField(
-            iconData: personIcon,
-            title: "Your Full Name",
-            keyboardType: TextInputType.text,
-            validator: model.validateName,
-          ),
-          InputField(
-            iconData: idIcon,
-            title: "Your Roll No.",
-            maxLength: 8,
-            validator: model.validateRollNo,
-            keyboardType: TextInputType.number,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: surfaceColor, borderRadius: BorderRadius.circular(10)),
-            child: ListTile(
-              leading: Icon(
-                schoolIcon,
-                color: primaryColor,
-              ),
-              title: Text(
-                "SVUCE",
-                style: uiHelpers.body.copyWith(color: textSecondaryColor),
-              ),
+    return ListView(
+      children: <Widget>[
+        Text.rich(TextSpan(children: [
+          TextSpan(
+              text: "Your Basic Details\n",
+              style: uiHelpers.title.copyWith(color: textPrimaryColor)),
+          TextSpan(
+              text: "Drop your basic details here\n\n",
+              style: uiHelpers.body.copyWith(color: textSecondaryColor)),
+        ])),
+        InputField(
+          iconData: personIcon,
+          title: "Your Full Name",
+          keyboardType: TextInputType.text,
+          validator: model.updateFullName,
+          error: model.fullNameError,
+        ),
+        InputField(
+          iconData: idIcon,
+          title: "Your Roll No.",
+          maxLength: 8,
+          keyboardType: TextInputType.number,
+          validator: model.updateRollNo,
+          error: model.rollNoError,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: surfaceColor, borderRadius: BorderRadius.circular(10)),
+          child: ListTile(
+            leading: Icon(
+              schoolIcon,
+              color: primaryColor,
+            ),
+            title: Text(
+              "SVUCE",
+              style: uiHelpers.body.copyWith(color: textSecondaryColor),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
