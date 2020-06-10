@@ -29,7 +29,6 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
             iconData: personIcon,
             title: "Your Full Name",
             keyboardType: TextInputType.text,
-            controller: model.fullNameController,
             validator: model.validateName,
           ),
           InputField(
@@ -38,7 +37,6 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
             maxLength: 8,
             validator: model.validateRollNo,
             keyboardType: TextInputType.number,
-            controller: model.rollNoController,
           ),
           Container(
             decoration: BoxDecoration(

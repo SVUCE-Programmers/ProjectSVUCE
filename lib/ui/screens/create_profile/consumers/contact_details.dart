@@ -30,7 +30,6 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
             title: "Your Contact",
             keyboardType: TextInputType.number,
             maxLength: 10,
-            controller: model.contactController,
             validator: model.validatePhoneNo,
           ),
           InputField(
@@ -39,7 +38,6 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
             keyboardType: TextInputType.text,
             maxLength: 150,
             maxLines: 4,
-            controller: model.bioController,
           ),
         ],
       ),

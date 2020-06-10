@@ -42,7 +42,6 @@ class ForgotPasswordView extends StatelessWidget {
                   title: "Enter your email..",
                   iconData: emailIcon,
                   validator: model.validateEmail,
-                  controller: model.emailTextEditingController,
                   keyboardType: TextInputType.emailAddress,
                 ),
                 Container(

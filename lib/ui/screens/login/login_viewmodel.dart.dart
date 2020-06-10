@@ -15,45 +15,23 @@ import 'package:svuce_app/core/utils/validators.dart';
 
 @lazySingleton
 class LoginViewModel extends BaseViewModel with Validators {
-  final GlobalKey<FormState> _formKeyStudent = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKeyTeacher = GlobalKey<FormState>();
-
-  GlobalKey<FormState> get studentKey => _formKeyStudent;
-  GlobalKey<FormState> get teacherKey => _formKeyTeacher;
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
   final AuthService _authenticationService = locator<AuthService>();
 
   final NavigationService _navigationService = locator<NavigationService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
-  final popUpMenuItems = [
-    "Forgot Password?",
-    "FAQs",
-  ];
+  int _index = 0;
+  int get index => _index;
 
-  void handlePopUp(String value) async {
-    if (value == popUpMenuItems[0]) {
-      await _navigationService.navigateTo(Routes.forgotPasswordViewRoute);
-    } else {
-      //TODO: Go to FAQs Page
-    }
+  void changeTab(int index) {
+    _index = index;
+    notifyListeners();
   }
 
   void handleLogin({bool isStudent = true}) async {
-    bool result = isStudent
-        ? _formKeyStudent.currentState.validate()
-        : _formKeyTeacher.currentState.validate();
-
-    if (!result) {
-      return null;
-    }
-
-    String email = emailController.text;
-    String password = passwordController.text;
+    String email = "";
+    String password = "";
 
     setBusy(true);
 
@@ -89,8 +67,6 @@ class LoginViewModel extends BaseViewModel with Validators {
         message: commonErrorInfo,
       );
     }
-
-    clearInputs();
   }
 
   gotoSignup() {
@@ -116,10 +92,5 @@ class LoginViewModel extends BaseViewModel with Validators {
         ));
 
     return false;
-  }
-
-  clearInputs() {
-    emailController.text = "";
-    passwordController.text = "";
   }
 }

@@ -4,7 +4,7 @@ import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class InputField extends StatelessWidget {
   final String title;
-  final TextEditingController controller;
+  final String error;
   final TextInputType keyboardType;
   final bool isSecure;
   final int maxLength;
@@ -16,7 +16,7 @@ class InputField extends StatelessWidget {
   const InputField(
       {Key key,
       this.title,
-      this.controller,
+      this.error,
       this.keyboardType,
       this.iconData,
       this.isSecure = false,
@@ -33,24 +33,23 @@ class InputField extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
           color: surfaceColor, borderRadius: BorderRadius.circular(10.0)),
-      child: TextFormField(
-        controller: controller ?? null,
+      child: TextField(
         maxLength: maxLength ?? null,
         style: uiHelpers.body.copyWith(color: textSecondaryColor),
         decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(
-            iconData,
-            color: primaryColor,
-          ),
-          hintText: title,
-          hintStyle: uiHelpers.body.copyWith(
-            color: textSecondaryColor,
-          ),
-        ),
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              iconData,
+              color: primaryColor,
+            ),
+            hintText: title,
+            hintStyle: uiHelpers.body.copyWith(
+              color: textSecondaryColor,
+            ),
+            errorText: error),
         maxLines: maxLines,
         obscureText: isSecure,
-        validator: validator ?? null,
+        onChanged: validator ?? null,
         keyboardType: keyboardType,
       ),
     );

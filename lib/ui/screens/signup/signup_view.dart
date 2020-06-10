@@ -49,14 +49,12 @@ class SignUpView extends StatelessWidget {
                 ])),
                 uiHelpers.verticalSpaceMedium,
                 InputField(
-                  controller: model.emailController,
                   title: "Your email here..",
                   keyboardType: TextInputType.emailAddress,
                   iconData: emailIcon,
                   validator: model.validateEmail,
                 ),
                 InputField(
-                  controller: model.passwordController,
                   title: "Your password here",
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
@@ -64,7 +62,6 @@ class SignUpView extends StatelessWidget {
                   validator: model.validatePassword,
                 ),
                 InputField(
-                  controller: model.confirmPasswordController,
                   title: "Your password once again",
                   keyboardType: TextInputType.text,
                   iconData: passwordIcon,
