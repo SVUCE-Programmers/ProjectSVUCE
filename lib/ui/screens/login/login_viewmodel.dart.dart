@@ -11,7 +11,7 @@ import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
-import 'package:svuce_app/core/utils/validators.dart';
+import 'package:svuce_app/core/mixins/validators.dart';
 
 @lazySingleton
 class LoginViewModel extends BaseViewModel with Validators {

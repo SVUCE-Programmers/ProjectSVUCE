@@ -13,8 +13,8 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/image_selector.dart';
-import 'package:svuce_app/core/utils/validators.dart';
-import 'package:svuce_app/core/will_pop.dart';
+import 'package:svuce_app/core/mixins/validators.dart';
+import 'package:svuce_app/core/mixins/will_pop.dart';
 
 class CreateProfileViewModel extends BaseViewModel
     with Validators, WillPopHelper {

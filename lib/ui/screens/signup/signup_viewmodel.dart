@@ -7,7 +7,7 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
-import 'package:svuce_app/core/utils/validators.dart';
+import 'package:svuce_app/core/mixins/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();

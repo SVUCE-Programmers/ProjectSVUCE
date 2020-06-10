@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:svuce_app/core/utils/validators.dart';
+import 'package:svuce_app/core/mixins/validators.dart';
 
 class ValidateTest with Validators {}
 
