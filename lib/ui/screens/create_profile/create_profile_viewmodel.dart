@@ -114,7 +114,7 @@ class CreateProfileViewModel extends BaseViewModel
         contactError.isEmpty &&
         fullName.isNotEmpty &&
         rollNo.isNotEmpty &&
-        contactError.isNotEmpty;
+        contact.isNotEmpty;
 
     if (!isValidated) {
       print("OOPS");
@@ -128,6 +128,12 @@ class CreateProfileViewModel extends BaseViewModel
 
     if (profileImage != null) {
       profileImgURL = await uploadImage();
+    }
+
+    var isRollNoExists = await rollNoCheck();
+
+    if (!isRollNoExists) {
+      return;
     }
 
     var result = await _authenticationService.createStudent(
@@ -207,8 +213,6 @@ class CreateProfileViewModel extends BaseViewModel
   }
 
   Future rollNoCheck() async {
-    setBusy(true);
-
     var isRollExists = await _userService.isRollNoExists(rollNo);
 
     setBusy(false);
