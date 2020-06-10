@@ -9,28 +9,48 @@ import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/core/utils/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> get formKey => _formKey;
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
   final NavigationService _navigationService = locator<NavigationService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
-  handleSignup() async {
-    bool result = _formKey.currentState.validate();
+  String emailError = '';
+  String passwordError = '';
+  String confirmPasswordError = '';
 
+  String _email;
+  String get email => _email;
+  String _password;
+  String get password => _password;
+  String _confirmPassword;
+  String get confirmPassword => _confirmPassword;
+
+  bool get result =>
+      emailError.isEmpty &&
+      passwordError.isEmpty &&
+      confirmPasswordError.isEmpty;
+
+  updateEmail(String email) {
+    _email = email;
+    emailError = validateEmail(email);
+    notifyListeners();
+  }
+
+  updatePassword(String password) {
+    _password = password;
+    passwordError = validatePassword(password);
+    notifyListeners();
+  }
+
+  updateConfirmPassword(String confirmPassword) {
+    _confirmPassword = confirmPassword;
+    confirmPasswordError = validatePassword(confirmPassword);
+    notifyListeners();
+  }
+
+  handleSignup() async {
     if (!result) {
       return null;
     }
-
-    String email = emailController.text;
-    String password = passwordController.text;
-    String confirmPassword = confirmPasswordController.text;
 
     if (password != confirmPassword) {
       _snackbarService.showCustomSnackBar(
@@ -50,6 +70,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     setBusy(true);
 
     //TODO: Do an API Call to make sure the user email is available
+
     await Future.delayed(Duration(seconds: 2));
 
     _navigationService.navigateTo(Routes.createProfileViewRoute,

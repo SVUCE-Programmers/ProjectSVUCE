@@ -32,67 +32,64 @@ class SignUpView extends StatelessWidget {
                   onPressed: null)
             ],
           ),
-          body: Form(
-            key: model.formKey,
-            child: ListView(
-              padding: EdgeInsets.all(20.0),
-              children: <Widget>[
-                Text.rich(TextSpan(children: [
-                  TextSpan(
-                    text: "Hi There,\n",
-                    style: uiHelpers.headline.copyWith(color: textPrimaryColor),
-                  ),
-                  TextSpan(
-                    text: "Enter your information\nbelow to continue",
-                    style: uiHelpers.body.copyWith(color: textSecondaryColor),
-                  )
-                ])),
-                uiHelpers.verticalSpaceMedium,
-                InputField(
-                  title: "Your email here..",
-                  keyboardType: TextInputType.emailAddress,
-                  iconData: emailIcon,
-                  validator: model.validateEmail,
+          body: ListView(
+            padding: EdgeInsets.all(20.0),
+            children: <Widget>[
+              Text.rich(TextSpan(children: [
+                TextSpan(
+                  text: "Hi There,\n",
+                  style: uiHelpers.headline.copyWith(color: textPrimaryColor),
                 ),
-                InputField(
-                  title: "Your password here",
-                  keyboardType: TextInputType.text,
-                  iconData: passwordIcon,
-                  isSecure: true,
-                  validator: model.validatePassword,
-                ),
-                InputField(
-                  title: "Your password once again",
-                  keyboardType: TextInputType.text,
-                  iconData: passwordIcon,
-                  isSecure: true,
-                  validator: model.validatePassword,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    FlatButton(
-                        padding: EdgeInsets.all(10.0),
-                        onPressed: model.gotoLogin,
-                        child: Text.rich(TextSpan(children: [
-                          TextSpan(
-                              text: "If you already have an \naccount,",
-                              style: uiHelpers.body
-                                  .copyWith(color: textSecondaryColor)),
-                          TextSpan(
-                              text: " Login",
-                              style:
-                                  uiHelpers.body.copyWith(color: primaryColor)),
-                        ]))),
-                    Button(
-                      isBusy: model.isBusy,
-                      onPressed: model.handleSignup,
-                    ),
-                  ],
+                TextSpan(
+                  text: "Enter your information\nbelow to continue",
+                  style: uiHelpers.body.copyWith(color: textSecondaryColor),
                 )
-              ],
-            ),
+              ])),
+              uiHelpers.verticalSpaceMedium,
+              InputField(
+                title: "Your email here..",
+                keyboardType: TextInputType.emailAddress,
+                iconData: emailIcon,
+                validator: model.updateEmail,
+              ),
+              InputField(
+                title: "Your password here",
+                keyboardType: TextInputType.text,
+                iconData: passwordIcon,
+                isSecure: true,
+                validator: model.updatePassword,
+              ),
+              InputField(
+                title: "Your password once again",
+                keyboardType: TextInputType.text,
+                iconData: passwordIcon,
+                isSecure: true,
+                validator: model.updateConfirmPassword,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                      padding: EdgeInsets.all(10.0),
+                      onPressed: model.gotoLogin,
+                      child: Text.rich(TextSpan(children: [
+                        TextSpan(
+                            text: "If you already have an \naccount,",
+                            style: uiHelpers.body
+                                .copyWith(color: textSecondaryColor)),
+                        TextSpan(
+                            text: " Login",
+                            style:
+                                uiHelpers.body.copyWith(color: primaryColor)),
+                      ]))),
+                  Button(
+                    isBusy: model.isBusy,
+                    onPressed: model.handleSignup,
+                  ),
+                ],
+              )
+            ],
           ),
         );
       },
