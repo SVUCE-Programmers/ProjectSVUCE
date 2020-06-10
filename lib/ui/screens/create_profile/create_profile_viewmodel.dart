@@ -23,11 +23,8 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
   final CloudStorageService _cloudStorageService =
       locator<CloudStorageService>();
-  final ImageSelector imageSelector = ImageSelector();
 
-  final PageController _pageController =
-      PageController(initialPage: 0, keepPage: true);
-  PageController get pageController => _pageController;
+  final ImageSelector imageSelector = ImageSelector();
 
   // TextEditingControllers
   final TextEditingController fullNameController = TextEditingController();
@@ -76,20 +73,9 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
     if (currentPage == 2) {
       return createUser();
     }
-
-    await _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 2),
-        title: crossCheckInfo,
-        message: crossCheckDetailsMessage);
-
-    await _pageController.nextPage(
-        duration: Duration(seconds: 1), curve: Curves.elasticOut);
   }
 
-  void moveBackward() async {
-    await _pageController.previousPage(
-        duration: Duration(seconds: 1), curve: Curves.elasticOut);
-  }
+  void moveBackward() async {}
 
   void chooseImage() async {
     showBottomBar = true;
@@ -237,3 +223,11 @@ class CreateProfileViewModel extends BaseViewModel with Validators {
     return result?.imageUrl;
   }
 }
+
+/// 1. Store the image
+/// 2. Get the basic details with validation
+/// 3. Get the contact details with validation
+/// 4. After user has been okay to continue
+///   a. Upload the image to cloud firestore
+///   b. Create User
+///   c. Move to home

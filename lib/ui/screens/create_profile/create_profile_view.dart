@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
@@ -15,8 +16,6 @@ class CreateProfileView extends StatelessWidget {
 
   CreateProfileView({Key key, this.email, this.password}) : super(key: key);
 
-  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<CreateProfileViewModel>(
@@ -24,23 +23,32 @@ class CreateProfileView extends StatelessWidget {
       onModelReady: (model) => model.init(email, password),
       builder: (context, uiHelpers, model) {
         return Scaffold(
-          key: _globalKey,
-          appBar: AppBar(
-            title: Text(
-              "Create Profile",
-              style: uiHelpers.headline.copyWith(color: textPrimaryColor),
-            ),
-            leading: null,
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-          ),
+          appBar: PreferredSize(
+              child: Theme(
+                data: ThemeData(
+                    canvasColor: backgroundColor, fontFamily: 'Quicksand'),
+                child: BottomNavigationBar(
+                    elevation: 0,
+                    fixedColor: primaryColor,
+                    unselectedItemColor: textSecondaryColor,
+                    currentIndex: model.currentPage,
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(MaterialCommunityIcons.numeric_1_circle),
+                          title: Text("Profile Image")),
+                      BottomNavigationBarItem(
+                          icon: Icon(MaterialCommunityIcons.numeric_2_circle),
+                          title: Text("Basic Details")),
+                      BottomNavigationBarItem(
+                          icon: Icon(MaterialCommunityIcons.numeric_3_circle),
+                          title: Text("Contact Details")),
+                    ]),
+              ),
+              preferredSize: Size(100, 100)),
           body: Container(
             padding: EdgeInsets.all(20.0),
-            child: PageView(
-              onPageChanged: model.onPageChanged,
-              physics: NeverScrollableScrollPhysics(),
-              controller: model.pageController,
+            child: IndexedStack(
+              index: model.currentPage,
               children: <Widget>[
                 SelectProfileImage(uiHelpers),
                 BasicDetails(uiHelpers),

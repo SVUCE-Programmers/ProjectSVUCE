@@ -6,10 +6,12 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/router.gr.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/utils/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
 
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
@@ -71,13 +73,45 @@ class SignUpViewModel extends BaseViewModel with Validators {
 
     //TODO: Do an API Call to make sure the user email is available
 
-    await Future.delayed(Duration(seconds: 2));
-
-    _navigationService.navigateTo(Routes.createProfileViewRoute,
-        arguments:
-            CreateProfileViewArguments(email: email, password: password));
+    var authResult = await _authService.loginUser(
+      email: email,
+      password: password,
+    );
 
     setBusy(false);
+
+    if (authResult is bool) {
+      if (authResult) {
+        // If User exists with email shows error
+        await _authService.signOut();
+
+        _snackbarService.showCustomSnackBar(
+          duration: Duration(seconds: 5),
+          icon: Icon(
+            infoIcon,
+            color: errorColor,
+          ),
+          backgroundColor: surfaceColor,
+          title: commonErrorTitle,
+          message: "Your account already exists, try logging in",
+        );
+      } else {
+        _navigationService.navigateTo(Routes.createProfileViewRoute,
+            arguments:
+                CreateProfileViewArguments(email: email, password: password));
+      }
+    } else {
+      _snackbarService.showCustomSnackBar(
+        duration: Duration(seconds: 5),
+        icon: Icon(
+          infoIcon,
+          color: errorColor,
+        ),
+        backgroundColor: surfaceColor,
+        title: commonErrorTitle,
+        message: commonErrorInfo,
+      );
+    }
   }
 
   gotoLogin() {

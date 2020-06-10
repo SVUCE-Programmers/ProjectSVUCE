@@ -50,6 +50,7 @@ class SignUpView extends StatelessWidget {
                 title: "Your email here..",
                 keyboardType: TextInputType.emailAddress,
                 iconData: emailIcon,
+                error: model.emailError,
                 validator: model.updateEmail,
               ),
               InputField(
@@ -57,6 +58,7 @@ class SignUpView extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 iconData: passwordIcon,
                 isSecure: true,
+                error: model.passwordError,
                 validator: model.updatePassword,
               ),
               InputField(
@@ -64,6 +66,7 @@ class SignUpView extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 iconData: passwordIcon,
                 isSecure: true,
+                error: model.confirmPasswordError,
                 validator: model.updateConfirmPassword,
               ),
               Row(
