@@ -6,7 +6,7 @@ mixin Validators {
     } else if (!reg.hasMatch(name)) {
       return "Enter a valid name";
     }
-    return null;
+    return "";
   }
 
   String validateEmail(String email) {
@@ -18,7 +18,7 @@ mixin Validators {
     } else if (email.length < 5) {
       return 'Please enter a valid email';
     }
-    return null;
+    return "";
   }
 
   String validatePassword(String password) {
@@ -27,7 +27,7 @@ mixin Validators {
     } else if (password.length < 6) {
       return 'Your password must be atleast 6';
     }
-    return null;
+    return "";
   }
 
   String validateRollNo(String rollNo) {
@@ -37,7 +37,7 @@ mixin Validators {
     } else if (!regExp.hasMatch(rollNo) || rollNo.length < 8) {
       return 'Please enter a valid rollno.';
     } else {
-      return null;
+      return "";
     }
   }
 
@@ -48,7 +48,7 @@ mixin Validators {
     } else if (!regex.hasMatch(phone)) {
       return "Please enter a valid number";
     } else {
-      return null;
+      return "";
     }
   }
 }

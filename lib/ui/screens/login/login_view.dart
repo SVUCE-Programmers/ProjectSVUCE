@@ -52,7 +52,27 @@ class LoginView extends StatelessWidget {
               bottomNavigationBar: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  
+                  FlatButton(
+                    textColor: primaryColor,
+                    onPressed: () {},
+                    child: Text(
+                      "Forgot Password?",
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: primaryColor, width: 4),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: FlatButton(
+                      textColor: primaryColor,
+                      onPressed: () {},
+                      child: Text(
+                        "Continue as Guest",
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ));

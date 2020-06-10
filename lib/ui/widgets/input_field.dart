@@ -16,7 +16,7 @@ class InputField extends StatelessWidget {
   const InputField(
       {Key key,
       this.title,
-      this.error,
+      this.error = '',
       this.keyboardType,
       this.iconData,
       this.isSecure = false,
@@ -46,7 +46,7 @@ class InputField extends StatelessWidget {
             hintStyle: uiHelpers.body.copyWith(
               color: textSecondaryColor,
             ),
-            errorText: error),
+            errorText: error.isEmpty ? null : error),
         maxLines: maxLines,
         obscureText: isSecure,
         onChanged: validator ?? null,

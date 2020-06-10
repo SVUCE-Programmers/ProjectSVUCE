@@ -21,7 +21,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
       children: <Widget>[
         Text.rich(TextSpan(children: [
           TextSpan(
-            text: "Welcome Back\n",
+            text: "💐 Welcome Back, \n",
             style: uiHelpers.headline.copyWith(color: textPrimaryColor),
           ),
           TextSpan(
@@ -34,14 +34,16 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
           title: "Your email here..",
           keyboardType: TextInputType.emailAddress,
           iconData: emailIcon,
-          validator: viewModel.validateEmail,
+          error: viewModel.emailError,
+          validator: viewModel.updateEmail,
         ),
         InputField(
           title: "Your password here",
           keyboardType: TextInputType.text,
           iconData: passwordIcon,
           isSecure: true,
-          validator: viewModel.validatePassword,
+          error: viewModel.passwordError,
+          validator: viewModel.updatePassword,
         ),
         Row(
           mainAxisAlignment: isStudent
@@ -65,7 +67,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
                 : SizedBox(),
             Button(
               isBusy: viewModel.isBusy,
-              onPressed: () => viewModel.handleLogin(isStudent: isStudent),
+              onPressed: () => viewModel.handleLogin(),
             ),
           ],
         )
