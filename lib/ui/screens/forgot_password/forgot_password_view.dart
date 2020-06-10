@@ -29,30 +29,28 @@ class ForgotPasswordView extends StatelessWidget {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
           ),
-          body: Form(
-            key: model.formKey,
-            child: ListView(
-              padding: EdgeInsets.all(20.0),
-              children: <Widget>[
-                Text(
-                  "Enter your registered email and we\'ll send you the mail to reset your password\n",
-                  style: uiHelpers.body.copyWith(color: textSecondaryColor),
+          body: ListView(
+            padding: EdgeInsets.all(20.0),
+            children: <Widget>[
+              Text(
+                "Enter your registered email and we\'ll send you the mail to reset your password\n",
+                style: uiHelpers.body.copyWith(color: textSecondaryColor),
+              ),
+              InputField(
+                title: "Enter your email..",
+                iconData: emailIcon,
+                validator: model.updateEmail,
+                error: model.emailError,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                child: Button(
+                  isBusy: model.isBusy,
+                  onPressed: model.resetPassword,
                 ),
-                InputField(
-                  title: "Enter your email..",
-                  iconData: emailIcon,
-                  validator: model.validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: Button(
-                    isBusy: model.isBusy,
-                    onPressed: model.resetPassword,
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         );
       },

@@ -6,28 +6,34 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/utils/validators.dart';
 
-class ForgotPasswordViewModel extends BaseViewModel {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  GlobalKey<FormState> get formKey => _formKey;
-
-  final emailTextEditingController = TextEditingController();
+class ForgotPasswordViewModel extends BaseViewModel with Validators {
   final AuthService _authenticationService = locator<AuthService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  void resetPassword() async {
-    bool result = _formKey.currentState.validate();
+  String emailError = '';
 
+  String _email;
+  String get email => _email;
+
+  bool get result => emailError.isEmpty;
+
+  updateEmail(String email) {
+    _email = email;
+    emailError = validateEmail(email);
+    notifyListeners();
+  }
+
+  void resetPassword() async {
     if (!result) {
       return null;
     }
 
     setBusy(true);
 
-    var resetPasswordResult = await _authenticationService
-        .resetPassword(emailTextEditingController.text);
+    var resetPasswordResult = await _authenticationService.resetPassword(email);
 
     if (resetPasswordResult is String) {
       _snackbarService.showCustomSnackBar(
@@ -54,15 +60,6 @@ class ForgotPasswordViewModel extends BaseViewModel {
     }
 
     setBusy(false);
-  }
-
-  String validateEmail(String email) {
-    RegExp reg = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    if (reg.hasMatch(email)) {
-      return null;
-    }
-    return "Email is not valid";
   }
 
   goBack() {
