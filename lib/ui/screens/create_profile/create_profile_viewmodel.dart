@@ -1,25 +1,21 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/image_selector.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
-import 'package:svuce_app/core/mixins/will_pop.dart';
 
 class CreateProfileViewModel extends BaseViewModel
-    with Validators, WillPopHelper {
+    with Validators, SnackbarHelper {
   // Services
-  final SnackbarService _snackbarService = locator<SnackbarService>();
   final AuthService _authenticationService = locator<AuthService>();
   final UsersRepository _userService = locator<UsersRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -35,7 +31,7 @@ class CreateProfileViewModel extends BaseViewModel
 
   // Required Fields
 
-  String _fullName;
+  String _fullName = '';
   String get fullName => _fullName;
   String fullNameError = '';
   updateFullName(String fullName) {
@@ -44,7 +40,7 @@ class CreateProfileViewModel extends BaseViewModel
     notifyListeners();
   }
 
-  String _rollNo;
+  String _rollNo = '';
   String get rollNo => _rollNo;
   String rollNoError = '';
   updateRollNo(String rollNo) {
@@ -53,7 +49,7 @@ class CreateProfileViewModel extends BaseViewModel
     notifyListeners();
   }
 
-  String _contact;
+  String _contact = '';
   String get contact => _contact;
   String contactError = '';
   updateContact(String contact) {
@@ -62,7 +58,7 @@ class CreateProfileViewModel extends BaseViewModel
     notifyListeners();
   }
 
-  String _bio;
+  String _bio = '';
   String get bio => _bio;
   updateBio(String bio) {
     _bio = bio;
@@ -126,14 +122,14 @@ class CreateProfileViewModel extends BaseViewModel
 
     setBusy(true);
 
-    if (profileImage != null) {
-      profileImgURL = await uploadImage();
-    }
-
     var isRollNoExists = await rollNoCheck();
 
     if (!isRollNoExists) {
       return;
+    }
+
+    if (profileImage != null) {
+      profileImgURL = await uploadImage();
     }
 
     var result = await _authenticationService.createStudent(
@@ -152,26 +148,10 @@ class CreateProfileViewModel extends BaseViewModel
         _navigationService.navigateTo(Routes.selectClubsViewRoute,
             arguments: SelectClubsViewArguments(isSelectClubs: true));
       } else {
-        await _snackbarService.showCustomSnackBar(
-          duration: Duration(seconds: 5),
-          title: commonErrorTitle,
-          message: commonErrorInfo,
-          icon: Icon(
-            infoIcon,
-            color: errorColor,
-          ),
-        );
+        showErrorMessage(title: commonErrorTitle, message: commonErrorInfo);
       }
     } else {
-      await _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        title: commonErrorTitle,
-        message: result,
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-      );
+      showErrorMessage(title: commonErrorTitle, message: result);
     }
   }
 
@@ -191,10 +171,10 @@ class CreateProfileViewModel extends BaseViewModel
     int size = await file.length();
 
     if (size > 1000000) {
-      await _snackbarService.showCustomSnackBar(
-          title: "OOPS",
-          message: "The image you selected is > 1MB, please try again",
-          duration: Duration(seconds: 5));
+      showErrorMessage(
+        title: "OOPS",
+        message: "The image you selected is > 1MB, please try again",
+      );
 
       return null;
     }
@@ -222,14 +202,9 @@ class CreateProfileViewModel extends BaseViewModel
     }
 
     if (isRollExists) {
-      await _snackbarService.showCustomSnackBar(
+      showInfoMessage(
         title: commonErrorTitle,
         message: "The Roll no. already exists try login",
-        duration: Duration(seconds: 3),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
       );
 
       return false;

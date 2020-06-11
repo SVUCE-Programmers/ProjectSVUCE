@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
       viewModel: HomeViewModel(),
       onModelReady: (model) => model.getCurrentUserDetails(),
       builder: (context, uiHelpers, model) => WillPopScope(
-        onWillPop: model.onWillPop,
+        onWillPop: model.showErrorMessage(),
         child: Scaffold(
           body: ListView(
             padding: EdgeInsets.all(20.0),

@@ -1,42 +1,20 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
-import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel with SnackbarHelper {
   final AuthService _authenticationService = locator<AuthService>();
 
-  final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   User _currentUser;
   User get currentUser => _currentUser;
-
-  Future<bool> onWillPop() async {
-    await _snackbarService.showCustomSnackBar(
-        title: confirmExitInfo,
-        duration: Duration(seconds: 5),
-        message: confirmExitMessage,
-        backgroundColor: surfaceColor,
-        mainButton: FlatButton(
-          textColor: textPrimaryColor,
-          onPressed: () {
-            exit(0);
-          },
-          child: Text("Yes"),
-        ));
-
-    return false;
-  }
 
   String getGreeting() {
     var h = DateTime.now().hour;

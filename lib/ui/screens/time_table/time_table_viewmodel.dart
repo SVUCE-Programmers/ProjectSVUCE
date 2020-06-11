@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 
 class TimeTableViewModel extends BaseViewModel {
-  final SnackbarService snackbarService = locator<SnackbarService>();
   final TimeTableService timeTableService = locator<TimeTableService>();
 
   List<TimeTable> _timeTableItems;

@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
       disposeViewModel: false,
       builder: (context, uiHelpers, model) {
         return WillPopScope(
-            onWillPop: model.onWillPop,
+            onWillPop: model.showExitSnackbar,
             child: Scaffold(
               appBar: PreferredSize(
                 child: Theme(

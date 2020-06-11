@@ -1,5 +1,4 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/dataset.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
@@ -14,7 +13,6 @@ class ActionCenterViewModel extends BaseViewModel {
   final AttendanceService _attendanceService = locator<AttendanceService>();
 
   final AuthService authenticationService = locator<AuthService>();
-  final SnackbarService snackbarService = locator<SnackbarService>();
 
   List<TimeTable> timeTableData = List<TimeTable>();
 

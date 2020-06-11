@@ -1,22 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/hive_db/models/staff.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 
-class StaffViewModel extends BaseViewModel {
+class StaffViewModel extends BaseViewModel with SnackbarHelper {
   int length;
   List<Staff> _staffList = List<Staff>();
   List<Staff> get staffList => _staffList;
 
   final HiveService hiveService = locator<HiveService>();
   final APIService apiService = locator<APIService>();
-  final SnackbarService snackbarService = locator<SnackbarService>();
 
   final String url =
       "https://firebasestorage.googleapis.com/v0/b/svuce-52b0b.appspot.com/o/staff.json?alt=media&token=0abf1cf0-27b3-4702-89a8-362333c38235";
@@ -53,13 +49,7 @@ class StaffViewModel extends BaseViewModel {
         setBusy(false);
       } catch (e) {
         setBusy(false);
-        return snackbarService.showCustomSnackBar(
-          duration: Duration(seconds: 5),
-          icon: Icon(
-            infoIcon,
-            color: errorColor,
-          ),
-          backgroundColor: surfaceColor,
+        showErrorMessage(
           title: commonErrorTitle,
           message: commonErrorInfo,
         );

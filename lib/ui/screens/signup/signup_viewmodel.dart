@@ -1,19 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/router.gr.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
 
-class SignUpViewModel extends BaseViewModel with Validators {
+class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
-
-  final SnackbarService _snackbarService = locator<SnackbarService>();
 
   String emailError = '';
   String passwordError = '';
@@ -55,13 +51,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     }
 
     if (password != confirmPassword) {
-      _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-        backgroundColor: surfaceColor,
+      showInfoMessage(
         title: commonErrorTitle,
         message: passwordMatchErrorInfo,
       );
@@ -85,13 +75,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
         // If User exists with email shows error
         await _authService.signOut();
 
-        _snackbarService.showCustomSnackBar(
-          duration: Duration(seconds: 5),
-          icon: Icon(
-            infoIcon,
-            color: errorColor,
-          ),
-          backgroundColor: surfaceColor,
+        showInfoMessage(
           title: commonErrorTitle,
           message: "Your account already exists, try logging in",
         );

@@ -17,7 +17,7 @@ class SelectClubsView extends StatelessWidget {
       onModelReady: (model) => model.getClubListOnce(),
       builder: (context, uiHelpers, model) {
         return WillPopScope(
-          onWillPop: isSelectClubs ? model.onWillPop : null,
+          onWillPop: isSelectClubs ? model.showExitSnackbar : null,
           child: Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,

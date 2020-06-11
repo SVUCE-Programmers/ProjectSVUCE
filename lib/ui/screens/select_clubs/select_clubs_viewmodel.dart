@@ -1,13 +1,9 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/router.gr.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/club/club.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/models/user_club/user_club.dart';
@@ -17,9 +13,8 @@ import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository.da
 import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 
-class SelectClubsViewModel extends BaseViewModel {
+class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   final AuthService _authenticationService = locator<AuthService>();
-  final SnackbarService _snackbarService = locator<SnackbarService>();
   final ClubsRepository _clubsRepository = locator<ClubsRepository>();
   final UserClubsRepository _userClubsRepository =
       locator<UserClubsRepository>();
@@ -77,34 +72,11 @@ class SelectClubsViewModel extends BaseViewModel {
 
       setBusy(false);
     } catch (e) {
-      _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-        backgroundColor: surfaceColor,
+      showErrorMessage(
         title: commonErrorTitle,
         message: commonErrorInfo,
       );
     }
-  }
-
-  Future<bool> onWillPop() async {
-    await _snackbarService.showCustomSnackBar(
-        title: confirmExitInfo,
-        duration: Duration(seconds: 5),
-        message: confirmExitMessage,
-        backgroundColor: surfaceColor,
-        mainButton: FlatButton(
-          textColor: textPrimaryColor,
-          onPressed: () {
-            exit(0);
-          },
-          child: Text("Yes"),
-        ));
-
-    return false;
   }
 
   gotoHome() {

@@ -24,7 +24,7 @@ class CreateProfileView extends StatelessWidget {
       onModelReady: (model) => model.init(email, password),
       builder: (context, uiHelpers, model) {
         return WillPopScope(
-          onWillPop: model.onWillPop,
+          onWillPop: model.showExitSnackbar,
           child: Scaffold(
             appBar: PreferredSize(
                 child: Theme(

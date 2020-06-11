@@ -1,20 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/dataset.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/hive_db/models/placement.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 import 'package:svuce_app/core/models/graph.dart';
 
-class PlacementViewModel extends BaseViewModel {
+class PlacementViewModel extends BaseViewModel with SnackbarHelper {
   final hiveService = locator<HiveService>();
   final apiService = locator<APIService>();
-  final snackbarService = locator<SnackbarService>();
 
   List<Placement> _placementList = [];
   List<Placement> get placementList => _placementList;
@@ -64,13 +60,7 @@ class PlacementViewModel extends BaseViewModel {
         setBusy(false);
       } catch (e) {
         setBusy(false);
-        return snackbarService.showCustomSnackBar(
-          duration: Duration(seconds: 5),
-          icon: Icon(
-            infoIcon,
-            color: errorColor,
-          ),
-          backgroundColor: surfaceColor,
+        showErrorMessage(
           title: commonErrorTitle,
           message: e.toString(),
         );

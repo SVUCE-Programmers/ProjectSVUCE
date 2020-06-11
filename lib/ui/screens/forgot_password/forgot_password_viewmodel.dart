@@ -1,16 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
 
-class ForgotPasswordViewModel extends BaseViewModel with Validators {
+class ForgotPasswordViewModel extends BaseViewModel
+    with Validators, SnackbarHelper {
   final AuthService _authenticationService = locator<AuthService>();
-  final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   String emailError = '';
@@ -36,27 +34,13 @@ class ForgotPasswordViewModel extends BaseViewModel with Validators {
     var resetPasswordResult = await _authenticationService.resetPassword(email);
 
     if (resetPasswordResult is String) {
-      _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        icon: Icon(
-          infoIcon,
-          color: errorColor,
-        ),
-        backgroundColor: surfaceColor,
+      showErrorMessage(
         title: commonErrorTitle,
         message: commonErrorInfo,
       );
     } else {
-      _snackbarService.showCustomSnackBar(
-        duration: Duration(seconds: 5),
-        title: successEmailSentTitle,
-        backgroundColor: surfaceColor,
-        icon: Icon(
-          doneIcon,
-          color: primaryColor,
-        ),
-        message: successEmailSentInfo,
-      );
+      showSuccessMessage(
+          title: successEmailSentTitle, message: successEmailSentInfo);
     }
 
     setBusy(false);
