@@ -5,7 +5,7 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/theme.dart';
 import 'package:svuce_app/ui/screens/login/consumers/login_body.dart';
-import 'package:svuce_app/ui/screens/main/widgets/lazy_indexed_stack.dart';
+import 'package:svuce_app/ui/widgets/lazy_indexed_stack.dart';
 
 import 'login_viewmodel.dart.dart';
 

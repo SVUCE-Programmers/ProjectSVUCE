@@ -6,7 +6,7 @@ import 'package:svuce_app/ui/screens/action_center/action_center_view.dart';
 import 'package:svuce_app/ui/screens/calender_events/events_view.dart';
 import 'package:svuce_app/ui/screens/feed/feed_view.dart';
 import 'package:svuce_app/ui/screens/home/home_view.dart';
-import 'package:svuce_app/ui/screens/main/widgets/lazy_indexed_stack.dart';
+import 'package:svuce_app/ui/widgets/lazy_indexed_stack.dart';
 
 import 'main_viewmodel.dart';
 
@@ -34,6 +34,7 @@ class MainView extends StatelessWidget {
             data: ThemeData(canvasColor: surfaceColor),
             child: BottomNavigationBar(
               fixedColor: primaryColor,
+              unselectedItemColor: textSecondaryColor,
               currentIndex: model.index,
               onTap: model.changeTab,
               items: [
