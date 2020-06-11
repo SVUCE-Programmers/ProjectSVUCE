@@ -28,19 +28,18 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   String emailError = '';
   String passwordError = '';
 
-  bool get result => emailError.isEmpty && passwordError.isEmpty;
   bool get isStudent => index == 0;
 
   // For Student
-  String _studentEmail;
+  String _studentEmail = '';
   String get studentEmail => _studentEmail;
-  String _studentPassword;
+  String _studentPassword = '';
   String get studentPassword => _studentPassword;
 
   // For teacher
-  String _teacherEmail;
+  String _teacherEmail = '';
   String get teacherEmail => _teacherEmail;
-  String _teacherPassword;
+  String _teacherPassword = '';
   String get teacherPassword => _teacherPassword;
 
   updateEmail(String email) {
@@ -72,7 +71,21 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   }
 
   void handleLogin() async {
+    bool result = emailError.isEmpty && passwordError.isEmpty;
+
+    if (isStudent) {
+      result =
+          result && _studentEmail.isNotEmpty && _studentPassword.isNotEmpty;
+    } else {
+      result =
+          result && _teacherEmail.isNotEmpty && _teacherPassword.isNotEmpty;
+    }
+
     if (!result) {
+      showInfoMessage(
+          title: commonErrorTitle,
+          message: "Please check your details and try again");
+
       return;
     }
 

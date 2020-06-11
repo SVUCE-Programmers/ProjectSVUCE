@@ -29,43 +29,43 @@ mixin SnackbarHelper {
 
   showInfoMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
-        title: title,
-        icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
-        duration: Duration(seconds: 5),
-        overlayBlur: 1.0,
-        message: message,
-        margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-        borderRadius: 10.0,
-        backgroundColor: surfaceColor,
-        isDismissible: false);
+      title: title,
+      icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
+      duration: Duration(seconds: 5),
+      overlayBlur: 1.0,
+      message: message,
+      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+      borderRadius: 10.0,
+      backgroundColor: surfaceColor,
+    );
   }
 
   showErrorMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
-        title: title,
-        icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
-        duration: Duration(seconds: 5),
-        overlayBlur: 1.0,
-        message: message,
-        margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-        borderRadius: 10.0,
-        backgroundColor: surfaceColor,
-        isDismissible: false);
+      title: title,
+      icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
+      duration: Duration(seconds: 5),
+      overlayBlur: 1.0,
+      message: message,
+      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+      borderRadius: 10.0,
+      backgroundColor: surfaceColor,
+    );
   }
 
   showSuccessMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
-        title: title,
-        icon: Icon(
-          FontAwesome5Solid.smile_beam,
-          color: primaryColor,
-        ),
-        duration: Duration(seconds: 5),
-        overlayBlur: 1.0,
-        message: message,
-        margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-        borderRadius: 10.0,
-        backgroundColor: surfaceColor,
-        isDismissible: false);
+      title: title,
+      icon: Icon(
+        FontAwesome5Solid.smile_beam,
+        color: primaryColor,
+      ),
+      duration: Duration(seconds: 5),
+      overlayBlur: 1.0,
+      message: message,
+      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+      borderRadius: 10.0,
+      backgroundColor: surfaceColor,
+    );
   }
 }
