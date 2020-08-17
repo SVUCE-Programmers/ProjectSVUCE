@@ -16,5 +16,4 @@ class TimeTable {
 
   TimeTable(
       {this.className, this.startTime, this.endTime, this.day, this.year});
-
 }

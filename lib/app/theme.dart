@@ -15,3 +15,6 @@ final themeData = (BuildContext context) => ThemeData(
         .textTheme
         .apply(bodyColor: textPrimaryColor, fontFamily: 'Quicksand'),
     scaffoldBackgroundColor: backgroundColor);
+
+final commonThemeData =
+    ThemeData(canvasColor: backgroundColor, fontFamily: 'Quicksand');

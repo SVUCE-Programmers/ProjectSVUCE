@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/ui/utils/ui_helpers.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
   final bool disposeViewModel;

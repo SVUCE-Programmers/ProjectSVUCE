@@ -15,7 +15,7 @@ const String passwordMatchErrorInfo =
 
 // Notice Messages
 
-const String crossCheckInfo = "Note";
+const String crossCheckInfo = "💡 Note";
 
 const String crossCheckDetailsMessage =
     "Your details will not be changed in the future, please cross check your details.";

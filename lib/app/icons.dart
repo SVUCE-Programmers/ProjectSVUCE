@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 const IconData facultyIcon = FontAwesome5Solid.chalkboard_teacher;
+const IconData studentIcon = FontAwesome5Solid.graduation_cap;
 const IconData clubsIcon = FontAwesome.users;
 const IconData attendanceIcon = SimpleLineIcons.graph;
 const IconData hallOfFameIcon = FontAwesome5Solid.chart_bar;

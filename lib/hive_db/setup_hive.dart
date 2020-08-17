@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:svuce_app/app/locator.dart';
@@ -9,7 +8,6 @@ import 'models/staff.dart';
 import 'models/time_table.dart';
 
 void setupHive() async {
-  WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   final _hiveInterface = locator<HiveInterface>();
 
@@ -19,5 +17,5 @@ void setupHive() async {
   _hiveInterface.registerAdapter(StaffAdapter());
   _hiveInterface.registerAdapter(TimeTableAdapter());
   _hiveInterface.registerAdapter(AttendanceAdapter());
-  Hive.registerAdapter(PlacementAdapter());
+  _hiveInterface.registerAdapter(PlacementAdapter());
 }
