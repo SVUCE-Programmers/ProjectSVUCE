@@ -8,10 +8,13 @@ part of 'placement.dart';
 
 class PlacementAdapter extends TypeAdapter<Placement> {
   @override
+  final int typeId = 1;
+
+  @override
   Placement read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Placement(
       year: fields[0] as String,
@@ -30,5 +33,12 @@ class PlacementAdapter extends TypeAdapter<Placement> {
   }
 
   @override
-  int get typeId => 3;
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PlacementAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

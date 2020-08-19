@@ -80,7 +80,7 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   }
 
   gotoHome() {
-    _navigationService.navigateTo(Routes.mainViewRoute);
+    _navigationService.navigateTo(Routes.mainView);
   }
 
   addFlags(int length) {

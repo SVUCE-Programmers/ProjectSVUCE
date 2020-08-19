@@ -92,7 +92,7 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   }
 
   gotoProfile() {
-    _navigationService.navigateTo(Routes.createProfileViewRoute,
+    _navigationService.navigateTo(Routes.createProfileView,
         arguments:
             CreateProfileViewArguments(email: email, password: password));
   }

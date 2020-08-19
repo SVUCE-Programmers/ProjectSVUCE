@@ -9,13 +9,13 @@ part 'event.g.dart';
 abstract class Event implements _$Event {
   const Event._();
   factory Event(
-      {String id,
-      String name,
-      String organiser,
-      String place,
-      String timeStamp,
-      String imageUrl,
-      String description,
+      {@required String id,
+      @required String name,
+      @required String organiser,
+      @required String place,
+      @required String timeStamp,
+      @required String imageUrl,
+      @required String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);

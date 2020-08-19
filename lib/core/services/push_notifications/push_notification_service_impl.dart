@@ -40,7 +40,7 @@ class PushNotificationServiceImp implements PushNotificationService {
     if (view != null) {
       // Navigate to the specifed view in the notification
       if (view == 'go_to_home') {
-        _navigationService.navigateTo(Routes.mainViewRoute);
+        _navigationService.navigateTo(Routes.mainView);
       }
       // If there's no view it'll just open the app on the first view
     }

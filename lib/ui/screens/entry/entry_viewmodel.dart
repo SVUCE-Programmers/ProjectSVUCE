@@ -7,6 +7,6 @@ class EntryViewModel extends BaseViewModel {
   NavigationService navigationService = locator<NavigationService>();
 
   gotoLogin() async {
-    await navigationService.replaceWith(Routes.loginViewRoute);
+    await navigationService.replaceWith(Routes.loginView);
   }
 }

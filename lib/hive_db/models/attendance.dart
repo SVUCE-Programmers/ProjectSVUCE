@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'attendance.g.dart';
 
-@HiveType()
+@HiveType(typeId: 0)
 class Attendance {
   @HiveField(0)
   final String subject;

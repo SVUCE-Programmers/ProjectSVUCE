@@ -53,7 +53,7 @@ class MainView extends StatelessWidget {
                       (homeViewItem) => BottomNavigationBarItem(
                         activeIcon: Icon(homeViewItem.activeIcon),
                         icon: Icon(homeViewItem.inactiveIcon),
-                        title: Text(homeViewItem.title),
+                        label: (homeViewItem.title),
                       ),
                     )
                     .toList(),

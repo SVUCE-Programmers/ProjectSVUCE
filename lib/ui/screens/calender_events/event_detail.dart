@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/ui/screens/calender_events/event_detail_viewmodel.dart';
 
 class EventDetailsView extends StatelessWidget {
   final Event event;
+  final Function share;
 
-  const EventDetailsView({Key key, this.event}) : super(key: key);
+  const EventDetailsView({Key key, this.event, this.share}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+        child: ViewModelBuilder<EventDetailViewModel>.reactive(
+      viewModelBuilder: () => EventDetailViewModel(),
+      builder: (context, model, child) => Scaffold(
         body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
@@ -47,45 +52,46 @@ class EventDetailsView extends StatelessWidget {
                       Positioned(
                           top: 20,
                           right: 10,
-                          child: InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: surfaceColor),
-                              child: PopupMenuButton(
-                                color: surfaceColor,
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<String>>[
-                                  const PopupMenuItem<String>(
-                                      child: ListTile(
-                                    leading: Icon(
-                                      Icons.share,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      "Share",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )),
-                                  const PopupMenuItem<String>(
-                                      child: ListTile(
-                                    leading: Icon(
-                                      Icons.report,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      "Report",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ))
-                                ],
-                                icon: Icon(
-                                  Icons.more_vert,
-                                  color: Colors.white,
-                                ),
-                              ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: surfaceColor),
+                            child: IconButton(
+                              icon: Icon(Icons.share, color: Colors.white),
+                              onPressed: () => model.shareLink(event),
                             ),
+                            // child: PopupMenuButton(
+                            //   color: surfaceColor,
+                            //   itemBuilder: (BuildContext context) =>
+                            //       <PopupMenuEntry<String>>[
+                            //     const PopupMenuItem<String>(
+                            //         child: ListTile(
+                            //       leading: Icon(
+                            //         Icons.share,
+                            //         color: Colors.white,
+                            //       ),
+                            //       title: Text(
+                            //         "Share",
+                            //         style: TextStyle(color: Colors.white),
+                            //       ),
+                            //     )),
+                            //     const PopupMenuItem<String>(
+                            //         child: ListTile(
+                            //       leading: Icon(
+                            //         Icons.report,
+                            //         color: Colors.white,
+                            //       ),
+                            //       title: Text(
+                            //         "Report",
+                            //         style: TextStyle(color: Colors.white),
+                            //       ),
+                            //     ))
+                            //   ],
+                            //   icon: Icon(
+                            //     Icons.more_vert,
+                            //     color: Colors.white,
+                            //   ),
+                            // ),
                           ))
                     ],
                   ),
@@ -143,6 +149,6 @@ class EventDetailsView extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

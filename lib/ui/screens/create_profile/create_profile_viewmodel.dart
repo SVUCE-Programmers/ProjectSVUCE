@@ -145,7 +145,7 @@ class CreateProfileViewModel extends BaseViewModel
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(Routes.selectClubsViewRoute,
+        _navigationService.navigateTo(Routes.selectClubsView,
             arguments: SelectClubsViewArguments(isSelectClubs: true));
       } else {
         showErrorMessage(title: commonErrorTitle, message: commonErrorInfo);

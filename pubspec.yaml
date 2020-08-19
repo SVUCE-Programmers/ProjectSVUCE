@@ -4,7 +4,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,7 +14,7 @@ dependencies:
   path_provider: ^1.6.7
 
   # Hive
-  hive: ^1.4.1+1
+  hive: ^1.4.3
   hive_flutter: ^0.3.0+2
 
   # state management
@@ -23,8 +23,8 @@ dependencies:
   # third party usable services
   stacked_services: ^0.3.3
 
-  # navigation
-  auto_route:
+  # navigationh
+  auto_route: null
 
   # inversion of control
   injectable: ^0.4.0+1
@@ -32,7 +32,7 @@ dependencies:
 
   # firebase
   cloud_firestore: ^0.13.4+2
-  firebase_auth:
+  firebase_auth: null
   firebase_messaging: ^6.0.13
   firebase_storage: ^3.1.1
 
@@ -44,24 +44,26 @@ dependencies:
   image_picker: ^0.6.3+1
   http: ^0.12.1
   table_calendar: ^2.2.3
+  firebase_dynamic_links: ^0.5.3
+  share: ^0.6.4+3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # generators
-  hive_generator: ^0.5.1
-  build_runner:
-  auto_route_generator:
-  injectable_generator:
+  hive_generator: ^0.7.1
+  build_runner: null
+  auto_route_generator: null
+  injectable_generator: null
 
   # for models
   freezed: ^0.10.9
   json_serializable: ^3.3.0
 
   # testing
-  mockito:
-  cloud_firestore_mocks:
+  mockito: null
+  cloud_firestore_mocks: null
 
 flutter:
   uses-material-design: true
@@ -79,3 +81,4 @@ flutter:
           weight: 500
         - asset: assets/fonts/Quicksand-Regular.ttf
           weight: 400
+

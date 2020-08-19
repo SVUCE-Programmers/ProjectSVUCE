@@ -99,14 +99,14 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
     setBusy(false);
 
     if (authResult is bool && authResult) {
-      _navigationService.navigateTo(Routes.mainViewRoute);
+      _navigationService.navigateTo(Routes.mainView);
     } else {
       showCommonError();
     }
   }
 
   gotoSignup() {
-    _navigationService.navigateTo(Routes.signUpViewRoute);
+    _navigationService.navigateTo(Routes.signUpView);
   }
 
   continueAsGuest() {

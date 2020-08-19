@@ -46,6 +46,8 @@ class CalendarEventsViewModel extends BaseViewModel {
 
   gotoDetailsPage(Event event) {
     _navigationService.navigateTo(Routes.eventDetailsView,
-        arguments: EventDetailsViewArguments(event: event));
+        arguments: EventDetailsViewArguments(
+          event: event,
+        ));
   }
 }

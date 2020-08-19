@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'staff.g.dart';
 
-@HiveType()
+@HiveType(typeId: 2)
 class Staff {
   @HiveField(0)
   final String email;

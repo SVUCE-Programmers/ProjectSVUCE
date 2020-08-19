@@ -37,9 +37,9 @@ class LoginView extends StatelessWidget {
                         onTap: model.changeTab,
                         items: [
                           BottomNavigationBarItem(
-                              icon: Icon(studentIcon), title: Text("Student")),
+                              icon: Icon(studentIcon), label: ("Student")),
                           BottomNavigationBarItem(
-                              icon: Icon(facultyIcon), title: Text("Teacher")),
+                              icon: Icon(facultyIcon), label: ("Teacher")),
                         ])),
                 preferredSize: Size(100, 100),
               ),

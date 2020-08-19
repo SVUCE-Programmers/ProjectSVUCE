@@ -35,13 +35,13 @@ class HomeViewModel extends BaseViewModel with SnackbarHelper {
   }
 
   exploreClubs() {
-    _navigationService.navigateTo(Routes.selectClubsViewRoute,
+    _navigationService.navigateTo(Routes.selectClubsView,
         arguments: SelectClubsViewArguments(isSelectClubs: false));
     // Navigations
   }
 
   viewTimeTable() async {
-    await _navigationService.navigateTo(Routes.timeTableViewRoute);
+    await _navigationService.navigateTo(Routes.timeTableView);
   }
 
   viewAttendance() async {
@@ -50,6 +50,6 @@ class HomeViewModel extends BaseViewModel with SnackbarHelper {
   }
 
   viewUserProfile() async {
-    await _navigationService.navigateTo(Routes.userProfileViewRoute);
+    await _navigationService.navigateTo(Routes.userProfileView);
   }
 }

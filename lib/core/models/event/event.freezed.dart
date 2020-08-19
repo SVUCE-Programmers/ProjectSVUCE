@@ -16,13 +16,13 @@ class _$EventTearOff {
   const _$EventTearOff();
 
   _Event call(
-      {String id,
-      String name,
-      String organiser,
-      String place,
-      String timeStamp,
-      String imageUrl,
-      String description,
+      {@required String id,
+      @required String name,
+      @required String organiser,
+      @required String place,
+      @required String timeStamp,
+      @required String imageUrl,
+      @required String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) {
     return _Event(
       id: id,
@@ -156,15 +156,22 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Event extends _Event with DiagnosticableTreeMixin {
   _$_Event(
-      {this.id,
-      this.name,
-      this.organiser,
-      this.place,
-      this.timeStamp,
-      this.imageUrl,
-      this.description,
+      {@required this.id,
+      @required this.name,
+      @required this.organiser,
+      @required this.place,
+      @required this.timeStamp,
+      @required this.imageUrl,
+      @required this.description,
       @JsonKey(ignore: true) this.documentReference})
-      : super._();
+      : assert(id != null),
+        assert(name != null),
+        assert(organiser != null),
+        assert(place != null),
+        assert(timeStamp != null),
+        assert(imageUrl != null),
+        assert(description != null),
+        super._();
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$_$_EventFromJson(json);
@@ -259,13 +266,13 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
 abstract class _Event extends Event {
   _Event._() : super._();
   factory _Event(
-      {String id,
-      String name,
-      String organiser,
-      String place,
-      String timeStamp,
-      String imageUrl,
-      String description,
+      {@required String id,
+      @required String name,
+      @required String organiser,
+      @required String place,
+      @required String timeStamp,
+      @required String imageUrl,
+      @required String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;

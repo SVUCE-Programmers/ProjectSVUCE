@@ -8,10 +8,13 @@ part of 'attendance.dart';
 
 class AttendanceAdapter extends TypeAdapter<Attendance> {
   @override
+  final int typeId = 0;
+
+  @override
   Attendance read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Attendance(
       subject: fields[0] as String,
@@ -39,5 +42,12 @@ class AttendanceAdapter extends TypeAdapter<Attendance> {
   }
 
   @override
-  int get typeId => 2;
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AttendanceAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

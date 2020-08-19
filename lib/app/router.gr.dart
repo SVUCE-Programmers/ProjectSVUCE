@@ -4,155 +4,173 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:svuce_app/ui/screens/startup/startup_view.dart';
-import 'package:svuce_app/ui/screens/entry/entry_view.dart';
-import 'package:svuce_app/ui/screens/login/login_view.dart';
-import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
-import 'package:svuce_app/ui/screens/signup/signup_view.dart';
-import 'package:svuce_app/ui/screens/create_profile/create_profile_view.dart';
-import 'package:svuce_app/ui/screens/select_clubs/select_clubs_view.dart';
-import 'package:svuce_app/ui/screens/main/main_view.dart';
-import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
-import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
-import 'package:svuce_app/ui/screens/notifications/notifications_view.dart';
-import 'package:svuce_app/ui/screens/calender_events/event_detail.dart';
-import 'package:svuce_app/core/models/event/event.dart';
+// ignore_for_file: public_member_api_docs
 
-abstract class Routes {
-  static const startUpViewRoute = '/';
-  static const entryViewRoute = '/entry-view-route';
-  static const loginViewRoute = '/login-view-route';
-  static const forgotPasswordViewRoute = '/forgot-password-view-route';
-  static const signUpViewRoute = '/sign-up-view-route';
-  static const createProfileViewRoute = '/create-profile-view-route';
-  static const selectClubsViewRoute = '/select-clubs-view-route';
-  static const mainViewRoute = '/main-view-route';
-  static const userProfileViewRoute = '/user-profile-view-route';
-  static const timeTableViewRoute = '/time-table-view-route';
-  static const notificationsViewRoute = '/notifications-view-route';
-  static const eventDetailsView = '/event-details-view';
-  static const all = {
-    startUpViewRoute,
-    entryViewRoute,
-    loginViewRoute,
-    forgotPasswordViewRoute,
-    signUpViewRoute,
-    createProfileViewRoute,
-    selectClubsViewRoute,
-    mainViewRoute,
-    userProfileViewRoute,
-    timeTableViewRoute,
-    notificationsViewRoute,
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+
+import '../core/models/event/event.dart';
+import '../ui/screens/calender_events/event_detail.dart';
+import '../ui/screens/create_profile/create_profile_view.dart';
+import '../ui/screens/entry/entry_view.dart';
+import '../ui/screens/forgot_password/forgot_password_view.dart';
+import '../ui/screens/login/login_view.dart';
+import '../ui/screens/main/main_view.dart';
+import '../ui/screens/notifications/notifications_view.dart';
+import '../ui/screens/select_clubs/select_clubs_view.dart';
+import '../ui/screens/signup/signup_view.dart';
+import '../ui/screens/startup/startup_view.dart';
+import '../ui/screens/time_table/time_table_view.dart';
+import '../ui/screens/user_profile/user_profile_view.dart';
+
+class Routes {
+  static const String startUpView = '/';
+  static const String entryView = '/entry-view';
+  static const String loginView = '/login-view';
+  static const String forgotPasswordView = '/forgot-password-view';
+  static const String signUpView = '/sign-up-view';
+  static const String createProfileView = '/create-profile-view';
+  static const String selectClubsView = '/select-clubs-view';
+  static const String mainView = '/main-view';
+  static const String userProfileView = '/user-profile-view';
+  static const String timeTableView = '/time-table-view';
+  static const String notificationsView = '/notifications-view';
+  static const String eventDetailsView = '/event-details-view';
+  static const all = <String>{
+    startUpView,
+    entryView,
+    loginView,
+    forgotPasswordView,
+    signUpView,
+    createProfileView,
+    selectClubsView,
+    mainView,
+    userProfileView,
+    timeTableView,
+    notificationsView,
     eventDetailsView,
   };
 }
 
 class Router extends RouterBase {
   @override
-  Set<String> get allRoutes => Routes.all;
-
-  @Deprecated('call ExtendedNavigator.ofRouter<Router>() directly')
-  static ExtendedNavigatorState get navigator =>
-      ExtendedNavigator.ofRouter<Router>();
-
+  List<RouteDef> get routes => _routes;
+  final _routes = <RouteDef>[
+    RouteDef(Routes.startUpView, page: StartUpView),
+    RouteDef(Routes.entryView, page: EntryView),
+    RouteDef(Routes.loginView, page: LoginView),
+    RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
+    RouteDef(Routes.signUpView, page: SignUpView),
+    RouteDef(Routes.createProfileView, page: CreateProfileView),
+    RouteDef(Routes.selectClubsView, page: SelectClubsView),
+    RouteDef(Routes.mainView, page: MainView),
+    RouteDef(Routes.userProfileView, page: UserProfileView),
+    RouteDef(Routes.timeTableView, page: TimeTableView),
+    RouteDef(Routes.notificationsView, page: NotificationsView),
+    RouteDef(Routes.eventDetailsView, page: EventDetailsView),
+  ];
   @override
-  Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    final args = settings.arguments;
-    switch (settings.name) {
-      case Routes.startUpViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => StartUpView(),
-          settings: settings,
-        );
-      case Routes.entryViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => EntryView(),
-          settings: settings,
-        );
-      case Routes.loginViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => LoginView(),
-          settings: settings,
-        );
-      case Routes.forgotPasswordViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => ForgotPasswordView(),
-          settings: settings,
-        );
-      case Routes.signUpViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => SignUpView(),
-          settings: settings,
-        );
-      case Routes.createProfileViewRoute:
-        if (hasInvalidArgs<CreateProfileViewArguments>(args)) {
-          return misTypedArgsRoute<CreateProfileViewArguments>(args);
-        }
-        final typedArgs =
-            args as CreateProfileViewArguments ?? CreateProfileViewArguments();
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => CreateProfileView(
-              key: typedArgs.key,
-              email: typedArgs.email,
-              password: typedArgs.password),
-          settings: settings,
-        );
-      case Routes.selectClubsViewRoute:
-        if (hasInvalidArgs<SelectClubsViewArguments>(args)) {
-          return misTypedArgsRoute<SelectClubsViewArguments>(args);
-        }
-        final typedArgs =
-            args as SelectClubsViewArguments ?? SelectClubsViewArguments();
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => SelectClubsView(
-              key: typedArgs.key, isSelectClubs: typedArgs.isSelectClubs),
-          settings: settings,
-        );
-      case Routes.mainViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => MainView(),
-          settings: settings,
-        );
-      case Routes.userProfileViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => UserProfileView(),
-          settings: settings,
-        );
-      case Routes.timeTableViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => TimeTableView(),
-          settings: settings,
-        );
-      case Routes.notificationsViewRoute:
-        return MaterialPageRoute<dynamic>(
-          builder: (context) => NotificationsView(),
-          settings: settings,
-        );
-      case Routes.eventDetailsView:
-        if (hasInvalidArgs<EventDetailsViewArguments>(args)) {
-          return misTypedArgsRoute<EventDetailsViewArguments>(args);
-        }
-        final typedArgs =
-            args as EventDetailsViewArguments ?? EventDetailsViewArguments();
-        return MaterialPageRoute<dynamic>(
-          builder: (context) =>
-              EventDetailsView(key: typedArgs.key, event: typedArgs.event),
-          settings: settings,
-        );
-      default:
-        return unknownRoutePage(settings.name);
-    }
-  }
+  Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
+  final _pagesMap = <Type, AutoRouteFactory>{
+    StartUpView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => StartUpView(),
+        settings: data,
+      );
+    },
+    EntryView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => EntryView(),
+        settings: data,
+      );
+    },
+    LoginView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => LoginView(),
+        settings: data,
+      );
+    },
+    ForgotPasswordView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => ForgotPasswordView(),
+        settings: data,
+      );
+    },
+    SignUpView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SignUpView(),
+        settings: data,
+      );
+    },
+    CreateProfileView: (data) {
+      final args = data.getArgs<CreateProfileViewArguments>(
+        orElse: () => CreateProfileViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => CreateProfileView(
+          key: args.key,
+          email: args.email,
+          password: args.password,
+        ),
+        settings: data,
+      );
+    },
+    SelectClubsView: (data) {
+      final args = data.getArgs<SelectClubsViewArguments>(
+        orElse: () => SelectClubsViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => SelectClubsView(
+          key: args.key,
+          isSelectClubs: args.isSelectClubs,
+        ),
+        settings: data,
+      );
+    },
+    MainView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => MainView(),
+        settings: data,
+      );
+    },
+    UserProfileView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => UserProfileView(),
+        settings: data,
+      );
+    },
+    TimeTableView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => TimeTableView(),
+        settings: data,
+      );
+    },
+    NotificationsView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => NotificationsView(),
+        settings: data,
+      );
+    },
+    EventDetailsView: (data) {
+      final args = data.getArgs<EventDetailsViewArguments>(
+        orElse: () => EventDetailsViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => EventDetailsView(
+          key: args.key,
+          event: args.event,
+        ),
+        settings: data,
+      );
+    },
+  };
 }
 
-// *************************************************************************
-// Arguments holder classes
-// **************************************************************************
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
 
-//CreateProfileView arguments holder class
+/// CreateProfileView arguments holder class
 class CreateProfileViewArguments {
   final Key key;
   final String email;
@@ -160,14 +178,14 @@ class CreateProfileViewArguments {
   CreateProfileViewArguments({this.key, this.email, this.password});
 }
 
-//SelectClubsView arguments holder class
+/// SelectClubsView arguments holder class
 class SelectClubsViewArguments {
   final Key key;
   final bool isSelectClubs;
   SelectClubsViewArguments({this.key, this.isSelectClubs});
 }
 
-//EventDetailsView arguments holder class
+/// EventDetailsView arguments holder class
 class EventDetailsViewArguments {
   final Key key;
   final Event event;

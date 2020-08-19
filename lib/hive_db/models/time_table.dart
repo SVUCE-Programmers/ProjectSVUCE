@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'time_table.g.dart';
 
-@HiveType()
+@HiveType(typeId: 3)
 class TimeTable {
   @HiveField(0)
   final String className;

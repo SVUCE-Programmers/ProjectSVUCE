@@ -12,21 +12,18 @@ import 'package:svuce_app/ui/screens/startup/startup_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
 
-@MaterialAutoRouter()
-class $Router {
-  @initial
-  StartUpView startUpViewRoute;
-
-  EntryView entryViewRoute;
-  LoginView loginViewRoute;
-  ForgotPasswordView forgotPasswordViewRoute;
-  SignUpView signUpViewRoute;
-  CreateProfileView createProfileViewRoute;
-  SelectClubsView selectClubsViewRoute;
-
-  MainView mainViewRoute;
-  UserProfileView userProfileViewRoute;
-  TimeTableView timeTableViewRoute;
-  NotificationsView notificationsViewRoute;
-  EventDetailsView eventDetailsView;
-}
+@MaterialAutoRouter(routes: <AutoRoute>[
+  MaterialRoute(page: StartUpView, initial: true),
+  MaterialRoute(page: EntryView),
+  MaterialRoute(page: LoginView),
+  MaterialRoute(page: ForgotPasswordView),
+  MaterialRoute(page: SignUpView),
+  MaterialRoute(page: CreateProfileView),
+  MaterialRoute(page: SelectClubsView),
+  MaterialRoute(page: MainView),
+  MaterialRoute(page: UserProfileView),
+  MaterialRoute(page: TimeTableView),
+  MaterialRoute(page: NotificationsView),
+  MaterialRoute(page: EventDetailsView),
+])
+class $Router {}
