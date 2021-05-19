@@ -65,7 +65,6 @@ class _GraphWidgetState extends State<GraphWidget>
       onScaleEnd: (_) => _handleEndInteract(context),
       child: Container(
         child: Stack(
-          overflow: Overflow.visible,
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,

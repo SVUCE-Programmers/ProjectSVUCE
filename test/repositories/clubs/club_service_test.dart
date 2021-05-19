@@ -23,15 +23,15 @@ main() {
       /// Mock Firestore Instance
       await mockFirestoreInstance
           .collection("clubs")
-          .document(mockClubData[0]['id'])
-          .setData(mockClubData[0]);
+          .doc(mockClubData[0]['id'])
+          .set(mockClubData[0]);
 
       await mockFirestoreInstance
           .collection("clubs")
-          .document(mockClubData[1]['id'])
-          .setData(mockClubData[1]);
+          .doc(mockClubData[1]['id'])
+          .set(mockClubData[1]);
 
-      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      locator.registerSingleton<FirebaseFirestore>(mockFirestoreInstance);
       final ClubsRepository _clubsRepo = locator<ClubsRepository>();
 
       Stream announcementStream = _clubsRepo.getClubs();
@@ -52,7 +52,7 @@ main() {
       final MockFirestoreInstance mockFirestoreInstance =
           MockFirestoreInstance();
 
-      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      locator.registerSingleton<FirebaseFirestore>(mockFirestoreInstance);
       final ClubsRepository _clubsRepo = locator<ClubsRepository>();
 
       expect(await _clubsRepo.followClub(clubId, userId), true);

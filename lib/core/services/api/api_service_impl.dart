@@ -14,7 +14,7 @@ class APIServiceImpl implements APIService {
     final headers = {"Accept": "application/json"};
 
     final Client _client = locator<Client>();
-    final response = await _client.get(fetchUrl, headers: headers);
+    final response = await _client.get(Uri.parse(fetchUrl), headers: headers);
 
     if (response?.statusCode != 200) {
       throw Exception("Error While Retrieving Data from Url");

@@ -21,16 +21,15 @@ main() {
       /// Adding Mock Event Data to
       /// Mock Firestore Instance
       await mockFirestoreInstance
-          .collection("events")
-          .document(mockEventsData[0]['id'])
-          .setData(mockEventsData[0]);
+          .doc(mockEventsData[0]['id'])
+          .set(mockEventsData[0]);
 
       await mockFirestoreInstance
           .collection("events")
-          .document(mockEventsData[1]['id'])
-          .setData(mockEventsData[1]);
+          .doc(mockEventsData[1]['id'])
+          .set(mockEventsData[1]);
 
-      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      locator.registerSingleton<FirebaseFirestore>(mockFirestoreInstance);
       final EventsRepository _eventRepo = locator<EventsRepository>();
 
       Stream announcementStream = _eventRepo.getEvents();

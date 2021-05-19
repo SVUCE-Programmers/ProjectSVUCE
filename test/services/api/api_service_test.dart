@@ -35,7 +35,7 @@ main() {
       // Use Mockito to return a successful response when it calls the
       // provided http.Client.
       final client = MockClient();
-      when(client.get(fetchUrl, headers: headers))
+      when(client.get(Uri.parse(fetchUrl), headers: headers))
           .thenAnswer((_) async => http.Response(responseString, 200));
 
       locator.registerSingleton<Client>(client);
@@ -52,7 +52,7 @@ main() {
       // Use Mockito to return an unsuccessful response when it calls the
       // provided http.Client.
       final client = MockClient();
-      when(client.get(fetchUrl, headers: headers))
+      when(client.get(Uri.parse(fetchUrl), headers: headers))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
       locator.registerSingleton<Client>(client);

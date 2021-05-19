@@ -8,7 +8,7 @@ import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart
 
 @Singleton(as: FeedRepository)
 class FeedRepositoryImpl implements FeedRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   static CollectionReference _feedRef = firestore.collection("feed");
 
@@ -19,7 +19,7 @@ class FeedRepositoryImpl implements FeedRepository {
 
   DocumentSnapshot _lastFeed;
 
-  List<List<Feed>> _allFeedResults = List<List<Feed>>();
+  List<List<Feed>> _allFeedResults = [];
 
   bool _hasMoreFeedItems = true;
 
@@ -40,8 +40,8 @@ class FeedRepositoryImpl implements FeedRepository {
     var currentRequestIndex = _allFeedResults.length;
 
     feedQuery.snapshots().listen((postsSnapshot) {
-      if (postsSnapshot.documents.isNotEmpty) {
-        var feedItems = postsSnapshot.documents
+      if (postsSnapshot.docs.isNotEmpty) {
+        var feedItems = postsSnapshot.docs
             .map((snapshot) => Feed.fromDocument(snapshot))
             .where((mappedItem) => mappedItem.title != null)
             .toList();
@@ -60,7 +60,7 @@ class FeedRepositoryImpl implements FeedRepository {
         _feedController.add(allPosts);
 
         if (currentRequestIndex == _allFeedResults.length - 1) {
-          _lastFeed = postsSnapshot.documents.last;
+          _lastFeed = postsSnapshot.docs.last;
         }
 
         _hasMoreFeedItems = feedItems.length == FeedItemLimit;

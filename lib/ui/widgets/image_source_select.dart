@@ -22,7 +22,7 @@ class ImageSourceSelect extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            FlatButton.icon(
+            TextButton.icon(
                 icon: Icon(
                   galleryIcon,
                   color: primaryColor,
@@ -32,7 +32,7 @@ class ImageSourceSelect extends StatelessWidget {
                   "\t Gallery",
                   style: TextStyle(color: textPrimaryColor),
                 )),
-            FlatButton.icon(
+            TextButton.icon(
                 icon: Icon(
                   cameraIcon,
                   color: primaryColor,
@@ -42,7 +42,7 @@ class ImageSourceSelect extends StatelessWidget {
                   "\t Camera",
                   style: TextStyle(color: textPrimaryColor),
                 )),
-            FlatButton.icon(
+            TextButton.icon(
                 icon: Icon(
                   deleteIcon,
                   color: primaryColor,

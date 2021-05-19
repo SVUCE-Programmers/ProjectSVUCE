@@ -8,7 +8,7 @@ import 'clubs_repository.dart';
 
 @Singleton(as: ClubsRepository)
 class ClubsRepositoryImpl implements ClubsRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   static CollectionReference _clubsRef = firestore.collection("clubs");
 
@@ -20,11 +20,7 @@ class ClubsRepositoryImpl implements ClubsRepository {
     try {
       Map<String, dynamic> map = {"id": userId};
 
-      await _clubsRef
-          .document(clubId)
-          .collection("followers")
-          .document(userId)
-          .setData(map);
+      await _clubsRef.doc(clubId).collection("followers").doc(userId).set(map);
 
       return true;
     } catch (e) {
@@ -36,8 +32,8 @@ class ClubsRepositoryImpl implements ClubsRepository {
   Stream getClubs() {
     // Register the handler for when the posts data changes
     _clubsRef.snapshots().listen((snapshots) {
-      if (snapshots.documents.isNotEmpty) {
-        var posts = snapshots.documents
+      if (snapshots.docs.isNotEmpty) {
+        var posts = snapshots.docs
             .map((snapshot) => Club.fromDocument(snapshot))
             .toList();
 

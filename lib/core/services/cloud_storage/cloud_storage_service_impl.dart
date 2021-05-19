@@ -15,10 +15,10 @@ class CloudStorageServiceImpl implements CloudStorageService {
     var imageFileName = DateTime.now().millisecondsSinceEpoch.toString();
 
     // Get the reference to the file where we want to upload
-    final StorageReference reference =
+    final Reference reference =
         FirebaseStorage.instance.ref().child(imageFileName);
 
-    StorageUploadTask uploadTask = reference.putFile(imageToUpload);
+    UploadTask uploadTask = reference.putFile(imageToUpload);
 
     StorageTaskSnapshot snapshot = await uploadTask.onComplete;
 

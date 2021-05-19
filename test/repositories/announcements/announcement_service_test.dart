@@ -28,7 +28,7 @@ main() {
           .collection("announcements")
           .add(mockAnnouncementList[1]);
 
-      locator.registerSingleton<Firestore>(mockFirestoreInstance);
+      locator.registerSingleton<FirebaseFirestore>(mockFirestoreInstance);
 
       final AnnouncementsRepository announcementService =
           locator<AnnouncementsRepository>();

@@ -9,7 +9,7 @@ import 'announcements_repository.dart';
 
 @Singleton(as: AnnouncementsRepository)
 class AnnouncementsRepositoryImpl implements AnnouncementsRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
   static CollectionReference _announcementRef =
       firestore.collection("announcements");
 
@@ -21,8 +21,8 @@ class AnnouncementsRepositoryImpl implements AnnouncementsRepository {
     var query = _announcementRef.orderBy("timeStamp");
 
     query.snapshots().listen((snapshot) {
-      if (snapshot.documents.isNotEmpty) {
-        var items = snapshot.documents
+      if (snapshot.docs.isNotEmpty) {
+        var items = snapshot.docs
             .map((snapshot) => Announcement.fromDocument(snapshot))
             .toList();
 

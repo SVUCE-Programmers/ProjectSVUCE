@@ -7,14 +7,14 @@ import 'users_repository.dart';
 
 @Singleton(as: UsersRepository)
 class UsersRepositoryImpl implements UsersRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   static CollectionReference _userRef = firestore.collection("users");
 
   @override
   Future getUser(String userId) async {
     try {
-      var userData = await _userRef.document(userId).get();
+      var userData = await _userRef.doc(userId).get();
       return User.fromDocument(userData);
     } catch (e) {
       return e?.message ?? "Something went wrong";
@@ -24,11 +24,10 @@ class UsersRepositoryImpl implements UsersRepository {
   @override
   Future isRollNoExists(String rollNo) async {
     try {
-      var result =
-          await _userRef.where("rollNo", isEqualTo: rollNo).getDocuments();
+      var result = await _userRef.where("rollNo", isEqualTo: rollNo).get();
 
-      if (result.documents != null) {
-        return result.documents.isNotEmpty;
+      if (result.docs != null) {
+        return result.docs.isNotEmpty;
       }
 
       return false;
@@ -40,7 +39,7 @@ class UsersRepositoryImpl implements UsersRepository {
   @override
   Future storeUser(User user) async {
     try {
-      await _userRef.document(user.id).setData(user.toJson());
+      await _userRef.doc(user.id).set(user.toJson());
     } catch (e) {
       return e?.message ?? "Something went wrong";
     }

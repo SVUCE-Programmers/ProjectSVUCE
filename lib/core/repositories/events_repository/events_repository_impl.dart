@@ -8,7 +8,7 @@ import 'package:svuce_app/core/repositories/events_repository/events_repository.
 
 @Singleton(as: EventsRepository)
 class EventsRepositoryImpl implements EventsRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   final CollectionReference _eventRef = firestore.collection("events");
 
@@ -22,8 +22,8 @@ class EventsRepositoryImpl implements EventsRepository {
     var query = _eventRef.orderBy("timeStamp");
 
     query.snapshots().listen((snapshot) {
-      if (snapshot.documents.isNotEmpty) {
-        var items = snapshot.documents
+      if (snapshot.docs.isNotEmpty) {
+        var items = snapshot.docs
             .map((snapshot) => Event.fromDocument(snapshot))
             .toList();
 

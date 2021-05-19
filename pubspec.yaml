@@ -4,62 +4,59 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   # for os-specific path directory
-  path_provider: ^1.6.7
+  path_provider: 
 
   # Hive
-  hive: ^1.4.3
-  hive_flutter: ^0.3.0+2
+  hive: 
 
   # state management
-  stacked: ^1.4.3
+  stacked: ^2.1.6
 
   # third party usable services
-  stacked_services: ^0.3.3
-
-  # navigationh
-  auto_route: null
+  stacked_services: ^0.8.6
 
   # inversion of control
-  injectable: ^0.4.0+1
-  get_it: ^4.0.2
+  injectable:
+  get_it:
 
   # firebase
-  cloud_firestore: ^0.13.4+2
-  firebase_auth: null
-  firebase_messaging: ^6.0.13
-  firebase_storage: ^3.1.1
+  cloud_firestore: ^2.2.0
+  firebase_auth: ^1.2.0
+  firebase_messaging: ^10.0.0
+  firebase_storage: ^8.1.0
 
   # icons
-  eva_icons_flutter: ^2.0.0
-  flutter_icons: ^1.0.0+1
+  eva_icons_flutter: ^3.0.0
+  flutter_icons: ^1.1.0
 
   # main utilities
-  image_picker: ^0.6.3+1
-  http: ^0.12.1
-  table_calendar: ^2.2.3
-  firebase_dynamic_links: ^0.5.3
-  share: ^0.6.4+3
+  image_picker: ^0.7.5+2
+  logger:
+  http: ^0.13.3
+  table_calendar: ^3.0.0
+  firebase_dynamic_links: ^2.0.4
+  share: ^2.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # generators
-  hive_generator: ^0.7.1
+  hive_generator:
   build_runner: null
   auto_route_generator: null
   injectable_generator: null
 
   # for models
-  freezed: ^0.10.9
-  json_serializable: ^3.3.0
+  freezed: ^0.12.7
+  json_serializable:
 
   # testing
   mockito: null
@@ -69,8 +66,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/illustrations/hexagon_pattern.jpg
-    - assets/illustrations/asteroid_pattern.png
+    - assets/illustrations/
 
   fonts:
     - family: Quicksand
@@ -81,4 +77,3 @@ flutter:
           weight: 500
         - asset: assets/fonts/Quicksand-Regular.ttf
           weight: 400
-

@@ -8,7 +8,7 @@ import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_rep
 
 @Singleton(as: UserClubsRepository)
 class UserClubsRepositoryImpl implements UserClubsRepository {
-  static Firestore firestore = locator<Firestore>();
+  static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   static CollectionReference _userRef = firestore.collection("users");
 
@@ -18,19 +18,19 @@ class UserClubsRepositoryImpl implements UserClubsRepository {
   @override
   Future addClubToUser(UserClub userClub, String userId) async {
     await _userRef
-        .document(userId)
+        .doc(userId)
         .collection("clubs")
-        .document(userClub.id)
-        .setData(userClub.toJson());
+        .doc(userClub.id)
+        .set(userClub.toJson());
   }
 
   @override
   Stream getUserClubs(String userId) {
-    var query = _userRef.document(userId).collection("clubs");
+    var query = _userRef.doc(userId).collection("clubs");
 
     query.snapshots().listen((snapshot) {
-      if (snapshot.documents.isNotEmpty) {
-        var items = snapshot.documents
+      if (snapshot.docs.isNotEmpty) {
+        var items = snapshot.docs
             .map((snapshot) => UserClub.fromDocument(snapshot))
             .toList();
 

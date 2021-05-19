@@ -161,8 +161,9 @@ class CreateProfileViewModel extends BaseViewModel
   }
 
   selectImage({bool fromGallery = false}) async {
-    File file = await imageSelector.selectImage(
-        source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+    File file = fromGallery
+        ? await imageSelector.pickImageFromCamera()
+        : await imageSelector.pickImageFromGallery();
 
     if (file == null) {
       return null;

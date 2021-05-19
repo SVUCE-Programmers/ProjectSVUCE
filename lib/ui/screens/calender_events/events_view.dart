@@ -10,8 +10,6 @@ import 'events_viewmodel.dart';
 import 'widgets/events_list_item.dart';
 
 class CalenderEventsView extends StatelessWidget {
-  final CalendarController _controller = CalendarController();
-
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<CalendarEventsViewModel>(

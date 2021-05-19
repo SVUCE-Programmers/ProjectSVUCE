@@ -15,7 +15,7 @@ class PushNotificationServiceImp implements PushNotificationService {
   @override
   Future initialise() async {
     if (Platform.isIOS) {
-      _fcm.requestNotificationPermissions(IosNotificationSettings());
+      _fcm.requestPermission();
     }
 
     _fcm.configure(
