@@ -97,6 +97,11 @@ class DrawerView extends StatelessWidget {
                   onTap: () {},
                   iconData: infoIcon,
                 ),
+                DrawerItem(
+                  title: "Switch Theme",
+                  onTap: () {},
+                  iconData: infoIcon,
+                ),
               ],
             )),
       ),

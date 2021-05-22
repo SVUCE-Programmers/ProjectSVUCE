@@ -13,8 +13,9 @@ dependencies:
   # for os-specific path directory
   path_provider:
 
-  # Hive
+  # Local Database
   hive:
+  shared_preferences:
 
   # state management
   stacked: ^2.1.6
