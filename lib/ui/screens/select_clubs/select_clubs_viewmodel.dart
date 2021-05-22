@@ -48,7 +48,7 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
 
     setBusy(true);
 
-    User user = _authenticationService.currentUser;
+    UserModel user = _authenticationService.currentUser;
 
     if (user == null) {
       return null;

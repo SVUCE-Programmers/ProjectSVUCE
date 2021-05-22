@@ -21,16 +21,17 @@ abstract class Club implements _$Club {
   factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);
 
   static Club fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
 
     return Club(
-        name: document.data["name"],
-        moto: document.data["moto"],
-        clubBanner: document.data["clubBanner"],
-        clubLogo: document.data["clubLogo"],
-        description: document.data["description"],
-        followers: document.data["followers"],
-        id: document.documentID,
+        name: docData["name"],
+        moto: docData["moto"],
+        clubBanner: docData["clubBanner"],
+        clubLogo: docData["clubLogo"],
+        description: docData["description"],
+        followers: docData["followers"],
+        id: document.id,
         documentReference: document.reference);
   }
 

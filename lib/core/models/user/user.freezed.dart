@@ -8,7 +8,7 @@ part of 'user.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-User _$UserFromJson(Map<String, dynamic> json) {
+UserModel _$UserFromJson(Map<String, dynamic> json) {
   return _User.fromJson(json);
 }
 
@@ -58,11 +58,11 @@ mixin _$User {
   DocumentReference get documentReference;
 
   Map<String, dynamic> toJson();
-  $UserCopyWith<User> get copyWith;
+  $UserCopyWith<UserModel> get copyWith;
 }
 
 abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
+  factory $UserCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {String fullName,
@@ -80,9 +80,9 @@ abstract class $UserCopyWith<$Res> {
 class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   _$UserCopyWithImpl(this._value, this._then);
 
-  final User _value;
+  final UserModel _value;
   // ignore: unused_field
-  final $Res Function(User) _then;
+  final $Res Function(UserModel) _then;
 
   @override
   $Res call({
@@ -291,7 +291,7 @@ class _$_User extends _User with DiagnosticableTreeMixin {
   }
 }
 
-abstract class _User extends User {
+abstract class _User extends UserModel {
   _User._() : super._();
   factory _User(
       {String fullName,

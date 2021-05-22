@@ -21,14 +21,14 @@ abstract class Announcement implements _$Announcement {
       _$AnnouncementFromJson(json);
 
   static Announcement fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
-
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
     return Announcement(
-        imgUrl: document.data["imgUrl"],
-        timeStamp: document.data["timeStamp"],
-        desc: document.data["desc"],
-        type: document.data["type"],
-        id: document.documentID,
+        imgUrl: docData["imgUrl"],
+        timeStamp: docData["timeStamp"],
+        desc: docData["desc"],
+        type: docData["type"],
+        id: document.id,
         documentReference: document.reference);
   }
 

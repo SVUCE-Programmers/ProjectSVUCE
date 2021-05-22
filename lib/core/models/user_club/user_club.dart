@@ -18,13 +18,14 @@ abstract class UserClub implements _$UserClub {
       _$UserClubFromJson(json);
 
   static UserClub fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
 
     return UserClub(
-        id: document.documentID,
+        id: document.id,
         documentReference: document.reference,
-        clubLogo: document.data['clubLogo'],
-        name: document.data['name']);
+        clubLogo: docData['clubLogo'],
+        name: docData['name']);
   }
 
   static UserClub empty() {

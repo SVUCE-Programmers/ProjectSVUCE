@@ -6,9 +6,9 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-abstract class User implements _$User {
-  const User._();
-  factory User(
+abstract class UserModel implements _$User {
+  const UserModel._();
+  factory UserModel(
       {String fullName,
       String id,
       String email,
@@ -20,26 +20,27 @@ abstract class User implements _$User {
       String userType,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _User;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  static User fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
+  static UserModel fromDocument(DocumentSnapshot document) {
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
 
-    return User(
-        id: document.documentID,
-        email: document.data['email'],
-        rollNo: document.data['rollNo'],
-        fullName: document.data['fullName'],
-        profileImg: document.data['profileImg'],
-        collegeName: document.data['collegeName'],
-        bio: document.data['bio'],
-        contact: document.data['contact'],
-        userType: document.data['userType'],
+    return UserModel(
+        id: document.id,
+        email: docData['email'],
+        rollNo: docData['rollNo'],
+        fullName: docData['fullName'],
+        profileImg: docData['profileImg'],
+        collegeName: docData['collegeName'],
+        bio: docData['bio'],
+        contact: docData['contact'],
+        userType: docData['userType'],
         documentReference: document.reference);
   }
 
-  static User empty() {
-    return User(
+  static UserModel empty() {
+    return UserModel(
         id: '',
         fullName: '',
         email: '',

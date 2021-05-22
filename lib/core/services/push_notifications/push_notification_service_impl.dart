@@ -9,28 +9,28 @@ import 'push_notification_service.dart';
 
 @Singleton(as: PushNotificationService)
 class PushNotificationServiceImp implements PushNotificationService {
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+  // final FirebaseMessaging _fcm = FirebaseMessaging();
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Future initialise() async {
     if (Platform.isIOS) {
-      _fcm.requestPermission();
+      // _fcm.requestPermission();
     }
 
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        _serialiseAndNavigate(message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        _serialiseAndNavigate(message);
-      },
-    );
+    // _fcm.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     print("onMessage: $message");
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     print("onLaunch: $message");
+    //     _serialiseAndNavigate(message);
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     print("onResume: $message");
+    //     _serialiseAndNavigate(message);
+    //   },
+    // );
   }
 
   void _serialiseAndNavigate(Map<String, dynamic> message) {
@@ -49,7 +49,7 @@ class PushNotificationServiceImp implements PushNotificationService {
   @override
   Future subscribe(String topic) async {
     try {
-      await _fcm.subscribeToTopic(topic);
+      // await _fcm.subscribeToTopic(topic);
       return true;
     } catch (e) {
       return e?.message;

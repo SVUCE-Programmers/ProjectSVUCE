@@ -13,7 +13,7 @@ class UserProfileViewModel extends BaseViewModel {
   final UserClubsRepository _userClubsRepository =
       locator<UserClubsRepository>();
 
-  User user;
+  UserModel user;
 
   List<UserClub> _userClubs;
   List<UserClub> get userClubs => _userClubs;

@@ -1,9 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 
@@ -15,14 +12,8 @@ mixin SnackbarHelper {
         title: confirmExitInfo,
         duration: Duration(seconds: 5),
         message: confirmExitMessage,
-        backgroundColor: surfaceColor,
-        mainButton: FlatButton(
-          textColor: textPrimaryColor,
-          onPressed: () {
-            exit(0);
-          },
-          child: Text("Yes"),
-        ));
+        mainButtonTitle: "Exit",
+        onMainButtonTapped: () => exit(0));
 
     return false;
   }
@@ -30,42 +21,30 @@ mixin SnackbarHelper {
   showInfoMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
       title: title,
-      icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
+      // icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
       duration: Duration(seconds: 5),
-      overlayBlur: 1.0,
       message: message,
-      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-      borderRadius: 10.0,
-      backgroundColor: surfaceColor,
     );
   }
 
   showErrorMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
       title: title,
-      icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
+      // icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
       duration: Duration(seconds: 5),
-      overlayBlur: 1.0,
       message: message,
-      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-      borderRadius: 10.0,
-      backgroundColor: surfaceColor,
     );
   }
 
   showSuccessMessage({String title, String message}) async {
     _snackbarService.showCustomSnackBar(
       title: title,
-      icon: Icon(
-        FontAwesome5Solid.smile_beam,
-        color: primaryColor,
-      ),
+      // icon: Icon(
+      //   FontAwesome5Solid.smile_beam,
+      //   color: primaryColor,
+      // ),
       duration: Duration(seconds: 5),
-      overlayBlur: 1.0,
       message: message,
-      margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-      borderRadius: 10.0,
-      backgroundColor: surfaceColor,
     );
   }
 }

@@ -15,7 +15,7 @@ class UsersRepositoryImpl implements UsersRepository {
   Future getUser(String userId) async {
     try {
       var userData = await _userRef.doc(userId).get();
-      return User.fromDocument(userData);
+      return UserModel.fromDocument(userData);
     } catch (e) {
       return e?.message ?? "Something went wrong";
     }
@@ -37,7 +37,7 @@ class UsersRepositoryImpl implements UsersRepository {
   }
 
   @override
-  Future storeUser(User user) async {
+  Future storeUser(UserModel user) async {
     try {
       await _userRef.doc(user.id).set(user.toJson());
     } catch (e) {

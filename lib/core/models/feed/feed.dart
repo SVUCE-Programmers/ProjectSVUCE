@@ -24,19 +24,20 @@ abstract class Feed implements _$Feed {
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 
   static Feed fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
 
     return Feed(
-        id: document.documentID,
-        uid: document.data['uid'],
-        feedId: document.data['feedId'],
-        link: document.data['link'],
-        fullName: document.data['fullName'],
-        profileImg: document.data['profileImg'],
-        title: document.data['title'],
-        description: document.data['description'],
-        timeStamp: document.data['timeStamp'],
-        category: document.data['category'],
+        id: document.id,
+        uid: docData['uid'],
+        feedId: docData['feedId'],
+        link: docData['link'],
+        fullName: docData['fullName'],
+        profileImg: docData['profileImg'],
+        title: docData['title'],
+        description: docData['description'],
+        timeStamp: docData['timeStamp'],
+        category: docData['category'],
         documentReference: document.reference);
   }
 

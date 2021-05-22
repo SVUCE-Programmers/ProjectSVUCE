@@ -21,16 +21,17 @@ abstract class Event implements _$Event {
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
   static Event fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data == null) return null;
+    if (document == null || document.data() == null) return null;
+    var docData = Map<String, dynamic>.from(document.data());
 
     return Event(
-        name: document.data["name"],
-        organiser: document.data["organiser"],
-        place: document.data["place"],
-        timeStamp: document.data["timeStamp"],
-        description: document.data["description"],
-        imageUrl: document.data["imageUrl"],
-        id: document.documentID,
+        name: docData["name"],
+        organiser: docData["organiser"],
+        place: docData["place"],
+        timeStamp: docData["timeStamp"],
+        description: docData["description"],
+        imageUrl: docData["imageUrl"],
+        id: document.id,
         documentReference: document.reference);
   }
 

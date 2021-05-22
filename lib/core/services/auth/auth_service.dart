@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 
 abstract class AuthService {
-  User currentUser;
+  UserModel currentUser;
   Future loginUser({@required String email, @required String password});
   Future createStudent(
       {@required String email,

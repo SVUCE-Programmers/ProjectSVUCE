@@ -13,8 +13,8 @@ class HomeViewModel extends BaseViewModel with SnackbarHelper {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  User _currentUser;
-  User get currentUser => _currentUser;
+  UserModel _currentUser;
+  UserModel get currentUser => _currentUser;
 
   String getGreeting() {
     var h = DateTime.now().hour;
@@ -28,7 +28,7 @@ class HomeViewModel extends BaseViewModel with SnackbarHelper {
   }
 
   getCurrentUserDetails() {
-    User user = _authenticationService.currentUser;
+    UserModel user = _authenticationService.currentUser;
     if (user != null) {
       _currentUser = user;
     }
