@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/router.gr.dart';
@@ -215,10 +214,12 @@ class CreateProfileViewModel extends BaseViewModel
   }
 
   Future uploadImage() async {
-    var result =
-        await _cloudStorageService.uploadImage(imageToUpload: profileImage);
+    var result = await _cloudStorageService.uploadImage(
+        imageToUpload: profileImage,
+        collectionName: "profilePics",
+        fileName: DateTime.now().millisecondsSinceEpoch.toString());
 
-    return result?.imageUrl;
+    return result;
   }
 }
 

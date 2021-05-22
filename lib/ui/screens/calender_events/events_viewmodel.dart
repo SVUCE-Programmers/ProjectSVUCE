@@ -9,7 +9,7 @@ class CalendarEventsViewModel extends BaseViewModel {
   final EventsRepository _eventsRepository = locator<EventsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  List<Event> _eventList = List<Event>();
+  List<Event> _eventList =[];
   Map<DateTime, List<dynamic>> get eventsList => groupEvents(_eventList);
 
   Map<DateTime, List<dynamic>> groupEvents(List<Event> events) {

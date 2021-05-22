@@ -35,7 +35,7 @@ class AuthServiceImpl implements AuthService {
     }
   }
 
-  User currentUser;
+  UserModel currentUser;
 
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we
@@ -54,7 +54,7 @@ class AuthServiceImpl implements AuthService {
 
       await updateUserProfile(displayName: fullName, profileImg: profileImg);
 
-      currentUser = User(
+      currentUser = UserModel(
           id: authResult.user.uid,
           email: email,
           fullName: fullName,
@@ -77,13 +77,13 @@ class AuthServiceImpl implements AuthService {
   /// If user is logged in we get the profile from Firestore and store it
   ///   in [currentUser]
   Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser();
+    var user = _firebaseAuth.currentUser;
     await _populateCurrentUser(user);
     return user != null;
   }
 
   /// This function is responsible for getting user profile from Firestore.
-  Future _populateCurrentUser(FirebaseUser user) async {
+  Future _populateCurrentUser(User user) async {
     if (user != null) {
       currentUser = await _userService.getUser(user.uid);
     }
@@ -108,11 +108,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   Future updateUserProfile({String displayName, String profileImg}) async {
-    UserUpdateInfo updateInfo = UserUpdateInfo();
-    updateInfo.displayName = displayName;
-    updateInfo.photoUrl = profileImg;
-
-    FirebaseUser user = await _firebaseAuth.currentUser();
-    user.updateProfile(updateInfo);
+    User user = _firebaseAuth.currentUser;
+    await user.updateProfile(displayName: displayName, photoURL: profileImg);
   }
 }

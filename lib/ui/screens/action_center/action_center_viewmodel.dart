@@ -14,7 +14,7 @@ class ActionCenterViewModel extends BaseViewModel {
 
   final AuthService authenticationService = locator<AuthService>();
 
-  List<TimeTable> timeTableData = List<TimeTable>();
+  List<TimeTable> timeTableData = [];
 
   List<double> _percentages = [];
   List<double> get percentages => _percentages;

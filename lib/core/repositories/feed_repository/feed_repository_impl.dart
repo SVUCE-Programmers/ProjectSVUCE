@@ -54,8 +54,8 @@ class FeedRepositoryImpl implements FeedRepository {
           _allFeedResults.add(feedItems);
         }
 
-        var allPosts = _allFeedResults.fold<List<Feed>>(List<Feed>(),
-            (initialValue, pageItems) => initialValue..addAll(pageItems));
+        var allPosts = _allFeedResults.fold<List<Feed>>(
+            [], (initialValue, pageItems) => initialValue..addAll(pageItems));
 
         _feedController.add(allPosts);
 

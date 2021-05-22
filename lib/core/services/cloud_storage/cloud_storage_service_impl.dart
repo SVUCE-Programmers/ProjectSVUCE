@@ -5,30 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import 'cloud_storage_service.dart';
-import 'storage_result.dart';
 
 @Singleton(as: CloudStorageService)
 class CloudStorageServiceImpl implements CloudStorageService {
   @override
-  Future<CloudStorageResult> uploadImage({@required File imageToUpload}) async {
-    // random value to use it as file name
-    var imageFileName = DateTime.now().millisecondsSinceEpoch.toString();
-
-    // Get the reference to the file where we want to upload
-    final Reference reference =
-        FirebaseStorage.instance.ref().child(imageFileName);
-
-    UploadTask uploadTask = reference.putFile(imageToUpload);
-
-    StorageTaskSnapshot snapshot = await uploadTask.onComplete;
-
-    var downloadUrl = await snapshot.ref.getDownloadURL();
-
-    if (uploadTask.isComplete) {
-      var url = downloadUrl.toString();
-      return CloudStorageResult(imageUrl: url, imageFileName: imageFileName);
+  Future<String> uploadImage(
+      {@required File imageToUpload,
+      @required String fileName,
+      @required String collectionName}) async {
+    try {
+      Reference reference =
+          FirebaseStorage.instance.ref("$collectionName").child(fileName);
+      await reference.putFile(imageToUpload);
+      print("Image Added");
+      String imgUrl = await FirebaseStorage.instance
+          .ref()
+          .child('$collectionName/$fileName')
+          .getDownloadURL();
+      return imgUrl;
+    } catch (e) {
+      return null;
     }
-
-    return null;
   }
 }

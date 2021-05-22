@@ -12,7 +12,7 @@ class TimeTableService {
   final APIService apiService = locator<APIService>();
   final AuthService authenticationService = locator<AuthService>();
 
-  List<TimeTable> streamData = List<TimeTable>();
+  List<TimeTable> streamData = [];
 
   final String url =
       "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";

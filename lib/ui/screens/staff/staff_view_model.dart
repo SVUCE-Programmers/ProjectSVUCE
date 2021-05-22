@@ -8,7 +8,7 @@ import 'package:svuce_app/hive_db/services/hive_service.dart';
 
 class StaffViewModel extends BaseViewModel with SnackbarHelper {
   int length;
-  List<Staff> _staffList = List<Staff>();
+  List<Staff> _staffList =[];
   List<Staff> get staffList => _staffList;
 
   final HiveService hiveService = locator<HiveService>();

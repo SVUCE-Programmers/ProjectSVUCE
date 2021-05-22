@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -8,7 +9,8 @@ import 'hive_db/setup_hive.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  await Firebase.initializeApp();
+  await setupLocator();
   setupHive();
   runApp(App());
 }
@@ -20,7 +22,7 @@ class App extends StatelessWidget {
       title: 'SVUCE App',
       theme: themeData(context),
       onGenerateRoute: route.Router().onGenerateRoute,
-      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorKey: StackedService.navigatorKey,
       debugShowCheckedModeBanner: false,
     );
   }
