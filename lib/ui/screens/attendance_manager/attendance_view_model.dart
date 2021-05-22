@@ -1,10 +1,14 @@
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
 
 class AttendanceViewModel extends BaseViewModel {
   final AttendanceService _attendanceService = locator<AttendanceService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   final String boxName = "Attendance";
 
@@ -81,5 +85,25 @@ class AttendanceViewModel extends BaseViewModel {
       _attendanceList = items;
       notifyListeners();
     }
+  }
+
+  List<PieChartSectionData> pieCharSelectionData = [
+    PieChartSectionData(
+        value: 25, color: Colors.blue, radius: 25, showTitle: false),
+    PieChartSectionData(
+        value: 20, color: Color(0xFF26E5FF), radius: 22, showTitle: false),
+    PieChartSectionData(
+        value: 10, color: Color(0xFFFFCF26), radius: 19, showTitle: false),
+    PieChartSectionData(
+        value: 15, color: Color(0xFFEE2727), radius: 16, showTitle: false),
+    PieChartSectionData(
+        value: 25,
+        color: Colors.blue.withOpacity(0.1),
+        radius: 13,
+        showTitle: false),
+  ];
+
+  navigateBack() {
+    _navigationService.back();
   }
 }

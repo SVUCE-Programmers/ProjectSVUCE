@@ -13,7 +13,7 @@ mixin DarkColorPalette {
 mixin LightColorPalette {
   static const Color primaryColor = Color(0xFF0900C3);
   static const Color backgroundColor = Color(0xFFFFFFFF);
-  static const Color surfaceColor = Color(0xFFF3F3F2);
+  static const Color surfaceColor = Color(0xFFF5F7FB);
   static const Color textPrimaryColor = Color(0xFF000000);
   static Color dividerColor = Colors.grey[400];
   static const Color textSecondaryColor = Color(0xFF8F8888);

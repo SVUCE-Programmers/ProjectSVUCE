@@ -21,6 +21,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'SVUCE ',
       darkTheme: darkThemeData(context),
+      themeMode: ThemeMode.light,
       theme: lightThemeData(context),
       onGenerateRoute: route.Router().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

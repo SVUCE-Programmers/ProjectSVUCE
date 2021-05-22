@@ -11,7 +11,11 @@ class EditTimeTable extends StatelessWidget {
       viewModel: EditTimeTableViewModel(),
       onModelReady: (m) => m.init(),
       builder: (context, uiHelpers, model) => Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {}),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(addIcon),
+          onPressed: () {},
+          backgroundColor: uiHelpers.primaryColor,
+        ),
         appBar: AppBar(
           leading: IconButton(
               icon: Icon(

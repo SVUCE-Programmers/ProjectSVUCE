@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:svuce_app/app/configs.dart';
 import 'dart:ui' as ui;
 
 import 'package:svuce_app/core/models/graph.dart';
@@ -20,8 +21,8 @@ class _GraphWidgetState extends State<GraphWidget>
   double _startRange;
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2500));
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
     _controller.addListener(() {
       setState(() {});
     });
@@ -37,7 +38,6 @@ class _GraphWidgetState extends State<GraphWidget>
 
   @override
   Widget build(BuildContext context) {
-    print("Graph is:" + widget.graph.domainEnd.toString());
     final List<String> yAxisLabels = widget.yAxis;
     String label0Text;
     double label0Y;
@@ -82,23 +82,26 @@ class _GraphWidgetState extends State<GraphWidget>
                   Color(0xFFA74CBA),
                   Color(0xFFF287A6)
                 ]),
-                painter: GraphPainter(widget.graph, widget.subjects),
+                painter: GraphPainter(widget.graph, widget.subjects, appSize),
               ),
             ),
             Positioned(
               left: 4,
               height: (150) * (appSize.height / 480),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: yAxisLabels
-                    .map((label) => Text(label,
-                        style: TextStyle(
-                          color: Color(0xFFC4C8D9),
-                          fontSize: 12,
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.w200,
-                        )))
-                    .toList(),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: yAxisLabels
+                      .map((label) => Text(label,
+                          style: TextStyle(
+                            color: Color(0xFFC4C8D9),
+                            fontSize: 12,
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.w200,
+                          )))
+                      .toList(),
+                ),
               ),
             ),
             Positioned(
@@ -221,7 +224,6 @@ class ForegroundPainter extends CustomPainter {
         super(repaint: Listenable.merge([graph, selectedFade]));
   double dataY(List<double> values, int index) {
     final y = ((values[index] - _graph.rangeStart) / _graph.rangeEnd) * 10;
-    print("Returning y is:" + y.toString());
     return y;
   }
 
@@ -237,9 +239,8 @@ class ForegroundPainter extends CustomPainter {
     final dataOffset = (int index) {
       final x =
           ((index.toDouble() - graph.domainStart) / range) * size.width + 28;
-      print("On foreground:" + graph.dataSets[0].toString());
       final y = dataY(graph.dataSets[dataSetIndex].values, index) * size.height;
-      return Offset(x, y);
+      return Offset(x, y + 20);
     };
 
     final path = Path();
@@ -295,7 +296,7 @@ class ForegroundPainter extends CustomPainter {
           ));
 
     path.lineTo(size.width, 0);
-    path.lineTo(0, 0);
+    path.lineTo(00, 0);
     offset0 = dataOffset(0);
     path.lineTo(0, offset0.dy);
 
@@ -341,7 +342,7 @@ class ForegroundPainter extends CustomPainter {
       for (var dataSet in _graph.dataSets) {
         final y = dataY(dataSet.values, _graph.selectedDataPoint);
 
-        final offset = Offset(x, y * size.height);
+        final offset = Offset(x, y * size.height + 20);
 
         canvas.drawCircle(
             offset,
@@ -370,61 +371,67 @@ class ForegroundPainter extends CustomPainter {
 }
 
 class GraphPainter extends CustomPainter {
-  final Graph _graph;
-  final List<String> subjects;
-  GraphPainter(Graph graph, this.subjects)
-      : _graph = graph,
-        super(repaint: graph);
+  Graph _graph;
+  List<String> labels;
+  Size size;
 
+  GraphPainter(Graph graph, List<String> subjects, Size size)
+      : _graph = graph,
+        labels = subjects,
+        size = size,
+        super(repaint: graph);
   @override
   void paint(Canvas canvas, Size size) {
-    final List<String> xLabel = [];
+    final List<String> xAxisLabels = [];
     for (int i = _graph.domainStart.round();
-        i < _graph.domainEnd.round();
+        i <= _graph.domainEnd.round();
         ++i) {
-      print("Xlabels are:" + xLabel.toString());
-      xLabel.add(subjects[i]);
+      xAxisLabels.add(labels[i % (labels.length == 0 ? 1 : labels.length)]);
     }
     final double start = _graph.domainStart;
     final double end = _graph.domainEnd;
-    final paint = Paint();
-    paint.color = Colors.teal;
-    paint.strokeWidth = 1;
     for (int i = start.round(); i <= end.round(); ++i) {
       final x =
-          (i.toDouble() - start.round()) / (end - start) * size.width * 28;
-      canvas.drawLine(Offset(x + 0.5, 0), Offset(x, size.height), paint);
+          (i.toDouble() - start.round()) / (end - start) * size.width + 28;
+      canvas.drawLine(
+          Offset(x + 0.5, 0),
+          Offset(x, size.height - 20),
+          Paint()
+            ..color = Color(0xFF3D4666)
+            ..strokeWidth = 1.0);
     }
-    canvas.clipRect(
-        Rect.fromLTWH(16, size.height, size.width - 16, size.height + 24));
-    for (int i = start.round(); i < end.round(); ++i) {
+    for (int i = start.round(); i <= end.round(); ++i) {
       final x = (i.toDouble() - start) / (end - start) * size.width + 28;
       final textPainter = TextPainter(
-          text: TextSpan(
-            text: xLabel[i - start.round()],
-            style: TextStyle(
-                color: i == _graph.selectedDataPoint
-                    ? Color(0xFFC3C8D9)
-                    : Color(0xFFC4C8D9),
-                fontFamily: "Quicksand",
-                fontWeight: i == _graph.selectedDataPoint
-                    ? FontWeight.bold
-                    : FontWeight.w200,
-                fontSize: 12),
+        text: TextSpan(
+          text: xAxisLabels[i - start.round()],
+          style: TextStyle(
+            color: i == _graph.selectedDataPoint ? Colors.red : Colors.blue,
+            fontFamily: Configs.titleFont,
+            fontWeight: i == _graph.selectedDataPoint
+                ? FontWeight.bold
+                : FontWeight.w200,
+            fontSize: 12,
           ),
-          textAlign: TextAlign.left,
-          textDirection: TextDirection.ltr)
-        ..layout();
-      textPainter.paint(canvas, Offset(x - 10, size.height + 10));
+        ),
+        textAlign: TextAlign.left,
+        textDirection: TextDirection.ltr,
+      )..layout(
+          minWidth: 0,
+          maxWidth: size.width,
+        );
+      textPainter.paint(canvas, Offset(x - 10, size.height - 20));
     }
   }
 
   @override
-  bool shouldRepaint(GraphPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(GraphPainter oldDelegate) => false;
+  bool shouldRepaint(GraphPainter oldPainter) {
+    return false;
+  }
 }
+
+@override
+bool shouldRebuildSemantics(GraphPainter oldDelegate) => false;
 
 double lerp(double x, double y, double s) {
   return x * (1 - s) + y * s;
@@ -433,25 +440,6 @@ double lerp(double x, double y, double s) {
 String numberToPriceString(num value) {
   return value.toString().replaceAllMapped(
       new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
-}
-
-class ScalingInfo {
-  static double scaleX;
-  static double scaleY;
-
-  static bool get initialized => scaleX != null;
-
-  static void init(BuildContext context) {
-    final queryData = MediaQuery.of(context);
-    final appSize = queryData.size;
-
-    scaleX = appSize.width / 320;
-    scaleY = appSize.height / 480;
-
-    if (scaleX > 2.0) {
-      scaleX = 2.0;
-    }
-  }
 }
 
 class InteractNotification extends Notification {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:svuce_app/app/icons.dart';
@@ -98,9 +99,9 @@ class DrawerView extends StatelessWidget {
                   iconData: infoIcon,
                 ),
                 DrawerItem(
-                  title: "Switch Theme",
+                  title: "Student Details",
                   onTap: () {},
-                  iconData: infoIcon,
+                  iconData: FlutterIcons.users_fea,
                 ),
               ],
             )),
