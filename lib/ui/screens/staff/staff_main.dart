@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'staff_view_model.dart';
 
 class StaffMain extends ViewModelWidget<StaffViewModel> {
   @override
   Widget build(BuildContext context, StaffViewModel model) {
-    final uiHelpers = UIHelpers.fromContext(context);
+    final uiHelpers = UiHelpers.fromContext(context);
 
     return model.staffList != null
         ? GridView.builder(
@@ -16,7 +16,7 @@ class StaffMain extends ViewModelWidget<StaffViewModel> {
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
-                  color: surfaceColor,
+                  color: uiHelpers.surfaceColor,
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Center(
@@ -51,7 +51,7 @@ class StaffMain extends ViewModelWidget<StaffViewModel> {
           )
         : Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(primaryColor),
+              valueColor: AlwaysStoppedAnimation(uiHelpers.primaryColor),
             ),
           );
   }

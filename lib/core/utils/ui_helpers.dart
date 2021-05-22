@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:svuce_app/app/colors.dart';
+
+import 'package:svuce_app/app/configs.dart';
 import 'package:svuce_app/core/utils/scaling.dart';
 
-class UIHelpers {
+class UiHelpers {
   double width;
   double height;
 
@@ -16,6 +19,14 @@ class UIHelpers {
   TextStyle headline;
   TextStyle title;
   TextStyle body;
+  TextStyle button;
+
+  Color primaryColor;
+  Color backgroundColor;
+  Color textPrimaryColor;
+  Color textSecondaryColor;
+  Color surfaceColor;
+  Color dividerColor;
 
   //Vertical Spaces that change accordingly
   SizedBox verticalSpaceLow;
@@ -27,27 +38,49 @@ class UIHelpers {
   SizedBox horizontalSpaceMedium;
   SizedBox horizontalSpaceHigh;
 
-  UIHelpers.fromContext(BuildContext context) {
+  UiHelpers.fromContext(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
     var screenWidth = mediaQuery.size.width;
     var screenHeight = mediaQuery.size.height;
+    width = screenWidth;
+    height = screenHeight;
 
     scalingHelper = ScalingHelper(width: screenWidth);
 
+    primaryColor = LightColorPalette.primaryColor;
+    backgroundColor = LightColorPalette.backgroundColor;
+    surfaceColor = LightColorPalette.surfaceColor;
+    textPrimaryColor = LightColorPalette.textPrimaryColor;
+    textSecondaryColor = LightColorPalette.textSecondaryColor;
+    dividerColor = LightColorPalette.dividerColor;
+
     headline = TextStyle(
+        decoration: TextDecoration.none,
+        fontFamily: Configs.headlineFont,
+        color: LightColorPalette.textPrimaryColor,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Quicksand',
-        fontSize: scalingHelper.size(28));
+        fontSize: scalingHelper.size(24));
 
     title = TextStyle(
-        fontWeight: FontWeight.w600,
-        fontFamily: 'Quicksand',
-        fontSize: scalingHelper.size(20));
+        decoration: TextDecoration.none,
+        fontFamily: Configs.titleFont,
+        color: LightColorPalette.textPrimaryColor,
+        fontWeight: FontWeight.w400,
+        fontSize: scalingHelper.size(18));
 
     body = TextStyle(
+        decoration: TextDecoration.none,
+        color: LightColorPalette.textSecondaryColor,
+        fontFamily: Configs.bodyFont,
+        fontWeight: FontWeight.w300,
+        fontSize: scalingHelper.size(16));
+
+    button = TextStyle(
+        decoration: TextDecoration.none,
+        fontFamily: Configs.headlineFont,
         fontWeight: FontWeight.w600,
-        fontFamily: 'Quicksand',
+        color: Colors.white,
         fontSize: scalingHelper.size(18));
 
     blockSizeHorizontal = screenWidth / 100;

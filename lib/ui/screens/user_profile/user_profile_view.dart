@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/assets.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/core/models/user_club/user_club.dart';
 
@@ -39,7 +39,7 @@ class UserProfileView extends StatelessWidget {
                         left: uiHelpers.blockSizeHorizontal * 50 - radius,
                         child: CircleAvatar(
                           radius: radius,
-                          backgroundColor: textSecondaryColor,
+                          backgroundColor: uiHelpers.textSecondaryColor,
                           backgroundImage: model.user.profileImg == null
                               ? null
                               : NetworkImage(
@@ -62,12 +62,13 @@ class UserProfileView extends StatelessWidget {
                 TextSpan(children: [
                   TextSpan(
                     text: model.user.fullName,
-                    style: uiHelpers.title.apply(color: textPrimaryColor),
+                    style: uiHelpers.title
+                        .apply(color: uiHelpers.textPrimaryColor),
                   ),
                   newLine,
                   TextSpan(
                     text: model.user.rollNo,
-                    style: uiHelpers.body.apply(color: primaryColor),
+                    style: uiHelpers.body.apply(color: uiHelpers.primaryColor),
                   ),
                 ]),
                 textAlign: TextAlign.center,
@@ -79,14 +80,15 @@ class UserProfileView extends StatelessWidget {
                     vertical: 30.0, horizontal: 20.0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: surfaceColor),
+                    color: uiHelpers.surfaceColor),
                 child: ListTile(
                   title: Text(
                     "Bio",
-                    style: uiHelpers.title.apply(color: primaryColor),
+                    style: uiHelpers.title.apply(color: uiHelpers.primaryColor),
                   ),
                   subtitle: Text(model.user.bio,
-                      style: uiHelpers.body.apply(color: textPrimaryColor)),
+                      style: uiHelpers.body
+                          .apply(color: uiHelpers.textPrimaryColor)),
                 ),
               ),
               Container(
@@ -95,13 +97,14 @@ class UserProfileView extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: surfaceColor),
+                    color: uiHelpers.surfaceColor),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       "Clubs",
-                      style: uiHelpers.title.apply(color: primaryColor),
+                      style:
+                          uiHelpers.title.apply(color: uiHelpers.primaryColor),
                     ),
                     uiHelpers.verticalSpaceLow,
                     Wrap(

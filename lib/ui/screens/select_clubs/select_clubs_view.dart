@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 
 import 'consumers/club_tile.dart';
@@ -23,7 +23,8 @@ class SelectClubsView extends StatelessWidget {
               automaticallyImplyLeading: false,
               title: Text(
                 isSelectClubs ? "Select Clubs" : "Explore Clubs",
-                style: uiHelpers.headline.copyWith(color: textPrimaryColor),
+                style: uiHelpers.headline
+                    .copyWith(color: uiHelpers.textPrimaryColor),
               ),
               elevation: 0,
               backgroundColor: Colors.transparent,
@@ -47,14 +48,16 @@ class SelectClubsView extends StatelessWidget {
                     margin: EdgeInsets.all(20.0),
                     height: 50,
                     decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor, width: 4),
+                        border:
+                            Border.all(color: uiHelpers.primaryColor, width: 4),
                         borderRadius: BorderRadius.circular(10)),
                     child: FlatButton(
                         onPressed: model.gotoHome,
                         child: Center(
                           child: Text(
                             "Continue",
-                            style: TextStyle(color: primaryColor, fontSize: 16),
+                            style: TextStyle(
+                                color: uiHelpers.primaryColor, fontSize: 16),
                           ),
                         )),
                   )

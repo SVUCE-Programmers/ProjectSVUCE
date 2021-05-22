@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 
 import 'widgets/time_table_item.dart';
 import 'consumers/week_day_selector.dart';
@@ -16,13 +17,24 @@ class TimeTableView extends StatelessWidget {
       builder: (context, uiHelpers, model) {
         var timeTableItems = model.getTimeTable();
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.navigateToEditTimeTable(),
+            child: Icon(Icons.edit),
+            backgroundColor: uiHelpers.primaryColor,
+          ),
           appBar: AppBar(
-            automaticallyImplyLeading: false,
+            leading: IconButton(
+                icon: Icon(
+                  backIcon,
+                  color: uiHelpers.textPrimaryColor,
+                ),
+                onPressed: () => model.navigateBack()),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
               "Timetable",
-              style: uiHelpers.headline.copyWith(color: textPrimaryColor),
+              style: uiHelpers.headline
+                  .copyWith(color: uiHelpers.textPrimaryColor),
             ),
           ),
           body: model.timeTable != null
@@ -40,7 +52,7 @@ class TimeTableView extends StatelessWidget {
                           .toList()
                     else if (timeTableItems is List)
                       Text(
-                        "No Classes Today",
+                        "No Classes Today}",
                         textAlign: TextAlign.center,
                       )
                     else

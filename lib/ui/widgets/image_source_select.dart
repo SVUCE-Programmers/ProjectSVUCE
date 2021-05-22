@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class ImageSourceSelect extends StatelessWidget {
   final Function selectFromGallery;
@@ -16,41 +17,42 @@ class ImageSourceSelect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Container(
         width: MediaQuery.of(context).size.width,
-        color: surfaceColor,
+        color: uiHelpers.surfaceColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             TextButton.icon(
                 icon: Icon(
                   galleryIcon,
-                  color: primaryColor,
+                  color: uiHelpers.primaryColor,
                 ),
                 onPressed: selectFromGallery,
                 label: Text(
                   "\t Gallery",
-                  style: TextStyle(color: textPrimaryColor),
+                  style: TextStyle(color: uiHelpers.textPrimaryColor),
                 )),
             TextButton.icon(
                 icon: Icon(
                   cameraIcon,
-                  color: primaryColor,
+                  color: uiHelpers.primaryColor,
                 ),
                 onPressed: selectFromCamera,
                 label: Text(
                   "\t Camera",
-                  style: TextStyle(color: textPrimaryColor),
+                  style: TextStyle(color: uiHelpers.textPrimaryColor),
                 )),
             TextButton.icon(
                 icon: Icon(
                   deleteIcon,
-                  color: primaryColor,
+                  color: uiHelpers.primaryColor,
                 ),
                 onPressed: continueWithNoImage,
                 label: Text(
                   "\t Remove Photo",
-                  style: TextStyle(color: textPrimaryColor),
+                  style: TextStyle(color: uiHelpers.textPrimaryColor),
                 )),
           ],
         ));

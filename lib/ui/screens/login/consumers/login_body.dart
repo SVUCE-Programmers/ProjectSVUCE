@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/login/login_viewmodel.dart.dart';
@@ -14,7 +14,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
 
   @override
   Widget build(BuildContext context, LoginViewModel viewModel) {
-    final UIHelpers uiHelpers = UIHelpers.fromContext(context);
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
 
     return ListView(
       padding: EdgeInsets.all(20.0),
@@ -22,11 +22,12 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
         Text.rich(TextSpan(children: [
           TextSpan(
             text: "💐 Welcome Back, \n",
-            style: uiHelpers.headline.copyWith(color: textPrimaryColor),
+            style:
+                uiHelpers.headline.copyWith(color: uiHelpers.textPrimaryColor),
           ),
           TextSpan(
             text: "Log in to your account to \ncontinue",
-            style: uiHelpers.body.copyWith(color: textSecondaryColor),
+            style: uiHelpers.body.copyWith(color: uiHelpers.textSecondaryColor),
           )
         ])),
         uiHelpers.verticalSpaceMedium,
@@ -59,10 +60,11 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
                       TextSpan(
                           text: "If you don\'t have an \naccount,",
                           style: uiHelpers.body
-                              .copyWith(color: textSecondaryColor)),
+                              .copyWith(color: uiHelpers.textSecondaryColor)),
                       TextSpan(
                           text: " Signup",
-                          style: uiHelpers.body.copyWith(color: primaryColor)),
+                          style: uiHelpers.body
+                              .copyWith(color: uiHelpers.primaryColor)),
                     ])))
                 : SizedBox(),
             Button(

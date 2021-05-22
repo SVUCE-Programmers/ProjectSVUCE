@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 
 import 'startp_viewmodel.dart';
@@ -16,7 +16,8 @@ class StartUpView extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "SVUCE APP",
-              style: uiHelpers.title.copyWith(color: textPrimaryColor),
+              style:
+                  uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor),
             ),
           ),
         );

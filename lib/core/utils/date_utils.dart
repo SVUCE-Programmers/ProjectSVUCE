@@ -1,39 +1,23 @@
+import 'package:svuce_app/app/AppSetup.logger.dart';
+
 List<int> generateCurrentWeekDays() {
+  final log = getLogger("GenerateCurrentWeekDays");
   List<int> weekDays = [];
 
-  int currentWeekDay = DateTime.now().weekday;
+  DateTime dateTime = DateTime.now();
+  int weekDay = dateTime.weekday;
 
-  int alpha = 0;
-
-  int currentDay = DateTime.now().day;
-
-  switch (currentWeekDay) {
-    case 1:
-      alpha = currentDay;
-      break;
-    case 2:
-      alpha = currentDay - 1;
-      break;
-    case 3:
-      alpha = currentDay - 2;
-      break;
-    case 4:
-      alpha = currentDay - 3;
-      break;
-    case 5:
-      alpha = currentDay - 4;
-      break;
-    case 6:
-      alpha = currentDay - 5;
-      break;
-    case 7:
-      alpha = currentDay - 6;
-      break;
+  //?Add Left Dates
+  for (int i = 0; i < weekDay - 1; i++) {
+    weekDays
+        .add(dateTime.subtract(Duration(days: dateTime.weekday - i - 1)).day);
   }
 
-  for (var i = 0; i <= 7; i++) {
-    weekDays.add(alpha + i);
+  //?Add Right Dates
+  for (int i = weekDay - 1; i < 7; i++) {
+    weekDays.add(dateTime.add(Duration(days: i - dateTime.weekday + 1)).day);
   }
+  log.w("Generate Week Dates are:$weekDays");
 
   return weekDays;
 }

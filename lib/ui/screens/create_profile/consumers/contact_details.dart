@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
@@ -8,7 +8,7 @@ import 'package:svuce_app/ui/screens/create_profile/create_profile_viewmodel.dar
 import 'package:svuce_app/ui/widgets/input_field.dart';
 
 class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
-  final UIHelpers uiHelpers;
+  final UiHelpers uiHelpers;
 
   ContactDetails(this.uiHelpers);
 
@@ -19,10 +19,12 @@ class ContactDetails extends ViewModelWidget<CreateProfileViewModel> {
         Text.rich(TextSpan(children: [
           TextSpan(
               text: "Your Contact Info\n",
-              style: uiHelpers.title.copyWith(color: textPrimaryColor)),
+              style:
+                  uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor)),
           TextSpan(
               text: "Enter your details to let others see your info.\n\n",
-              style: uiHelpers.body.copyWith(color: textSecondaryColor)),
+              style:
+                  uiHelpers.body.copyWith(color: uiHelpers.textSecondaryColor)),
         ])),
         InputField(
           iconData: messageIcon,

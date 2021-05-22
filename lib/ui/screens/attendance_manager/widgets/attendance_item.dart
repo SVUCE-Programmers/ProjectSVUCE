@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
+
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view_model.dart';
 
 class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
@@ -11,6 +12,7 @@ class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
   @override
   Widget build(BuildContext context, AttendanceViewModel model) {
     var attendance = model.attendanceList[index];
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -23,7 +25,7 @@ class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
                         : Colors.red,
                 width: 5.0,
                 style: BorderStyle.solid)),
-        color: surfaceColor,
+        color: uiHelpers.surfaceColor,
       ),
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -32,12 +34,12 @@ class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
         title: Text.rich(TextSpan(children: [
           TextSpan(
             text: attendance.subject,
-            style: TextStyle(color: textPrimaryColor),
+            style: TextStyle(color: uiHelpers.textPrimaryColor),
           ),
           TextSpan(text: "\n"),
           TextSpan(
             text: model.getStatus(attendance.present, attendance.total),
-            style: TextStyle(color: textPrimaryColor),
+            style: TextStyle(color: uiHelpers.textPrimaryColor),
           ),
         ])),
         subtitle: Wrap(

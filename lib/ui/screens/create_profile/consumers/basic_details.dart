@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/create_profile/create_profile_viewmodel.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
 
 class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
-  final UIHelpers uiHelpers;
+  final UiHelpers uiHelpers;
 
   BasicDetails(this.uiHelpers);
 
@@ -18,10 +18,12 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
         Text.rich(TextSpan(children: [
           TextSpan(
               text: "Your Basic Details\n",
-              style: uiHelpers.title.copyWith(color: textPrimaryColor)),
+              style:
+                  uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor)),
           TextSpan(
               text: "Drop your basic details here\n\n",
-              style: uiHelpers.body.copyWith(color: textSecondaryColor)),
+              style:
+                  uiHelpers.body.copyWith(color: uiHelpers.textSecondaryColor)),
         ])),
         InputField(
           iconData: personIcon,
@@ -40,15 +42,17 @@ class BasicDetails extends ViewModelWidget<CreateProfileViewModel> {
         ),
         Container(
           decoration: BoxDecoration(
-              color: surfaceColor, borderRadius: BorderRadius.circular(10)),
+              color: uiHelpers.surfaceColor,
+              borderRadius: BorderRadius.circular(10)),
           child: ListTile(
             leading: Icon(
               schoolIcon,
-              color: primaryColor,
+              color: uiHelpers.primaryColor,
             ),
             title: Text(
               "SVUCE",
-              style: uiHelpers.body.copyWith(color: textSecondaryColor),
+              style:
+                  uiHelpers.body.copyWith(color: uiHelpers.textSecondaryColor),
             ),
           ),
         ),

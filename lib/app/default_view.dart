@@ -5,7 +5,7 @@ import 'package:svuce_app/core/utils/ui_helpers.dart';
 class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
   final bool disposeViewModel;
   final bool isReactive;
-  final Widget Function(BuildContext, UIHelpers, T) builder;
+  final Widget Function(BuildContext, UiHelpers, T) builder;
   final T viewModel;
   final Function(T) onModelReady;
 
@@ -20,7 +20,7 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UIHelpers uiHelpers = UIHelpers.fromContext(context);
+    UiHelpers uiHelpers = UiHelpers.fromContext(context);
 
     if (isReactive) {
       return ViewModelBuilder<T>.reactive(

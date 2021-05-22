@@ -21,8 +21,8 @@ class CalenderEventsView extends StatelessWidget {
           //               calendarController: _controller,
           //               events: model.eventsList,
           //               calendarStyle: buildCalendarStyle(),
-          //               headerStyle: buildHeaderStyle(uiHelpers),
-          //               builders: buildCalendarBuilders(uiHelpers),
+          //               headerStyle: buildHeaderStyle(UiHelpers),
+          //               builders: buildCalendarBuilders(UiHelpers),
           //             ),
           //           ),
           //           ...model.selectedEvents.length != 0

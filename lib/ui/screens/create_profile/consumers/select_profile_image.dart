@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/create_profile/create_profile_viewmodel.dart';
 
 class SelectProfileImage extends ViewModelWidget<CreateProfileViewModel> {
-  final UIHelpers uiHelpers;
+  final UiHelpers uiHelpers;
 
   SelectProfileImage(this.uiHelpers);
 
@@ -16,10 +16,12 @@ class SelectProfileImage extends ViewModelWidget<CreateProfileViewModel> {
         Text.rich(TextSpan(children: [
           TextSpan(
               text: "Your Profile Image\n",
-              style: uiHelpers.title.copyWith(color: textPrimaryColor)),
+              style:
+                  uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor)),
           TextSpan(
               text: "Snap a quick selfie or upload existing",
-              style: uiHelpers.body.copyWith(color: textSecondaryColor)),
+              style:
+                  uiHelpers.body.copyWith(color: uiHelpers.textSecondaryColor)),
         ])),
         uiHelpers.verticalSpaceHigh,
         Container(

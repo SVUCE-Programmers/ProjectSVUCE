@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/calender_events/event_detail_viewmodel.dart';
 
 class EventDetailsView extends StatelessWidget {
@@ -12,6 +13,8 @@ class EventDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
+
     return SafeArea(
         child: ViewModelBuilder<EventDetailViewModel>.reactive(
       viewModelBuilder: () => EventDetailViewModel(),
@@ -42,7 +45,7 @@ class EventDetailsView extends StatelessWidget {
                               padding: EdgeInsets.all(6),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: surfaceColor),
+                                  color: uiHelpers.surfaceColor),
                               child: Icon(
                                 Icons.arrow_back_ios,
                                 color: Colors.white,
@@ -55,13 +58,13 @@ class EventDetailsView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: surfaceColor),
+                                color: uiHelpers.surfaceColor),
                             child: IconButton(
                               icon: Icon(Icons.share, color: Colors.white),
                               onPressed: () => model.shareLink(event),
                             ),
                             // child: PopupMenuButton(
-                            //   color: surfaceColor,
+                            //   color: uiHelpers.surfaceColor,
                             //   itemBuilder: (BuildContext context) =>
                             //       <PopupMenuEntry<String>>[
                             //     const PopupMenuItem<String>(
@@ -105,7 +108,7 @@ class EventDetailsView extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
-                          color: textPrimaryColor),
+                          color: uiHelpers.textPrimaryColor),
                     ),
                   ),
                   SizedBox(
@@ -115,7 +118,8 @@ class EventDetailsView extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 15.0, right: 10),
                     child: Text(
                       event.description,
-                      style: TextStyle(color: textSecondaryColor, fontSize: 18),
+                      style: TextStyle(
+                          color: uiHelpers.textSecondaryColor, fontSize: 18),
                     ),
                   )
                 ],
@@ -127,7 +131,7 @@ class EventDetailsView extends StatelessWidget {
                 right: 20,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: uiHelpers.primaryColor,
                       borderRadius: BorderRadius.circular(15)),
                   height: 50,
                   child: FlatButton(
@@ -140,7 +144,7 @@ class EventDetailsView extends StatelessWidget {
                       child: Text(
                         "Add to Calendar",
                         style: TextStyle(
-                            color: textPrimaryColor,
+                            color: uiHelpers.textPrimaryColor,
                             fontSize: 20,
                             fontFamily: "Quicksand",
                             fontWeight: FontWeight.w400),

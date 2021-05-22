@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/core/utils/date_utils.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_viewmodel.dart';
 
 class WeekDaySelector extends ViewModelWidget<TimeTableViewModel> {
   @override
   Widget build(BuildContext context, TimeTableViewModel model) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return model.currentIndex != 6
         ? Container(
             child: Wrap(
@@ -21,8 +23,8 @@ class WeekDaySelector extends ViewModelWidget<TimeTableViewModel> {
                   child: Container(
                     decoration: BoxDecoration(
                         color: model.currentIndex == index
-                            ? surfaceColor
-                            : backgroundColor,
+                            ? uiHelpers.surfaceColor
+                            : uiHelpers.backgroundColor,
                         borderRadius: BorderRadius.circular(10.0)),
                     padding:
                         EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -30,7 +32,8 @@ class WeekDaySelector extends ViewModelWidget<TimeTableViewModel> {
                       TextSpan(children: [
                         TextSpan(
                             text: weekDay + "\n",
-                            style: TextStyle(color: textSecondaryColor)),
+                            style:
+                                TextStyle(color: uiHelpers.textSecondaryColor)),
                         TextSpan(text: model.weekDates[index].toString()),
                       ]),
                       textAlign: TextAlign.center,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/screens/home/home_viewmodel.dart';
 
@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
                         text: "\n" + model.currentUser.fullName,
                         style: uiHelpers.body.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: textSecondaryColor),
+                            color: uiHelpers.textSecondaryColor),
                       )
                     ],
                   ),
@@ -49,7 +49,7 @@ class HomeView extends StatelessWidget {
               Container(
                 height: uiHelpers.blockSizeVertical * 20,
                 decoration: BoxDecoration(
-                    color: surfaceColor,
+                    color: uiHelpers.surfaceColor,
                     borderRadius: BorderRadius.circular(10.0)),
               ),
               Text(

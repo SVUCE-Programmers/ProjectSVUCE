@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
@@ -19,7 +19,7 @@ class ForgotPasswordView extends StatelessWidget {
             leading: IconButton(
                 icon: Icon(
                   backIcon,
-                  color: textPrimaryColor,
+                  color: uiHelpers.textPrimaryColor,
                 ),
                 onPressed: model.goBack),
             title: Text(
@@ -34,7 +34,8 @@ class ForgotPasswordView extends StatelessWidget {
             children: <Widget>[
               Text(
                 "Enter your registered email and we\'ll send you the mail to reset your password\n",
-                style: uiHelpers.body.copyWith(color: textSecondaryColor),
+                style: uiHelpers.body
+                    .copyWith(color: uiHelpers.textSecondaryColor),
               ),
               InputField(
                 title: "Enter your email..",

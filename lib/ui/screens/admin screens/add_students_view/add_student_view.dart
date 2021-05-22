@@ -7,7 +7,7 @@ class AddStudentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<AddStudentViewModel>(
       viewModel: AddStudentViewModel(),
-      onModelReady: (m)=>m.init(),
+      onModelReady: (m) => m.init(),
       builder: (context, uiHelpers, model) => Scaffold(),
     );
   }

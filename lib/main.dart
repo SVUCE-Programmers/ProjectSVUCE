@@ -19,8 +19,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SVUCE App',
-      theme: themeData(context),
+      title: 'SVUCE ',
+      darkTheme: darkThemeData(context),
+      theme: lightThemeData(context),
       onGenerateRoute: route.Router().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       debugShowCheckedModeBanner: false,

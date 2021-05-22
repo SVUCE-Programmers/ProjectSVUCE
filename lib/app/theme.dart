@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
 
-final themeData = (BuildContext context) => ThemeData(
+import 'colors.dart';
+
+final lightThemeData = (BuildContext context) => ThemeData(
     fontFamily: 'Quicksand',
-    primaryColor: primaryColor,
+    primaryColor: LightColorPalette.primaryColor,
     primarySwatch: Colors.teal,
-    errorColor: errorColor,
+    errorColor: LightColorPalette.errorColor,
     snackBarTheme: SnackBarThemeData(
-      backgroundColor: surfaceColor,
-      actionTextColor: textPrimaryColor,
+      backgroundColor: LightColorPalette.surfaceColor,
+      actionTextColor: LightColorPalette.textPrimaryColor,
     ),
-    iconTheme: IconThemeData(color: primaryColor),
-    textTheme: Theme.of(context)
-        .textTheme
-        .apply(bodyColor: textPrimaryColor, fontFamily: 'Quicksand'),
-    scaffoldBackgroundColor: backgroundColor);
+    iconTheme: IconThemeData(color: LightColorPalette.primaryColor),
+    textTheme: Theme.of(context).textTheme.apply(
+        bodyColor: LightColorPalette.textPrimaryColor, fontFamily: 'Quicksand'),
+    scaffoldBackgroundColor: LightColorPalette.backgroundColor);
 
-final commonThemeData =
-    ThemeData(canvasColor: backgroundColor, fontFamily: 'Quicksand');
+final darkThemeData = (BuildContext context) => ThemeData(
+    fontFamily: 'Quicksand',
+    primaryColor: DarkColorPalette.primaryColor,
+    primarySwatch: Colors.teal,
+    errorColor: DarkColorPalette.errorColor,
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: DarkColorPalette.surfaceColor,
+      actionTextColor: DarkColorPalette.textPrimaryColor,
+    ),
+    iconTheme: IconThemeData(color: DarkColorPalette.primaryColor),
+    textTheme: Theme.of(context).textTheme.apply(
+        bodyColor: DarkColorPalette.textPrimaryColor, fontFamily: 'Quicksand'),
+    scaffoldBackgroundColor: DarkColorPalette.backgroundColor);

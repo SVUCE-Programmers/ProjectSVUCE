@@ -5,7 +5,7 @@ import 'package:svuce_app/core/utils/ui_helpers.dart';
 class AnnounceItem extends StatelessWidget {
   final Announcement announce;
   final String type;
-  final UIHelpers uiHelpers;
+  final UiHelpers uiHelpers;
 
   const AnnounceItem({Key key, this.announce, this.type, this.uiHelpers})
       : super(key: key);

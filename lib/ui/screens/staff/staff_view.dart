@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 
 import 'staff_main.dart';
@@ -23,17 +23,17 @@ class StaffView extends StatelessWidget {
                       style: TextStyle(),
                     ),
                     centerTitle: true,
-                    backgroundColor: primaryColor,
+                    backgroundColor: uiHelpers.primaryColor,
                     elevation: 0,
                     bottom: TabBar(
-                      labelColor: primaryColor,
+                      labelColor: uiHelpers.primaryColor,
                       indicatorSize: TabBarIndicatorSize.label,
                       unselectedLabelColor: Colors.white,
                       indicator: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
-                          color: backgroundColor),
+                          color: uiHelpers.backgroundColor),
                       tabs: [
                         Tab(
                           child: Align(

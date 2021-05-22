@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
 import 'package:svuce_app/ui/screens/time_table/widgets/time_table_item.dart';
@@ -29,7 +28,8 @@ class ActionCenter extends StatelessWidget {
                   },
                   child: Text(
                     "See All",
-                    style: uiHelpers.body.copyWith(color: primaryColor),
+                    style:
+                        uiHelpers.body.copyWith(color: uiHelpers.primaryColor),
                   ),
                 ),
               ),

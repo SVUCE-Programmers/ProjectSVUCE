@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/theme.dart';
 import 'package:svuce_app/ui/screens/create_profile/data/items.dart';
@@ -27,15 +27,12 @@ class CreateProfileView extends StatelessWidget {
           onWillPop: model.showExitSnackbar,
           child: Scaffold(
             appBar: PreferredSize(
-                child: Theme(
-                  data: commonThemeData,
-                  child: BottomNavigationBar(
-                      elevation: 0,
-                      fixedColor: primaryColor,
-                      unselectedItemColor: textSecondaryColor,
-                      currentIndex: model.currentPage,
-                      items: topbarItems),
-                ),
+                child: BottomNavigationBar(
+                    elevation: 0,
+                    fixedColor: uiHelpers.primaryColor,
+                    unselectedItemColor: uiHelpers.textSecondaryColor,
+                    currentIndex: model.currentPage,
+                    items: topbarItems),
                 preferredSize: Size(100, 100)),
             body: Container(
               padding: EdgeInsets.all(20.0),

@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class Button extends StatelessWidget {
   final bool isBusy;
@@ -16,13 +17,14 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     var random = Random();
 
     return FloatingActionButton(
         heroTag: random.nextInt(100),
         elevation: 0,
-        backgroundColor: primaryColor,
-        foregroundColor: backgroundColor,
+        backgroundColor: uiHelpers.primaryColor,
+        foregroundColor: uiHelpers.backgroundColor,
         child: isBusy
             ? CircularProgressIndicator()
             : icon == null

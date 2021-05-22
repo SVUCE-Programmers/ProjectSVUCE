@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 
 class TimeTableItem extends StatelessWidget {
@@ -11,6 +12,7 @@ class TimeTableItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Container(
       alignment: Alignment.center,
       padding: isActionCenter ? EdgeInsets.all(20.0) : EdgeInsets.all(5),
@@ -18,10 +20,11 @@ class TimeTableItem extends StatelessWidget {
           ? EdgeInsets.all(10.0)
           : EdgeInsets.symmetric(vertical: 10.0),
       decoration: BoxDecoration(
-          color: surfaceColor, borderRadius: BorderRadius.circular(10)),
+          color: uiHelpers.surfaceColor,
+          borderRadius: BorderRadius.circular(10)),
       child: isActionCenter
           ? Text.rich(TextSpan(
-              style: TextStyle().copyWith(color: textSecondaryColor),
+              style: TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
               children: [
                   TextSpan(text: timeTable?.startTime),
                   TextSpan(text: " - "),
@@ -34,7 +37,8 @@ class TimeTableItem extends StatelessWidget {
                 ]))
           : ListTile(
               title: Text.rich(TextSpan(
-                  style: TextStyle().copyWith(color: textSecondaryColor),
+                  style:
+                      TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
                   children: [
                     TextSpan(text: timeTable?.startTime),
                     TextSpan(text: " - "),
@@ -46,7 +50,7 @@ class TimeTableItem extends StatelessWidget {
               ),
               trailing: Icon(
                 notificationIcon,
-                color: primaryColor,
+                color: uiHelpers.primaryColor,
               )),
     );
   }

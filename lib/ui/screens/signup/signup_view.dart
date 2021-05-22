@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
@@ -20,14 +20,14 @@ class SignUpView extends StatelessWidget {
             leading: IconButton(
                 icon: Icon(
                   backIcon,
-                  color: textPrimaryColor,
+                  color: uiHelpers.textPrimaryColor,
                 ),
                 onPressed: model.gotoLogin),
             actions: <Widget>[
               IconButton(
                   icon: Icon(
                     Icons.info,
-                    color: primaryColor,
+                    color: uiHelpers.primaryColor,
                   ),
                   onPressed: null)
             ],
@@ -38,11 +38,13 @@ class SignUpView extends StatelessWidget {
               Text.rich(TextSpan(children: [
                 TextSpan(
                   text: "Hi There,\n",
-                  style: uiHelpers.headline.copyWith(color: textPrimaryColor),
+                  style: uiHelpers.headline
+                      .copyWith(color: uiHelpers.textPrimaryColor),
                 ),
                 TextSpan(
                   text: "Enter your information\nbelow to continue",
-                  style: uiHelpers.body.copyWith(color: textSecondaryColor),
+                  style: uiHelpers.body
+                      .copyWith(color: uiHelpers.textSecondaryColor),
                 )
               ])),
               uiHelpers.verticalSpaceMedium,
@@ -80,11 +82,11 @@ class SignUpView extends StatelessWidget {
                         TextSpan(
                             text: "If you already have an \naccount,",
                             style: uiHelpers.body
-                                .copyWith(color: textSecondaryColor)),
+                                .copyWith(color: uiHelpers.textSecondaryColor)),
                         TextSpan(
                             text: " Login",
-                            style:
-                                uiHelpers.body.copyWith(color: primaryColor)),
+                            style: uiHelpers.body
+                                .copyWith(color: uiHelpers.primaryColor)),
                       ]))),
                   Button(
                     isBusy: model.isBusy,

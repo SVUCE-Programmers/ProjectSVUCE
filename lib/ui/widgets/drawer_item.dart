@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class DrawerItem extends StatelessWidget {
   final String title;
@@ -11,20 +11,22 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
+
     return Material(
-      color: backgroundColor,
+      color: uiHelpers.backgroundColor,
       child: InkWell(
-        splashColor: textSecondaryColor,
+        splashColor: uiHelpers.textSecondaryColor,
         onTap: onTap,
         child: ListTile(
           leading: Icon(
             iconData,
-            color: textSecondaryColor,
+            color: uiHelpers.textSecondaryColor,
           ),
           title: Text(
             title,
-            style:
-                TextStyle(color: textSecondaryColor, fontFamily: "Quicksand"),
+            style: TextStyle(
+                color: uiHelpers.textSecondaryColor, fontFamily: "Quicksand"),
           ),
         ),
       ),

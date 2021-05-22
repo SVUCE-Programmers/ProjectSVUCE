@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/theme.dart';
 import 'package:svuce_app/ui/screens/login/consumers/login_body.dart';
 import 'package:svuce_app/ui/widgets/lazy_indexed_stack.dart';
 
@@ -27,20 +26,18 @@ class LoginView extends StatelessWidget {
             onWillPop: model.showExitSnackbar,
             child: Scaffold(
               appBar: PreferredSize(
-                child: Theme(
-                    data: commonThemeData,
-                    child: BottomNavigationBar(
-                        fixedColor: primaryColor,
-                        currentIndex: model.index,
-                        unselectedItemColor: textSecondaryColor,
-                        elevation: 0,
-                        onTap: model.changeTab,
-                        items: [
-                          BottomNavigationBarItem(
-                              icon: Icon(studentIcon), label: ("Student")),
-                          BottomNavigationBarItem(
-                              icon: Icon(facultyIcon), label: ("Teacher")),
-                        ])),
+                child: BottomNavigationBar(
+                    fixedColor: uiHelpers.primaryColor,
+                    currentIndex: model.index,
+                    unselectedItemColor: uiHelpers.textSecondaryColor,
+                    elevation: 0,
+                    onTap: model.changeTab,
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(studentIcon), label: ("Student")),
+                      BottomNavigationBarItem(
+                          icon: Icon(facultyIcon), label: ("Teacher")),
+                    ]),
                 preferredSize: Size(100, 100),
               ),
               body: LazyIndexedStack(
@@ -53,7 +50,7 @@ class LoginView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   FlatButton(
-                    textColor: primaryColor,
+                    textColor: uiHelpers.primaryColor,
                     onPressed: () {},
                     child: Text(
                       "Forgot Password?",
@@ -63,10 +60,11 @@ class LoginView extends StatelessWidget {
                     margin: EdgeInsets.all(20.0),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor, width: 4),
+                        border:
+                            Border.all(color: uiHelpers.primaryColor, width: 4),
                         borderRadius: BorderRadius.circular(10)),
                     child: FlatButton(
-                      textColor: primaryColor,
+                      textColor: uiHelpers.primaryColor,
                       onPressed: () {},
                       child: Text(
                         "Continue as Guest",

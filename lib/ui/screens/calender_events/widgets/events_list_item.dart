@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class EventListItem extends StatelessWidget {
   final Event event;
@@ -12,6 +13,8 @@ class EventListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
+
     return ListTile(
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(80),
@@ -28,7 +31,7 @@ class EventListItem extends StatelessWidget {
       ),
       trailing: Icon(
         forwardIcon,
-        color: textPrimaryColor,
+        color: uiHelpers.textPrimaryColor,
       ),
       isThreeLine: true,
       onTap: onTap,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/assets.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
 
 import 'entry_viewmodel.dart';
@@ -21,7 +21,7 @@ class EntryView extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: uiHelpers.width,
                 height: uiHelpers.height,
-                color: primaryColor.withOpacity(.6),
+                color: uiHelpers.primaryColor.withOpacity(.6),
                 colorBlendMode: BlendMode.multiply,
                 image: hexagonImage,
               ),
@@ -34,7 +34,7 @@ class EntryView extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
-                      color: backgroundColor,
+                      color: uiHelpers.backgroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
@@ -46,19 +46,19 @@ class EntryView extends StatelessWidget {
                         TextSpan(
                           text: "Get to experience the revamp",
                           style: uiHelpers.headline
-                              .copyWith(color: textPrimaryColor),
+                              .copyWith(color: uiHelpers.textPrimaryColor),
                         ),
                         TextSpan(
                           text:
                               "\n\nGet involved with what’s happening near you.",
                           style: uiHelpers.title
-                              .copyWith(color: textSecondaryColor),
+                              .copyWith(color: uiHelpers.textSecondaryColor),
                         ),
                       ])),
                       Container(
                         alignment: Alignment.centerRight,
                         child: FlatButton(
-                            color: primaryColor,
+                            color: uiHelpers.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             padding: EdgeInsets.symmetric(

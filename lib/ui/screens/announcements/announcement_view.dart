@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 
@@ -41,7 +40,7 @@ class _AnnouncementsState extends State<Announcements>
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                              color: surfaceColor,
+                              color: uiHelpers.surfaceColor,
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(30),
                                   bottomRight: Radius.circular(30))),
@@ -53,7 +52,7 @@ class _AnnouncementsState extends State<Announcements>
                             decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
-                                color: primaryColor),
+                                color: uiHelpers.primaryColor),
                             child: TabBar(
                                 indicatorSize: TabBarIndicatorSize.label,
                                 isScrollable: true,
@@ -115,7 +114,7 @@ class _AnnouncementsState extends State<Announcements>
             ));
   }
 
-  all(AnnouncementViewModel model, String type, UIHelpers uiHelpers) {
+  all(AnnouncementViewModel model, String type, UiHelpers uiHelpers) {
     return Container(
       child: model.items != null
           ? ListView.builder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'widgets/attendance_item.dart';
 
 import 'attendance_view_model.dart';
@@ -20,7 +21,8 @@ class AttendanceView extends StatelessWidget {
           elevation: 0,
           title: Text(
             "Attendance Manager",
-            style: uiHelpers.headline.copyWith(color: textPrimaryColor),
+            style:
+                uiHelpers.headline.copyWith(color: uiHelpers.textPrimaryColor),
           ),
         ),
         body: ListView.builder(
@@ -35,12 +37,13 @@ class AttendanceView extends StatelessWidget {
   }
 
   bottomSheet(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Container(
       color: Colors.transparent,
       child: Container(
         height: 250,
         decoration: BoxDecoration(
-            color: surfaceColor,
+            color: uiHelpers.surfaceColor,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: ListView(
@@ -48,14 +51,14 @@ class AttendanceView extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.undo,
-                color: primaryColor,
+                color: uiHelpers.primaryColor,
               ),
               title: Text("Undo"),
             ),
             ListTile(
               leading: Icon(
                 Icons.unfold_less,
-                color: primaryColor,
+                color: uiHelpers.primaryColor,
               ),
               title: Text("Reset"),
             )

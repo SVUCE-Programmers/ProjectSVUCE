@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class SpotlightItem extends StatelessWidget {
   final IconData icon;
@@ -8,6 +8,8 @@ class SpotlightItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
+
     return Wrap(
       direction: Axis.vertical,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -17,10 +19,10 @@ class SpotlightItem extends StatelessWidget {
           margin: EdgeInsets.only(bottom: 10.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: surfaceColor),
+              color: uiHelpers.surfaceColor),
           child: Icon(
             icon,
-            color: primaryColor,
+            color: uiHelpers.primaryColor,
           ),
           padding: EdgeInsets.all(20.0),
         ),
@@ -29,7 +31,7 @@ class SpotlightItem extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .caption
-              .copyWith(color: textPrimaryColor),
+              .copyWith(color: uiHelpers.textPrimaryColor),
         )
       ],
     );

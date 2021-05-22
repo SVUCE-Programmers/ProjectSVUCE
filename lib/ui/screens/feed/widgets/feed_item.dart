@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:svuce_app/app/colors.dart';
+
 import 'package:svuce_app/core/models/feed/feed.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class FeedItem extends StatelessWidget {
   final Feed feed;
-  final UIHelpers uiHelpers;
+  final UiHelpers uiHelpers;
   const FeedItem({Key key, this.feed, this.uiHelpers}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,8 @@ class FeedItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          color: surfaceColor, borderRadius: BorderRadius.circular(10.0)),
+          color: uiHelpers.surfaceColor,
+          borderRadius: BorderRadius.circular(10.0)),
       padding: EdgeInsets.all(20.0),
       margin: EdgeInsets.symmetric(vertical: 20.0),
       child: GestureDetector(
@@ -24,17 +25,19 @@ class FeedItem extends StatelessWidget {
             Text.rich(TextSpan(children: [
               TextSpan(
                   text: feed?.category ?? "Category Here..",
-                  style: TextStyle(color: primaryColor)),
+                  style: TextStyle(color: uiHelpers.primaryColor)),
               newLine,
               TextSpan(
                   text: feed?.title ?? "Here comes the title of the article",
-                  style: uiHelpers.title.apply(color: textPrimaryColor)),
+                  style:
+                      uiHelpers.title.apply(color: uiHelpers.textPrimaryColor)),
               newLine,
               newLine,
               TextSpan(
                   text: feed?.description ??
                       "Lorem ipsum dolor sit amet, cohorizontalSpaceLow,nsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                  style: uiHelpers.body.apply(color: textSecondaryColor)),
+                  style: uiHelpers.body
+                      .apply(color: uiHelpers.textSecondaryColor)),
             ])),
             uiHelpers.verticalSpaceLow,
             Row(
@@ -47,7 +50,7 @@ class FeedItem extends StatelessWidget {
                       : SizedBox(),
                 ),
                 Text.rich(TextSpan(
-                    style: TextStyle(color: textPrimaryColor),
+                    style: TextStyle(color: uiHelpers.textPrimaryColor),
                     children: [
                       TextSpan(
                         text: feed?.fullName ?? "User Name",

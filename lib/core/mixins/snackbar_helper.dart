@@ -41,7 +41,7 @@ mixin SnackbarHelper {
       title: title,
       // icon: Icon(
       //   FontAwesome5Solid.smile_beam,
-      //   color: primaryColor,
+      //   color: uiHelpers.primaryColor,
       // ),
       duration: Duration(seconds: 5),
       message: message,
