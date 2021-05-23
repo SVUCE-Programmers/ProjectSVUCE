@@ -49,6 +49,7 @@ dependencies:
   fl_chart: ^0.36.1
   excel:
   dotted_border:
+  file_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter

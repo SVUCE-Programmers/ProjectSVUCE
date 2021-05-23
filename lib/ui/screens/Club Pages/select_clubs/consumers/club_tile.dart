@@ -4,7 +4,8 @@ import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/club/club.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/screens/select_clubs/select_clubs_viewmodel.dart';
+
+import '../select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
   final int index;
@@ -36,8 +37,7 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
           style: body.copyWith(color: uiHelpers.textSecondaryColor),
         ),
         trailing: isSelectClubs
-            ? FlatButton.icon(
-                textColor: uiHelpers.primaryColor,
+            ? TextButton.icon(
                 icon: Icon(addIcon),
                 onPressed: onFollowButtonPressed != null
                     ? model.isBusy || success
@@ -45,7 +45,10 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
                         : onFollowButtonPressed
                     : null,
                 label: !model.isBusy
-                    ? Text(success ? "Followed" : "Follow")
+                    ? Text(
+                        success ? "Followed" : "Follow",
+                        style: TextStyle(color: uiHelpers.primaryColor),
+                      )
                     : CircularProgressIndicator(),
               )
             : Icon(forwardIcon),

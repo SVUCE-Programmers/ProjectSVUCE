@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/app/theme.dart';
 import 'package:svuce_app/ui/screens/create_profile/data/items.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/image_source_select.dart';

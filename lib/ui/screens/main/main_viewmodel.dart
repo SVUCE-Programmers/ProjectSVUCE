@@ -8,7 +8,8 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/dataset.dart';
 import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/core/models/user/user.dart';
-import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
+import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
@@ -16,7 +17,7 @@ import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 
 class MainViewModel extends BaseViewModel {
   final log = getLogger("MainViewModel");
-  final AuthService _authenticationService = locator<AuthService>();
+  final UsersRepository _userRepository = locator<UsersRepository>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final NavigationService _navigationService = locator<NavigationService>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -38,10 +39,14 @@ class MainViewModel extends BaseViewModel {
   }
 
   getCurrentUserDetails() {
-    UserModel user = _authenticationService.currentUser;
-    if (user != null) {
-      _currentUser = user;
-    }
+    _userRepository
+        .getUserFromStream(_firebaseAuth.currentUser.uid)
+        .listen((event) {
+      if (event != null) {
+        _currentUser = event;
+        notifyListeners();
+      }
+    });
   }
 
   getGraph() {
@@ -81,5 +86,14 @@ class MainViewModel extends BaseViewModel {
   navigateToAboutCollege() {
     _navigationService.navigateWithTransition(AboutCollegeView(),
         transition: "fade", duration: Duration(milliseconds: 900));
+  }
+
+  navigateToExploreClubs() {
+    _navigationService.navigateWithTransition(
+        SelectClubsView(
+          isSelectClubs: false,
+        ),
+        transition: "fade",
+        duration: Duration(milliseconds: 900));
   }
 }

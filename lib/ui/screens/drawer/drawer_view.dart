@@ -35,7 +35,7 @@ class DrawerView extends StatelessWidget {
                   ),
                   title: Text.rich(TextSpan(children: [
                     TextSpan(
-                      text: model.currentUser.fullName ?? "Harry Potter",
+                      text: model.name ?? "Harry Potter",
                       style: uiHelpers.title
                           .apply(color: uiHelpers.textPrimaryColor),
                     ),
@@ -43,7 +43,9 @@ class DrawerView extends StatelessWidget {
                       text: "\n",
                     ),
                     TextSpan(
-                      text: model.currentUser.rollNo ?? "Hogwarts",
+                      text: model.currentUser != null
+                          ? model.currentUser.rollNo
+                          : "",
                       style:
                           uiHelpers.body.apply(color: uiHelpers.primaryColor),
                     ),
@@ -70,7 +72,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Explore Clubs",
-                  onTap: () {},
+                  onTap: () => model.navigateToExploreClubs(),
                   iconData: clubsIcon,
                 ),
                 DrawerItem(

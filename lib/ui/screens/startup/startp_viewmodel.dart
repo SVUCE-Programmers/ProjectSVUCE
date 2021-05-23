@@ -3,9 +3,11 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/assets.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
-import 'package:svuce_app/app/router.gr.dart';
+import 'package:svuce_app/app/AppSetup.router.dart';
+
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 
@@ -15,13 +17,14 @@ class StartUpViewModel extends BaseViewModel {
   final PushNotificationService _notificationService =
       locator<PushNotificationService>();
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
+  final UsersRepository _usersRepository = locator<UsersRepository>();
 
   Future handleStartUpLogic(BuildContext context) async {
     await precacheImage(AssetImage(hexagonPattern), context);
     await _dynamicLinkService.handleDynamicLinks();
     await _notificationService.initialise();
-
-    var userLoggedIn = await _authenticationService.isUserLoggedIn();
+    _usersRepository.getUserDetailsFromPrefs();
+    var userLoggedIn = _authenticationService.isUserLoggedIn();
 
     if (userLoggedIn) {
       _navigationService.navigateTo(Routes.mainView);

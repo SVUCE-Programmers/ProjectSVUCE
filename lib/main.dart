@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/router.gr.dart' as route;
 import 'package:svuce_app/app/theme.dart';
 
 import 'hive_db/setup_hive.dart';
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       darkTheme: darkThemeData(context),
       themeMode: ThemeMode.light,
       theme: lightThemeData(context),
-      onGenerateRoute: route.Router().onGenerateRoute,
+        onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       debugShowCheckedModeBanner: false,
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 
 import 'consumers/club_tile.dart';
 import 'select_clubs_viewmodel.dart';
@@ -14,13 +15,18 @@ class SelectClubsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<SelectClubsViewModel>(
       viewModel: SelectClubsViewModel(),
-      onModelReady: (model) => model.getClubListOnce(),
+      onModelReady: (model) => model.init(isSelectClubs),
       builder: (context, uiHelpers, model) {
         return WillPopScope(
           onWillPop: isSelectClubs ? model.showExitSnackbar : null,
           child: Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
+              leading: isSelectClubs
+                  ? SizedBox()
+                  : IconButton(
+                      icon: Icon(backIcon, color: uiHelpers.textPrimaryColor),
+                      onPressed: model.navigateBack),
               title: Text(
                 isSelectClubs ? "Select Clubs" : "Explore Clubs",
                 style: uiHelpers.headline
