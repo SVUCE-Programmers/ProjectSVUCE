@@ -3,7 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/screens/home/home_viewmodel.dart';
+import 'package:svuce_app/ui/screens/main/main_viewmodel.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
@@ -13,8 +13,8 @@ class DrawerView extends StatelessWidget {
   Widget build(BuildContext context) {
     final uiHelpers = UiHelpers.fromContext(context);
 
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
+    return ViewModelBuilder<MainViewModel>.reactive(
+      viewModelBuilder: () => MainViewModel(),
       onModelReady: (model) => model.getCurrentUserDetails(),
       builder: (context, model, child) => Drawer(
         child: Container(
@@ -23,7 +23,7 @@ class DrawerView extends StatelessWidget {
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
                 ListTile(
-                  onTap: () => model.viewUserProfile(),
+                  // onTap: () => model.viewUserProfile(),
                   contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                   leading: ClipRRect(
                     borderRadius:
@@ -75,12 +75,12 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Timetable",
-                  onTap: () => model.viewTimeTable(),
+                  // onTap: () => model.viewTimeTable(),
                   iconData: timeTableIcon,
                 ),
                 DrawerItem(
                   title: "Attendance",
-                  onTap: () => model.viewAttendance(),
+                  // onTap: () => model.viewAttendance(),
                   iconData: attendanceIcon,
                 ),
                 DrawerItem(
@@ -90,7 +90,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "About College",
-                  onTap: () {},
+                  onTap: () => model.navigateToAboutCollege(),
                   iconData: schoolIcon,
                 ),
                 DrawerItem(
@@ -100,7 +100,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Student Details",
-                  onTap: () {},
+                  onTap: () => model.navigateToAddStudent(),
                   iconData: FlutterIcons.users_fea,
                 ),
               ],

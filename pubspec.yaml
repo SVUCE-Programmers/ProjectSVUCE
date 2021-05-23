@@ -26,6 +26,7 @@ dependencies:
   # inversion of control
   injectable:
   get_it:
+  flutter_hooks:
 
   # firebase
   cloud_firestore: ^2.2.0
@@ -46,6 +47,8 @@ dependencies:
   firebase_dynamic_links: ^2.0.4
   share: ^2.0.1
   fl_chart: ^0.36.1
+  excel:
+  dotted_border:
 dev_dependencies:
   flutter_test:
     sdk: flutter
