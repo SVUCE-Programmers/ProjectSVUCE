@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -21,6 +22,7 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationService _pushNotifyService =
       locator<PushNotificationService>();
+  final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
 
   List<Club> _clubList;
   List<bool> flags;
@@ -45,31 +47,22 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
     if (index == null) {
       return null;
     }
-
     setBusy(true);
-
     UserModel user = _authenticationService.currentUser;
-
     if (user == null) {
       return null;
     }
-
     try {
       var selectedClub = clubs[index];
-
       await _clubsRepository.followClub(selectedClub.id, user.id);
-
       await _userClubsRepository.addClubToUser(
           UserClub(
               id: selectedClub.id,
               clubLogo: selectedClub.clubLogo,
               name: selectedClub.name),
           user.id);
-
       await _pushNotifyService.subscribe(clubs[index].id);
-
       flags[index] = true;
-
       setBusy(false);
     } catch (e) {
       showErrorMessage(
@@ -88,5 +81,15 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
     for (var i = 0; i < length; i++) {
       flags.add(false);
     }
+  }
+
+  navigateBack() {
+    _navigationService.back();
+  }
+
+  getUserClubs() {
+    _userClubsRepository
+        .getUserClubs(_firebaseAuth.currentUser.uid)
+        .listen((event) {});
   }
 }

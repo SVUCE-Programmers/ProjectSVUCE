@@ -9,15 +9,15 @@ part 'user.g.dart';
 abstract class UserModel implements _$User {
   const UserModel._();
   factory UserModel(
-      {String fullName,
-      String id,
-      String email,
-      String rollNo,
-      String bio,
-      String contact,
-      String collegeName,
-      String profileImg,
-      String userType,
+      {@required String fullName,
+      @required String id,
+      @required String email,
+      @required String rollNo,
+      @required String bio,
+      @required String contact,
+      @required String collegeName,
+      @required String profileImg,
+      @required String userType,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _User;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -27,7 +27,7 @@ abstract class UserModel implements _$User {
     var docData = Map<String, dynamic>.from(document.data());
 
     return UserModel(
-        id: document.id,
+        id: docData['id'],
         email: docData['email'],
         rollNo: docData['rollNo'],
         fullName: docData['fullName'],

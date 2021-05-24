@@ -42,13 +42,15 @@ dependencies:
   # main utilities
   image_picker: ^0.7.5+2
   logger:
-  http: ^0.13.3
+  http:
   table_calendar: ^3.0.0
   firebase_dynamic_links: ^2.0.4
   share: ^2.0.1
   fl_chart: ^0.36.1
   excel:
   dotted_border:
+  numberpicker:
+  flutter_cache_manager:
 dev_dependencies:
   flutter_test:
     sdk: flutter

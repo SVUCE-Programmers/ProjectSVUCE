@@ -7,6 +7,7 @@ import 'package:svuce_app/ui/screens/main/main_viewmodel.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
+import 'package:svuce_app/ui/widgets/pdf_viewer.dart';
 
 class DrawerView extends StatelessWidget {
   @override
@@ -35,7 +36,7 @@ class DrawerView extends StatelessWidget {
                   ),
                   title: Text.rich(TextSpan(children: [
                     TextSpan(
-                      text: model.currentUser.fullName ?? "Harry Potter",
+                      text: model.name ?? "Harry Potter",
                       style: uiHelpers.title
                           .apply(color: uiHelpers.textPrimaryColor),
                     ),
@@ -43,7 +44,9 @@ class DrawerView extends StatelessWidget {
                       text: "\n",
                     ),
                     TextSpan(
-                      text: model.currentUser.rollNo ?? "Hogwarts",
+                      text: model.currentUser != null
+                          ? model.currentUser.rollNo
+                          : "",
                       style:
                           uiHelpers.body.apply(color: uiHelpers.primaryColor),
                     ),
@@ -70,7 +73,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Explore Clubs",
-                  onTap: () {},
+                  onTap: () => model.navigateToExploreClubs(),
                   iconData: clubsIcon,
                 ),
                 DrawerItem(
@@ -95,7 +98,8 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "About App",
-                  onTap: () {},
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PdfViewer())),
                   iconData: infoIcon,
                 ),
                 DrawerItem(

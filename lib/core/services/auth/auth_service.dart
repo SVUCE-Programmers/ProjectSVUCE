@@ -13,7 +13,7 @@ abstract class AuthService {
       @required String profileImg,
       @required String bio});
 
-  Future<bool> isUserLoggedIn();
+  bool isUserLoggedIn();
   Future resetPassword(String email);
   Future signOut();
   Future updateUserProfile({String displayName, String profileImg});

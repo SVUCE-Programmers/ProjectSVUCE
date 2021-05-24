@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'widgets/attendance_item.dart';
 
 import 'attendance_view_model.dart';
 

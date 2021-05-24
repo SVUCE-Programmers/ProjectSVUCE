@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
@@ -76,9 +78,8 @@ class AuthServiceImpl implements AuthService {
   /// An utility function to check whether the [User] Logged in.
   /// If user is logged in we get the profile from Firestore and store it
   ///   in [currentUser]
-  Future<bool> isUserLoggedIn() async {
+  bool isUserLoggedIn() {
     var user = _firebaseAuth.currentUser;
-    await _populateCurrentUser(user);
     return user != null;
   }
 
@@ -86,6 +87,7 @@ class AuthServiceImpl implements AuthService {
   Future _populateCurrentUser(User user) async {
     if (user != null) {
       currentUser = await _userService.getUser(user.uid);
+      // _userStream.add(currentUser);
     }
   }
 

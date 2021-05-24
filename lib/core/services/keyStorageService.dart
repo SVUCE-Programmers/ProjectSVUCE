@@ -21,7 +21,7 @@ class KeyStorageService {
     }
   }
 
-  getValue(String key) async {
-    return await _preferences.get(key) ?? null;
+  getValue(String key) {
+    return _preferences.get(key) ?? null;
   }
 }
