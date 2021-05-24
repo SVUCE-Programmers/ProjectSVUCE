@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       darkTheme: darkThemeData(context),
       themeMode: ThemeMode.light,
       theme: lightThemeData(context),
-        onGenerateRoute: StackedRouter().onGenerateRoute,
+      onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       debugShowCheckedModeBanner: false,
     );

@@ -66,7 +66,7 @@ class UiHelpers {
         decoration: TextDecoration.none,
         fontFamily: Configs.titleFont,
         color: LightColorPalette.textPrimaryColor,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w700,
         fontSize: scalingHelper.size(18));
 
     body = TextStyle(

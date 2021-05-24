@@ -42,6 +42,7 @@ dependencies:
 
   # main utilities
   image_picker: ^0.7.5+2
+  flutter_cache_manager:
   logger:
   http:
   table_calendar: ^3.0.0
@@ -74,6 +75,7 @@ flutter:
 
   assets:
     - assets/illustrations/
+    - assets/images/
 
   fonts:
     - family: Quicksand

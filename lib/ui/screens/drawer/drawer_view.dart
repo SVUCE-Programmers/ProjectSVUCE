@@ -98,8 +98,7 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "About App",
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PdfViewer())),
+                  onTap: () => model.navigateToAboutApp(),
                   iconData: infoIcon,
                 ),
                 DrawerItem(

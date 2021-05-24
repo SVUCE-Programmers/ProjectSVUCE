@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/screens/about_college/about_college_view_model.dart';
-import 'package:svuce_app/ui/screens/about_college/teqip_page.dart';
+import 'about_college_view_model.dart';
+import 'teqip_page.dart';
 
 class AboutCollegeView extends HookWidget {
   @override
