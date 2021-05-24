@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 
 import '../core/models/event/event.dart';
 import '../ui/screens/admin%20screens/add_students_view/add_student_view.dart';
@@ -18,7 +19,6 @@ import '../ui/screens/forgot_password/forgot_password_view.dart';
 import '../ui/screens/login/login_view.dart';
 import '../ui/screens/main/main_view.dart';
 import '../ui/screens/notifications/notifications_view.dart';
-import '../ui/screens/select_clubs/select_clubs_view.dart';
 import '../ui/screens/signup/signup_view.dart';
 import '../ui/screens/startup/startup_view.dart';
 import '../ui/screens/time_table/time_table_view.dart';

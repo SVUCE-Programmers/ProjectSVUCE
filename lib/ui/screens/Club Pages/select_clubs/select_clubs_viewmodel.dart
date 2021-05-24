@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/router.gr.dart';
+import 'package:svuce_app/app/AppSetup.router.dart';
+
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/club/club.dart';
@@ -15,6 +17,7 @@ import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_rep
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 
 class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
+  final log = getLogger("Select Clubs View Model");
   final AuthService _authenticationService = locator<AuthService>();
   final ClubsRepository _clubsRepository = locator<ClubsRepository>();
   final UserClubsRepository _userClubsRepository =
@@ -23,6 +26,8 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   final PushNotificationService _pushNotifyService =
       locator<PushNotificationService>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
+  bool isUserClubLoaded = false;
+  List<UserClub> userClubList = [];
 
   List<Club> _clubList;
   List<bool> flags;
@@ -87,9 +92,25 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
     _navigationService.back();
   }
 
+  init(bool isSelectClubs) {
+    if (isSelectClubs) {
+      getClubListOnce();
+    } else {
+      getClubListOnce();
+      getUserClubs();
+    }
+  }
+
   getUserClubs() {
     _userClubsRepository
         .getUserClubs(_firebaseAuth.currentUser.uid)
-        .listen((event) {});
+        .listen((event) {
+      if (event != null) {
+        userClubList = event;
+        log.v("At get User Clubs Method:$event");
+      }
+      isUserClubLoaded = true;
+      notifyListeners();
+    });
   }
 }

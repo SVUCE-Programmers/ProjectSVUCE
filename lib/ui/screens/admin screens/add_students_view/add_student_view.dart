@@ -23,7 +23,7 @@ class AddStudentView extends StatelessWidget {
                     radius: Radius.circular(8),
                     borderType: BorderType.RRect,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => model.pickExcel(),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),

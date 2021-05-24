@@ -4,7 +4,8 @@ import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/club/club.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/screens/select_clubs/select_clubs_viewmodel.dart';
+
+import '../select_clubs_viewmodel.dart';
 
 class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
   final int index;

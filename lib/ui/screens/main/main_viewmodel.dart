@@ -9,10 +9,10 @@ import 'package:svuce_app/core/models/dataset.dart';
 import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
+import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
-import 'package:svuce_app/ui/screens/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 
 class MainViewModel extends BaseViewModel {
