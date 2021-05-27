@@ -73,24 +73,21 @@ class UserProfileView extends StatelessWidget {
                 ]),
                 textAlign: TextAlign.center,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.symmetric(
-                    vertical: 30.0, horizontal: 20.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: uiHelpers.surfaceColor),
-                child: ListTile(
-                  title: Text(
-                    "Bio",
-                    style: uiHelpers.title.apply(color: uiHelpers.primaryColor),
-                  ),
-                  subtitle: Text(model.user.bio,
-                      style: uiHelpers.body
-                          .apply(color: uiHelpers.textPrimaryColor)),
-                ),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   padding: const EdgeInsets.all(10),
+              //   margin: const EdgeInsets.symmetric(
+              //       vertical: 30.0, horizontal: 20.0),
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(10),
+              //       color: uiHelpers.surfaceColor),
+              //   child: ListTile(
+              //     title: Text(
+              //       "Bio",
+              //       style: uiHelpers.title.apply(color: uiHelpers.primaryColor),
+              //     ),
+              //   ),
+              // ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20.0),
                 width: MediaQuery.of(context).size.width,

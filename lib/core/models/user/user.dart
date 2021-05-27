@@ -10,13 +10,12 @@ abstract class UserModel implements _$UserModel {
   const UserModel._();
   factory UserModel(
           {@required String fullName,
-          @required String id,
+          @Default(null) String id,
           @required String email,
           @required String rollNo,
-          @required String bio,
           @required String contact,
           @required String collegeName,
-          @required String profileImg,
+          String profileImg,
           @required String userType,
           @JsonKey(ignore: true) DocumentReference documentReference}) =
       _$_UserModel;
@@ -35,7 +34,6 @@ abstract class UserModel implements _$UserModel {
         fullName: docData['fullName'],
         profileImg: docData['profileImg'],
         collegeName: docData['collegeName'],
-        bio: docData['bio'],
         contact: docData['contact'],
         userType: docData['userType'],
         documentReference: document.reference);
@@ -50,7 +48,6 @@ abstract class UserModel implements _$UserModel {
         rollNo: '',
         profileImg: '',
         collegeName: '',
-        bio: '',
         contact: '',
         documentReference: null);
   }

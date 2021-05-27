@@ -5,12 +5,16 @@ import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
+import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
+  final UsersRepository _usersRepository = locator<UsersRepository>();
+
+  bool isEmailVerified = false;
 
   String emailError = '';
   String passwordError = '';
@@ -22,6 +26,10 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   String get password => _password;
   String _confirmPassword;
   String get confirmPassword => _confirmPassword;
+  changeEmailVerified() {
+    isEmailVerified = !isEmailVerified;
+    notifyListeners();
+  }
 
   bool get result =>
       emailError.isEmpty &&
@@ -59,32 +67,41 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
 
       return null;
     }
+    if (isEmailVerified) {
+      setBusy(true);
+      var result = await _authService.createStudent(
+        email: _email,
+        password: _password,
+      );
 
-    setBusy(true);
+      setBusy(false);
 
-    //TODO: Do an API Call to make sure the user email is available
-
-    var authResult = await _authService.loginUser(
-      email: email,
-      password: password,
-    );
-
-    setBusy(false);
-
-    if (authResult is bool) {
-      if (authResult) {
-        // If User exists with email shows error
-        await _authService.signOut();
-
-        showInfoMessage(
-          title: commonErrorTitle,
-          message: "Your account already exists, try logging in",
-        );
+      if (result is bool) {
+        if (result) {
+          _navigationService.navigateTo(Routes.selectClubsView,
+              arguments: SelectClubsViewArguments(isSelectClubs: true));
+        } else {
+          showErrorMessage(title: commonErrorTitle, message: commonErrorInfo);
+        }
       } else {
-        gotoProfile();
+        showErrorMessage(title: commonErrorTitle, message: result);
       }
     } else {
-      gotoProfile();
+      setBusy(true);
+      var authResult = await _usersRepository.signupUser(
+        email,
+      );
+
+      setBusy(false);
+
+      if (authResult is bool && authResult) {
+        isEmailVerified = true;
+        notifyListeners();
+      } else {
+        showErrorMessage(
+            title: "Error Occured",
+            message: "Please try again or contact administration");
+      }
     }
   }
 

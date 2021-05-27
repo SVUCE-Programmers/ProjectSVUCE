@@ -13,6 +13,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<MainViewModel>(
       viewModel: MainViewModel(),
+      onModelReady: (m) => m.getCurrentUserDetails(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           key: model.scaffoldKey,

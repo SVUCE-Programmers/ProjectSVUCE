@@ -4,13 +4,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/strings.dart';
+import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 
 import 'users_repository.dart';
 
 @Singleton(as: UsersRepository)
-class UsersRepositoryImpl implements UsersRepository {
+class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
+  final log = getLogger("UsersRepositoryImpl");
   static FirebaseFirestore firestore = locator<FirebaseFirestore>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
@@ -20,12 +24,28 @@ class UsersRepositoryImpl implements UsersRepository {
       StreamController<UserModel>.broadcast();
 
   @override
-  Future getUser(String userId) async {
+  Future getUser(String email) async {
     try {
-      var userData = await _userRef.doc(userId).get();
-      return UserModel.fromDocument(userData);
+      var userData = await _userRef.where("email", isEqualTo: email).get();
+      log.d("Got data at getUser is:${userData.docs[0].data()}");
+      if (Map<String, dynamic>.from(userData.docs[0].data())["id"] != null) {
+        return UserModel.fromJson(
+            Map<String, dynamic>.from(userData.docs[0].data()));
+      } else {
+        var data = Map<String, dynamic>.from(userData.docs[0].data());
+        return UserModel(
+          id: _firebaseAuth.currentUser.uid,
+          collegeName: data["collegeName"],
+          rollNo: data["rollNo"],
+          userType: data["userType"],
+          contact: data["contact"],
+          fullName: data["fullName"],
+          email: email,
+        );
+      }
     } catch (e) {
-      return e?.message ?? "Something went wrong";
+      log.e("e");
+      return e ?? "Something went wrong";
     }
   }
 
@@ -46,7 +66,7 @@ class UsersRepositoryImpl implements UsersRepository {
   @override
   Future storeUser(UserModel user) async {
     try {
-      await _userRef.doc(user.id).set(user.toJson());
+      await _userRef.doc(user.email).set(user.toJson());
     } catch (e) {
       return e?.message ?? "Something went wrong";
     }
@@ -61,7 +81,6 @@ class UsersRepositoryImpl implements UsersRepository {
           id: _sharedPreferences.getString("id"),
           email: _sharedPreferences.getString("email"),
           rollNo: _sharedPreferences.getString("rollNo"),
-          bio: _sharedPreferences.getString("bio"),
           contact: _sharedPreferences.getString("contact"),
           collegeName: _sharedPreferences.getString("collegeName"),
           profileImg: _sharedPreferences.getString("profileImg"),
@@ -71,12 +90,13 @@ class UsersRepositoryImpl implements UsersRepository {
   }
 
   @override
-  Stream getUserFromStream(String uid) {
-    var data = _userRef.doc(uid).snapshots();
+  Stream getUserFromStream(String email) {
+    var data = _userRef.doc(email).snapshots();
     data.listen((event) {
       UserModel userModel =
           UserModel.fromJson(Map<String, dynamic>.from(event.data()));
       _userController.add(userModel);
+
       addUserDetailsToPrefs(userModel);
     });
     return _userController.stream;
@@ -88,6 +108,43 @@ class UsersRepositoryImpl implements UsersRepository {
       userModel.toJson().forEach((key, value) {
         _sharedPreferences.setString(key, value);
       });
+    }
+  }
+
+  @override
+  Future signupUser(String email) async {
+    try {
+      var data = await _userRef.doc(email).get();
+      if (data != null && data.data() != null) {
+        if (Map<String, dynamic>.from(data.data())["id"] != null) {
+          showInfoMessage(
+            title: commonErrorTitle,
+            message: "Your account already exists, try logging in",
+          );
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+        //TODO Show User is Not Found in Database
+      }
+    } catch (e) {
+      showInfoMessage(
+        title: commonErrorTitle,
+        message: "$e",
+      );
+      return false;
+    }
+  }
+
+  @override
+  Future updateUser(Map<String, dynamic> userData) async {
+    try {
+      log.d(userData);
+      await _userRef.doc(userData["email"]).update(userData);
+    } catch (e) {
+      return e ?? "Something went wrong";
     }
   }
 }

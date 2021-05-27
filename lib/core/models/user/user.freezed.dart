@@ -9,7 +9,7 @@ part of 'user.dart';
 
 T _$identity<T>(T value) => value;
 UserModel _$UserModelFromJson(Map<String, dynamic> json) {
-  return _UserModel.fromJson(json);
+  return _$_UserModel.fromJson(json);
 }
 
 /// @nodoc
@@ -17,23 +17,21 @@ class _$UserModelTearOff {
   const _$UserModelTearOff();
 
 // ignore: unused_element
-  _UserModel call(
+  _$_UserModel call(
       {@required String fullName,
-      @required String id,
+      String id = null,
       @required String email,
       @required String rollNo,
-      @required String bio,
       @required String contact,
       @required String collegeName,
-      @required String profileImg,
+      String profileImg,
       @required String userType,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
-    return _UserModel(
+    return _$_UserModel(
       fullName: fullName,
       id: id,
       email: email,
       rollNo: rollNo,
-      bio: bio,
       contact: contact,
       collegeName: collegeName,
       profileImg: profileImg,
@@ -58,7 +56,6 @@ mixin _$UserModel {
   String get id;
   String get email;
   String get rollNo;
-  String get bio;
   String get contact;
   String get collegeName;
   String get profileImg;
@@ -80,7 +77,6 @@ abstract class $UserModelCopyWith<$Res> {
       String id,
       String email,
       String rollNo,
-      String bio,
       String contact,
       String collegeName,
       String profileImg,
@@ -102,7 +98,6 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object id = freezed,
     Object email = freezed,
     Object rollNo = freezed,
-    Object bio = freezed,
     Object contact = freezed,
     Object collegeName = freezed,
     Object profileImg = freezed,
@@ -114,7 +109,6 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
       id: id == freezed ? _value.id : id as String,
       email: email == freezed ? _value.email : email as String,
       rollNo: rollNo == freezed ? _value.rollNo : rollNo as String,
-      bio: bio == freezed ? _value.bio : bio as String,
       contact: contact == freezed ? _value.contact : contact as String,
       collegeName:
           collegeName == freezed ? _value.collegeName : collegeName as String,
@@ -129,17 +123,16 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
-  factory _$UserModelCopyWith(
-          _UserModel value, $Res Function(_UserModel) then) =
-      __$UserModelCopyWithImpl<$Res>;
+abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
+  factory _$$_UserModelCopyWith(
+          _$_UserModel value, $Res Function(_$_UserModel) then) =
+      __$$_UserModelCopyWithImpl<$Res>;
   @override
   $Res call(
       {String fullName,
       String id,
       String email,
       String rollNo,
-      String bio,
       String contact,
       String collegeName,
       String profileImg,
@@ -148,13 +141,14 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
-    implements _$UserModelCopyWith<$Res> {
-  __$UserModelCopyWithImpl(_UserModel _value, $Res Function(_UserModel) _then)
-      : super(_value, (v) => _then(v as _UserModel));
+class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
+    implements _$$_UserModelCopyWith<$Res> {
+  __$$_UserModelCopyWithImpl(
+      _$_UserModel _value, $Res Function(_$_UserModel) _then)
+      : super(_value, (v) => _then(v as _$_UserModel));
 
   @override
-  _UserModel get _value => super._value as _UserModel;
+  _$_UserModel get _value => super._value as _$_UserModel;
 
   @override
   $Res call({
@@ -162,19 +156,17 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object id = freezed,
     Object email = freezed,
     Object rollNo = freezed,
-    Object bio = freezed,
     Object contact = freezed,
     Object collegeName = freezed,
     Object profileImg = freezed,
     Object userType = freezed,
     Object documentReference = freezed,
   }) {
-    return _then(_UserModel(
+    return _then(_$_UserModel(
       fullName: fullName == freezed ? _value.fullName : fullName as String,
       id: id == freezed ? _value.id : id as String,
       email: email == freezed ? _value.email : email as String,
       rollNo: rollNo == freezed ? _value.rollNo : rollNo as String,
-      bio: bio == freezed ? _value.bio : bio as String,
       contact: contact == freezed ? _value.contact : contact as String,
       collegeName:
           collegeName == freezed ? _value.collegeName : collegeName as String,
@@ -191,42 +183,38 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
-  _$_UserModel(
+class _$_$_UserModel extends _$_UserModel with DiagnosticableTreeMixin {
+  _$_$_UserModel(
       {@required this.fullName,
-      @required this.id,
+      this.id = null,
       @required this.email,
       @required this.rollNo,
-      @required this.bio,
       @required this.contact,
       @required this.collegeName,
-      @required this.profileImg,
+      this.profileImg,
       @required this.userType,
       @JsonKey(ignore: true) this.documentReference})
       : assert(fullName != null),
         assert(id != null),
         assert(email != null),
         assert(rollNo != null),
-        assert(bio != null),
         assert(contact != null),
         assert(collegeName != null),
-        assert(profileImg != null),
         assert(userType != null),
         super._();
 
-  factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
-      _$_$_UserModelFromJson(json);
+  factory _$_$_UserModel.fromJson(Map<String, dynamic> json) =>
+      _$_$_$_UserModelFromJson(json);
 
   @override
   final String fullName;
+  @JsonKey(defaultValue: null)
   @override
   final String id;
   @override
   final String email;
   @override
   final String rollNo;
-  @override
-  final String bio;
   @override
   final String contact;
   @override
@@ -241,7 +229,7 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(fullName: $fullName, id: $id, email: $email, rollNo: $rollNo, bio: $bio, contact: $contact, collegeName: $collegeName, profileImg: $profileImg, userType: $userType, documentReference: $documentReference)';
+    return 'UserModel(fullName: $fullName, id: $id, email: $email, rollNo: $rollNo, contact: $contact, collegeName: $collegeName, profileImg: $profileImg, userType: $userType, documentReference: $documentReference)';
   }
 
   @override
@@ -253,7 +241,6 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('rollNo', rollNo))
-      ..add(DiagnosticsProperty('bio', bio))
       ..add(DiagnosticsProperty('contact', contact))
       ..add(DiagnosticsProperty('collegeName', collegeName))
       ..add(DiagnosticsProperty('profileImg', profileImg))
@@ -264,7 +251,7 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _UserModel &&
+        (other is _$_UserModel &&
             (identical(other.fullName, fullName) ||
                 const DeepCollectionEquality()
                     .equals(other.fullName, fullName)) &&
@@ -274,8 +261,6 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.rollNo, rollNo) ||
                 const DeepCollectionEquality().equals(other.rollNo, rollNo)) &&
-            (identical(other.bio, bio) ||
-                const DeepCollectionEquality().equals(other.bio, bio)) &&
             (identical(other.contact, contact) ||
                 const DeepCollectionEquality()
                     .equals(other.contact, contact)) &&
@@ -300,7 +285,6 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(email) ^
       const DeepCollectionEquality().hash(rollNo) ^
-      const DeepCollectionEquality().hash(bio) ^
       const DeepCollectionEquality().hash(contact) ^
       const DeepCollectionEquality().hash(collegeName) ^
       const DeepCollectionEquality().hash(profileImg) ^
@@ -309,32 +293,31 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$UserModelCopyWith<_UserModel> get copyWith =>
-      __$UserModelCopyWithImpl<_UserModel>(this, _$identity);
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
+      __$$_UserModelCopyWithImpl<_$_UserModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UserModelToJson(this);
+    return _$_$_$_UserModelToJson(this);
   }
 }
 
-abstract class _UserModel extends UserModel {
-  _UserModel._() : super._();
-  factory _UserModel(
+abstract class _$_UserModel extends UserModel {
+  _$_UserModel._() : super._();
+  factory _$_UserModel(
           {@required String fullName,
-          @required String id,
+          String id,
           @required String email,
           @required String rollNo,
-          @required String bio,
           @required String contact,
           @required String collegeName,
-          @required String profileImg,
+          String profileImg,
           @required String userType,
           @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
-      _$_UserModel;
+      _$_$_UserModel;
 
-  factory _UserModel.fromJson(Map<String, dynamic> json) =
-      _$_UserModel.fromJson;
+  factory _$_UserModel.fromJson(Map<String, dynamic> json) =
+      _$_$_UserModel.fromJson;
 
   @override
   String get fullName;
@@ -344,8 +327,6 @@ abstract class _UserModel extends UserModel {
   String get email;
   @override
   String get rollNo;
-  @override
-  String get bio;
   @override
   String get contact;
   @override
@@ -359,5 +340,5 @@ abstract class _UserModel extends UserModel {
   DocumentReference<Object> get documentReference;
   @override
   @JsonKey(ignore: true)
-  _$UserModelCopyWith<_UserModel> get copyWith;
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith;
 }

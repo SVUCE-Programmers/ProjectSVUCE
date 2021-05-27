@@ -47,7 +47,7 @@ class ForgotPasswordView extends StatelessWidget {
               Container(
                 alignment: Alignment.centerRight,
                 child: Button(
-                  isBusy: model.isBusy,
+                  isBusy: false,
                   onPressed: model.resetPassword,
                 ),
               )

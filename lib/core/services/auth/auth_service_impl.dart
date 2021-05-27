@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/user/user.dart';
@@ -15,6 +16,7 @@ import 'auth_service.dart';
 
 @Singleton(as: AuthService)
 class AuthServiceImpl implements AuthService {
+  final log = getLogger("AuthServiceImpl");
   final FirebaseAuth _firebaseAuth;
   final UsersRepository _userService = locator<UsersRepository>();
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
@@ -47,36 +49,19 @@ class AuthServiceImpl implements AuthService {
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we
   ///  get the profile of the user from Firestore and stores it in [currentUser]
-  Future createStudent(
-      {@required String email,
-      @required String password,
-      @required String fullName,
-      @required String rollNo,
-      @required String contact,
-      @required String profileImg,
-      @required String bio}) async {
+  Future createStudent({
+    @required String email,
+    @required String password,
+  }) async {
     try {
       var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-
-      await updateUserProfile(displayName: fullName, profileImg: profileImg);
-
-      currentUser = UserModel(
-          id: authResult.user.uid,
-          email: email,
-          fullName: fullName,
-          bio: bio,
-          contact: contact,
-          profileImg: profileImg,
-          rollNo: rollNo,
-          collegeName: "SVUCE",
-          userType: "STUDENT");
-
-      await _userService.storeUser(currentUser);
-
+      await _userService
+          .updateUser({"id": authResult.user.uid, "email": "$email"});
       return authResult.user != null;
     } catch (e) {
-      return e.message;
+      log.e("$e");
+      return e?.toString();
     }
   }
 
@@ -122,4 +107,7 @@ class AuthServiceImpl implements AuthService {
     User user = _firebaseAuth.currentUser;
     await user.updateProfile(displayName: displayName, photoURL: profileImg);
   }
+
+  @override
+  Future signUpUser({String email}) async {}
 }

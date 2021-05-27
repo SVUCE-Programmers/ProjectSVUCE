@@ -29,7 +29,7 @@ class SignUpView extends StatelessWidget {
                     Icons.info,
                     color: uiHelpers.primaryColor,
                   ),
-                  onPressed: null)
+                  onPressed: () => model.changeEmailVerified())
             ],
           ),
           body: ListView(
@@ -48,35 +48,48 @@ class SignUpView extends StatelessWidget {
                 )
               ])),
               uiHelpers.verticalSpaceMedium,
-              InputField(
-                title: "Your email here..",
-                keyboardType: TextInputType.emailAddress,
-                iconData: emailIcon,
-                error: model.emailError,
-                validator: model.updateEmail,
+              IgnorePointer(
+                ignoring: model.isEmailVerified,
+                child: InputField(
+                  title: "Your email here..",
+                  keyboardType: TextInputType.emailAddress,
+                  iconData: emailIcon,
+                  error: model.emailError,
+                  validator: model.updateEmail,
+                ),
               ),
-              InputField(
-                title: "Your password here",
-                keyboardType: TextInputType.text,
-                iconData: passwordIcon,
-                isSecure: true,
-                error: model.passwordError,
-                validator: model.updatePassword,
-              ),
-              InputField(
-                title: "Your password once again",
-                keyboardType: TextInputType.text,
-                iconData: passwordIcon,
-                isSecure: true,
-                error: model.confirmPasswordError,
-                validator: model.updateConfirmPassword,
+              AnimatedContainer(
+                duration: Duration(milliseconds: 800),
+                height: !model.isEmailVerified ? 0 : 160,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputField(
+                        title: "Your password here",
+                        keyboardType: TextInputType.text,
+                        iconData: passwordIcon,
+                        isSecure: true,
+                        error: model.passwordError,
+                        validator: model.updatePassword,
+                      ),
+                      InputField(
+                        title: "Your password once again",
+                        keyboardType: TextInputType.text,
+                        iconData: passwordIcon,
+                        isSecure: true,
+                        error: model.confirmPasswordError,
+                        validator: model.updateConfirmPassword,
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                      padding: EdgeInsets.all(10.0),
+                  TextButton(
                       onPressed: model.gotoLogin,
                       child: Text.rich(TextSpan(children: [
                         TextSpan(
@@ -89,7 +102,7 @@ class SignUpView extends StatelessWidget {
                                 .copyWith(color: uiHelpers.primaryColor)),
                       ]))),
                   Button(
-                    isBusy: model.isBusy,
+                    isBusy: false,
                     onPressed: model.handleSignup,
                   ),
                 ],

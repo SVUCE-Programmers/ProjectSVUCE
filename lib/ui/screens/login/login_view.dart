@@ -27,6 +27,7 @@ class LoginView extends StatelessWidget {
             child: Scaffold(
               appBar: PreferredSize(
                 child: BottomNavigationBar(
+                    backgroundColor: uiHelpers.backgroundColor,
                     fixedColor: uiHelpers.primaryColor,
                     currentIndex: model.index,
                     unselectedItemColor: uiHelpers.textSecondaryColor,
@@ -50,7 +51,7 @@ class LoginView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: () => model.navigateToForgotPassword(),
                     child: Text(
                       "Forgot Password?",
                       style: TextStyle(color: uiHelpers.primaryColor),

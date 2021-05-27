@@ -51,4 +51,8 @@ class CalendarEventsViewModel extends BaseViewModel {
           event: event,
         ));
   }
+
+  navigateBack() {
+    _navigationService.back();
+  }
 }

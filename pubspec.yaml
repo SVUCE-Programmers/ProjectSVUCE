@@ -71,6 +71,11 @@ dev_dependencies:
   # testing
   mockito: null
   cloud_firestore_mocks: null
+  flutter_launcher_icons:
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
 
 flutter:
   uses-material-design: true

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 final lightThemeData = (BuildContext context) => ThemeData(
+    selectedRowColor: LightColorPalette.surfaceColor,
     fontFamily: 'Quicksand',
     primaryColor: LightColorPalette.primaryColor,
     primarySwatch: Colors.teal,

@@ -30,8 +30,8 @@ class MainViewModel extends BaseViewModel {
   UserModel _currentUser;
   bool get isDarkMode => _themeService.isDarkMode;
   UserModel get currentUser => _currentUser;
-  String get name => _firebaseAuth.currentUser.displayName;
-  String get userImage => _firebaseAuth.currentUser.photoURL;
+  String get name => _firebaseAuth.currentUser?.displayName;
+  String get userImage => _firebaseAuth.currentUser?.photoURL;
 
   String getGreeting() {
     var h = DateTime.now().hour;
@@ -46,10 +46,13 @@ class MainViewModel extends BaseViewModel {
 
   getCurrentUserDetails() {
     _userRepository
-        .getUserFromStream(_firebaseAuth.currentUser.uid)
+        .getUserFromStream(_firebaseAuth.currentUser.email)
         .listen((event) {
       if (event != null) {
         _currentUser = event;
+        _firebaseAuth.currentUser.updateProfile(
+            displayName: _currentUser.fullName,
+            photoURL: _currentUser.profileImg);
         notifyListeners();
       }
     });

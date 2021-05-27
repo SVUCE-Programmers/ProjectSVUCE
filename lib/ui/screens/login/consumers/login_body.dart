@@ -32,6 +32,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
         ])),
         uiHelpers.verticalSpaceMedium,
         InputField(
+          autoFocus: false,
           title: "Your email here..",
           keyboardType: TextInputType.emailAddress,
           iconData: emailIcon,
@@ -53,8 +54,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             isStudent
-                ? FlatButton(
-                    padding: EdgeInsets.all(10.0),
+                ? TextButton(
                     onPressed: viewModel.gotoSignup,
                     child: Text.rich(TextSpan(children: [
                       TextSpan(

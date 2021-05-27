@@ -133,13 +133,9 @@ class CreateProfileViewModel extends BaseViewModel
     }
 
     var result = await _authenticationService.createStudent(
-        email: _email,
-        password: _password,
-        fullName: fullName,
-        rollNo: rollNo,
-        contact: contact,
-        profileImg: profileImgURL,
-        bio: bio);
+      email: _email,
+      password: _password,
+    );
 
     setBusy(false);
 

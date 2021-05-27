@@ -9,6 +9,7 @@ import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/mixins/validators.dart';
+import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 
 @lazySingleton
 class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
@@ -119,5 +120,10 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
       title: commonErrorTitle,
       message: commonErrorInfo,
     );
+  }
+
+  navigateToForgotPassword() {
+    _navigationService.navigateWithTransition(ForgotPasswordView(),
+        transition: "fade");
   }
 }

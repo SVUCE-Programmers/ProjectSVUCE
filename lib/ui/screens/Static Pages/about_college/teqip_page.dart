@@ -34,7 +34,7 @@ class TeqipScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Table(
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  border: TableBorder.all(),
+                  border: TableBorder.all(color: uiHelpers.textSecondaryColor),
                   columnWidths: {
                     0: FixedColumnWidth(150),
                     1: FixedColumnWidth(200),
@@ -275,7 +275,7 @@ class TeqipScreen extends StatelessWidget {
                             ]))
                   ],
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  border: TableBorder.all(),
+                  border: TableBorder.all(color: uiHelpers.textSecondaryColor),
                 ),
               ),
               ListTile(
@@ -344,7 +344,7 @@ class TeqipScreen extends StatelessWidget {
                             ]))
                   ],
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  border: TableBorder.all(),
+                  border: TableBorder.all(color: uiHelpers.textSecondaryColor),
                 ),
               ),
               uiHelpers.verticalSpaceMedium,

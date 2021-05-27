@@ -8,7 +8,7 @@ mixin SnackbarHelper {
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   Future<bool> showExitSnackbar() async {
-    await _snackbarService.showCustomSnackBar(
+    _snackbarService.showSnackbar(
         title: confirmExitInfo,
         duration: Duration(seconds: 5),
         message: confirmExitMessage,
@@ -19,25 +19,25 @@ mixin SnackbarHelper {
   }
 
   showInfoMessage({String title, String message}) async {
-    _snackbarService.showCustomSnackBar(
-      title: title,
+    _snackbarService.showSnackbar(
+      title: title ?? "",
       // icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
       duration: Duration(seconds: 5),
-      message: message,
+      message: message ?? "",
     );
   }
 
   showErrorMessage({String title, String message}) async {
-    _snackbarService.showCustomSnackBar(
-      title: title,
+    _snackbarService.showSnackbar(
+      title: title ?? "Error Occured!",
       // icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
       duration: Duration(seconds: 5),
-      message: message,
+      message: message ?? "Please try again",
     );
   }
 
   showSuccessMessage({String title, String message}) async {
-    _snackbarService.showCustomSnackBar(
+    _snackbarService.showSnackbar(
       title: title,
       // icon: Icon(
       //   FontAwesome5Solid.smile_beam,
