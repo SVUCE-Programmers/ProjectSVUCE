@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
@@ -14,6 +17,8 @@ import 'auth_service.dart';
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth _firebaseAuth;
   final UsersRepository _userService = locator<UsersRepository>();
+  final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   // for testing
   AuthServiceImpl(this._firebaseAuth);
@@ -107,6 +112,10 @@ class AuthServiceImpl implements AuthService {
 
   Future signOut() async {
     await _firebaseAuth.signOut();
+    bool temp = _sharedPreferences.getBool("isDark") ?? false;
+    _sharedPreferences.clear();
+    _sharedPreferences.setBool("isBool", temp);
+    _navigationService.clearStackAndShow(Routes.loginView);
   }
 
   Future updateUserProfile({String displayName, String profileImg}) async {

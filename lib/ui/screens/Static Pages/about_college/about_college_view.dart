@@ -9,7 +9,7 @@ import 'teqip_page.dart';
 class AboutCollegeView extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final tabController = useTabController(initialLength: 4);
+    final tabController = useTabController(initialLength: 6);
     return ScreenBuilder<AboutCollegeViewModel>(
       viewModel: AboutCollegeViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
@@ -17,6 +17,7 @@ class AboutCollegeView extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TabBar(
+                isScrollable: true,
                 labelStyle: uiHelpers.title,
                 unselectedLabelStyle: uiHelpers.body,
                 labelColor: uiHelpers.textPrimaryColor,
@@ -27,19 +28,27 @@ class AboutCollegeView extends HookWidget {
                     icon: Text("TEQIP"),
                   ),
                   Tab(
-                    icon: Text("Teqip"),
+                    icon: Text("Hostel"),
                   ),
                   Tab(
-                    icon: Text("Teqip"),
+                    icon: Text("Library"),
                   ),
                   Tab(
-                    icon: Text("Teqip"),
+                    icon: Text("Health Centre"),
+                  ),
+                  Tab(
+                    icon: Text("NCC NSS"),
+                  ),
+                  Tab(
+                    icon: Text("Alumni"),
                   )
                 ]),
             Expanded(
                 child: TabBarView(
               physics: NeverScrollableScrollPhysics(),
               children: [
+                TeqipScreen(),
+                TeqipScreen(),
                 TeqipScreen(),
                 TeqipScreen(),
                 TeqipScreen(),

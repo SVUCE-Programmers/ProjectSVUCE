@@ -45,6 +45,7 @@ dependencies:
   flutter_cache_manager:
   logger:
   http:
+  dio:
   table_calendar: ^3.0.0
   firebase_dynamic_links: ^2.0.4
   share: ^2.0.1

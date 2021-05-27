@@ -49,28 +49,31 @@ class LoginView extends StatelessWidget {
               bottomNavigationBar: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  FlatButton(
-                    textColor: uiHelpers.primaryColor,
+                  MaterialButton(
                     onPressed: () {},
                     child: Text(
                       "Forgot Password?",
+                      style: TextStyle(color: uiHelpers.primaryColor),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(20.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: uiHelpers.primaryColor, width: 4),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: FlatButton(
-                      textColor: uiHelpers.primaryColor,
+                    margin: const EdgeInsets.symmetric(horizontal: 25)
+                        .copyWith(bottom: 15),
+                    child: MaterialButton(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: BorderSide(color: uiHelpers.primaryColor)),
                       onPressed: () {},
-                      child: Text(
-                        "Continue as Guest",
+                      child: Center(
+                        child: Text(
+                          "Continue as Guest",
+                          style: uiHelpers.title
+                              .copyWith(color: uiHelpers.primaryColor),
+                        ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ));

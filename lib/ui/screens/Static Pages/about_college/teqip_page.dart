@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/widgets/pdf_viewer.dart';
+
+import 'data/teqip_data.dart';
 
 class TeqipScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final NavigationService _navigationService = locator<NavigationService>();
     UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -24,6 +30,7 @@ class TeqipScreen extends StatelessWidget {
               uiHelpers.verticalSpaceLow,
               SingleChildScrollView(
                 primary: false,
+                padding: const EdgeInsets.only(right: 25),
                 scrollDirection: Axis.horizontal,
                 child: Table(
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
@@ -195,6 +202,152 @@ class TeqipScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              ListTile(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                title: Text(
+                  "Board of Governors",
+                  style: uiHelpers.title,
+                ),
+              ),
+              SingleChildScrollView(
+                padding: const EdgeInsets.only(right: 25),
+                primary: false,
+                scrollDirection: Axis.horizontal,
+                child: Table(
+                  columnWidths: {
+                    0: FixedColumnWidth(75),
+                    1: FixedColumnWidth(240),
+                    2: FixedColumnWidth(140),
+                  },
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "S.No.",
+                          style: uiHelpers.title
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Name",
+                          style: uiHelpers.title
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Position",
+                          style: uiHelpers.title
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ]),
+                    ...List.generate(
+                        boardGovData.length,
+                        (index) => TableRow(children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: (Text(
+                                  "${index + 1}",
+                                  textAlign: TextAlign.center,
+                                  style: uiHelpers.body,
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: (Text(
+                                  "${boardGovData[index].values.elementAt(0)}",
+                                  style: uiHelpers.body,
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: (Text(
+                                  "${boardGovData[index].values.elementAt(1)}",
+                                  textAlign: TextAlign.center,
+                                  style: uiHelpers.body,
+                                )),
+                              ),
+                            ]))
+                  ],
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  border: TableBorder.all(),
+                ),
+              ),
+              ListTile(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                  title: Text(
+                    "BOG Resolutions",
+                    style: uiHelpers.title,
+                  )),
+              SingleChildScrollView(
+                padding: const EdgeInsets.only(right: 25),
+                primary: false,
+                scrollDirection: Axis.horizontal,
+                child: Table(
+                  columnWidths: {
+                    0: FixedColumnWidth(240),
+                    1: FixedColumnWidth(150),
+                  },
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Resolution Date",
+                          style: uiHelpers.title
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Link",
+                          style: uiHelpers.title
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ]),
+                    ...List.generate(
+                        resolutionData.length,
+                        (index) => TableRow(children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: (Text(
+                                  "${resolutionData[index].keys.elementAt(0)}",
+                                  textAlign: TextAlign.center,
+                                  style: uiHelpers.body,
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MaterialButton(
+                                  onPressed: () =>
+                                      _navigationService.navigateWithTransition(
+                                          PdfViewerWidget(
+                                              url: resolutionData[index]
+                                                  .values
+                                                  .elementAt(0)
+                                                  .trim()),
+                                          transition: "fade"),
+                                  child: (Text(
+                                    "Click Here",
+                                    style: uiHelpers.body.copyWith(
+                                        color: uiHelpers.primaryColor),
+                                  )),
+                                ),
+                              ),
+                            ]))
+                  ],
+                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                  border: TableBorder.all(),
+                ),
+              ),
+              uiHelpers.verticalSpaceMedium,
             ],
           ),
         ),

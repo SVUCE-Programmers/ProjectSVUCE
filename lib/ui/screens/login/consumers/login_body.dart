@@ -68,7 +68,7 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
                     ])))
                 : SizedBox(),
             Button(
-              isBusy: viewModel.isBusy,
+              isBusy: false,
               onPressed: () => viewModel.handleLogin(),
             ),
           ],

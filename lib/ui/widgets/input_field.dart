@@ -41,7 +41,6 @@ class InputField extends StatelessWidget {
             border: InputBorder.none,
             prefixIcon: Icon(
               iconData,
-              color: uiHelpers.primaryColor,
             ),
             hintText: title,
             hintStyle: uiHelpers.body.copyWith(

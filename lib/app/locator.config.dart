@@ -11,6 +11,8 @@ import 'package:hive/hive.dart' as _i25;
 import 'package:http/http.dart' as _i12;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
+import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i9;
@@ -75,6 +77,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i25.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i11.NavigationService>(registerDependencies.navigationService);
   gh.singleton<_i26.PushNotificationService>(_i27.PushNotificationServiceImp());
+  gh.singleton<ExcelService>(ExcelServiceImpl());
+
   gh.singleton<_i11.SnackbarService>(registerDependencies.snackbarService);
   gh.singleton<_i28.UserClubsRepository>(_i29.UserClubsRepositoryImpl());
   gh.singleton<_i30.UsersRepository>(_i31.UsersRepositoryImpl());

@@ -57,7 +57,7 @@ class EntryView extends StatelessWidget {
                       ])),
                       Container(
                         alignment: Alignment.centerRight,
-                        child: FlatButton(
+                        child: MaterialButton(
                             color: uiHelpers.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
@@ -66,7 +66,7 @@ class EntryView extends StatelessWidget {
                             onPressed: model.gotoLogin,
                             child: Text(
                               "Continue",
-                              style: uiHelpers.body,
+                              style: uiHelpers.button,
                             )),
                       )
                     ],

@@ -3,6 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
+import 'package:svuce_app/ui/screens/main/dashboard_items.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
 import 'main_viewmodel.dart';
@@ -79,6 +80,23 @@ class MainView extends StatelessWidget {
                         color: uiHelpers.surfaceColor,
                         borderRadius: BorderRadius.circular(8)),
                     height: 200,
+                  ),
+                  ListTile(
+                    contentPadding:
+                        const EdgeInsets.only(top: 10).copyWith(right: 15),
+                    title: Text(
+                      "In the spotlight",
+                      style: uiHelpers.title,
+                    ),
+                  ),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(0),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) => spotLightItems[index],
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: spotLightItems.length,
                   ),
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(vertical: 10)

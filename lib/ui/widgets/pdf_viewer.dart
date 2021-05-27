@@ -3,12 +3,15 @@ import 'package:svuce_app/ui/widgets/pdf%20viewer/viewer.dart';
 
 import 'pdf viewer/document.dart';
 
-class PdfViewer extends StatefulWidget {
+class PdfViewerWidget extends StatefulWidget {
+  final String url;
+
+  const PdfViewerWidget({Key key, @required this.url}) : super(key: key);
   @override
-  _PdfViewerState createState() => _PdfViewerState();
+  _PdfViewerWidgetState createState() => _PdfViewerWidgetState();
 }
 
-class _PdfViewerState extends State<PdfViewer> {
+class _PdfViewerWidgetState extends State<PdfViewerWidget> {
   bool _isLoading = true;
   PDFDocument document;
 
@@ -22,7 +25,10 @@ class _PdfViewerState extends State<PdfViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
-          ? CircularProgressIndicator()
+          ? Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+              appBar: AppBar(),
+            )
           : PDFViewer(
               maxScale: 10,
               minScale: 1,
@@ -33,9 +39,12 @@ class _PdfViewerState extends State<PdfViewer> {
   }
 
   loadDocument() async {
-    document = await PDFDocument.fromURL(
-      "https://svuce.edu.in/cseFiles/Profile-MHK-21-7-2018.pdf",
-    );
+    try {
+      document = await PDFDocument.fromURL(
+        Uri.parse(widget.url).toString(),
+      );
+    } catch (e) {}
+
     setState(() {
       _isLoading = false;
     });

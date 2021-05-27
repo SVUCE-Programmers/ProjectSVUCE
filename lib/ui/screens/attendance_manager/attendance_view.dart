@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
@@ -16,6 +15,12 @@ class AttendanceView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, uiHelpers, model) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: uiHelpers.primaryColor,
+          onPressed: () {},
+          child: Icon(Icons.add),
+          tooltip: "Add Sheet",
+        ),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -36,35 +41,7 @@ class AttendanceView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 200,
-                  child: Stack(
-                    children: [
-                      PieChart(PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 70,
-                          sections: model.pieCharSelectionData,
-                          startDegreeOffset: -90)),
-                      Positioned.fill(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 16),
-                          Text("29.1",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      height: 0.5)),
-                          Text("of 128GB")
-                        ],
-                      ))
-                    ],
-                  ),
-                ),
-              ],
+              children: [],
             ),
           ),
         ),

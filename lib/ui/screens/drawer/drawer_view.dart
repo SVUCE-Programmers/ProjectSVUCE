@@ -7,7 +7,6 @@ import 'package:svuce_app/ui/screens/main/main_viewmodel.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
-import 'package:svuce_app/ui/widgets/pdf_viewer.dart';
 
 class DrawerView extends StatelessWidget {
   @override
@@ -17,11 +16,14 @@ class DrawerView extends StatelessWidget {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
       onModelReady: (model) => model.getCurrentUserDetails(),
-      builder: (context, model, child) => Drawer(
+      builder: (context, model, child) => ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
         child: Container(
+            padding: EdgeInsets.all(20.0),
+            width: uiHelpers.width * 0.75,
             color: uiHelpers.backgroundColor,
-            child: ListView(
-              padding: EdgeInsets.all(20.0),
+            child: Column(
               children: <Widget>[
                 ListTile(
                   // onTap: () => model.viewUserProfile(),
@@ -106,6 +108,12 @@ class DrawerView extends StatelessWidget {
                   onTap: () => model.navigateToAddStudent(),
                   iconData: FlutterIcons.users_fea,
                 ),
+                Spacer(),
+                DrawerItem(
+                  onTap: () => model.logout(),
+                  title: "Logout",
+                  iconData: FlutterIcons.log_out_fea,
+                )
               ],
             )),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/widgets/creation_aware_list_item.dart';
 
 import 'widgets/feed_item.dart';
@@ -14,6 +15,21 @@ class FeedView extends StatelessWidget {
       onModelReady: (model) => model.getFeed(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              "News Feed",
+              style: uiHelpers.headline,
+            ),
+            leading: IconButton(
+                icon: Icon(
+                  backIcon,
+                  color: uiHelpers.textPrimaryColor,
+                ),
+                onPressed: model.navigateBack),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           body: model.feedItems != null
               ? ListView.builder(
                   itemCount: model.feedItems.length,

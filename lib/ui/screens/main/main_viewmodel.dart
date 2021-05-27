@@ -9,6 +9,7 @@ import 'package:svuce_app/core/models/dataset.dart';
 import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
@@ -22,6 +23,7 @@ class MainViewModel extends BaseViewModel {
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final NavigationService _navigationService = locator<NavigationService>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final AuthService _authService = locator<AuthService>();
 
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
@@ -102,4 +104,11 @@ class MainViewModel extends BaseViewModel {
         transition: "fade",
         duration: Duration(milliseconds: 900));
   }
+
+  logout() async {
+    setBusy(true);
+    await _authService.signOut();
+    setBusy(false);
+  }
+  
 }
