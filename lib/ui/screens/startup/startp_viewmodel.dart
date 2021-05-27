@@ -10,7 +10,6 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/one_signal_service.dart';
-import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
 
 class StartUpViewModel extends BaseViewModel {
   final AuthService _authenticationService = locator<AuthService>();

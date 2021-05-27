@@ -10,6 +10,7 @@ import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
@@ -24,8 +25,10 @@ class MainViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService _authService = locator<AuthService>();
+  final ThemeService _themeService = locator<ThemeService>();
 
   UserModel _currentUser;
+  bool get isDarkMode => _themeService.isDarkMode;
   UserModel get currentUser => _currentUser;
   String get name => _firebaseAuth.currentUser.displayName;
   String get userImage => _firebaseAuth.currentUser.photoURL;
@@ -65,6 +68,11 @@ class MainViewModel extends BaseViewModel {
     graph.rangeEnd = 10;
     graph.selectedDataPoint = 1;
     return graph;
+  }
+
+  toggleTheme() async {
+    await _themeService.changeTheme();
+    notifyListeners();
   }
 
   //?Navigation Functions
@@ -110,5 +118,4 @@ class MainViewModel extends BaseViewModel {
     await _authService.signOut();
     setBusy(false);
   }
-  
 }

@@ -42,6 +42,7 @@ dependencies:
 
   # main utilities
   image_picker: ^0.7.5+2
+  observable_ish:
   flutter_cache_manager:
   logger:
   http:

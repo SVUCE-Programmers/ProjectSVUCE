@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 
 import 'package:svuce_app/app/configs.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/core/utils/scaling.dart';
 
 class UiHelpers {
@@ -39,6 +41,8 @@ class UiHelpers {
   SizedBox horizontalSpaceHigh;
 
   UiHelpers.fromContext(BuildContext context) {
+    final ThemeService _themeService = locator<ThemeService>();
+
     var mediaQuery = MediaQuery.of(context);
 
     var screenWidth = mediaQuery.size.width;
@@ -48,30 +52,42 @@ class UiHelpers {
 
     scalingHelper = ScalingHelper(width: screenWidth);
 
-    primaryColor = LightColorPalette.primaryColor;
-    backgroundColor = LightColorPalette.backgroundColor;
-    surfaceColor = LightColorPalette.surfaceColor;
-    textPrimaryColor = LightColorPalette.textPrimaryColor;
-    textSecondaryColor = LightColorPalette.textSecondaryColor;
-    dividerColor = LightColorPalette.dividerColor;
+    primaryColor = _themeService.isDarkMode
+        ? DarkColorPalette.primaryColor
+        : LightColorPalette.primaryColor;
+    backgroundColor = _themeService.isDarkMode
+        ? DarkColorPalette.backgroundColor
+        : LightColorPalette.backgroundColor;
+    surfaceColor = _themeService.isDarkMode
+        ? DarkColorPalette.surfaceColor
+        : LightColorPalette.surfaceColor;
+    textPrimaryColor = _themeService.isDarkMode
+        ? DarkColorPalette.textPrimaryColor
+        : LightColorPalette.textPrimaryColor;
+    textSecondaryColor = _themeService.isDarkMode
+        ? DarkColorPalette.textSecondaryColor
+        : LightColorPalette.textSecondaryColor;
+    dividerColor = _themeService.isDarkMode
+        ? DarkColorPalette.dividerColor
+        : LightColorPalette.dividerColor;
 
     headline = TextStyle(
         decoration: TextDecoration.none,
         fontFamily: Configs.headlineFont,
-        color: LightColorPalette.textPrimaryColor,
+        color: textPrimaryColor,
         fontWeight: FontWeight.bold,
         fontSize: scalingHelper.size(24));
 
     title = TextStyle(
         decoration: TextDecoration.none,
         fontFamily: Configs.titleFont,
-        color: LightColorPalette.textPrimaryColor,
+        color: textPrimaryColor,
         fontWeight: FontWeight.w700,
         fontSize: scalingHelper.size(18));
 
     body = TextStyle(
         decoration: TextDecoration.none,
-        color: LightColorPalette.textSecondaryColor,
+        color: textSecondaryColor,
         fontFamily: Configs.bodyFont,
         fontWeight: FontWeight.w300,
         fontSize: scalingHelper.size(16));

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'feed.dart';
 
@@ -12,9 +12,11 @@ Feed _$FeedFromJson(Map<String, dynamic> json) {
   return _Feed.fromJson(json);
 }
 
+/// @nodoc
 class _$FeedTearOff {
   const _$FeedTearOff();
 
+// ignore: unused_element
   _Feed call(
       {String id,
       String fullName,
@@ -26,7 +28,7 @@ class _$FeedTearOff {
       String category,
       String timeStamp,
       String profileImg,
-      @JsonKey(ignore: true) DocumentReference documentReference}) {
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
     return _Feed(
       id: id,
       fullName: fullName,
@@ -41,11 +43,18 @@ class _$FeedTearOff {
       documentReference: documentReference,
     );
   }
+
+// ignore: unused_element
+  Feed fromJson(Map<String, Object> json) {
+    return Feed.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Feed = _$FeedTearOff();
 
+/// @nodoc
 mixin _$Feed {
   String get id;
   String get fullName;
@@ -58,12 +67,14 @@ mixin _$Feed {
   String get timeStamp;
   String get profileImg;
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $FeedCopyWith<Feed> get copyWith;
 }
 
+/// @nodoc
 abstract class $FeedCopyWith<$Res> {
   factory $FeedCopyWith(Feed value, $Res Function(Feed) then) =
       _$FeedCopyWithImpl<$Res>;
@@ -78,9 +89,10 @@ abstract class $FeedCopyWith<$Res> {
       String category,
       String timeStamp,
       String profileImg,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class _$FeedCopyWithImpl<$Res> implements $FeedCopyWith<$Res> {
   _$FeedCopyWithImpl(this._value, this._then);
 
@@ -117,11 +129,12 @@ class _$FeedCopyWithImpl<$Res> implements $FeedCopyWith<$Res> {
           profileImg == freezed ? _value.profileImg : profileImg as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
+/// @nodoc
 abstract class _$FeedCopyWith<$Res> implements $FeedCopyWith<$Res> {
   factory _$FeedCopyWith(_Feed value, $Res Function(_Feed) then) =
       __$FeedCopyWithImpl<$Res>;
@@ -137,9 +150,10 @@ abstract class _$FeedCopyWith<$Res> implements $FeedCopyWith<$Res> {
       String category,
       String timeStamp,
       String profileImg,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class __$FeedCopyWithImpl<$Res> extends _$FeedCopyWithImpl<$Res>
     implements _$FeedCopyWith<$Res> {
   __$FeedCopyWithImpl(_Feed _value, $Res Function(_Feed) _then)
@@ -177,12 +191,14 @@ class __$FeedCopyWithImpl<$Res> extends _$FeedCopyWithImpl<$Res>
           profileImg == freezed ? _value.profileImg : profileImg as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Feed extends _Feed with DiagnosticableTreeMixin {
   _$_Feed(
       {this.id,
@@ -223,7 +239,7 @@ class _$_Feed extends _Feed with DiagnosticableTreeMixin {
   final String profileImg;
   @override
   @JsonKey(ignore: true)
-  final DocumentReference documentReference;
+  final DocumentReference<Object> documentReference;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -297,6 +313,7 @@ class _$_Feed extends _Feed with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(profileImg) ^
       const DeepCollectionEquality().hash(documentReference);
 
+  @JsonKey(ignore: true)
   @override
   _$FeedCopyWith<_Feed> get copyWith =>
       __$FeedCopyWithImpl<_Feed>(this, _$identity);
@@ -310,17 +327,18 @@ class _$_Feed extends _Feed with DiagnosticableTreeMixin {
 abstract class _Feed extends Feed {
   _Feed._() : super._();
   factory _Feed(
-      {String id,
-      String fullName,
-      String uid,
-      String feedId,
-      String title,
-      String description,
-      String link,
-      String category,
-      String timeStamp,
-      String profileImg,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _$_Feed;
+          {String id,
+          String fullName,
+          String uid,
+          String feedId,
+          String title,
+          String description,
+          String link,
+          String category,
+          String timeStamp,
+          String profileImg,
+          @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
+      _$_Feed;
 
   factory _Feed.fromJson(Map<String, dynamic> json) = _$_Feed.fromJson;
 
@@ -346,7 +364,8 @@ abstract class _Feed extends Feed {
   String get profileImg;
   @override
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
   @override
+  @JsonKey(ignore: true)
   _$FeedCopyWith<_Feed> get copyWith;
 }

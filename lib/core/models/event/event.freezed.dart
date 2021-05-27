@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'event.dart';
 
@@ -12,9 +12,11 @@ Event _$EventFromJson(Map<String, dynamic> json) {
   return _Event.fromJson(json);
 }
 
+/// @nodoc
 class _$EventTearOff {
   const _$EventTearOff();
 
+// ignore: unused_element
   _Event call(
       {@required String id,
       @required String name,
@@ -23,7 +25,7 @@ class _$EventTearOff {
       @required String timeStamp,
       @required String imageUrl,
       @required String description,
-      @JsonKey(ignore: true) DocumentReference documentReference}) {
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
     return _Event(
       id: id,
       name: name,
@@ -35,11 +37,18 @@ class _$EventTearOff {
       documentReference: documentReference,
     );
   }
+
+// ignore: unused_element
+  Event fromJson(Map<String, Object> json) {
+    return Event.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $Event = _$EventTearOff();
 
+/// @nodoc
 mixin _$Event {
   String get id;
   String get name;
@@ -49,12 +58,14 @@ mixin _$Event {
   String get imageUrl;
   String get description;
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $EventCopyWith<Event> get copyWith;
 }
 
+/// @nodoc
 abstract class $EventCopyWith<$Res> {
   factory $EventCopyWith(Event value, $Res Function(Event) then) =
       _$EventCopyWithImpl<$Res>;
@@ -66,9 +77,10 @@ abstract class $EventCopyWith<$Res> {
       String timeStamp,
       String imageUrl,
       String description,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
   _$EventCopyWithImpl(this._value, this._then);
 
@@ -98,11 +110,12 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
           description == freezed ? _value.description : description as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
+/// @nodoc
 abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
   factory _$EventCopyWith(_Event value, $Res Function(_Event) then) =
       __$EventCopyWithImpl<$Res>;
@@ -115,9 +128,10 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String timeStamp,
       String imageUrl,
       String description,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     implements _$EventCopyWith<$Res> {
   __$EventCopyWithImpl(_Event _value, $Res Function(_Event) _then)
@@ -148,12 +162,14 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
           description == freezed ? _value.description : description as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_Event extends _Event with DiagnosticableTreeMixin {
   _$_Event(
       {@required this.id,
@@ -192,7 +208,7 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
   final String description;
   @override
   @JsonKey(ignore: true)
-  final DocumentReference documentReference;
+  final DocumentReference<Object> documentReference;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -253,6 +269,7 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(documentReference);
 
+  @JsonKey(ignore: true)
   @override
   _$EventCopyWith<_Event> get copyWith =>
       __$EventCopyWithImpl<_Event>(this, _$identity);
@@ -266,14 +283,15 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
 abstract class _Event extends Event {
   _Event._() : super._();
   factory _Event(
-      {@required String id,
-      @required String name,
-      @required String organiser,
-      @required String place,
-      @required String timeStamp,
-      @required String imageUrl,
-      @required String description,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _$_Event;
+          {@required String id,
+          @required String name,
+          @required String organiser,
+          @required String place,
+          @required String timeStamp,
+          @required String imageUrl,
+          @required String description,
+          @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
+      _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
@@ -293,7 +311,8 @@ abstract class _Event extends Event {
   String get description;
   @override
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
   @override
+  @JsonKey(ignore: true)
   _$EventCopyWith<_Event> get copyWith;
 }

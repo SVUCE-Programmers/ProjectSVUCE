@@ -20,6 +20,14 @@ class MainView extends StatelessWidget {
             actions: [
               IconButton(
                   icon: Icon(
+                    model.isDarkMode
+                        ? FlutterIcons.sun_fea
+                        : FlutterIcons.moon_fea,
+                    color: uiHelpers.textPrimaryColor,
+                  ),
+                  onPressed: () => model.toggleTheme()),
+              IconButton(
+                  icon: Icon(
                     FlutterIcons.grid_fea,
                     color: uiHelpers.textPrimaryColor,
                   ),

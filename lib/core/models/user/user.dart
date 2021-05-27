@@ -6,21 +6,23 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-abstract class UserModel implements _$User {
+abstract class UserModel implements _$UserModel {
   const UserModel._();
   factory UserModel(
-      {@required String fullName,
-      @required String id,
-      @required String email,
-      @required String rollNo,
-      @required String bio,
-      @required String contact,
-      @required String collegeName,
-      @required String profileImg,
-      @required String userType,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _User;
+          {@required String fullName,
+          @required String id,
+          @required String email,
+          @required String rollNo,
+          @required String bio,
+          @required String contact,
+          @required String collegeName,
+          @required String profileImg,
+          @required String userType,
+          @JsonKey(ignore: true) DocumentReference documentReference}) =
+      _$_UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 
   static UserModel fromDocument(DocumentSnapshot document) {
     if (document == null || document.data() == null) return null;

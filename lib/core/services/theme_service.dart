@@ -1,31 +1,36 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:svuce_app/app/locator.dart';
+import 'package:injectable/injectable.dart';
+import 'package:observable_ish/observable_ish.dart';
+import 'package:stacked/stacked.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 
-class ThemeService extends ChangeNotifier {
-  final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
-  final String key = "isDark";
-  bool _darkTheme;
+import 'keyStorageService.dart';
 
-  bool get darkTheme => _darkTheme;
-
+@lazySingleton
+class ThemeService with ReactiveServiceMixin {
+  final log = getLogger("ThemeService");
   ThemeService() {
-    _darkTheme = false;
-    _loadFromPrefs();
+    listenToReactiveValues([darkMode]);
   }
 
-  toggleTheme() {
-    _darkTheme = !_darkTheme;
-    _saveToPrefs();
+  static KeyStorageService _keyStorageService = KeyStorageService();
+
+  RxValue<bool> darkMode = RxValue<bool>(false);
+
+  bool get isDarkMode =>
+      darkMode.value == null ? getThemeMode() : darkMode.value;
+
+  static const String key = "isDarkMode";
+
+  bool getThemeMode() {
+    bool value = _keyStorageService.getValue(key);
+    darkMode.value = value == null ? true : value;
+    return darkMode.value;
+  }
+
+  Future changeTheme() async {
+    darkMode.value = !darkMode.value;
+    log.i("Changing theme");
+    await _keyStorageService.saveToDisk<bool>(key, darkMode.value);
     notifyListeners();
-  }
-
-  _loadFromPrefs() {
-    _darkTheme = _sharedPreferences.getBool(key) ?? false;
-    notifyListeners();
-  }
-
-  _saveToPrefs() async {
-    _sharedPreferences.setBool(key, _darkTheme);
   }
 }

@@ -1,16 +1,22 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
+import 'package:svuce_app/ui/screens/attendance_manager/take_attendance.dart';
 
 class AttendanceViewModel extends BaseViewModel {
+  final log = getLogger("Attendance ViewModel");
   final AttendanceService _attendanceService = locator<AttendanceService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final ExcelService _excelService = locator<ExcelService>();
 
   final String boxName = "Attendance";
+
+  List<String> excelSheets = [];
+  bool isExcelCreated = false;
 
   List<Attendance> _attendanceList = [];
   List<Attendance> get attendanceList => _attendanceList;
@@ -75,7 +81,12 @@ class AttendanceViewModel extends BaseViewModel {
   }
 
   init() async {
-    await _excelService.initForStaffExcel();
+    isExcelCreated = await _excelService.isExcelCreatedForStaff();
+    if (isExcelCreated) {
+      await _excelService.initForStaffExcel();
+      excelSheets = await _excelService.getNumberOfSheetsForStaff();
+      notifyListeners();
+    }
     await getAttendance();
   }
 
@@ -90,5 +101,42 @@ class AttendanceViewModel extends BaseViewModel {
 
   navigateBack() {
     _navigationService.back();
+  }
+
+  addNewSheetForStaff(
+      {String sheetName,
+      String totalCount,
+      List<String> excludingNo,
+      String startingNo}) async {
+    log.d(
+        "Sheet Name iS:$sheetName and totalCount is:$totalCount and excluding List is:$excludingNo and starting no is:$startingNo");
+    List<int> totalList =
+        List.generate(int.parse(totalCount), (index) => (index + 1));
+    for (String s in excludingNo) {
+      totalList.remove(int.parse(s));
+    }
+    log.d("Final Total List is:$totalList");
+    await _excelService.createNewSheet(
+        sheetName: sheetName, rollList: totalList);
+    _navigationService.back();
+    excelSheets = await _excelService.getNumberOfSheetsForStaff();
+    notifyListeners();
+  }
+
+  Map<int, String> attendanceData = {};
+
+  getSheetData(String sheetName) async {
+    List<int> data =
+        await _excelService.getSheetDetailsForStaff(sheetName: sheetName);
+    data.asMap().forEach((key, value) {
+      attendanceData[value] = "A";
+    });
+
+    _navigationService.navigateWithTransition(
+        TakeAttendancePage(
+          rollList: data,
+        ),
+        transition: "fade");
+    // log.d(data);
   }
 }

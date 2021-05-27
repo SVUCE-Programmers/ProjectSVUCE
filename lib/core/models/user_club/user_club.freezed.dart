@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'user_club.dart';
 
@@ -12,14 +12,16 @@ UserClub _$UserClubFromJson(Map<String, dynamic> json) {
   return _UserClub.fromJson(json);
 }
 
+/// @nodoc
 class _$UserClubTearOff {
   const _$UserClubTearOff();
 
+// ignore: unused_element
   _UserClub call(
       {String id,
       String clubLogo,
       String name,
-      @JsonKey(ignore: true) DocumentReference documentReference}) {
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
     return _UserClub(
       id: id,
       clubLogo: clubLogo,
@@ -27,22 +29,31 @@ class _$UserClubTearOff {
       documentReference: documentReference,
     );
   }
+
+// ignore: unused_element
+  UserClub fromJson(Map<String, Object> json) {
+    return UserClub.fromJson(json);
+  }
 }
 
+/// @nodoc
 // ignore: unused_element
 const $UserClub = _$UserClubTearOff();
 
+/// @nodoc
 mixin _$UserClub {
   String get id;
   String get clubLogo;
   String get name;
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $UserClubCopyWith<UserClub> get copyWith;
 }
 
+/// @nodoc
 abstract class $UserClubCopyWith<$Res> {
   factory $UserClubCopyWith(UserClub value, $Res Function(UserClub) then) =
       _$UserClubCopyWithImpl<$Res>;
@@ -50,9 +61,10 @@ abstract class $UserClubCopyWith<$Res> {
       {String id,
       String clubLogo,
       String name,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class _$UserClubCopyWithImpl<$Res> implements $UserClubCopyWith<$Res> {
   _$UserClubCopyWithImpl(this._value, this._then);
 
@@ -73,11 +85,12 @@ class _$UserClubCopyWithImpl<$Res> implements $UserClubCopyWith<$Res> {
       name: name == freezed ? _value.name : name as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
+/// @nodoc
 abstract class _$UserClubCopyWith<$Res> implements $UserClubCopyWith<$Res> {
   factory _$UserClubCopyWith(_UserClub value, $Res Function(_UserClub) then) =
       __$UserClubCopyWithImpl<$Res>;
@@ -86,9 +99,10 @@ abstract class _$UserClubCopyWith<$Res> implements $UserClubCopyWith<$Res> {
       {String id,
       String clubLogo,
       String name,
-      @JsonKey(ignore: true) DocumentReference documentReference});
+      @JsonKey(ignore: true) DocumentReference<Object> documentReference});
 }
 
+/// @nodoc
 class __$UserClubCopyWithImpl<$Res> extends _$UserClubCopyWithImpl<$Res>
     implements _$UserClubCopyWith<$Res> {
   __$UserClubCopyWithImpl(_UserClub _value, $Res Function(_UserClub) _then)
@@ -110,12 +124,14 @@ class __$UserClubCopyWithImpl<$Res> extends _$UserClubCopyWithImpl<$Res>
       name: name == freezed ? _value.name : name as String,
       documentReference: documentReference == freezed
           ? _value.documentReference
-          : documentReference as DocumentReference,
+          : documentReference as DocumentReference<Object>,
     ));
   }
 }
 
 @JsonSerializable()
+
+/// @nodoc
 class _$_UserClub extends _UserClub with DiagnosticableTreeMixin {
   _$_UserClub(
       {this.id,
@@ -135,7 +151,7 @@ class _$_UserClub extends _UserClub with DiagnosticableTreeMixin {
   final String name;
   @override
   @JsonKey(ignore: true)
-  final DocumentReference documentReference;
+  final DocumentReference<Object> documentReference;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -177,6 +193,7 @@ class _$_UserClub extends _UserClub with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(documentReference);
 
+  @JsonKey(ignore: true)
   @override
   _$UserClubCopyWith<_UserClub> get copyWith =>
       __$UserClubCopyWithImpl<_UserClub>(this, _$identity);
@@ -193,7 +210,7 @@ abstract class _UserClub extends UserClub {
           {String id,
           String clubLogo,
           String name,
-          @JsonKey(ignore: true) DocumentReference documentReference}) =
+          @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
       _$_UserClub;
 
   factory _UserClub.fromJson(Map<String, dynamic> json) = _$_UserClub.fromJson;
@@ -206,7 +223,8 @@ abstract class _UserClub extends UserClub {
   String get name;
   @override
   @JsonKey(ignore: true)
-  DocumentReference get documentReference;
+  DocumentReference<Object> get documentReference;
   @override
+  @JsonKey(ignore: true)
   _$UserClubCopyWith<_UserClub> get copyWith;
 }
