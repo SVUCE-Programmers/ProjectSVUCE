@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 
-import 'package:svuce_app/ui/screens/attendance_manager/attendance_view_model.dart';
-
-class AttendanceItem extends ViewModelWidget<AttendanceViewModel> {
+import './../attendance_manager_view_model.dart';
+class AttendanceItem extends ViewModelWidget<AttendanceManagerViewModel> {
   final int index;
 
   AttendanceItem(this.index);
 
   @override
-  Widget build(BuildContext context, AttendanceViewModel model) {
+  Widget build(BuildContext context, AttendanceManagerViewModel model) {
     var attendance = model.attendanceList[index];
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
 

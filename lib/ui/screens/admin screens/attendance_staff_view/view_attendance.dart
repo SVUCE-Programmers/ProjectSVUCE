@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/ui/screens/attendance_manager/attendance_view_model.dart';
+import 'attendance_staff_view_model.dart';
 
 class ViewAttendance extends StatelessWidget {
   final String sheetName;
@@ -19,7 +19,7 @@ class ViewAttendance extends StatelessWidget {
       return result;
     }
 
-    return ScreenBuilder<AttendanceViewModel>(
+    return ScreenBuilder<AttendanceStaffViewModel>(
       builder: (context, uiHelpers, model) => Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -97,7 +97,7 @@ class ViewAttendance extends StatelessWidget {
               }),
         ),
       ),
-      viewModel: AttendanceViewModel(),
+      viewModel: AttendanceStaffViewModel(),
     );
   }
 }

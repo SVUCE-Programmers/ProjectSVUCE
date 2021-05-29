@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
-import 'package:svuce_app/ui/screens/attendance_manager/attendance_view_model.dart';
+import 'attendance_staff_view_model.dart';
 
 class TakeAttendancePage extends HookWidget {
   final List<int> rollList;
@@ -14,10 +13,9 @@ class TakeAttendancePage extends HookWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final log = getLogger("Take Attendance View");
     final dateTime = useState(DateTime.now());
-    return ScreenBuilder<AttendanceViewModel>(
-      viewModel: AttendanceViewModel(),
+    return ScreenBuilder<AttendanceStaffViewModel>(
+      viewModel: AttendanceStaffViewModel(),
       builder: (context, uiHelpers, model) => WillPopScope(
         onWillPop: () async {
           model.clearAttendance();

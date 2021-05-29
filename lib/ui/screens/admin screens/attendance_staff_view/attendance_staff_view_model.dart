@@ -4,83 +4,16 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
-import 'package:svuce_app/hive_db/models/attendance.dart';
-import 'package:svuce_app/hive_db/services/attendance_service.dart';
-import 'package:svuce_app/ui/screens/attendance_manager/take_attendance.dart';
-import 'package:svuce_app/ui/screens/attendance_manager/view_attendance.dart';
+import 'take_attendance.dart';
+import 'view_attendance.dart';
 
-class AttendanceViewModel extends BaseViewModel {
-  final log = getLogger("Attendance ViewModel");
-  final AttendanceService _attendanceService = locator<AttendanceService>();
+class AttendanceStaffViewModel extends BaseViewModel {
+  final log = getLogger("AttendanceStaff ViewModel");
   final NavigationService _navigationService = locator<NavigationService>();
   final ExcelService _excelService = locator<ExcelService>();
 
-  final String boxName = "Attendance";
-
   List<String> excelSheets = [];
   bool isExcelCreated = false;
-
-  List<Attendance> _attendanceList = [];
-  List<Attendance> get attendanceList => _attendanceList;
-
-  getStatus(int present, int total) {
-    if (total != 0) {
-      double percent = (present / total) * 100;
-      String status = "";
-      if (percent == 75) {
-        status = "You are on the right track";
-      } else if (percent < 75) {
-        status = "You need to attend " +
-            getCount(present, total, true).toString() +
-            " classes to cover";
-      } else {
-        status = "You can bunk " +
-            getCount(present, total, false).toString() +
-            " classes";
-      }
-      return status;
-    } else {
-      return "";
-    }
-  }
-
-  getCount(int present, int total, bool low) {
-    int pre = present;
-    int count = 0;
-    if (low) {
-      while (pre / total <= 0.75) {
-        pre += 1;
-        total += 1;
-        if (pre / total <= 0.75) {
-          count += 1;
-        }
-      }
-    } else {
-      while (pre / total >= 0.75) {
-        total += 1;
-        if (pre / total >= 0.75) {
-          count += 1;
-        }
-      }
-    }
-    return count;
-  }
-
-  addPresent(int index) async {
-    setBusy(true);
-
-    await _attendanceService.addPresent(index);
-
-    setBusy(false);
-  }
-
-  addAbsent(int index) async {
-    setBusy(true);
-
-    await _attendanceService.addAbsent(index);
-
-    setBusy(false);
-  }
 
   init() async {
     isExcelCreated = await _excelService.isExcelCreatedForStaff();
@@ -88,16 +21,6 @@ class AttendanceViewModel extends BaseViewModel {
     if (isExcelCreated) {
       await _excelService.initForStaffExcel();
       excelSheets = await _excelService.getNumberOfSheetsForStaff();
-      notifyListeners();
-    }
-    await getAttendance();
-  }
-
-  getAttendance() async {
-    List<Attendance> items = _attendanceService.attendanceList;
-
-    if (items != null) {
-      _attendanceList = items;
       notifyListeners();
     }
   }

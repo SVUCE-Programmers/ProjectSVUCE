@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/ui/screens/action_center/graph_representation.dart';
 
 import 'placement_view_model.dart';
+import '../../widgets/graphs/graph_representation.dart';
 
 class PlacementView extends StatelessWidget {
   @override

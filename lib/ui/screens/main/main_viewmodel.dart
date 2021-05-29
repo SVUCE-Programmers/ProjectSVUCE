@@ -13,10 +13,10 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
-import 'package:svuce_app/ui/screens/attendance_manager/attendance_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
+import '../../screens/admin screens/attendance_staff_view/attendance_staff_view.dart';
 
 class MainViewModel extends BaseViewModel {
   final log = getLogger("MainViewModel");
@@ -86,7 +86,7 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToAttendance() {
-    _navigationService.navigateWithTransition(AttendanceView(),
+    _navigationService.navigateWithTransition(AttendanceStaffView(),
         transition: "rightToLeftWithFade",
         duration: Duration(milliseconds: 700));
   }

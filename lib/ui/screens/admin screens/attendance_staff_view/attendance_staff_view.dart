@@ -4,14 +4,14 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 
-import 'attendance_view_model.dart';
+import 'attendance_staff_view_model.dart';
 
-class AttendanceView extends StatelessWidget {
+class AttendanceStaffView extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return ScreenBuilder<AttendanceViewModel>(
-      viewModel: AttendanceViewModel(),
+    return ScreenBuilder<AttendanceStaffViewModel>(
+      viewModel: AttendanceStaffViewModel(),
       onModelReady: (model) => model.init(),
       disposeViewModel: false,
       builder: (context, uiHelpers, model) => Scaffold(
@@ -134,7 +134,7 @@ class AttendanceView extends StatelessWidget {
     );
   }
 
-  addNewExelBottomSheet(BuildContext context, AttendanceViewModel model) {
+  addNewExelBottomSheet(BuildContext context, AttendanceStaffViewModel model) {
     final TextEditingController _sheetNameController = TextEditingController();
     final TextEditingController _startingNoController = TextEditingController();
     final TextEditingController _totalCountController = TextEditingController();
