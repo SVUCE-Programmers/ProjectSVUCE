@@ -2,9 +2,13 @@ import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'dart:io';
+
+import 'package:svuce_app/core/services/permission_service.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
 
 @Singleton(as: ExcelService)
 class ExcelServiceImpl implements ExcelService {
@@ -110,5 +114,48 @@ class ExcelServiceImpl implements ExcelService {
       }
     });
     saveToExcel(sheetName: sheetName);
+  }
+
+  @override
+  getAttendanceDetails({String sheetName}) async {
+    List<dynamic> resultData = [];
+    _excel.sheets.forEach((key, value) {
+      if (key == sheetName) {
+        var data = value.rows;
+        resultData = data;
+      }
+    });
+    return resultData;
+  }
+
+  @override
+  downloadExcelService({String sheetName}) async {
+    PermissionService _permissionService = PermissionService();
+    bool permissionResult = await _permissionService.requestStoragePermission();
+    if (permissionResult) {
+      List<String> sheetList = [];
+
+      _excel.sheets.forEach((key, value) {
+        sheetList.add(key);
+      });
+      Excel downloadExcel = _excel;
+      for (String s in sheetList) {
+        if (s != sheetName) {
+          downloadExcel.delete(s);
+        }
+      }
+      var dir = await getExternalStorageDirectory();
+      var knockDir = await new Directory('${dir.path}').create(recursive: true);
+      String path = knockDir.path + "/Sent/attendance.xlsx";
+      downloadExcel.encode().then((onValue) {
+        File((path))
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(onValue);
+      });
+      Share.shareFiles([path],
+          subject: "Attendance",
+          text:
+              "Generated On ${DateTimeUtils().getWholeDate(DateTime.now().millisecondsSinceEpoch)}");
+    }
   }
 }

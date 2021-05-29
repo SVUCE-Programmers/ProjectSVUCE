@@ -62,12 +62,40 @@ class AttendanceView extends StatelessWidget {
                         itemBuilder: (_, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ListTile(
+                            dense: true,
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 8)
+                                    .copyWith(top: 12),
+                            subtitle: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: MaterialButton(
+                                      onPressed: () => model.viewDetails(
+                                          model.excelSheets[index]),
+                                      child: Text(
+                                        "View Details",
+                                        style: uiHelpers.body.copyWith(
+                                            color: uiHelpers.textPrimaryColor,
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: MaterialButton(
+                                      onPressed: () => model.getSheetData(
+                                          model.excelSheets[index]),
+                                      child: Text(
+                                        "Take Attendance",
+                                        style: uiHelpers.body.copyWith(
+                                            color: uiHelpers.textPrimaryColor,
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                )
+                              ],
+                            ),
                             onTap: () =>
                                 model.getSheetData(model.excelSheets[index]),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              color: uiHelpers.textPrimaryColor,
-                            ),
                             tileColor: uiHelpers.surfaceColor,
                             title: Text(
                               model.excelSheets[index],

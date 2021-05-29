@@ -8,7 +8,7 @@ mixin WillPopHelper {
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   Future<bool> onWillPop() async {
-    await _snackbarService.showSnackbar(
+    _snackbarService.showSnackbar(
         title: confirmExitInfo,
         duration: Duration(seconds: 5),
         message: confirmExitMessage,

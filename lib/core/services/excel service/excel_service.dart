@@ -11,5 +11,7 @@ abstract class ExcelService {
     @required List<int> rollList,
   });
 
-  saveAttendance({@required String sheetName, @required List<String> data}) {}
+  saveAttendance({@required String sheetName, @required List<String> data});
+  getAttendanceDetails({@required String sheetName});
+  downloadExcelService({@required String sheetName});
 }
