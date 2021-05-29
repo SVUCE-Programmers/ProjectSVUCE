@@ -158,4 +158,21 @@ class ExcelServiceImpl implements ExcelService {
               "Generated On ${DateTimeUtils().getWholeDate(DateTime.now().millisecondsSinceEpoch)}");
     }
   }
+
+  @override
+  deleteSheet({String sheetName}) async {
+    List<String> temp = getNumberOfSheetsForStaff();
+    if (temp != null && temp.length == 1) {
+      var dir = await getExternalStorageDirectory();
+      var knockDir = await new Directory('${dir.path}').create(recursive: true);
+      File file = File(knockDir.path + "/Attendance/attendance_sheet.xlsx");
+      bool isFileExists = await file.exists();
+      if (isFileExists) {
+        file.delete();
+      }
+    } else {
+      _excel.delete(sheetName);
+      saveToExcel(sheetName: sheetName);
+    }
+  }
 }

@@ -14,4 +14,5 @@ abstract class ExcelService {
   saveAttendance({@required String sheetName, @required List<String> data});
   getAttendanceDetails({@required String sheetName});
   downloadExcelService({@required String sheetName});
+  deleteSheet({@required String sheetName});
 }

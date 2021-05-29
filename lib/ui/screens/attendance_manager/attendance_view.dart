@@ -36,7 +36,8 @@ class AttendanceView extends StatelessWidget {
                 uiHelpers.headline.copyWith(color: uiHelpers.textPrimaryColor),
           ),
         ),
-        body: !model.isExcelCreated
+        body: (!model.isExcelCreated ||
+                (model.excelSheets != null && model.excelSheets.length == 0))
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
@@ -63,43 +64,61 @@ class AttendanceView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ListTile(
                             dense: true,
-                            contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 8)
-                                    .copyWith(top: 12),
-                            subtitle: Row(
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: MaterialButton(
-                                      onPressed: () => model.viewDetails(
-                                          model.excelSheets[index]),
-                                      child: Text(
-                                        "View Details",
-                                        style: uiHelpers.body.copyWith(
-                                            color: uiHelpers.textPrimaryColor,
-                                            fontWeight: FontWeight.w600),
-                                      )),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: MaterialButton(
-                                      onPressed: () => model.getSheetData(
-                                          model.excelSheets[index]),
-                                      child: Text(
-                                        "Take Attendance",
-                                        style: uiHelpers.body.copyWith(
-                                            color: uiHelpers.textPrimaryColor,
-                                            fontWeight: FontWeight.w600),
-                                      )),
-                                )
-                              ],
-                            ),
                             onTap: () =>
                                 model.getSheetData(model.excelSheets[index]),
+                            trailing: PopupMenuButton(
+                              icon: Icon(
+                                Icons.more_vert,
+                                color: uiHelpers.textPrimaryColor,
+                              ),
+                              onSelected: (value) {
+                                switch (value) {
+                                  case "vd":
+                                    model.viewDetails(model.excelSheets[index]);
+                                    break;
+                                  case "ta":
+                                    model
+                                        .getSheetData(model.excelSheets[index]);
+                                    break;
+                                  case "delete":
+                                    model.deleteSheet(
+                                        sheetName: model.excelSheets[index]);
+                                    break;
+                                  default:
+                                }
+                              },
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                    value: "vd",
+                                    child: Text(
+                                      "View Details",
+                                      style: uiHelpers.title
+                                          .copyWith(fontSize: 14),
+                                    )),
+                                PopupMenuItem(
+                                    value: "ta",
+                                    child: Text(
+                                      "Take Attendance",
+                                      style: uiHelpers.title
+                                          .copyWith(fontSize: 14),
+                                    )),
+                                PopupMenuItem(
+                                    value: "delete",
+                                    child: Text(
+                                      "Delete",
+                                      style: uiHelpers.title
+                                          .copyWith(fontSize: 14),
+                                    ))
+                              ],
+                            ),
                             tileColor: uiHelpers.surfaceColor,
-                            title: Text(
-                              model.excelSheets[index],
-                              style: uiHelpers.title,
+                            title: Row(
+                              children: [
+                                Text(
+                                  model.excelSheets[index],
+                                  style: uiHelpers.title,
+                                ),
+                              ],
                             ),
                           ),
                         ),

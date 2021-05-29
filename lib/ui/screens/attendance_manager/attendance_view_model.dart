@@ -185,4 +185,11 @@ class AttendanceViewModel extends BaseViewModel {
   downloadExcelToDir({@required String sheetName}) async {
     await _excelService.downloadExcelService(sheetName: sheetName);
   }
+
+  deleteSheet({@required String sheetName}) async {
+    await _excelService.deleteSheet(sheetName: sheetName);
+    excelSheets = await _excelService.getNumberOfSheetsForStaff();
+    isExcelCreated = await _excelService.isExcelCreatedForStaff();
+    notifyListeners();
+  }
 }
