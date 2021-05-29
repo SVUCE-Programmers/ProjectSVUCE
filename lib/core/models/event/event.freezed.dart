@@ -22,7 +22,7 @@ class _$EventTearOff {
       @required String name,
       @required String organiser,
       @required String place,
-      @required String timeStamp,
+      @required DateTime timeStamp,
       @required String imageUrl,
       @required String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
@@ -54,7 +54,7 @@ mixin _$Event {
   String get name;
   String get organiser;
   String get place;
-  String get timeStamp;
+  DateTime get timeStamp;
   String get imageUrl;
   String get description;
   @JsonKey(ignore: true)
@@ -74,7 +74,7 @@ abstract class $EventCopyWith<$Res> {
       String name,
       String organiser,
       String place,
-      String timeStamp,
+      DateTime timeStamp,
       String imageUrl,
       String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference});
@@ -104,7 +104,8 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
       name: name == freezed ? _value.name : name as String,
       organiser: organiser == freezed ? _value.organiser : organiser as String,
       place: place == freezed ? _value.place : place as String,
-      timeStamp: timeStamp == freezed ? _value.timeStamp : timeStamp as String,
+      timeStamp:
+          timeStamp == freezed ? _value.timeStamp : timeStamp as DateTime,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -125,7 +126,7 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String name,
       String organiser,
       String place,
-      String timeStamp,
+      DateTime timeStamp,
       String imageUrl,
       String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference});
@@ -156,7 +157,8 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
       name: name == freezed ? _value.name : name as String,
       organiser: organiser == freezed ? _value.organiser : organiser as String,
       place: place == freezed ? _value.place : place as String,
-      timeStamp: timeStamp == freezed ? _value.timeStamp : timeStamp as String,
+      timeStamp:
+          timeStamp == freezed ? _value.timeStamp : timeStamp as DateTime,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -201,7 +203,7 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
   @override
   final String place;
   @override
-  final String timeStamp;
+  final DateTime timeStamp;
   @override
   final String imageUrl;
   @override
@@ -287,7 +289,7 @@ abstract class _Event extends Event {
           @required String name,
           @required String organiser,
           @required String place,
-          @required String timeStamp,
+          @required DateTime timeStamp,
           @required String imageUrl,
           @required String description,
           @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
@@ -304,7 +306,7 @@ abstract class _Event extends Event {
   @override
   String get place;
   @override
-  String get timeStamp;
+  DateTime get timeStamp;
   @override
   String get imageUrl;
   @override

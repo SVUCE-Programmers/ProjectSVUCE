@@ -1,54 +1,74 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromMap(jsonString);
 
-part 'user.freezed.dart';
-part 'user.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class UserModel implements _$UserModel {
-  const UserModel._();
-  factory UserModel(
-          {@required String fullName,
-          @Default(null) String id,
-          @required String email,
-          @required String rollNo,
-          @required String contact,
-          @required String collegeName,
-          String profileImg,
-          @required String userType,
-          @JsonKey(ignore: true) DocumentReference documentReference}) =
-      _$_UserModel;
+UserModel userModelFromMap(String str) => UserModel.fromMap(json.decode(str));
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+String userModelToMap(UserModel data) => json.encode(data.toMap());
 
-  static UserModel fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
+class UserModel {
+  UserModel({
+    this.id,
+    this.fullName,
+    this.email,
+    this.userType,
+    this.rollNo,
+    this.profileImg,
+    this.collegeName,
+    this.contact,
+  });
 
-    return UserModel(
-        id: docData['id'],
-        email: docData['email'],
-        rollNo: docData['rollNo'],
-        fullName: docData['fullName'],
-        profileImg: docData['profileImg'],
-        collegeName: docData['collegeName'],
-        contact: docData['contact'],
-        userType: docData['userType'],
-        documentReference: document.reference);
-  }
+  final String id;
+  final String fullName;
+  final String email;
+  final String userType;
+  final String rollNo;
+  final String profileImg;
+  final String collegeName;
+  final String contact;
 
-  static UserModel empty() {
-    return UserModel(
-        id: '',
-        fullName: '',
-        email: '',
-        userType: '',
-        rollNo: '',
-        profileImg: '',
-        collegeName: '',
-        contact: '',
-        documentReference: null);
-  }
+  UserModel copyWith({
+    String id,
+    String fullName,
+    String email,
+    String userType,
+    String rollNo,
+    String profileImg,
+    String collegeName,
+    String contact,
+  }) =>
+      UserModel(
+        id: id ?? this.id,
+        fullName: fullName ?? this.fullName,
+        email: email ?? this.email,
+        userType: userType ?? this.userType,
+        rollNo: rollNo ?? this.rollNo,
+        profileImg: profileImg ?? this.profileImg,
+        collegeName: collegeName ?? this.collegeName,
+        contact: contact ?? this.contact,
+      );
+
+  factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
+        id: json["id"] == null ? null : json["id"],
+        fullName: json["fullName"] == null ? null : json["fullName"],
+        email: json["email"] == null ? null : json["email"],
+        userType: json["userType"] == null ? null : json["userType"],
+        rollNo: json["rollNo"] == null ? null : json["rollNo"],
+        profileImg: json["profileImg"] == null ? null : json["profileImg"],
+        collegeName: json["collegeName"] == null ? null : json["collegeName"],
+        contact: json["contact"] == null ? null : json["contact"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
+        "fullName": fullName == null ? null : fullName,
+        "email": email == null ? null : email,
+        "userType": userType == null ? null : userType,
+        "rollNo": rollNo == null ? null : rollNo,
+        "profileImg": profileImg == null ? null : profileImg,
+        "collegeName": collegeName == null ? null : collegeName,
+        "contact": contact == null ? null : contact,
+      };
 }

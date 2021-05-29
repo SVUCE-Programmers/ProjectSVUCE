@@ -42,7 +42,8 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
                     name: deepLink.queryParameters["name"],
                     organiser: deepLink.queryParameters["organiser"],
                     place: deepLink.queryParameters["place"],
-                    timeStamp: deepLink.queryParameters["timeStamp"],
+                    timeStamp:
+                        DateTime.parse(deepLink.queryParameters["timeStamp"]),
                     imageUrl: deepLink.queryParameters["imageUrl"],
                     description: deepLink.queryParameters["description"])));
       }

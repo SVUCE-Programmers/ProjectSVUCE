@@ -10,4 +10,6 @@ abstract class ExcelService {
     @required String sheetName,
     @required List<int> rollList,
   });
+
+  saveAttendance({@required String sheetName, @required List<String> data}) {}
 }

@@ -1,5 +1,6 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 
@@ -7,6 +8,7 @@ import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
+  final log = getLogger("CalendarEventsViewModel");
   final EventsRepository _eventsRepository = locator<EventsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -16,7 +18,7 @@ class CalendarEventsViewModel extends BaseViewModel {
   Map<DateTime, List<dynamic>> groupEvents(List<Event> events) {
     Map<DateTime, List<dynamic>> data = {};
     events.forEach((e) {
-      DateTime h = DateTime.parse(e.timeStamp);
+      DateTime h = e.timeStamp;
       DateTime date = DateTime(h.year, h.month, h.day, 12);
       if (data[date] == null) data[date] = [];
       data[date].add(e);

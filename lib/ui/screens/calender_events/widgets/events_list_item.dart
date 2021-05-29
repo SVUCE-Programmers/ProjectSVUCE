@@ -27,7 +27,7 @@ class EventListItem extends StatelessWidget {
       ),
       title: Text(event.name),
       subtitle: Text(
-        event.place + "|" + DateTime.parse(event.timeStamp).toString(),
+        event.place + "|" + event.timeStamp.toString(),
       ),
       trailing: Icon(
         forwardIcon,

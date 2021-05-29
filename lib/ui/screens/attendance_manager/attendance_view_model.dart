@@ -131,12 +131,40 @@ class AttendanceViewModel extends BaseViewModel {
     data.asMap().forEach((key, value) {
       attendanceData[value] = "A";
     });
+    notifyListeners();
 
     _navigationService.navigateWithTransition(
         TakeAttendancePage(
           rollList: data,
+          sheetName: sheetName,
         ),
         transition: "fade");
     // log.d(data);
+  }
+
+  updateAttendance(key, bool value) {
+    attendanceData[key] = value ? "P" : "A";
+    notifyListeners();
+  }
+
+  selectAll(String sheetName) async {
+    List<int> data =
+        await _excelService.getSheetDetailsForStaff(sheetName: sheetName);
+    data.asMap().forEach((key, value) {
+      attendanceData[value] = "P";
+    });
+    notifyListeners();
+  }
+
+  clearAttendance() {
+    attendanceData = {};
+    notifyListeners();
+  }
+
+  updateAndSaveAttendance(String sheetName, List<String> data) async {
+    await _excelService.saveAttendance(sheetName: sheetName, data: data);
+    attendanceData = {};
+    _navigationService.back();
+    notifyListeners();
   }
 }

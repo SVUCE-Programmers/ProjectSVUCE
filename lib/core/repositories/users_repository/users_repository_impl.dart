@@ -29,7 +29,7 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
       var userData = await _userRef.where("email", isEqualTo: email).get();
       log.d("Got data at getUser is:${userData.docs[0].data()}");
       if (Map<String, dynamic>.from(userData.docs[0].data())["id"] != null) {
-        return UserModel.fromJson(
+        return UserModel.fromMap(
             Map<String, dynamic>.from(userData.docs[0].data()));
       } else {
         var data = Map<String, dynamic>.from(userData.docs[0].data());
@@ -66,7 +66,7 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
   @override
   Future storeUser(UserModel user) async {
     try {
-      await _userRef.doc(user.email).set(user.toJson());
+      await _userRef.doc(user.email).set(user.toMap());
     } catch (e) {
       return e?.message ?? "Something went wrong";
     }
@@ -94,9 +94,8 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
     var data = _userRef.doc(email).snapshots();
     data.listen((event) {
       UserModel userModel =
-          UserModel.fromJson(Map<String, dynamic>.from(event.data()));
+          UserModel.fromMap(Map<String, dynamic>.from(event.data()));
       _userController.add(userModel);
-
       addUserDetailsToPrefs(userModel);
     });
     return _userController.stream;
@@ -105,8 +104,11 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
   @override
   void addUserDetailsToPrefs(UserModel userModel) {
     if (userModel != null) {
-      userModel.toJson().forEach((key, value) {
-        _sharedPreferences.setString(key, value);
+      userModel.toMap().forEach((key, value) {
+        log.d("Key is:$key and value is:$value");
+        if (value != null) {
+          _sharedPreferences.setString(key, value ?? "");
+        }
       });
     }
   }

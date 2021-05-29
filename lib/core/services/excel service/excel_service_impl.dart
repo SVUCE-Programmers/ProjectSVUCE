@@ -95,4 +95,20 @@ class ExcelServiceImpl implements ExcelService {
     }
     saveToExcel(sheetName: sheetName);
   }
+
+  @override
+  saveAttendance({String sheetName, List<String> data}) async {
+    _excel.sheets.forEach((key, value) {
+      if (key == sheetName) {
+        int maxCol = value.maxCols;
+        data.asMap().forEach((key, mapValue) {
+          value
+              .cell(CellIndex.indexByColumnRow(
+                  columnIndex: maxCol, rowIndex: key))
+              .value = mapValue;
+        });
+      }
+    });
+    saveToExcel(sheetName: sheetName);
+  }
 }

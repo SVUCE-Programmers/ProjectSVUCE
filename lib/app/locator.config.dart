@@ -11,6 +11,8 @@ import 'package:hive/hive.dart' as _i26;
 import 'package:http/http.dart' as _i13;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
+import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i10;
@@ -61,11 +63,14 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i25.FirebaseFirestore>(registerDependencies.firestore);
   gh.singleton<_i26.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i12.NavigationService>(registerDependencies.navigationService);
-  gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());
+  gh.singleton<ExcelService>(ExcelServiceImpl());
 
+  gh.singleton<_i27.PushNotificationService>(_i28.PushNotificationServiceImp());
+  gh.singleton<_i12.SnackbarService>(registerDependencies.snackbarService);
   gh.lazySingleton<_i3.AttendanceService>(() => _i3.AttendanceService());
   gh.lazySingleton<_i4.HiveService>(() => _i4.HiveService());
   gh.lazySingleton<_i5.LoginViewModel>(() => _i5.LoginViewModel());
+  gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());
   gh.lazySingleton<_i7.TimeTableService>(() => _i7.TimeTableService());
   gh.singleton<_i8.APIService>(_i9.APIServiceImpl());
   gh.singleton<_i10.AnnouncementsRepository>(
@@ -80,8 +85,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i20.EventsRepository>(_i21.EventsRepositoryImpl());
   gh.singleton<_i22.FeedRepository>(_i23.FeedRepositoryImpl());
 
-  gh.singleton<_i27.PushNotificationService>(_i28.PushNotificationServiceImp());
-  gh.singleton<_i12.SnackbarService>(registerDependencies.snackbarService);
   gh.singleton<_i29.UserClubsRepository>(_i30.UserClubsRepositoryImpl());
   gh.singleton<_i31.UsersRepository>(_i32.UsersRepositoryImpl());
   gh.singleton<_i33.AuthService>(

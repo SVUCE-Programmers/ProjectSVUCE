@@ -13,7 +13,7 @@ abstract class Event implements _$Event {
       @required String name,
       @required String organiser,
       @required String place,
-      @required String timeStamp,
+      @required DateTime timeStamp,
       @required String imageUrl,
       @required String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _Event;
@@ -28,7 +28,7 @@ abstract class Event implements _$Event {
         name: docData["name"],
         organiser: docData["organiser"],
         place: docData["place"],
-        timeStamp: docData["timeStamp"],
+        timeStamp: DateTime.parse(docData["timeStamp"]),
         description: docData["description"],
         imageUrl: docData["imageUrl"],
         id: document.id,
@@ -41,7 +41,7 @@ abstract class Event implements _$Event {
         name: '',
         organiser: '',
         place: '',
-        timeStamp: '',
+        timeStamp: DateTime.now(),
         imageUrl: '',
         description: '',
         documentReference: null);

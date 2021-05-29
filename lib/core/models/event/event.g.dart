@@ -12,7 +12,9 @@ _$_Event _$_$_EventFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     organiser: json['organiser'] as String,
     place: json['place'] as String,
-    timeStamp: json['timeStamp'] as String,
+    timeStamp: json['timeStamp'] == null
+        ? null
+        : DateTime.parse(json['timeStamp'] as String),
     imageUrl: json['imageUrl'] as String,
     description: json['description'] as String,
   );
@@ -23,7 +25,7 @@ Map<String, dynamic> _$_$_EventToJson(_$_Event instance) => <String, dynamic>{
       'name': instance.name,
       'organiser': instance.organiser,
       'place': instance.place,
-      'timeStamp': instance.timeStamp,
+      'timeStamp': instance.timeStamp?.toIso8601String(),
       'imageUrl': instance.imageUrl,
       'description': instance.description,
     };
