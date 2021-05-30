@@ -59,15 +59,15 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String environment, _i2.EnvironmentFilter environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerDependencies = _$RegisterDependencies();
+
   gh.singleton<_i24.FirebaseAuth>(registerDependencies.firebaseAuth);
   gh.singleton<_i25.FirebaseFirestore>(registerDependencies.firestore);
   gh.singleton<_i26.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i12.NavigationService>(registerDependencies.navigationService);
-  gh.singleton<ExcelService>(ExcelServiceImpl());
-
   gh.singleton<_i27.PushNotificationService>(_i28.PushNotificationServiceImp());
   gh.singleton<_i12.SnackbarService>(registerDependencies.snackbarService);
   gh.lazySingleton<_i3.AttendanceService>(() => _i3.AttendanceService());
+  gh.singleton<ExcelService>(ExcelServiceImpl());
   gh.lazySingleton<_i4.HiveService>(() => _i4.HiveService());
   gh.lazySingleton<_i5.LoginViewModel>(() => _i5.LoginViewModel());
   gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());

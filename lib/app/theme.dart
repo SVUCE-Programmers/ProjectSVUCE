@@ -5,6 +5,12 @@ import 'colors.dart';
 final lightThemeData = (BuildContext context) => ThemeData(
     selectedRowColor: LightColorPalette.surfaceColor,
     fontFamily: 'Quicksand',
+    popupMenuTheme: PopupMenuThemeData(
+        color: LightColorPalette.backgroundColor,
+        textStyle: TextStyle(
+            fontSize: 14,
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.w500)),
     primaryColor: LightColorPalette.primaryColor,
     primarySwatch: Colors.teal,
     errorColor: LightColorPalette.errorColor,
@@ -21,6 +27,12 @@ final darkThemeData = (BuildContext context) => ThemeData(
     fontFamily: 'Quicksand',
     primaryColor: DarkColorPalette.primaryColor,
     primarySwatch: Colors.teal,
+    popupMenuTheme: PopupMenuThemeData(
+        color: LightColorPalette.backgroundColor,
+        textStyle: TextStyle(
+            fontSize: 14,
+            fontFamily: "Quicksand",
+            fontWeight: FontWeight.w500)),
     errorColor: DarkColorPalette.errorColor,
     snackBarTheme: SnackBarThemeData(
       backgroundColor: DarkColorPalette.surfaceColor,

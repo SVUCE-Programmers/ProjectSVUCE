@@ -41,13 +41,15 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
                 currentFocus.unfocus();
               }
             }
-            return IgnorePointer(
-                ignoring: model.isBusy && showLoadingOnBusy,
-                child: SafeArea(
-                    child: ModalHud(
-                  child: builder(context, uiHelpers, model),
-                  isLoading: model.isBusy,
-                )));
+            return showLoadingOnBusy
+                ? IgnorePointer(
+                    ignoring: model.isBusy && showLoadingOnBusy,
+                    child: SafeArea(
+                        child: ModalHud(
+                      child: builder(context, uiHelpers, model),
+                      isLoading: model.isBusy,
+                    )))
+                : SafeArea(child: builder(context, uiHelpers, model));
           },
           disposeViewModel: disposeViewModel ?? true,
           onModelReady: onModelReady,

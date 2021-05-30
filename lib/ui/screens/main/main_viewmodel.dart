@@ -17,6 +17,7 @@ import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
 import '../../screens/admin screens/attendance_staff_view/attendance_staff_view.dart';
+import '../attendance_manager/attendance_manager_view.dart';
 
 class MainViewModel extends BaseViewModel {
   final log = getLogger("MainViewModel");
@@ -82,19 +83,26 @@ class MainViewModel extends BaseViewModel {
   navigateToTimeTable() {
     _navigationService.navigateWithTransition(TimeTableView(),
         transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 700));
+        duration: Duration(milliseconds: 900));
   }
 
   navigateToAttendance() {
-    _navigationService.navigateWithTransition(AttendanceStaffView(),
-        transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 700));
+    bool isStaff = false;
+    if (isStaff) {
+      _navigationService.navigateWithTransition(AttendanceStaffView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
+    } else {
+      _navigationService.navigateWithTransition(AttendanceManagerView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
+    }
   }
 
   navigateToAddStudent() {
     _navigationService.navigateWithTransition(AddStudentView(),
         transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 700));
+        duration: Duration(milliseconds: 900));
   }
 
   navigateToAboutCollege() {

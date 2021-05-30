@@ -1,15 +1,35 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 
 @lazySingleton
 class HiveService {
   final _hiveInterface = locator<HiveInterface>();
+  final log = getLogger("Hive Service");
 
   isExists({String boxName}) async {
     final openBox = await _hiveInterface.openBox(boxName);
     int length = openBox.length;
     return length != 0;
+  }
+
+  deleteItem<T>({String boxName, T item}) async {
+    List<T> boxList = [];
+    boxList = await getBoxes<T>(boxName);
+    int index;
+    boxList.asMap().forEach((key, value) {
+      if (value == item) {
+        index = key;
+      }
+    });
+    if (index != null) {
+      _hiveInterface.box(boxName).deleteAt(index);
+    }
+  }
+
+  clearItemsInBox(String boxName) async {
+    await _hiveInterface.box(boxName).clear();
   }
 
   addBoxes<T>(List<T> items, String boxName) async {

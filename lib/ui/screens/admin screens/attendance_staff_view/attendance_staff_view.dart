@@ -8,7 +8,6 @@ import 'attendance_staff_view_model.dart';
 
 class AttendanceStaffView extends StatelessWidget {
   @override
-  @override
   Widget build(BuildContext context) {
     return ScreenBuilder<AttendanceStaffViewModel>(
       viewModel: AttendanceStaffViewModel(),
@@ -143,6 +142,7 @@ class AttendanceStaffView extends StatelessWidget {
 
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     showModalBottomSheet(
+        backgroundColor: uiHelpers.backgroundColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(25), topRight: Radius.circular(25))),
@@ -164,10 +164,12 @@ class AttendanceStaffView extends StatelessWidget {
                       "Sheet Name",
                       style: uiHelpers.title.copyWith(fontSize: 12),
                     ),
+                    SizedBox(height: 5),
                     TextFormField(
                       controller: _sheetNameController,
                       decoration: InputDecoration(
                         hintText: "Example CSE 3rd Year",
+                        hintStyle: uiHelpers.body,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(12)),
@@ -187,6 +189,7 @@ class AttendanceStaffView extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         hintText: "1170600",
+                        hintStyle: uiHelpers.body,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(12)),
@@ -199,10 +202,12 @@ class AttendanceStaffView extends StatelessWidget {
                       "Enter Total Count",
                       style: uiHelpers.title.copyWith(fontSize: 12),
                     ),
+                    SizedBox(height: 5),
                     TextFormField(
                       controller: _totalCountController,
                       decoration: InputDecoration(
                         hintText: "Example: 84",
+                        hintStyle: uiHelpers.body,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(12)),
@@ -215,10 +220,12 @@ class AttendanceStaffView extends StatelessWidget {
                       "Enter Excluding Roll No",
                       style: uiHelpers.title.copyWith(fontSize: 12),
                     ),
+                    SizedBox(height: 5),
                     TextFormField(
                       controller: _excludingNoController,
                       decoration: InputDecoration(
                         hintText: "Ex:  32,52,90",
+                        hintStyle: uiHelpers.body,
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(12)),
@@ -247,37 +254,5 @@ class AttendanceStaffView extends StatelessWidget {
                 ),
               ),
             ));
-  }
-
-  bottomSheet(BuildContext context) {
-    final UiHelpers uiHelpers = UiHelpers.fromContext(context);
-    return Container(
-      color: Colors.transparent,
-      child: Container(
-        height: 250,
-        decoration: BoxDecoration(
-            color: uiHelpers.surfaceColor,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(
-                Icons.undo,
-                color: uiHelpers.primaryColor,
-              ),
-              title: Text("Undo"),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.unfold_less,
-                color: uiHelpers.primaryColor,
-              ),
-              title: Text("Reset"),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }

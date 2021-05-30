@@ -21,14 +21,15 @@ class AttendanceAdapter extends TypeAdapter<Attendance> {
       present: fields[1] as int,
       absent: fields[2] as int,
       total: fields[3] as int,
-      lastUpdated: fields[4] as String,
+      lastUpdated: (fields[4] as List)?.cast<String>(),
+      color: fields[5] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Attendance obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.subject)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class AttendanceAdapter extends TypeAdapter<Attendance> {
       ..writeByte(3)
       ..write(obj.total)
       ..writeByte(4)
-      ..write(obj.lastUpdated);
+      ..write(obj.lastUpdated)
+      ..writeByte(5)
+      ..write(obj.color);
   }
 
   @override

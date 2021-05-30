@@ -55,6 +55,7 @@ dependencies:
   dotted_border:
   file_picker:
   permission_handler:
+  flutter_colorpicker:
 dev_dependencies:
   flutter_test:
     sdk: flutter

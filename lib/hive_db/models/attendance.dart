@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 part 'attendance.g.dart';
 
@@ -12,8 +13,15 @@ class Attendance {
   @HiveField(3)
   final int total;
   @HiveField(4)
-  final String lastUpdated;
+  final List<String> lastUpdated;
+  @HiveField(5)
+  final int color;
 
   Attendance(
-      {this.subject, this.present, this.absent, this.total, this.lastUpdated});
+      {this.subject,
+      this.present,
+      this.absent,
+      this.total,
+      this.lastUpdated,
+      @required this.color});
 }
