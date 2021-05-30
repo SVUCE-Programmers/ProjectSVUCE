@@ -1,9 +1,11 @@
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/calender_events/events_view.dart';
 import 'package:svuce_app/ui/screens/feed/feed_view.dart';
+import 'package:svuce_app/ui/screens/library%20screens/library_screen_view.dart';
 import 'package:svuce_app/ui/screens/staff/staff_view.dart';
 import 'package:svuce_app/ui/widgets/gridmenu_item.dart';
 
@@ -19,14 +21,20 @@ final List<SpotlightItem> spotLightItems = [
     name: "Explore Clubs",
   ),
   SpotlightItem(
+    onTap: () => _navigationService.navigateWithTransition(LibraryScreen(),
+        duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
+    icon: FlutterIcons.library_mco,
+    name: "Library",
+  ),
+  SpotlightItem(
     onTap: () => _navigationService.navigateWithTransition(StaffView(),
-        transition: "rightToLeftWithFade"),
+        duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: facultyIcon,
     name: "Faculty",
   ),
   SpotlightItem(
     onTap: () => _navigationService.navigateWithTransition(FeedView(),
-        transition: "rightToLeftWithFade"),
+        duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: feedIcon,
     name: "Feed",
   ),
@@ -36,12 +44,8 @@ final List<SpotlightItem> spotLightItems = [
   ),
   SpotlightItem(
     onTap: () => _navigationService.navigateWithTransition(CalenderEventsView(),
-        transition: "rightToLeftWithFade"),
+        duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: eventsIcon,
     name: "Event Calendar",
-  ),
-  SpotlightItem(
-    icon: campusIcon,
-    name: "Campus",
   ),
 ];
