@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:svuce_app/app/colors.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
@@ -13,7 +14,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<MainViewModel>(
       viewModel: MainViewModel(),
-      onModelReady: (m) => m.getCurrentUserDetails(),
+      onModelReady: (m) => m.init(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           key: model.scaffoldKey,
@@ -171,16 +172,67 @@ class MainView extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      "Your Attendance",
+                      "Your Attendance ",
                       style: uiHelpers.title,
                     ),
                   ),
-                  GraphWidget(
-                    graph: model.getGraph(),
-                    subjects: ["DMS", "PPS", "CTS", "NTS", "QTS"],
-                    yAxis:
-                        ['0', '20', '40', '60', '80', '100'].reversed.toList(),
-                  ),
+                  (model.attendanceList == [] ||
+                          model.attendanceList == null ||
+                          model.attendanceList.length == 0)
+                      ? GestureDetector(
+                          onTap: model.navigateToAttendance,
+                          child: AnimatedContainer(
+                              duration: Duration(milliseconds: 900),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              child: ListTile(
+                                subtitle: Text(
+                                  "With this you can plan to bunk your class",
+                                  style: uiHelpers.body
+                                      .copyWith(color: Colors.white54),
+                                ),
+                                title: Text("Use our new attendance feature!",
+                                    style: uiHelpers.title
+                                        .copyWith(color: Colors.white)),
+                                leading: Hero(
+                                  tag: "Attendance Hero",
+                                  child: Image.asset(
+                                      "assets/illustrations/attendance.png",
+                                      height: 120,
+                                      fit: BoxFit.fitHeight),
+                                ),
+                              ),
+                              margin: const EdgeInsets.only(right: 20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: GradientTemplate
+                                      .gradientTemplate[
+                                          uiHelpers.isDark ? 0 : 1]
+                                      .colors,
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: GradientTemplate
+                                        .gradientTemplate[0].colors.last
+                                        .withOpacity(0.4),
+                                    blurRadius: 8,
+                                    spreadRadius: 2,
+                                    offset: Offset(4, 4),
+                                  ),
+                                ],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(24)),
+                              )),
+                        )
+                      : GraphWidget(
+                          graph: model.getGraph(),
+                          subjects: model.subjects,
+                          yAxis: ['0', '20', '40', '60', '80', '100']
+                              .reversed
+                              .toList(),
+                        ),
                   ListTile(
                     title: Text(
                       "",

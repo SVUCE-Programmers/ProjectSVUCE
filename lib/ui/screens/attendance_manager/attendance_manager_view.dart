@@ -19,27 +19,55 @@ class AttendanceManagerView extends StatelessWidget {
           backgroundColor: uiHelpers.primaryColor,
           child: Icon(Icons.add),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              PieChartWidget(
-                  totalClasses: model.totalClasses(),
-                  totalPresentClasses: model.totalPresentClasses(),
-                  chartData: model.generatePieChartData(),
-                  attendanceList: model.attendanceList ?? []),
-              ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(20),
-                itemCount: model.attendanceList.length,
-                itemBuilder: (context, index) {
-                  return AttendanceItem(index);
-                },
+        body: model.attendanceList.length == 0
+            ? Column(
+                children: [
+                  Hero(
+                    tag: "Attendance Hero",
+                    child: Image.asset(
+                      "assets/illustrations/attendance.png",
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                        "Plan your bunks with this latest attendance feature",
+                        style: uiHelpers.title,
+                        textAlign: TextAlign.center),
+                  ),
+                  MaterialButton(
+                      child: Text(
+                        "Add Subject",
+                        style: uiHelpers.title
+                            .copyWith(color: uiHelpers.primaryColor),
+                      ),
+                      onPressed: () => addNewSubject(context, model)),
+                ],
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    PieChartWidget(
+                        totalClasses: model.totalClasses(),
+                        totalPresentClasses: model.totalPresentClasses(),
+                        chartData: model.generatePieChartData(),
+                        attendanceList: model.attendanceList ?? []),
+                    ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.all(20),
+                      itemCount: model.attendanceList.length,
+                      itemBuilder: (context, index) {
+                        return AttendanceItem(index);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,

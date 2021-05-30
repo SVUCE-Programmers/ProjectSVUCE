@@ -3,6 +3,7 @@ import 'package:svuce_app/app/configs.dart';
 import 'dart:ui' as ui;
 
 import 'package:svuce_app/core/models/graph.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class GraphWidget extends StatefulWidget {
   final Graph graph;
@@ -38,6 +39,7 @@ class _GraphWidgetState extends State<GraphWidget>
 
   @override
   Widget build(BuildContext context) {
+    UiHelpers uiHelpers = UiHelpers.fromContext(context);
     final List<String> yAxisLabels = widget.yAxis;
     String label0Text;
     double label0Y;
@@ -82,7 +84,8 @@ class _GraphWidgetState extends State<GraphWidget>
                   Color(0xFFA74CBA),
                   Color(0xFFF287A6)
                 ]),
-                painter: GraphPainter(widget.graph, widget.subjects, appSize),
+                painter: GraphPainter(
+                    widget.graph, widget.subjects, appSize, uiHelpers),
               ),
             ),
             Positioned(
@@ -105,7 +108,7 @@ class _GraphWidgetState extends State<GraphWidget>
               ),
             ),
             Positioned(
-              left: appSize.width - 24,
+              left: appSize.width - 45,
               height: (150) * (appSize.height / 480),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,7 +132,8 @@ class _GraphWidgetState extends State<GraphWidget>
                     fontFamily: 'Quicksand',
                     fontSize: 10,
                   ),
-                  label0Y),
+                  label0Y,
+                  uiHelpers),
             },
           ],
         ),
@@ -137,7 +141,8 @@ class _GraphWidgetState extends State<GraphWidget>
     );
   }
 
-  Widget _buildLabel(Size appSize, String text, TextStyle style, double y) {
+  Widget _buildLabel(Size appSize, String text, TextStyle style, double y,
+      UiHelpers uiHelpers) {
     return Positioned(
       left: appSize.width * widget.graph.selectedX() + 8,
       top: 10,
@@ -149,7 +154,8 @@ class _GraphWidgetState extends State<GraphWidget>
         child: Text(text,
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Color(0xFFDCE2F5).withOpacity(_controller.value))),
+                color: uiHelpers.textSecondaryColor
+                    .withOpacity(_controller.value))),
       ),
     );
   }
@@ -375,9 +381,12 @@ class GraphPainter extends CustomPainter {
   List<String> labels;
   Size size;
 
-  GraphPainter(Graph graph, List<String> subjects, Size size)
+  UiHelpers uiHelpers;
+  GraphPainter(
+      Graph graph, List<String> subjects, Size size, UiHelpers uiHelpers)
       : _graph = graph,
         labels = subjects,
+        uiHelpers = uiHelpers,
         size = size,
         super(repaint: graph);
   @override
@@ -406,7 +415,9 @@ class GraphPainter extends CustomPainter {
         text: TextSpan(
           text: xAxisLabels[i - start.round()],
           style: TextStyle(
-            color: i == _graph.selectedDataPoint ? Colors.red : Colors.blue,
+            color: i == _graph.selectedDataPoint
+                ? uiHelpers.primaryColor
+                : Colors.blue,
             fontFamily: Configs.titleFont,
             fontWeight: i == _graph.selectedDataPoint
                 ? FontWeight.bold

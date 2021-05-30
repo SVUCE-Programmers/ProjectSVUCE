@@ -18,7 +18,8 @@ class SpotlightItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(
+          AnimatedContainer(
+            duration: Duration(milliseconds: 900),
             width: 80,
             height: 60,
             alignment: Alignment.center,

@@ -39,9 +39,11 @@ class UiHelpers {
   SizedBox horizontalSpaceLow;
   SizedBox horizontalSpaceMedium;
   SizedBox horizontalSpaceHigh;
+  bool isDark;
 
   UiHelpers.fromContext(BuildContext context) {
     final ThemeService _themeService = locator<ThemeService>();
+    isDark = _themeService.darkMode.value;
 
     var mediaQuery = MediaQuery.of(context);
 

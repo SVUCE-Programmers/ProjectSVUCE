@@ -11,6 +11,8 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/theme_service.dart';
+import 'package:svuce_app/hive_db/models/attendance.dart';
+import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
@@ -27,7 +29,9 @@ class MainViewModel extends BaseViewModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService _authService = locator<AuthService>();
   final ThemeService _themeService = locator<ThemeService>();
-
+  final AttendanceService _attendanceService = locator<AttendanceService>();
+  List<Attendance> attendanceList = [];
+  List<String> subjects = [];
   UserModel _currentUser;
   bool get isDarkMode => _themeService.isDarkMode;
   UserModel get currentUser => _currentUser;
@@ -59,17 +63,33 @@ class MainViewModel extends BaseViewModel {
     });
   }
 
+  init() {
+    listenAttendanceStream();
+    getCurrentUserDetails();
+    getAttendanceData();
+  }
+
   getGraph() {
+    List<double> temp = [];
+    attendanceList.asMap().forEach((key, value) {
+      if (value.total == 0) {
+        temp.add(0);
+      } else {
+        temp.add(
+            double.parse((value.present / value.total).toStringAsFixed(3)));
+      }
+    });
+    log.d(temp);
     DataSet dataSet = DataSet(
-      [0.2, 0.4, 0.6, 0.3, 0.04],
+      temp,
     );
     Graph graph = Graph([
       dataSet,
     ], "", "%");
     graph.domainStart = 0;
-    graph.domainEnd = 4;
+    graph.domainEnd = temp.length >= 4 ? 4.0 : temp.length.toDouble();
     graph.rangeStart = 0;
-    graph.rangeEnd = 10;
+    graph.rangeEnd = 11;
     graph.selectedDataPoint = 1;
     return graph;
   }
@@ -128,5 +148,21 @@ class MainViewModel extends BaseViewModel {
     setBusy(true);
     await _authService.signOut();
     setBusy(false);
+  }
+
+  getAttendanceData() async {
+    await _attendanceService.init();
+    notifyListeners();
+  }
+
+  listenAttendanceStream() {
+    _attendanceService.getAttendanceStream().listen((event) {
+      attendanceList = event;
+      attendanceList.asMap().forEach((key, value) {
+        subjects.add(value.subject);
+        notifyListeners();
+      });
+      notifyListeners();
+    });
   }
 }

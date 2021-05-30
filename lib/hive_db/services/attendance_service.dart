@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -12,6 +14,8 @@ class AttendanceService {
   //Required Services
   final HiveService _hiveService = locator<HiveService>();
   final TimeTableService timeTableService = locator<TimeTableService>();
+  final StreamController<List<Attendance>> _attendanceStream =
+      StreamController<List<Attendance>>.broadcast();
 
   List<Attendance> _attendanceList = [];
   List<Attendance> get attendanceList => _attendanceList;
@@ -27,6 +31,7 @@ class AttendanceService {
     // Getting data from Hive
     if (exists) {
       _attendanceList = await _hiveService.getBoxes<Attendance>(boxName);
+      _attendanceStream.add(_attendanceList);
 
       return true;
     }
@@ -70,8 +75,8 @@ class AttendanceService {
         lastUpdated: [...box.lastUpdated, "Present"]);
 
     await _hiveService.updateBoxAtIndex(boxName, newAttendance, index);
-
     _attendanceList[index] = newAttendance;
+    _attendanceStream.add(_attendanceList);
   }
 
   addAbsent(int index) async {
@@ -88,6 +93,7 @@ class AttendanceService {
     await _hiveService.updateBoxAtIndex(boxName, newAttendance, index);
 
     _attendanceList[index] = newAttendance;
+    _attendanceStream.add(_attendanceList);
   }
 
   addNewSubject({@required String name, @required int color}) async {
@@ -100,6 +106,7 @@ class AttendanceService {
         lastUpdated: []);
     await _hiveService.addBoxes<Attendance>([newAttendance], boxName);
     _attendanceList.add(newAttendance);
+    _attendanceStream.add(_attendanceList);
   }
 
   deleteSubject(
@@ -110,6 +117,7 @@ class AttendanceService {
       await _hiveService.deleteItem(boxName: "$boxName", item: attendance);
     }
     _attendanceList = await _hiveService.getBoxes<Attendance>(boxName);
+    _attendanceStream.add(_attendanceList);
   }
 
   undoAction(
@@ -132,6 +140,8 @@ class AttendanceService {
             boxName, newAttendance, index);
 
         _attendanceList = await _hiveService.getBoxes<Attendance>(boxName);
+        _attendanceStream.add(_attendanceList);
+
         break;
       case "Present":
         attendance.lastUpdated.removeLast();
@@ -145,6 +155,7 @@ class AttendanceService {
         await _hiveService.updateBoxAtIndex<Attendance>(
             boxName, newAttendance, index);
         _attendanceList = await _hiveService.getBoxes<Attendance>(boxName);
+        _attendanceStream.add(_attendanceList);
 
         break;
       case "Nothing":
@@ -164,9 +175,14 @@ class AttendanceService {
     await _hiveService.updateBoxAtIndex<Attendance>(
         boxName, newAttendance, index);
     _attendanceList = await _hiveService.getBoxes<Attendance>(boxName);
+    _attendanceStream.add(_attendanceList);
   }
 
   clearBox(String boxName) async {
     await _hiveService.clearItemsInBox(boxName);
+  }
+
+  Stream getAttendanceStream() {
+    return _attendanceStream.stream;
   }
 }
