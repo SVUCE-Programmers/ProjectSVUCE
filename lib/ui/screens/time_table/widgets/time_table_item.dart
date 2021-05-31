@@ -14,44 +14,44 @@ class TimeTableItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Container(
-      alignment: Alignment.center,
-      padding: isActionCenter ? EdgeInsets.all(20.0) : EdgeInsets.all(5),
-      margin: isActionCenter
-          ? EdgeInsets.all(10.0)
-          : EdgeInsets.symmetric(vertical: 10.0),
-      decoration: BoxDecoration(
-          color: uiHelpers.surfaceColor,
-          borderRadius: BorderRadius.circular(10)),
-      child: isActionCenter
-          ? Text.rich(TextSpan(
-              style: TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
-              children: [
-                  TextSpan(text: timeTable?.startTime),
-                  TextSpan(text: " - "),
-                  TextSpan(text: timeTable?.endTime),
-                  TextSpan(text: "\n"),
-                  TextSpan(
-                    text: timeTable.className,
-                    style: Theme.of(context).textTheme.headline6,
-                  )
-                ]))
-          : ListTile(
-              title: Text.rich(TextSpan(
-                  style:
-                      TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
-                  children: [
-                    TextSpan(text: timeTable?.startTime),
-                    TextSpan(text: " - "),
-                    TextSpan(text: timeTable?.endTime),
-                  ])),
-              subtitle: Text(
-                timeTable.className,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              trailing: Icon(
-                notificationIcon,
-                color: uiHelpers.primaryColor,
-              )),
+      // alignment: Alignment.center,
+      // padding: isActionCenter ? EdgeInsets.all(20.0) : EdgeInsets.all(5),
+      // margin: isActionCenter
+      //     ? EdgeInsets.all(10.0)
+      //     : EdgeInsets.symmetric(vertical: 10.0),
+      // decoration: BoxDecoration(
+      //     color: uiHelpers.surfaceColor,
+      //     borderRadius: BorderRadius.circular(10)),
+      // child: isActionCenter
+      //     ? Text.rich(TextSpan(
+      //         style: TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
+      //         children: [
+      //             TextSpan(text: timeTable?.startTime),
+      //             TextSpan(text: " - "),
+      //             TextSpan(text: timeTable?.endTime),
+      //             TextSpan(text: "\n"),
+      //             TextSpan(
+      //               text: timeTable.className,
+      //               style: Theme.of(context).textTheme.headline6,
+      //             )
+      //           ]))
+      //     : ListTile(
+      //         title: Text.rich(TextSpan(
+      //             style:
+      //                 TextStyle().copyWith(color: uiHelpers.textSecondaryColor),
+      //             children: [
+      //               TextSpan(text: timeTable?.startTime),
+      //               TextSpan(text: " - "),
+      //               TextSpan(text: timeTable?.endTime),
+      //             ])),
+      //         subtitle: Text(
+      //           timeTable.className,
+      //           style: Theme.of(context).textTheme.headline6,
+      //         ),
+      //         trailing: Icon(
+      //           notificationIcon,
+      //           color: uiHelpers.primaryColor,
+      //         )),
     );
   }
 }

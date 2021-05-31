@@ -6,7 +6,7 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/ui/screens/time_table/Edit%20TimeTable/EditTimeTable.dart';
+import 'package:svuce_app/ui/screens/admin screens/add_edit_time_table/add_edit_time_table.dart';
 
 class TimeTableViewModel extends BaseViewModel {
   final log = getLogger("TimeTableViewModel");
@@ -40,9 +40,9 @@ class TimeTableViewModel extends BaseViewModel {
   List<TimeTable> getCurrentDayTimeTable() {
     var currentWeekDay = weekDays[currentIndex];
 
-    var result =
-        _timeTableItems.where((element) => element.day == currentWeekDay);
-    return result.toList();
+    // var result =
+    //     _timeTableItems.where((element) => element.day == currentWeekDay);
+    // return result.toList();
   }
 
   getTimeTable() {
@@ -61,9 +61,8 @@ class TimeTableViewModel extends BaseViewModel {
   }
 
   navigateToEditTimeTable() {
-    _navigationService.navigateWithTransition(
-      EditTimeTable(),
-      transition: "scale",
-    );
+    _navigationService.navigateWithTransition(AddEditTimeTableView(),
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 700));
   }
 }

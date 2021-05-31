@@ -5,6 +5,11 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'about_college_view_model.dart';
 import 'teqip_page.dart';
+import 'hostel_view.dart';
+import 'ncc_nss_view.dart';
+import 'alumni_view.dart';
+import 'library_static_view.dart';
+import 'Health_center_view.dart';
 
 class AboutCollegeView extends HookWidget {
   @override
@@ -48,11 +53,11 @@ class AboutCollegeView extends HookWidget {
               physics: NeverScrollableScrollPhysics(),
               children: [
                 TeqipScreen(),
-                TeqipScreen(),
-                TeqipScreen(),
-                TeqipScreen(),
-                TeqipScreen(),
-                TeqipScreen()
+                HostelView(),
+                LibraryStaticView(),
+                HealthCenterView(),
+                NCCNSSView(),
+                AlumniView()
               ],
               controller: tabController,
             ))

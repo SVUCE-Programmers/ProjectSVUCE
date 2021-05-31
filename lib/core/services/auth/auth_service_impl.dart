@@ -76,7 +76,7 @@ class AuthServiceImpl implements AuthService {
   /// This function is responsible for getting user profile from Firestore.
   Future _populateCurrentUser(User user) async {
     if (user != null) {
-      currentUser = await _userService.getUser(user.uid);
+      currentUser = await _userService.getUser(user.email);
       // _userStream.add(currentUser);
     }
   }

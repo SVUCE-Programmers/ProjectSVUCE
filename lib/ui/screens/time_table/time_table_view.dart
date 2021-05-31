@@ -23,12 +23,18 @@ class TimeTableView extends StatelessWidget {
             backgroundColor: uiHelpers.primaryColor,
           ),
           appBar: AppBar(
-            leading: IconButton(
-                icon: Icon(
-                  backIcon,
-                  color: uiHelpers.textPrimaryColor,
-                ),
-                onPressed: () => model.navigateBack()),
+            leading: Hero(
+              tag: "backIcon",
+              child: Material(
+                color: Colors.transparent,
+                child: IconButton(
+                    icon: Icon(
+                      backIcon,
+                      color: uiHelpers.textPrimaryColor,
+                    ),
+                    onPressed: () => model.navigateBack()),
+              ),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(

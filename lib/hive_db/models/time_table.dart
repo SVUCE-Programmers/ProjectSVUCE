@@ -1,19 +1,39 @@
-import 'package:hive/hive.dart';
-part 'time_table.g.dart';
+import 'package:flutter/material.dart';
 
-@HiveType(typeId: 3)
 class TimeTable {
-  @HiveField(0)
-  final String className;
-  @HiveField(1)
-  final String startTime;
-  @HiveField(2)
-  final String endTime;
-  @HiveField(3)
-  final String day;
-  @HiveField(4)
-  final String year;
+  final Map<String, String> monday;
+  final Map<String, String> tuesday;
+  final Map<String, String> wednesday;
+  final Map<String, String> thursday;
+  final Map<String, String> friday;
+  final Map<String, String> saturday;
 
   TimeTable(
-      {this.className, this.startTime, this.endTime, this.day, this.year});
+      {@required this.monday,
+      @required this.tuesday,
+      @required this.wednesday,
+      @required this.thursday,
+      @required this.friday,
+      @required this.saturday});
+  static TimeTable fromMap(Map<String, dynamic> json) {
+    return TimeTable(
+        monday: json["Monday"] == null
+            ? {}
+            : Map<String, String>.from(json["Monday"]),
+        tuesday: json["Tuesday"] == null
+            ? {}
+            : Map<String, String>.from(json["Tuesday"]),
+        wednesday: json["Wednesday"] == null
+            ? {}
+            : Map<String, String>.from(json["Wednesday"]),
+        thursday: json["Thursday"] == null
+            ? {}
+            : Map<String, String>.from(json["Thursday"]),
+        friday: json["Friday"] == null
+            ? {}
+            : Map<String, String>.from(json["Friday"]),
+        saturday: json["Saturday"] == null
+            ? {}
+            : Map<String, String>.from(json["Saturday"]));
+  }
 }

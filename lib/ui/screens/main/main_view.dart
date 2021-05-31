@@ -3,6 +3,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
 
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/main/dashboard_items.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
@@ -28,13 +30,19 @@ class MainView extends StatelessWidget {
                     color: uiHelpers.textPrimaryColor,
                   ),
                   onPressed: () => model.toggleTheme()),
-              IconButton(
-                  icon: Icon(
-                    FlutterIcons.grid_fea,
-                    color: uiHelpers.textPrimaryColor,
-                  ),
-                  onPressed: () =>
-                      model.scaffoldKey.currentState.openEndDrawer()),
+              Hero(
+                tag: "backIcon",
+                child: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                      icon: Icon(
+                        feedIcon,
+                        color: uiHelpers.textPrimaryColor,
+                      ),
+                      onPressed: () =>
+                          model.scaffoldKey.currentState.openEndDrawer()),
+                ),
+              ),
             ],
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -138,8 +146,12 @@ class MainView extends StatelessWidget {
                         elevation: 0.3,
                         child: ListTile(
                           trailing: IconButton(
-                              icon: Icon(FlutterIcons.alarm_add_mdi),
-                              onPressed: () {}),
+                              icon: Icon(
+                                FlutterIcons.alarm_add_mdi,
+                                color: uiHelpers.textPrimaryColor,
+                              ),
+                              onPressed: () =>
+                                  NotifyService().addEventToCalendar()),
                           dense: true,
                           title: Text(
                             "9:30Am -10:30Am",
@@ -233,12 +245,7 @@ class MainView extends StatelessWidget {
                               .reversed
                               .toList(),
                         ),
-                  ListTile(
-                    title: Text(
-                      "",
-                      style: uiHelpers.title,
-                    ),
-                  ),
+            
                   uiHelpers.verticalSpaceMedium,
                 ],
               ),

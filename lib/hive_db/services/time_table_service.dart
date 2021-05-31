@@ -1,77 +1,42 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
-import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/hive_service.dart';
 
 @lazySingleton
 class TimeTableService {
+  final log = getLogger("Time Table Service");
   final HiveService hiveService = locator<HiveService>();
   final APIService apiService = locator<APIService>();
   final AuthService authenticationService = locator<AuthService>();
+  static FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
+  static CollectionReference _universityRef =
+      _firebaseFirestore.collection("university");
+
+  final StreamController<TimeTable> _timeTableStream =
+      StreamController<TimeTable>.broadcast();
 
   List<TimeTable> streamData = [];
 
-  final String url =
-      "https://raw.githubusercontent.com/shashiben/luffy/master/timetable.json";
+  Stream getTimeTable(String rollNo) {
+    var data = _universityRef.doc(rollNo).snapshots();
+    data.listen((event) {
+      var data = Map<String, dynamic>.from(event.data());
+      log.v(data);
 
-  getTimeTable() async {
-    bool exists = await hiveService.isExists(boxName: "TimeTable");
-
-    final String studentYear = authenticationService.getStudentPresentYear();
-
-    if (exists) {
-      // Getting data from Hive
-      List<TimeTable> temp = await hiveService.getBoxes<TimeTable>("TimeTable");
-
-      for (var item in temp) {
-        if (item.year == studentYear) {
-          streamData.add(item);
-        }
-      }
-
-      return true;
-    } else {
-      // Getting data from API and storing in hive for later usage
-
-      try {
-        var result = await apiService.fetchData(url: url);
-
-        (result as List).forEach((item) {
-          TimeTable timeTable = TimeTable(
-              className: item["class_name"],
-              startTime: item["start_time"],
-              endTime: item["end_time"],
-              day: item["day"],
-              year: item["year"]);
-
-          if (timeTable.year == studentYear) {
-            streamData.add(timeTable);
-          }
-        });
-
-        await hiveService.addBoxes<TimeTable>(streamData, "TimeTable");
-
-        return true;
-      } catch (e) {
-        return e.toString();
-      }
-    }
+      TimeTable timeTable = TimeTable.fromMap(data);
+      _timeTableStream.add(timeTable);
+    });
+    return _timeTableStream.stream;
   }
 
-  List<TimeTable> getCurrentDayClasses() {
-    var currentWeekDay = getCurrentWeekDay(DateTime.now().weekday);
+  List<TimeTable> getCurrentDayClasses() {}
 
-    var result = streamData.where((element) => element.day == currentWeekDay);
-
-    return result.toList();
-  }
-
-  List<TimeTable> getClassesOfDay(String currentWeekDay) {
-    var result = streamData.where((element) => element.day == currentWeekDay);
-
-    return result.toList();
-  }
+  List<TimeTable> getClassesOfDay(String currentWeekDay) {}
 }

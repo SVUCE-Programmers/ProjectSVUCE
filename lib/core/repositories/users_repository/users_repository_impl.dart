@@ -26,13 +26,13 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
   @override
   Future getUser(String email) async {
     try {
-      var userData = await _userRef.where("email", isEqualTo: email).get();
-      log.d("Got data at getUser is:${userData.docs[0].data()}");
-      if (Map<String, dynamic>.from(userData.docs[0].data())["id"] != null) {
-        return UserModel.fromMap(
-            Map<String, dynamic>.from(userData.docs[0].data()));
+      log.v("Requesting Data for user with email:$email");
+      var userData = await _userRef.doc(email).get();
+      log.d("Got data at getUser is:${userData.data()}");
+      if (Map<String, dynamic>.from(userData.data())["id"] != null) {
+        return UserModel.fromMap(Map<String, dynamic>.from(userData.data()));
       } else {
-        var data = Map<String, dynamic>.from(userData.docs[0].data());
+        var data = Map<String, dynamic>.from(userData.data());
         return UserModel(
           id: _firebaseAuth.currentUser.uid,
           collegeName: data["collegeName"],
@@ -44,7 +44,7 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
         );
       }
     } catch (e) {
-      log.e("e");
+      log.e("$e");
       return e ?? "Something went wrong";
     }
   }

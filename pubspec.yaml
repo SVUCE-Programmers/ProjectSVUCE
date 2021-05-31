@@ -56,6 +56,9 @@ dependencies:
   file_picker:
   permission_handler:
   flutter_colorpicker:
+  flutter_local_notifications:
+  add_2_calendar:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

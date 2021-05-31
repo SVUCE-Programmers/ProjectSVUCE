@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -11,12 +12,15 @@ class CalendarEventsViewModel extends BaseViewModel {
   final log = getLogger("CalendarEventsViewModel");
   final EventsRepository _eventsRepository = locator<EventsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
+  DateTime dateTime = DateTime.now();
 
   List<Event> _eventList = [];
-  Map<DateTime, List<dynamic>> get eventsList => groupEvents(_eventList);
+  Map<DateTime, List<Event>> get eventsList => groupEvents(_eventList);
+  ValueNotifier<List<Event>> get valueSelectedEvents =>
+      ValueNotifier(eventsList[dateTime]);
 
-  Map<DateTime, List<dynamic>> groupEvents(List<Event> events) {
-    Map<DateTime, List<dynamic>> data = {};
+  Map<DateTime, List<Event>> groupEvents(List<Event> events) {
+    Map<DateTime, List<Event>> data = {};
     events.forEach((e) {
       DateTime h = e.timeStamp;
       DateTime date = DateTime(h.year, h.month, h.day, 12);
@@ -29,6 +33,10 @@ class CalendarEventsViewModel extends BaseViewModel {
   List _selectedevents = [];
 
   List get selectedEvents => _selectedevents;
+  changeDate(DateTime newDateTime) {
+    dateTime = newDateTime;
+    notifyListeners();
+  }
 
   getEvents() {
     setBusy(true);

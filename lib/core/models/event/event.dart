@@ -23,12 +23,12 @@ abstract class Event implements _$Event {
   static Event fromDocument(DocumentSnapshot document) {
     if (document == null || document.data() == null) return null;
     var docData = Map<String, dynamic>.from(document.data());
-
     return Event(
         name: docData["name"],
         organiser: docData["organiser"],
         place: docData["place"],
-        timeStamp: DateTime.parse(docData["timeStamp"]),
+        timeStamp: DateTime.fromMillisecondsSinceEpoch(
+            docData["timeStamp"].millisecondsSinceEpoch),
         description: docData["description"],
         imageUrl: docData["imageUrl"],
         id: document.id,

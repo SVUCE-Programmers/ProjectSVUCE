@@ -5,7 +5,6 @@ import 'package:svuce_app/app/locator.dart';
 import 'models/attendance.dart';
 import 'models/placement.dart';
 import 'models/staff.dart';
-import 'models/time_table.dart';
 
 void setupHive() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
@@ -15,7 +14,6 @@ void setupHive() async {
   _hiveInterface.init(path);
 
   _hiveInterface.registerAdapter(StaffAdapter());
-  _hiveInterface.registerAdapter(TimeTableAdapter());
   _hiveInterface.registerAdapter(AttendanceAdapter());
   _hiveInterface.registerAdapter(PlacementAdapter());
 }
