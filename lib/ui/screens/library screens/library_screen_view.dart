@@ -3,7 +3,6 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/library%20screens/library_items.dart';
 import 'package:svuce_app/ui/screens/library%20screens/library_screen_view_model.dart';
-import 'package:svuce_app/ui/widgets/gridmenu_item.dart';
 
 class LibraryScreen extends StatelessWidget {
   @override
@@ -28,9 +27,7 @@ class LibraryScreen extends StatelessWidget {
                       childAspectRatio: (uiHelpers.width * 0.5) / 100,
                       mainAxisSpacing: 40,
                       crossAxisCount: 2),
-                  itemBuilder: (context, index) => SpotlightItem(
-                      icon: libraryItems[index].iconData,
-                      name: libraryItems[index].name),
+                  itemBuilder: (context, index) => libraryItems[index],
                   itemCount: libraryItems.length,
                 )
               ],

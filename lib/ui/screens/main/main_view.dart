@@ -5,6 +5,7 @@ import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
+import 'package:svuce_app/core/services/github_api_services.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/main/dashboard_items.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
@@ -245,7 +246,6 @@ class MainView extends StatelessWidget {
                               .reversed
                               .toList(),
                         ),
-            
                   uiHelpers.verticalSpaceMedium,
                 ],
               ),

@@ -1,23 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/github_api_services.dart';
+import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
+import 'package:svuce_app/ui/widgets/gridmenu_item.dart';
 
-class LibraryItem {
-  final String name;
-  final IconData iconData;
-  final Function onTap;
+final GithubApiServices _githubApiServices = GithubApiServices();
 
-  LibraryItem(
-      {@required this.name, @required this.iconData, @required this.onTap});
-}
+final NavigationService _navigationService = locator<NavigationService>();
 
-List<LibraryItem> libraryItems = [
-  LibraryItem(
-      name: "Previous Papers",
-      iconData: FlutterIcons.library_mco,
-      onTap: () {}),
-  LibraryItem(
-      name: "Text Books", iconData: FlutterIcons.library_mco, onTap: () {}),
-  LibraryItem(
-      name: "Source Codes", iconData: FlutterIcons.library_mco, onTap: () {}),
-  LibraryItem(name: "Notes", iconData: FlutterIcons.library_mco, onTap: () {})
+List<SpotlightItem> libraryItems = [
+  SpotlightItem(
+      name: "Previous Papers", icon: FlutterIcons.library_mco, onTap: () {}),
+  SpotlightItem(
+      name: "Text Books", icon: FlutterIcons.library_mco, onTap: () {}),
+  SpotlightItem(
+      name: "Source Codes",
+      icon: FlutterIcons.library_mco,
+      onTap: () => _navigationService.navigateWithTransition(
+          GithubPageView(
+            url: _githubApiServices.programUrl,
+            extensionUrl: _githubApiServices.rawGithubUrl,
+          ),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900))),
+  SpotlightItem(name: "Notes", icon: FlutterIcons.library_mco, onTap: () {})
 ];
