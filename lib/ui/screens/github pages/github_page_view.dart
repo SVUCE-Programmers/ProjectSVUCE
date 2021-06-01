@@ -6,9 +6,13 @@ import 'package:svuce_app/ui/screens/github%20pages/github_page_view_model.dart'
 class GithubPageView extends StatelessWidget {
   final String url;
   final String extensionUrl;
+  final String title;
 
   const GithubPageView(
-      {Key key, @required this.url, @required this.extensionUrl})
+      {Key key,
+      @required this.url,
+      @required this.extensionUrl,
+      this.title = "Library"})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -29,13 +33,21 @@ class GithubPageView extends StatelessWidget {
                         itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: ListTile(
+                                  leading: Image.asset(
+                                    model.githubApiList[index].type == "tree"
+                                        ? "assets/images/folder_icon.png"
+                                        : "assets/images/file_icon.png",
+                                    height: 40,
+                                  ),
                                   trailing: Icon(Icons.arrow_forward_ios,
                                       color: uiHelpers.textPrimaryColor),
                                   tileColor: uiHelpers.surfaceColor,
                                   onTap: () => model.navigationMode(
                                       model.githubApiList[index]),
                                   title: Text(
-                                    model.githubApiList[index].path,
+                                    model.githubApiList[index].path
+                                        .replaceAll("_", " ")
+                                        .split(".")[0],
                                     style: uiHelpers.title,
                                   )),
                             ),
@@ -51,7 +63,7 @@ class GithubPageView extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             title: Text(
-              "Source Codes",
+              "${title.replaceAll("_", " ")}",
               style: uiHelpers.headline,
             ),
             leading: IconButton(

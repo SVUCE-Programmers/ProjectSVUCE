@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/feed/feed.dart';
 import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
+import 'package:svuce_app/ui/screens/admin%20screens/create%20post/create_post_view.dart';
 
 class FeedViewModel extends BaseViewModel {
   final FeedRepository _feedRepository = locator<FeedRepository>();
@@ -28,4 +29,7 @@ class FeedViewModel extends BaseViewModel {
   navigateBack() {
     _navigationService.back();
   }
+
+  navigationToCreatePost() => _navigationService
+      .navigateWithTransition(CreatePost(), transition: "rightToLeftWithFade");
 }

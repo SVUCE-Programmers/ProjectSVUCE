@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_vi
 import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
 import '../../screens/admin screens/attendance_staff_view/attendance_staff_view.dart';
 import '../attendance_manager/attendance_manager_view.dart';
+
 class MainViewModel extends BaseViewModel {
   final log = getLogger("MainViewModel");
   final UsersRepository _userRepository = locator<UsersRepository>();
@@ -165,6 +165,4 @@ class MainViewModel extends BaseViewModel {
       notifyListeners();
     });
   }
-
- 
 }

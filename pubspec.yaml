@@ -36,6 +36,10 @@ dependencies:
   firebase_core: ^1.2.0
   onesignal_flutter:
 
+  #Animations
+  animations:
+  simple_animations:
+
   # icons
   eva_icons_flutter: ^3.0.0
   flutter_icons: ^1.1.0
@@ -46,11 +50,10 @@ dependencies:
   flutter_cache_manager:
   logger:
   http:
-  dio:
   table_calendar: ^3.0.0
   firebase_dynamic_links: ^2.0.4
   share_plus:
-  fl_chart: ^0.36.1
+  fl_chart:
   excel:
   dotted_border:
   file_picker:
@@ -58,7 +61,7 @@ dependencies:
   flutter_colorpicker:
   flutter_local_notifications:
   add_2_calendar:
-
+  markdown_widget:
 dev_dependencies:
   flutter_test:
     sdk: flutter

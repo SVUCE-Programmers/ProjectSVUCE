@@ -24,7 +24,8 @@ class ForgotPasswordView extends StatelessWidget {
                 onPressed: model.goBack),
             title: Text(
               "Forgot Password",
-              style: uiHelpers.headline.copyWith(color: Colors.white),
+              style: uiHelpers.headline
+                  .copyWith(color: uiHelpers.textPrimaryColor),
             ),
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,

@@ -15,6 +15,10 @@ class FeedView extends StatelessWidget {
       onModelReady: (model) => model.getFeed(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => model.navigationToCreatePost(),
+            child: Icon(Icons.add),
+          ),
           appBar: AppBar(
             centerTitle: true,
             title: Text(

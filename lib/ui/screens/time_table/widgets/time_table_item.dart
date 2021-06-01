@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
 
