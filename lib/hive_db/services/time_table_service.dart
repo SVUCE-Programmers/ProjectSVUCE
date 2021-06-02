@@ -22,8 +22,6 @@ class TimeTableService {
   final StreamController<TimeTable> _timeTableStream =
       StreamController<TimeTable>.broadcast();
 
-  List<TimeTable> streamData = [];
-
   Stream getTimeTable(String rollNo) {
     var data = _universityRef.doc(rollNo).snapshots();
     data.listen((event) {

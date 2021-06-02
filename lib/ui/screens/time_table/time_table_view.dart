@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/ui/screens/time_table/widgets/time_table_item.dart';
 
-import 'widgets/time_table_item.dart';
 import 'consumers/week_day_selector.dart';
 
 import 'time_table_viewmodel.dart';
@@ -15,7 +15,6 @@ class TimeTableView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       viewModel: TimeTableViewModel(),
       builder: (context, uiHelpers, model) {
-        var timeTableItems = model.getTimeTable();
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => model.navigateToEditTimeTable(),
@@ -49,20 +48,18 @@ class TimeTableView extends StatelessWidget {
                   children: <Widget>[
                     WeekDaySelector(),
                     uiHelpers.verticalSpaceLow,
-                    // if (timeTableItems is List && timeTableItems.length > 0)
-                    //   ...timeTableItems
-                    //       //TODO: Implement [Remaind Me] Feature
-                    //       .map((eachTimeTable) => TimeTableItem(
-                    //             timeTable: eachTimeTable,
-                    //           ))
-                    //       .toList()
-                    // else if (timeTableItems is List)
-                    //   Text(
-                    //     "No Classes Today}",
-                    //     textAlign: TextAlign.center,
-                    //   )
-                    // else
-                    //   Text("Relax")
+                    Column(
+                      children: List.generate(
+                          model.getTimeTable().length,
+                          (index) => TimeTableItem(
+                                className: model
+                                    .getTimeTable()
+                                    .values
+                                    .elementAt(index),
+                                date:
+                                    model.getTimeTable().keys.elementAt(index),
+                              )),
+                    )
                   ],
                 )
               : Center(child: CircularProgressIndicator()),

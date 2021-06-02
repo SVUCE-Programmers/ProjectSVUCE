@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -12,9 +11,7 @@ class TimeTableViewModel extends BaseViewModel {
   final log = getLogger("TimeTableViewModel");
   final TimeTableService timeTableService = locator<TimeTableService>();
   final NavigationService _navigationService = locator<NavigationService>();
-
-  List<TimeTable> _timeTableItems;
-  List<TimeTable> get timeTable => _timeTableItems;
+  TimeTable timeTable;
 
   changeCurrentDay(int index) {
     currentDay = weekDates[index];
@@ -30,25 +27,10 @@ class TimeTableViewModel extends BaseViewModel {
   init() async {
     log.wtf(weekDates);
     currentIndex = weekDates.indexOf(DateTime.now().day);
-    List<TimeTable> items = timeTableService.streamData;
-    if (items != null) {
-      _timeTableItems = items;
-    }
-  }
-
-  TimeTable getCurrentDayTimeTable() {
-    var result = _timeTableItems.elementAt(currentIndex);
-    return result;
-  }
-
-  getTimeTable() {
-    var data = _timeTableItems != null
-        ? currentIndex == 6
-            ? Text("RELAX")
-            : getCurrentDayTimeTable()
-        : [];
-    log.wtf(data);
-    return data;
+    timeTableService.getTimeTable("117060").listen((event) {
+      timeTable = event;
+      notifyListeners();
+    });
   }
 
   //?Navigation Services
@@ -60,5 +42,26 @@ class TimeTableViewModel extends BaseViewModel {
     _navigationService.navigateWithTransition(AddEditTimeTableView(),
         transition: "rightToLeftWithFade",
         duration: Duration(milliseconds: 700));
+  }
+
+  Map<String, String> getTimeTable() {
+    switch (currentDay + 1) {
+      case 1:
+        return timeTable.monday;
+      case 2:
+        return timeTable.tuesday;
+      case 3:
+        return timeTable.wednesday;
+      case 4:
+        return timeTable.thursday;
+      case 5:
+        return timeTable.friday;
+      case 6:
+        return timeTable.saturday;
+      case 7:
+        return {};
+      default:
+        return {};
+    }
   }
 }

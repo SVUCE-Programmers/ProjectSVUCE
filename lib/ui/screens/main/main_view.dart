@@ -164,7 +164,7 @@ class MainView extends StatelessWidget {
                                 color: uiHelpers.textPrimaryColor,
                               ),
                               onPressed: () =>
-                                  NotifyService().addEventToCalendar()),
+                                  NotifyService().addAlarm(context)),
                           dense: true,
                           title: Text(
                             "9:30Am -10:30Am",

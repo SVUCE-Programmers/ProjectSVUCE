@@ -66,6 +66,8 @@ dependencies:
   add_2_calendar:
   markdown_widget:
   carousel_slider:
+  flutter_native_timezone:
+  timezone:
 dev_dependencies:
   flutter_test:
     sdk: flutter
