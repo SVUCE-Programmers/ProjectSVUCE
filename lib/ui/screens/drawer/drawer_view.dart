@@ -47,7 +47,7 @@ class DrawerView extends StatelessWidget {
                     ),
                     TextSpan(
                       text: model.currentUser != null
-                          ? model.currentUser.rollNo
+                          ? model.currentUser.rollNo.toString()
                           : "",
                       style:
                           uiHelpers.body.apply(color: uiHelpers.primaryColor),

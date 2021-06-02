@@ -38,7 +38,6 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
           collegeName: data["collegeName"],
           rollNo: data["rollNo"],
           userType: data["userType"],
-          contact: data["contact"],
           fullName: data["fullName"],
           email: email,
         );
@@ -77,11 +76,11 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
     if (_sharedPreferences.containsKey("id") &&
         _firebaseAuth.currentUser.uid == _sharedPreferences.getString("id")) {
       UserModel userModel = UserModel(
+          phoneNumber: _sharedPreferences.getInt("phoneNumber"),
           fullName: _sharedPreferences.getString("fullName"),
           id: _sharedPreferences.getString("id"),
           email: _sharedPreferences.getString("email"),
-          rollNo: _sharedPreferences.getString("rollNo"),
-          contact: _sharedPreferences.getString("contact"),
+          rollNo: _sharedPreferences.getInt("rollNo"),
           collegeName: _sharedPreferences.getString("collegeName"),
           profileImg: _sharedPreferences.getString("profileImg"),
           userType: _sharedPreferences.getString("userType"));
@@ -107,7 +106,11 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
       userModel.toMap().forEach((key, value) {
         log.d("Key is:$key and value is:$value");
         if (value != null) {
-          _sharedPreferences.setString(key, value ?? "");
+          if (value is String) {
+            _sharedPreferences.setString(key, value ?? "");
+          } else if (value is int) {
+            _sharedPreferences.setInt(key, value);
+          }
         }
       });
     }

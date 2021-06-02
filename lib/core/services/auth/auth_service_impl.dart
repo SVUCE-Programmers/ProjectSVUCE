@@ -96,8 +96,8 @@ class AuthServiceImpl implements AuthService {
   }
 
   String getStudentPresentYear() {
-    String roll = currentUser.rollNo;
-    return getStudentYear(roll);
+    int roll = currentUser.rollNo;
+    return getStudentYear(roll.toString());
   }
 
   Future signOut() async {

@@ -67,7 +67,7 @@ class UserProfileView extends StatelessWidget {
                   ),
                   newLine,
                   TextSpan(
-                    text: model.user.rollNo,
+                    text: model.user.rollNo.toString(),
                     style: uiHelpers.body.apply(color: uiHelpers.primaryColor),
                   ),
                 ]),

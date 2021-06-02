@@ -17,27 +17,27 @@ class UserModel {
     this.rollNo,
     this.profileImg,
     this.collegeName,
-    this.contact,
+    this.phoneNumber,
   });
 
   final String id;
   final String fullName;
   final String email;
   final String userType;
-  final String rollNo;
+  final int rollNo;
   final String profileImg;
   final String collegeName;
-  final String contact;
+  final int phoneNumber;
 
   UserModel copyWith({
     String id,
     String fullName,
     String email,
     String userType,
-    String rollNo,
+    int rollNo,
     String profileImg,
     String collegeName,
-    String contact,
+    int phoneNumber,
   }) =>
       UserModel(
         id: id ?? this.id,
@@ -47,7 +47,7 @@ class UserModel {
         rollNo: rollNo ?? this.rollNo,
         profileImg: profileImg ?? this.profileImg,
         collegeName: collegeName ?? this.collegeName,
-        contact: contact ?? this.contact,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
       );
 
   factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
@@ -58,7 +58,7 @@ class UserModel {
         rollNo: json["rollNo"] == null ? null : json["rollNo"],
         profileImg: json["profileImg"] == null ? null : json["profileImg"],
         collegeName: json["collegeName"] == null ? null : json["collegeName"],
-        contact: json["contact"] == null ? null : json["contact"],
+        phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -69,6 +69,6 @@ class UserModel {
         "rollNo": rollNo == null ? null : rollNo,
         "profileImg": profileImg == null ? null : profileImg,
         "collegeName": collegeName == null ? null : collegeName,
-        "contact": contact == null ? null : contact,
+        "phoneNumber": phoneNumber == null ? null : phoneNumber,
       };
 }

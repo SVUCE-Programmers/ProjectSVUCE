@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
+import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'dart:io';
 
@@ -177,14 +178,17 @@ class ExcelServiceImpl implements ExcelService {
   }
 
   @override
-  getDataFromExcelFile({File file}) {
-    List<List<String>> data = [];
+  List<StudentAddDataBody> getDataFromExcelFile({File file}) {
+    List<StudentAddDataBody> data = [];
     var bytes = file.readAsBytesSync();
     var excel = Excel.decodeBytes(bytes);
-
+    bool canAdd = false;
     for (var table in excel.tables.keys) {
       for (var row in excel.tables[table].rows) {
-        data.add(row.map((e) => e.toString()).toList());
+        if (canAdd) {
+          data.add(StudentAddDataBody.getFromExcel(row));
+        }
+        canAdd = true;
       }
     }
     return data;

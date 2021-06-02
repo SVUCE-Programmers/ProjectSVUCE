@@ -42,5 +42,6 @@ class OneSignalService {
         .setInFocusDisplayType(OSNotificationDisplayType.notification);
 
     bool requiresConsent = await OneSignal.shared.requiresUserPrivacyConsent();
+    OneSignal.shared.setRequiresUserPrivacyConsent(true);
   }
 }

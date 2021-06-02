@@ -14,6 +14,8 @@ import 'package:stacked_services/stacked_services.dart' as _i12;
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
+import 'package:svuce_app/core/services/student%20services/student_service.dart';
+import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i10;
@@ -81,6 +83,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i12.BottomSheetService>(
       registerDependencies.bottomSheetService);
   gh.singleton<_i13.Client>(registerDependencies.client);
+  gh.singleton<StudentService>(StudentServiceImpl());
   gh.singleton<_i14.CloudStorageService>(_i15.CloudStorageServiceImpl());
   gh.singleton<_i16.ClubsRepository>(_i17.ClubsRepositoryImpl());
   gh.singleton<_i12.DialogService>(registerDependencies.dialogService);

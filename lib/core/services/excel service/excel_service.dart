@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:svuce_app/core/models/student_add_Data_body.dart';
 
 abstract class ExcelService {
-
   //?For Attendance
   initForStaffExcel({String excelName});
   addForStaffExcelSheet({String sheetName});
@@ -21,5 +21,5 @@ abstract class ExcelService {
   deleteSheet({@required String sheetName});
 
   //?General Services
-  getDataFromExcelFile({@required File file});
+  List<StudentAddDataBody> getDataFromExcelFile({@required File file});
 }
