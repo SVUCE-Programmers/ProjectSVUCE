@@ -31,18 +31,14 @@ class TimeTableViewModel extends BaseViewModel {
     log.wtf(weekDates);
     currentIndex = weekDates.indexOf(DateTime.now().day);
     List<TimeTable> items = timeTableService.streamData;
-
     if (items != null) {
       _timeTableItems = items;
     }
   }
 
-  List<TimeTable> getCurrentDayTimeTable() {
-    var currentWeekDay = weekDays[currentIndex];
-
-    // var result =
-    //     _timeTableItems.where((element) => element.day == currentWeekDay);
-    // return result.toList();
+  TimeTable getCurrentDayTimeTable() {
+    var result = _timeTableItems.elementAt(currentIndex);
+    return result;
   }
 
   getTimeTable() {

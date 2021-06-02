@@ -30,6 +30,8 @@ class FeedViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  navigationToCreatePost() => _navigationService
-      .navigateWithTransition(CreatePost(), transition: "rightToLeftWithFade");
+  navigationToCreatePost() =>
+      _navigationService.navigateWithTransition(CreatePost(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
 }

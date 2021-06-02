@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
@@ -93,10 +94,22 @@ class MainView extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
+                    child: CarouselSlider(
+                        items: model.imageList
+                            .map((e) => Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.asset(e,
+                                        height: 200, fit: BoxFit.fill),
+                                  ),
+                                ))
+                            .toList(),
+                        options: CarouselOptions(autoPlay: true)),
                     margin: const EdgeInsets.only(right: 20.0),
-                    decoration: BoxDecoration(
-                        color: uiHelpers.surfaceColor,
-                        borderRadius: BorderRadius.circular(8)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     height: 200,
                   ),
                   ListTile(

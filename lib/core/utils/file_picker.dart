@@ -4,8 +4,8 @@ import 'package:file_picker/file_picker.dart';
 
 class FilePickerUtil {
   pickExcelFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
-        type: FileType.custom, allowedExtensions: ['.csv', '.xlsx', '.xlsm']);
+    FilePickerResult result =
+        await FilePicker.platform.pickFiles(type: FileType.any);
     if (result != null) {
       PlatformFile file = result.files.first;
 

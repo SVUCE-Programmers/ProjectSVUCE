@@ -175,4 +175,18 @@ class ExcelServiceImpl implements ExcelService {
       saveToExcel(sheetName: sheetName);
     }
   }
+
+  @override
+  getDataFromExcelFile({File file}) {
+    List<List<String>> data = [];
+    var bytes = file.readAsBytesSync();
+    var excel = Excel.decodeBytes(bytes);
+
+    for (var table in excel.tables.keys) {
+      for (var row in excel.tables[table].rows) {
+        data.add(row.map((e) => e.toString()).toList());
+      }
+    }
+    return data;
+  }
 }

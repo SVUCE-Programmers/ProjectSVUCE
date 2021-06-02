@@ -35,8 +35,4 @@ class TimeTableService {
     });
     return _timeTableStream.stream;
   }
-
-  List<TimeTable> getCurrentDayClasses() {}
-
-  List<TimeTable> getClassesOfDay(String currentWeekDay) {}
 }

@@ -12,6 +12,7 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 
+import '../firebaseAnalyticsService.dart';
 import 'auth_service.dart';
 
 @Singleton(as: AuthService)
@@ -21,6 +22,7 @@ class AuthServiceImpl implements AuthService {
   final UsersRepository _userService = locator<UsersRepository>();
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   // for testing
   AuthServiceImpl(this._firebaseAuth);
@@ -37,6 +39,7 @@ class AuthServiceImpl implements AuthService {
           email: email, password: password);
 
       await _populateCurrentUser(authResult.user);
+      await _analyticsService.logLogin();
 
       return authResult.user != null;
     } catch (e) {
@@ -58,6 +61,8 @@ class AuthServiceImpl implements AuthService {
           email: email, password: password);
       await _userService
           .updateUser({"id": authResult.user.uid, "email": "$email"});
+      await _analyticsService.logSignUp();
+
       return authResult.user != null;
     } catch (e) {
       log.e("$e");
@@ -110,4 +115,18 @@ class AuthServiceImpl implements AuthService {
 
   @override
   Future signUpUser({String email}) async {}
+
+  @override
+  String getUid() {
+    return _firebaseAuth.currentUser != null
+        ? _firebaseAuth.currentUser.uid
+        : null;
+  }
+
+  @override
+  String getEmail() {
+    return _firebaseAuth.currentUser != null
+        ? _firebaseAuth.currentUser.email
+        : null;
+  }
 }

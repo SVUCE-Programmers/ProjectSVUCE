@@ -10,6 +10,7 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
+import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/core/services/one_signal_service.dart';
 
 class StartUpViewModel extends BaseViewModel {
@@ -19,9 +20,12 @@ class StartUpViewModel extends BaseViewModel {
   final OneSignalService _notificationService = OneSignalService();
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
+  final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   Future handleStartUpLogic(BuildContext context) async {
+    _analyticsService.logAppOpen();
     await precacheImage(AssetImage(hexagonPattern), context);
+
     await _dynamicLinkService.handleDynamicLinks();
     await _notificationService.initialise();
     var userLoggedIn = _authenticationService.isUserLoggedIn();

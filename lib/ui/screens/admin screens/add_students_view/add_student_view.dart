@@ -19,6 +19,7 @@ class AddStudentView extends StatelessWidget {
                 children: [
                   uiHelpers.verticalSpaceLow,
                   DottedBorder(
+                    color: uiHelpers.primaryColor,
                     dashPattern: [8, 8],
                     radius: Radius.circular(8),
                     borderType: BorderType.RRect,
@@ -46,7 +47,38 @@ class AddStudentView extends StatelessWidget {
                         height: 75,
                       ),
                     ),
-                  )
+                  ),
+                  uiHelpers.verticalSpaceLow,
+                  model.data != null && model.data.length != 0
+                      ? SingleChildScrollView(
+                          primary: false,
+                          scrollDirection: Axis.horizontal,
+                          child: Table(
+                            columnWidths: {
+                              0: FixedColumnWidth(150),
+                              1: FixedColumnWidth(100),
+                              2: FixedColumnWidth(80),
+                              3: FixedColumnWidth(240),
+                              4: FixedColumnWidth(120)
+                            },
+                            border: TableBorder.all(
+                                color: uiHelpers.textSecondaryColor),
+                            children: model.data
+                                .map((e) => TableRow(
+                                    children: e
+                                        .map((data) => Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                data.toString(),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ))
+                                        .toList()))
+                                .toList(),
+                          ),
+                        )
+                      : SizedBox()
                 ],
               )),
         ),

@@ -6,6 +6,7 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/theme.dart';
 
+import 'core/services/firebaseAnalyticsService.dart';
 import 'core/services/theme_service.dart';
 import 'hive_db/setup_hive.dart';
 
@@ -25,6 +26,9 @@ class App extends StatelessWidget {
       viewModelBuilder: () => AppViewModel(),
       builder: (context, model, child) => MaterialApp(
         title: 'SVUCE ',
+        navigatorObservers: [
+          locator<AnalyticsService>().getAnalyticsObserver(),
+        ],
         darkTheme: darkThemeData(context),
         themeMode: model.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         theme:

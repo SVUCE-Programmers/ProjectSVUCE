@@ -13,6 +13,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i12;
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
+import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i10;
@@ -66,6 +67,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i12.NavigationService>(registerDependencies.navigationService);
   gh.singleton<_i27.PushNotificationService>(_i28.PushNotificationServiceImp());
   gh.singleton<_i12.SnackbarService>(registerDependencies.snackbarService);
+  gh.lazySingleton(() => AnalyticsService());
+
   gh.lazySingleton<_i3.AttendanceService>(() => _i3.AttendanceService());
   gh.singleton<ExcelService>(ExcelServiceImpl());
   gh.lazySingleton<_i4.HiveService>(() => _i4.HiveService());

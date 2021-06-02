@@ -8,6 +8,7 @@ class CreatePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<CreatePostViewModel>(
       viewModel: CreatePostViewModel(),
+      onModelReady: (m)=>m.init(),
       builder: (context, uiHelpers, model) => Scaffold(
         body: Form(
           key: model.formKey,
@@ -38,6 +39,7 @@ class CreatePost extends StatelessWidget {
                         hintStyle: uiHelpers.body,
                         isDense: true,
                         border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(12),
                         )),
                   ),
@@ -68,6 +70,7 @@ class CreatePost extends StatelessWidget {
                         hintStyle: uiHelpers.body,
                         isDense: true,
                         border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(12),
                         )),
                   ),
@@ -104,6 +107,7 @@ class CreatePost extends StatelessWidget {
                         hintStyle: uiHelpers.body,
                         isDense: true,
                         border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(12),
                         )),
                   ),
@@ -111,7 +115,7 @@ class CreatePost extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Ur (optional)",
+                    "Url (optional)",
                     style: uiHelpers.title.copyWith(fontSize: 14),
                   ),
                   SizedBox(height: 5),
@@ -137,6 +141,7 @@ class CreatePost extends StatelessWidget {
                         hintStyle: uiHelpers.body,
                         isDense: true,
                         border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(12),
                         )),
                   ),

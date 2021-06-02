@@ -49,20 +49,20 @@ class TimeTableView extends StatelessWidget {
                   children: <Widget>[
                     WeekDaySelector(),
                     uiHelpers.verticalSpaceLow,
-                    if (timeTableItems is List && timeTableItems.length > 0)
-                      ...timeTableItems
-                          //TODO: Implement [Remaind Me] Feature
-                          .map((eachTimeTable) => TimeTableItem(
-                                timeTable: eachTimeTable,
-                              ))
-                          .toList()
-                    else if (timeTableItems is List)
-                      Text(
-                        "No Classes Today}",
-                        textAlign: TextAlign.center,
-                      )
-                    else
-                      Text("Relax")
+                    // if (timeTableItems is List && timeTableItems.length > 0)
+                    //   ...timeTableItems
+                    //       //TODO: Implement [Remaind Me] Feature
+                    //       .map((eachTimeTable) => TimeTableItem(
+                    //             timeTable: eachTimeTable,
+                    //           ))
+                    //       .toList()
+                    // else if (timeTableItems is List)
+                    //   Text(
+                    //     "No Classes Today}",
+                    //     textAlign: TextAlign.center,
+                    //   )
+                    // else
+                    //   Text("Relax")
                   ],
                 )
               : Center(child: CircularProgressIndicator()),

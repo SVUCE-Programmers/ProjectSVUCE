@@ -165,4 +165,10 @@ class MainViewModel extends BaseViewModel {
       notifyListeners();
     });
   }
+
+  List<String> imageList = [
+    "assets/images/ad.jpg",
+    "assets/images/auditorium.jpg",
+    "assets/images/hostel.webp"
+  ];
 }
