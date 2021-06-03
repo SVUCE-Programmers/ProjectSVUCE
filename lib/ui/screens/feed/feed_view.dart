@@ -46,6 +46,8 @@ class FeedView extends StatelessWidget {
                         ? CircularProgressIndicator()
                         : GestureDetector(
                             child: FeedItem(
+                              updateItem: model.updateItem,
+                              deleteItem: model.deletePost,
                               uiHelpers: uiHelpers,
                               feed: model.feedItems[index],
                             ),

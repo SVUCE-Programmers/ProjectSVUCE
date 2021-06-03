@@ -7,6 +7,7 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
   final log = getLogger("CalendarEventsViewModel");
@@ -15,19 +16,25 @@ class CalendarEventsViewModel extends BaseViewModel {
   DateTime dateTime = DateTime.now();
 
   List<Event> _eventList = [];
-  Map<DateTime, List<Event>> get eventsList => groupEvents(_eventList);
+  Map<String, List<Event>> eventsList = {};
   ValueNotifier<List<Event>> get valueSelectedEvents =>
       ValueNotifier(eventsList[dateTime]);
 
-  Map<DateTime, List<Event>> groupEvents(List<Event> events) {
-    Map<DateTime, List<Event>> data = {};
+  void groupEvents(List<Event> events) {
+    Map<String, List<Event>> data = {};
     events.forEach((e) {
       DateTime h = e.timeStamp;
-      DateTime date = DateTime(h.year, h.month, h.day, 12);
-      if (data[date] == null) data[date] = [];
-      data[date].add(e);
+      DateTime date = DateTime(h.year, h.month, h.day);
+      if (data[date] == null)
+        data[DateTimeUtils()
+            .getWholeDate(date.millisecondsSinceEpoch)
+            .toString()] = [];
+      data[DateTimeUtils().getWholeDate(date.millisecondsSinceEpoch).toString()]
+          .add(e);
     });
-    return data;
+    eventsList = data;
+    log.d(eventsList);
+    notifyListeners();
   }
 
   List _selectedevents = [];
@@ -44,6 +51,7 @@ class CalendarEventsViewModel extends BaseViewModel {
       List<Event> eventData = feedData;
       if (eventData != null) {
         _eventList = eventData;
+        groupEvents(_eventList);
         notifyListeners();
       }
       setBusy(false);

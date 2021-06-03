@@ -10,6 +10,22 @@ class AddEditTimeTableView extends StatelessWidget {
       onModelReady: (m) => m.getTimeTableStream(),
       viewModel: AddEditTimeTableViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListView.builder(
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(model.timeTableList[index].monday.toString()),
+                ),
+                itemCount: model.timeTableList.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                primary: false,
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           leading: Hero(
             tag: "backIcon",

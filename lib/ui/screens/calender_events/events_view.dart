@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/ui/screens/calender_events/widgets/events_list_item.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -55,14 +56,29 @@ class CalenderEventsView extends StatelessWidget {
                       focusedDay: model.dateTime,
                     ),
                   ),
-                  ...model.selectedEvents.length != 0
-                      ? model.selectedEvents
-                          .map((event) => EventListItem(
-                                event: event as Event,
-                                onTap: () => model.gotoDetailsPage(event),
-                              ))
-                          .toList()
-                      : [SizedBox()]
+                  uiHelpers.verticalSpaceLow,
+                  ListView.builder(
+                    itemBuilder: (context, index) => EventListItem(
+                      event: model.eventsList[DateTimeUtils()
+                          .getWholeDate(model.dateTime.millisecondsSinceEpoch)
+                          .toString()][index],
+                    ),
+                    itemCount: model.eventsList[DateTimeUtils()
+                                .getWholeDate(
+                                    model.dateTime.millisecondsSinceEpoch)
+                                .toString()] !=
+                            null
+                        ? model
+                            .eventsList[DateTimeUtils()
+                                .getWholeDate(
+                                    model.dateTime.millisecondsSinceEpoch)
+                                .toString()]
+                            .length
+                        : 0,
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: NeverScrollableScrollPhysics(),
+                  )
                 ],
               )
             : Center(

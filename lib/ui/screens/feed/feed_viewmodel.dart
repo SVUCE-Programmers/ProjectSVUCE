@@ -38,4 +38,11 @@ class FeedViewModel extends BaseViewModel {
       _navigationService.navigateWithTransition(CreatePost(),
           transition: "rightToLeftWithFade",
           duration: Duration(milliseconds: 900));
+  deletePost(Feed feed) async => _feedRepository.deletePost(feed: feed);
+  updateItem(Feed feed) => _navigationService.navigateWithTransition(
+      CreatePost(
+        feed: feed,
+      ),
+      transition: "rightToLeftWithFade",
+      duration: Duration(milliseconds: 900));
 }

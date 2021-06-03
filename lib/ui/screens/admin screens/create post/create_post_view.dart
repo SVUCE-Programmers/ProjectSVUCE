@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/models/feed/feed.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/create%20post/create_post_view_model.dart';
 
 class CreatePost extends StatelessWidget {
+  final Feed feed;
+
+  const CreatePost({Key key, this.feed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<CreatePostViewModel>(
       viewModel: CreatePostViewModel(),
-      onModelReady: (m) => m.init(),
+      onModelReady: (m) => m.init(temp: feed),
       builder: (context, uiHelpers, model) => Scaffold(
         body: Form(
           key: model.formKey,
@@ -92,6 +96,7 @@ class CreatePost extends StatelessWidget {
 
                       return null;
                     },
+                    value: model.type,
                     dropdownColor: uiHelpers.surfaceColor,
                     onChanged: model.changeType,
                     items:
@@ -159,7 +164,7 @@ class CreatePost extends StatelessWidget {
                     onPressed: () => model.handleFormValidation(),
                     child: Center(
                         child: Text(
-                      "Create Post",
+                      "${feed != null ? "Update" : "Create"} Post",
                       style: uiHelpers.button,
                     )),
                   )
@@ -177,7 +182,7 @@ class CreatePost extends StatelessWidget {
               ),
               onPressed: model.goBack),
           title: Text(
-            "Create Posts",
+            "${feed != null ? "Update" : "Create"} Post",
             style:
                 uiHelpers.headline.copyWith(color: uiHelpers.textPrimaryColor),
           ),

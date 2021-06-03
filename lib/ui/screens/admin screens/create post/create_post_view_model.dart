@@ -13,6 +13,8 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 class CreatePostViewModel extends BaseViewModel {
   final log = getLogger("Create Post View Model");
 
+  Feed feed;
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   final TextEditingController urlController = TextEditingController();
@@ -45,7 +47,15 @@ class CreatePostViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  init() {
+  init({Feed temp}) {
+    if (temp != null) {
+      feed = temp;
+      titleController.text = feed.title;
+      descController.text = feed.description;
+      urlController.text = feed.link ?? "";
+      type = feed.category;
+      notifyListeners();
+    }
     _usersRepository.getUserFromStream(_authService.getEmail()).listen((event) {
       userModel = event;
       notifyListeners();
@@ -53,24 +63,41 @@ class CreatePostViewModel extends BaseViewModel {
   }
 
   createPost() async {
-    setBusy(true);
-    var data = await _feedRepository.createPost(
-        feed: Feed(
-      link: urlController.text,
-      description: descController.text,
-      title: titleController.text,
-      category: type,
-      fullName: _firebaseAuth.currentUser.displayName,
-      profileImg: _firebaseAuth.currentUser.photoURL,
-      uid: _firebaseAuth.currentUser.uid,
-      timeStamp: DateTime.now().toString(),
-    ));
+    if (feed != null) {
+      setBusy(true);
+      feed = feed.copyWith(
+          link: urlController.text,
+          title: titleController.text,
+          description: descController.text,
+          category: type ?? "General");
+      var data = await _feedRepository.updatePost(feed: feed);
 
-    log.i(data);
-    if (data is bool && data) {
-      _navigationService.back();
+      log.i(data);
+      if (data is bool && data) {
+        _navigationService.back();
+      }
+
+      setBusy(false);
+    } else {
+      setBusy(true);
+      var data = await _feedRepository.createPost(
+          feed: Feed(
+        link: urlController.text,
+        description: descController.text,
+        title: titleController.text,
+        category: type,
+        fullName: _firebaseAuth.currentUser.displayName,
+        profileImg: _firebaseAuth.currentUser.photoURL,
+        uid: _firebaseAuth.currentUser.uid,
+        timeStamp: DateTime.now().toString(),
+      ));
+
+      log.i(data);
+      if (data is bool && data) {
+        _navigationService.back();
+      }
+
+      setBusy(false);
     }
-
-    setBusy(false);
   }
 }

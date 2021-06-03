@@ -97,6 +97,7 @@ class FeedRepositoryImpl implements FeedRepository {
   deletePost({Feed feed}) async {
     try {
       await _feedRef.doc(feed.id).delete();
+      log.i("Delete Post Successfully");
       return true;
     } catch (e) {
       return false;
@@ -108,6 +109,8 @@ class FeedRepositoryImpl implements FeedRepository {
   updatePost({Feed feed}) async {
     try {
       await _feedRef.doc(feed.id).update(feed.toJson());
+      log.i("Updated Post Successfully");
+
       return true;
     } catch (e) {
       return false;

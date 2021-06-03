@@ -7,11 +7,18 @@ import 'package:svuce_app/core/utils/ui_helpers.dart';
 class FeedItem extends StatelessWidget {
   final Feed feed;
   final UiHelpers uiHelpers;
-  const FeedItem({Key key, this.feed, this.uiHelpers}) : super(key: key);
+  final Function(Feed feed) updateItem;
+  final Function(Feed feed) deleteItem;
+
+  const FeedItem(
+      {Key key,
+      this.feed,
+      this.uiHelpers,
+      @required this.updateItem,
+      @required this.deleteItem})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final newLine = TextSpan(text: "\n");
-
     return Container(
       decoration: BoxDecoration(
           color: uiHelpers.surfaceColor,
@@ -30,9 +37,27 @@ class FeedItem extends StatelessWidget {
                   color: uiHelpers.textSecondaryColor,
                 ),
                 color: uiHelpers.backgroundColor,
+                onSelected: (value) {
+                  switch (value) {
+                    case "Update":
+                      updateItem(feed);
+                      break;
+                    case "Delete":
+                      deleteItem(feed);
+
+                      break;
+                    default:
+                  }
+                },
                 itemBuilder: (_) => [
-                  PopupMenuItem(child: Text("Update", style: uiHelpers.body)),
-                  PopupMenuItem(child: Text("Delete", style: uiHelpers.body))
+                  PopupMenuItem(
+                    child: Text("Update", style: uiHelpers.body),
+                    value: "Update",
+                  ),
+                  PopupMenuItem(
+                    child: Text("Delete", style: uiHelpers.body),
+                    value: "Delete",
+                  )
                 ],
               ),
               dense: true,

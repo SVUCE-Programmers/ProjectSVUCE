@@ -138,9 +138,9 @@ class DateTimeUtils {
     return isShort ? shortMonthsList[month] : monthsList[month];
   }
 
-  getDate(int timeStamp) {
+  String getDate(int timeStamp) {
     var date = new DateTime.fromMillisecondsSinceEpoch(timeStamp);
-    return date.day;
+    return date.day < 10 ? "0${date.day}" : date.day.toString();
   }
 
   getTime(int timeStamp) {
