@@ -7,7 +7,8 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
-import 'package:svuce_app/ui/screens/main/dashboard_items.dart';
+import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
+import 'package:svuce_app/ui/screens/main/widgets/greeting_widget.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
 import 'main_viewmodel.dart';
@@ -63,16 +64,13 @@ class MainView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
+                    title: GreetingWidget(),
                     contentPadding: EdgeInsets.only(right: 20.0),
-                    title: Text.rich(
+                    subtitle: Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: model.getGreeting(),
-                            style: uiHelpers.body.copyWith(fontSize: 14),
-                          ),
-                          TextSpan(
-                            text: "\n" + model.name ?? "",
+                            text: model.name ?? "",
                             style: uiHelpers.body.copyWith(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w600,

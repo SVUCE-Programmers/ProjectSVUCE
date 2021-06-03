@@ -8,7 +8,7 @@ class CreatePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<CreatePostViewModel>(
       viewModel: CreatePostViewModel(),
-      onModelReady: (m)=>m.init(),
+      onModelReady: (m) => m.init(),
       builder: (context, uiHelpers, model) => Scaffold(
         body: Form(
           key: model.formKey,
@@ -25,6 +25,7 @@ class CreatePost extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   TextFormField(
+                    controller: model.titleController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return "Please enter title";
@@ -52,6 +53,7 @@ class CreatePost extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   TextFormField(
+                    controller: model.descController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return "Please enter description";
@@ -91,7 +93,7 @@ class CreatePost extends StatelessWidget {
                       return null;
                     },
                     dropdownColor: uiHelpers.surfaceColor,
-                    onChanged: (value) {},
+                    onChanged: model.changeType,
                     items:
                         ["Placement", "Exams", "General", "Technology", "Notes"]
                             .map((e) => DropdownMenuItem(
@@ -120,6 +122,7 @@ class CreatePost extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   TextFormField(
+                    controller: model.urlController,
                     validator: (value) {
                       if (value.isEmpty) {
                         return null;

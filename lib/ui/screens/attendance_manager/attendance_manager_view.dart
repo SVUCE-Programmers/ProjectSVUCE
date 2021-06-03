@@ -95,6 +95,7 @@ class AttendanceManagerView extends StatelessWidget {
 
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     showModalBottomSheet(
+        isScrollControlled: true,
         backgroundColor: uiHelpers.backgroundColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

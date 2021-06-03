@@ -25,9 +25,8 @@ class StartUpViewModel extends BaseViewModel {
   Future handleStartUpLogic(BuildContext context) async {
     _analyticsService.logAppOpen();
     await precacheImage(AssetImage(hexagonPattern), context);
-
-    await _dynamicLinkService.handleDynamicLinks();
     await _notificationService.initialise();
+    await _dynamicLinkService.handleDynamicLinks();
     var userLoggedIn = _authenticationService.isUserLoggedIn();
     log.i("User Login Status is:$userLoggedIn");
     if (userLoggedIn) {

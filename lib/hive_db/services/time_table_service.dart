@@ -33,4 +33,18 @@ class TimeTableService {
     });
     return _timeTableStream.stream;
   }
+
+  final StreamController<List<TimeTable>> _alltimeTableStream =
+      StreamController<List<TimeTable>>.broadcast();
+
+  Stream getAllTimeTable() {
+    var data = _universityRef.snapshots();
+    data.listen((event) {
+      List<TimeTable> list = event.docs
+          .map((e) => TimeTable.fromMap(Map<String, dynamic>.from(e.data())))
+          .toList();
+      _alltimeTableStream.add(list);
+    });
+    return _alltimeTableStream.stream;
+  }
 }

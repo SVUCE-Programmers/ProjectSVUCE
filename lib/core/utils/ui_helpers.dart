@@ -105,23 +105,23 @@ class UiHelpers {
     blockSizeVertical = screenHeight / 100;
 
     verticalSpaceLow = SizedBox(
-      height: blockSizeVertical * 3,
+      height: blockSizeVertical * 1.5,
     );
     verticalSpaceMedium = SizedBox(
-      height: blockSizeVertical * 7,
+      height: blockSizeVertical * 4,
     );
     verticalSpaceHigh = SizedBox(
-      height: blockSizeVertical * 11,
+      height: blockSizeVertical * 7,
     );
 
     horizontalSpaceLow = SizedBox(
-      width: blockSizeHorizontal * 3,
+      width: blockSizeHorizontal * 1.5,
     );
     horizontalSpaceMedium = SizedBox(
-      width: blockSizeHorizontal * 7,
+      width: blockSizeHorizontal * 4,
     );
     horizontalSpaceHigh = SizedBox(
-      width: blockSizeHorizontal * 11,
+      width: blockSizeHorizontal * 7,
     );
   }
 }

@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/feed/feed.dart';
 import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 
 @Singleton(as: FeedRepository)
 class FeedRepositoryImpl implements FeedRepository {
+  final log = getLogger("Feed Repository Impl");
   static FirebaseFirestore firestore = locator<FirebaseFirestore>();
 
   static CollectionReference _feedRef = firestore.collection("feed");
@@ -25,46 +27,49 @@ class FeedRepositoryImpl implements FeedRepository {
 
   final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
 
+  initFeedMode() {
+    _hasMoreFeedItems = true;
+  }
+
   void _requestFeedItems() {
     var feedQuery = _feedRef
-        .orderBy('timeStamp')
+        .orderBy('timeStamp', descending: true)
         .where("timeStamp", isGreaterThanOrEqualTo: timeStamp)
         .limit(FeedItemLimit);
 
     if (_lastFeed != null) {
       feedQuery = feedQuery.startAfterDocument(_lastFeed);
     }
-
+    log.i("Has More Feed Data is:$_hasMoreFeedItems");
     if (!_hasMoreFeedItems) return;
 
     var currentRequestIndex = _allFeedResults.length;
 
     feedQuery.snapshots().listen((postsSnapshot) {
-      if (postsSnapshot.docs.isNotEmpty) {
-        var feedItems = postsSnapshot.docs
-            .map((snapshot) => Feed.fromDocument(snapshot))
-            .where((mappedItem) => mappedItem.title != null)
-            .toList();
+      var feedItems = postsSnapshot.docs
+          .map((snapshot) => Feed.fromDocument(snapshot))
+          .where((mappedItem) => mappedItem.title != null)
+          .toList();
 
-        var pageExists = currentRequestIndex < _allFeedResults.length;
+      var pageExists = currentRequestIndex < _allFeedResults.length;
 
-        if (pageExists) {
-          _allFeedResults[currentRequestIndex] = feedItems;
-        } else {
-          _allFeedResults.add(feedItems);
-        }
-
-        var allPosts = _allFeedResults.fold<List<Feed>>(
-            [], (initialValue, pageItems) => initialValue..addAll(pageItems));
-
-        _feedController.add(allPosts);
-
-        if (currentRequestIndex == _allFeedResults.length - 1) {
-          _lastFeed = postsSnapshot.docs.last;
-        }
-
-        _hasMoreFeedItems = feedItems.length == FeedItemLimit;
+      if (pageExists) {
+        _allFeedResults[currentRequestIndex] = feedItems;
+      } else {
+        _allFeedResults.add(feedItems);
       }
+
+      var allPosts = _allFeedResults.fold<List<Feed>>(
+          [], (initialValue, pageItems) => initialValue..addAll(pageItems));
+
+      _feedController.add(allPosts);
+
+      if (currentRequestIndex == _allFeedResults.length - 1) {
+        if (postsSnapshot.docs.length != 0)
+          _lastFeed = postsSnapshot.docs?.last;
+      }
+
+      _hasMoreFeedItems = feedItems.length == FeedItemLimit;
     });
   }
 
@@ -76,4 +81,37 @@ class FeedRepositoryImpl implements FeedRepository {
 
   @override
   void requestMoreData() => _requestFeedItems();
+
+  @override
+  createPost({Feed feed}) async {
+    try {
+      await _feedRef.add(feed.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
+    //?Todo Add Snackbar
+  }
+
+  @override
+  deletePost({Feed feed}) async {
+    try {
+      await _feedRef.doc(feed.id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+    //?Todo Add Snackbar
+  }
+
+  @override
+  updatePost({Feed feed}) async {
+    try {
+      await _feedRef.doc(feed.id).update(feed.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
+    //?Todo Add Update Snackbar
+  }
 }
