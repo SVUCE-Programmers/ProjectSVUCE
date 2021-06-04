@@ -40,13 +40,15 @@ class UiHelpers {
   SizedBox horizontalSpaceMedium;
   SizedBox horizontalSpaceHigh;
   bool isDark;
+  Size size;
+  MediaQueryData mediaQuery;
 
   UiHelpers.fromContext(BuildContext context) {
     final ThemeService _themeService = locator<ThemeService>();
     isDark = _themeService.darkMode.value;
 
-    var mediaQuery = MediaQuery.of(context);
-
+    mediaQuery = MediaQuery.of(context);
+    size = mediaQuery.size;
     var screenWidth = mediaQuery.size.width;
     var screenHeight = mediaQuery.size.height;
     width = screenWidth;

@@ -21,6 +21,7 @@ _$_Feed _$_$_FeedFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_FeedToJson(_$_Feed instance) => <String, dynamic>{
       'id': instance.id,
       'fullName': instance.fullName,

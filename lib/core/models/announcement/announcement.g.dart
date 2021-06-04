@@ -6,6 +6,7 @@ part of 'announcement.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_Announcement _$_$_AnnouncementFromJson(Map<String, dynamic> json) {
   return _$_Announcement(
     id: json['id'] as String,
@@ -16,6 +17,7 @@ _$_Announcement _$_$_AnnouncementFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_AnnouncementToJson(_$_Announcement instance) =>
     <String, dynamic>{
       'id': instance.id,

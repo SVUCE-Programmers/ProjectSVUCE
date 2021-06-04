@@ -6,6 +6,7 @@ part of 'club.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_Club _$_$_ClubFromJson(Map<String, dynamic> json) {
   return _$_Club(
     id: json['id'] as String,
@@ -18,6 +19,7 @@ _$_Club _$_$_ClubFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_ClubToJson(_$_Club instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

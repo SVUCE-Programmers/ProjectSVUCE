@@ -1,8 +1,7 @@
 import 'package:stacked/stacked_annotations.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
-import 'package:svuce_app/ui/screens/calender_events/event_detail.dart';
-import 'package:svuce_app/ui/screens/create_profile/create_profile_view.dart';
+import 'package:svuce_app/ui/screens/calender_events/event%20details/event_detail.dart';
 import 'package:svuce_app/ui/screens/entry/entry_view.dart';
 import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 import 'package:svuce_app/ui/screens/login/login_view.dart';
@@ -20,7 +19,6 @@ import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
     MaterialRoute(page: LoginView),
     MaterialRoute(page: ForgotPasswordView),
     MaterialRoute(page: SignUpView),
-    MaterialRoute(page: CreateProfileView),
     MaterialRoute(page: SelectClubsView),
     MaterialRoute(page: MainView),
     MaterialRoute(page: UserProfileView),

@@ -8,6 +8,7 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
+import 'package:svuce_app/ui/screens/admin%20screens/create%20event/create_event_view.dart';
 
 class CalendarEventsViewModel extends BaseViewModel {
   final log = getLogger("CalendarEventsViewModel");
@@ -73,4 +74,9 @@ class CalendarEventsViewModel extends BaseViewModel {
   navigateBack() {
     _navigationService.back();
   }
+
+  navigateToCreateEvent() =>
+      _navigationService.navigateWithTransition(CreateEventView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 700));
 }

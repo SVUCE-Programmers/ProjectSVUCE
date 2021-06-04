@@ -9,6 +9,7 @@ import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
 import 'package:svuce_app/ui/screens/main/widgets/greeting_widget.dart';
+import 'package:svuce_app/ui/utils/animatedText.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
 import 'main_viewmodel.dart';
@@ -49,8 +50,11 @@ class MainView extends StatelessWidget {
             elevation: 0,
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
-            title: Text(
-              "Home",
+            title: AnimatedText(
+              delay: 1,
+              xDistance: -30,
+              yDistance: 0,
+              data: "Home",
               style:
                   uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor),
             ),

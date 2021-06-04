@@ -57,7 +57,7 @@ class SelectClubsView extends StatelessWidget {
                         border:
                             Border.all(color: uiHelpers.primaryColor, width: 4),
                         borderRadius: BorderRadius.circular(10)),
-                    child: FlatButton(
+                    child: TextButton(
                         onPressed: model.gotoHome,
                         child: Center(
                           child: Text(

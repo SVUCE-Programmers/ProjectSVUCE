@@ -7,6 +7,7 @@ class TimeTable {
   final Map<String, String> thursday;
   final Map<String, String> friday;
   final Map<String, String> saturday;
+  final String id;
 
   TimeTable(
       {@required this.monday,
@@ -14,9 +15,22 @@ class TimeTable {
       @required this.wednesday,
       @required this.thursday,
       @required this.friday,
+      this.id,
       @required this.saturday});
-  static TimeTable fromMap(Map<String, dynamic> json) {
+  Map<String, dynamic> tojson() {
+    return {
+      "Monday": this.monday,
+      "Tuesday": this.tuesday,
+      "Wednesday": this.wednesday,
+      "Thursday": this.thursday,
+      "Friday": this.friday,
+      "Saturday": this.saturday
+    };
+  }
+
+  static TimeTable fromMap(Map<String, dynamic> json, String id) {
     return TimeTable(
+        id: id,
         monday: json["Monday"] == null
             ? {}
             : Map<String, String>.from(json["Monday"]),

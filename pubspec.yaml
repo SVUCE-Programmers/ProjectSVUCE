@@ -107,3 +107,6 @@ flutter:
           weight: 500
         - asset: assets/fonts/Quicksand-Regular.ttf
           weight: 400
+    - family: LittleLord
+      fonts:
+        - asset: assets/fonts/LittleLord.ttf

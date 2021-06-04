@@ -28,7 +28,7 @@ class TimeTableService {
       var data = Map<String, dynamic>.from(event.data());
       log.v(data);
 
-      TimeTable timeTable = TimeTable.fromMap(data);
+      TimeTable timeTable = TimeTable.fromMap(data, event.id);
       _timeTableStream.add(timeTable);
     });
     return _timeTableStream.stream;
@@ -41,7 +41,8 @@ class TimeTableService {
     var data = _universityRef.snapshots();
     data.listen((event) {
       List<TimeTable> list = event.docs
-          .map((e) => TimeTable.fromMap(Map<String, dynamic>.from(e.data())))
+          .map((e) =>
+              TimeTable.fromMap(Map<String, dynamic>.from(e.data()), e.id))
           .toList();
       _alltimeTableStream.add(list);
     });

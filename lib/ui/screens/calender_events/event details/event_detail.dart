@@ -3,7 +3,8 @@ import 'package:stacked/stacked.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/screens/calender_events/event_detail_viewmodel.dart';
+
+import 'event_detail_viewmodel.dart';
 
 class EventDetailsView extends StatelessWidget {
   final Event event;
@@ -134,7 +135,7 @@ class EventDetailsView extends StatelessWidget {
                       color: uiHelpers.primaryColor,
                       borderRadius: BorderRadius.circular(15)),
                   height: 50,
-                  child: FlatButton(
+                  child: TextButton(
                       onPressed: () {
                         // final Event event=Event(title: data["name"],
                         // startDate: DateTime.fromMillisecondsSinceEpoch(int.parse(data["timestamp"])),

@@ -9,11 +9,10 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
+import 'package:svuce_app/ui/screens/calender_events/event%20details/event_detail.dart';
 
 import '../core/models/event/event.dart';
 import '../ui/screens/admin%20screens/add_students_view/add_student_view.dart';
-import '../ui/screens/calender_events/event_detail.dart';
-import '../ui/screens/create_profile/create_profile_view.dart';
 import '../ui/screens/entry/entry_view.dart';
 import '../ui/screens/forgot_password/forgot_password_view.dart';
 import '../ui/screens/login/login_view.dart';
@@ -64,7 +63,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
     RouteDef(Routes.signUpView, page: SignUpView),
-    RouteDef(Routes.createProfileView, page: CreateProfileView),
     RouteDef(Routes.selectClubsView, page: SelectClubsView),
     RouteDef(Routes.mainView, page: MainView),
     RouteDef(Routes.userProfileView, page: UserProfileView),
@@ -103,19 +101,6 @@ class StackedRouter extends RouterBase {
     SignUpView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => SignUpView(),
-        settings: data,
-      );
-    },
-    CreateProfileView: (data) {
-      var args = data.getArgs<CreateProfileViewArguments>(
-        orElse: () => CreateProfileViewArguments(),
-      );
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => CreateProfileView(
-          key: args.key,
-          email: args.email,
-          password: args.password,
-        ),
         settings: data,
       );
     },

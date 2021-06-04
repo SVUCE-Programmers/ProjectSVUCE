@@ -103,7 +103,6 @@ class AttendanceManagerView extends StatelessWidget {
         context: context,
         builder: (context) => StatefulBuilder(
               builder: (context, setState) => Container(
-                height: uiHelpers.height * 0.4,
                 padding: const EdgeInsets.symmetric(horizontal: 20)
                     .copyWith(top: 25),
                 child: SingleChildScrollView(
@@ -198,7 +197,13 @@ class AttendanceManagerView extends StatelessWidget {
                           ),
                           color: uiHelpers.primaryColor,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)))
+                              borderRadius: BorderRadius.circular(8))),
+                      AnimatedPadding(
+                        duration: Duration(milliseconds: 700),
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: uiHelpers.verticalSpaceMedium,
+                      )
                     ],
                   ),
                 ),

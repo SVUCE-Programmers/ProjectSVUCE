@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/ui/widgets/expansion_list_modified.dart';
 import 'add_edit_time_table_view_model.dart';
 
 class AddEditTimeTableView extends StatelessWidget {
@@ -15,9 +16,12 @@ class AddEditTimeTableView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListView.builder(
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(model.timeTableList[index].monday.toString()),
-                ),
+                itemBuilder: (context, index) => ExpansionTileModified(
+                    children:[
+                      
+                    ],
+                    title: Text(model.timeTableList[index].id,
+                        style: uiHelpers.title)),
                 itemCount: model.timeTableList.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),

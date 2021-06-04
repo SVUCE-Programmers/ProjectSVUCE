@@ -55,23 +55,24 @@ class NotifyService {
     final String currentTimeZone =
         await FlutterNativeTimezone.getLocalTimezone();
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-        "title",
-        "body",
-        TZDateTime.now(getLocation(currentTimeZone)).add(Duration(seconds: 5)),
-        NotificationDetails(
-            android: AndroidNotificationDetails(
-          "0",
-          "channelName",
-          "channelDescription",
-          importance: Importance.high,
-          priority: Priority.defaultPriority,
-          showProgress: true,
-          playSound: true,
-          enableVibration: true,
-        )),
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime,
-        androidAllowWhileIdle: true,);
+      0,
+      "title",
+      "body",
+      TZDateTime.now(getLocation(currentTimeZone)).add(Duration(seconds: 5)),
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+        "0",
+        "channelName",
+        "channelDescription",
+        importance: Importance.high,
+        priority: Priority.max,
+        showProgress: true,
+        playSound: true,
+        enableVibration: true,
+      )),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.wallClockTime,
+      androidAllowWhileIdle: true,
+    );
   }
 }

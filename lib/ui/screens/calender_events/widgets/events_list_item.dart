@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';

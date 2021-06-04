@@ -182,8 +182,7 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
       @required this.imageUrl,
       @required this.description,
       @JsonKey(ignore: true) this.documentReference})
-      : assert(id != null),
-        assert(name != null),
+      : assert(name != null),
         assert(organiser != null),
         assert(place != null),
         assert(timeStamp != null),

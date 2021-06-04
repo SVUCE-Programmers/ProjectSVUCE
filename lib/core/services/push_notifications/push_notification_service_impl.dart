@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -48,7 +49,7 @@ class PushNotificationServiceImp implements PushNotificationService {
   @override
   Future subscribe(String topic) async {
     try {
-      // await _fcm.subscribeToTopic(topic);
+      await FirebaseMessaging.instance.subscribeToTopic(topic);
       return true;
     } catch (e) {
       return e?.message;

@@ -9,7 +9,7 @@ part 'event.g.dart';
 abstract class Event implements _$Event {
   const Event._();
   factory Event(
-      {@required String id,
+      {String id,
       @required String name,
       @required String organiser,
       @required String place,
