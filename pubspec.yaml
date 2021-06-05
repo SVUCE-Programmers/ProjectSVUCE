@@ -42,6 +42,7 @@ dependencies:
   #Animations
   animations:
   simple_animations:
+  lottie:
 
   # icons
   eva_icons_flutter: ^3.0.0
@@ -97,6 +98,7 @@ flutter:
   assets:
     - assets/illustrations/
     - assets/images/
+    - assets/lottie/
 
   fonts:
     - family: Quicksand
