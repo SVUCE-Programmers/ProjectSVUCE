@@ -18,6 +18,7 @@ import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_stude
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
+import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
 import '../../screens/admin screens/attendance_staff_view/attendance_staff_view.dart';
 import '../attendance_manager/attendance_manager_view.dart';
 
@@ -56,8 +57,7 @@ class MainViewModel extends BaseViewModel {
       if (event != null) {
         _currentUser = event;
         _firebaseAuth.currentUser.updateProfile(
-            displayName: _currentUser.fullName,
-            photoURL: _currentUser.profileImg);
+            displayName: _currentUser.fullName, photoURL: _currentUser.gender);
         notifyListeners();
       }
     });
@@ -141,6 +141,12 @@ class MainViewModel extends BaseViewModel {
           isSelectClubs: false,
         ),
         transition: "fade",
+        duration: Duration(milliseconds: 900));
+  }
+
+  navigateToProfile() {
+    _navigationService.navigateWithTransition(UserProfileView(),
+        transition: "rightToLeftWithFade",
         duration: Duration(milliseconds: 900));
   }
 

@@ -12,6 +12,7 @@ class AnimatedButton extends HookWidget {
   final double elevation, minLeadingWidth, animatePaddingValue;
   final ShapeBorder shapeBorder;
   final Duration paddingAnimationDuration;
+  final MainAxisAlignment mainAxisAlignment;
   const AnimatedButton(
       {Key key,
       @required this.onTap,
@@ -20,6 +21,7 @@ class AnimatedButton extends HookWidget {
       this.trailing,
       this.title,
       this.delay = 2,
+      this.mainAxisAlignment,
       this.xDistance = 0,
       this.yDistance = 30,
       this.elevation,
@@ -59,21 +61,25 @@ class AnimatedButton extends HookWidget {
                           borderRadius: BorderRadius.circular(8)),
                   color: uiHelpers.primaryColor,
                   onPressed: onTap,
-                  child: ListTile(
-                    minVerticalPadding: 0,
-                    trailing: trailing ??
-                        SizedBox(
-                          width: 0,
-                          height: 0,
-                        ),
-                    minLeadingWidth: minLeadingWidth,
-                    leading: leading ??
-                        SizedBox(
-                          width: 0,
-                          height: 0,
-                        ),
-                    contentPadding: EdgeInsets.zero,
-                    title: title,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment:
+                          mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
+                      children: [
+                        leading ??
+                            SizedBox(
+                              width: 0,
+                              height: 0,
+                            ),
+                        title,
+                        trailing ??
+                            SizedBox(
+                              width: 0,
+                              height: 0,
+                            ),
+                      ],
+                    ),
                   )),
               SizedBox(
                 height: 20,

@@ -7,7 +7,6 @@ import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/create%20event/create_event_view_model.dart';
 import 'package:svuce_app/ui/utils/button_animation.dart';
 import 'package:svuce_app/ui/utils/text_field.dart';
-import 'package:svuce_app/ui/widgets/animations/fade_transition.dart';
 
 class CreateEventView extends HookWidget {
   const CreateEventView({Key key}) : super(key: key);

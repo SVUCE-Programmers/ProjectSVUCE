@@ -14,7 +14,6 @@ abstract class AuthService {
   Future signOut();
   Future updateUserProfile({String displayName, String profileImg});
   String getStudentPresentYear();
-  Future signUpUser({String email});
   String getUid();
   String getEmail();
 }

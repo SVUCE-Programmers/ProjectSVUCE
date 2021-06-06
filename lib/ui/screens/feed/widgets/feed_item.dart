@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:svuce_app/core/models/feed/feed.dart';
@@ -81,6 +82,21 @@ class FeedItem extends StatelessWidget {
                   style: uiHelpers.body
                       .apply(color: uiHelpers.textSecondaryColor)),
             ])),
+            SizedBox(
+              height: 5,
+            ),
+            (feed.link != null && feed.link != "")
+                ? Text.rich(TextSpan(children: [
+                    TextSpan(text: "Link:  "),
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => Navigator.pop(context),
+                        text: feed.link,
+                        style: uiHelpers.body.apply(
+                            decoration: TextDecoration.underline,
+                            color: uiHelpers.primaryColor))
+                  ]))
+                : SizedBox(),
             uiHelpers.verticalSpaceLow,
             Row(
               children: <Widget>[

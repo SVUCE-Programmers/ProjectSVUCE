@@ -13,7 +13,9 @@ abstract class Event implements _$Event {
       @required String name,
       @required String organiser,
       @required String place,
-      @required DateTime timeStamp,
+      @required int timeStamp,
+      @required int startTime,
+      @required int endTime,
       @required String imageUrl,
       @required String description,
       @JsonKey(ignore: true) DocumentReference documentReference}) = _Event;
@@ -27,8 +29,9 @@ abstract class Event implements _$Event {
         name: docData["name"],
         organiser: docData["organiser"],
         place: docData["place"],
-        timeStamp: DateTime.fromMillisecondsSinceEpoch(
-            docData["timeStamp"].millisecondsSinceEpoch),
+        timeStamp: docData["timeStamp"],
+        startTime: docData["startTime"],
+        endTime: docData["endTime"],
         description: docData["description"],
         imageUrl: docData["imageUrl"],
         id: document.id,
@@ -37,11 +40,13 @@ abstract class Event implements _$Event {
 
   static Event empty() {
     return Event(
+        endTime: DateTime.now().millisecondsSinceEpoch,
+        startTime: DateTime.now().millisecondsSinceEpoch,
         id: '',
         name: '',
         organiser: '',
         place: '',
-        timeStamp: DateTime.now(),
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
         imageUrl: '',
         description: '',
         documentReference: null);

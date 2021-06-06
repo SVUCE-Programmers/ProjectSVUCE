@@ -67,7 +67,7 @@ class InputField extends HookWidget {
             ),
             errorText: error.isEmpty ? null : error),
         maxLines: maxLines,
-        obscureText: isSecure && showPassword.value,
+        obscureText: isSecure && !showPassword.value,
         onChanged: validator ?? null,
         keyboardType: keyboardType,
       ),

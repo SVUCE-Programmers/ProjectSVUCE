@@ -12,6 +12,7 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/core/services/one_signal_service.dart';
+import 'package:svuce_app/ui/screens/Static%20Pages/onboard%20screens/onboard_view.dart';
 
 class StartUpViewModel extends BaseViewModel {
   final log = getLogger("Startup View Model");
@@ -33,7 +34,7 @@ class StartUpViewModel extends BaseViewModel {
       _usersRepository.getUserDetailsFromPrefs();
       _navigationService.navigateTo(Routes.mainView);
     } else {
-      _navigationService.navigateTo(Routes.entryView);
+      _navigationService.navigateToView(OnBoardView());
     }
   }
 }

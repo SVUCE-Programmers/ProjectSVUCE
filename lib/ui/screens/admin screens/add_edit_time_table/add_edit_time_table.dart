@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/consumers/time_table_add_subject.dart';
 import 'package:svuce_app/ui/widgets/expansion_list_modified.dart';
 import 'add_edit_time_table_view_model.dart';
 
@@ -17,8 +18,19 @@ class AddEditTimeTableView extends StatelessWidget {
             children: [
               ListView.builder(
                 itemBuilder: (context, index) => ExpansionTileModified(
-                    children:[
-                      
+                    trailingColor: uiHelpers.textPrimaryColor,
+                    expandedAlignment: Alignment.centerLeft,
+                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 8),
+                        child: Container(
+                          child: TimeTableWidget(
+                              model, model.timeTableList[index], index),
+                          height: uiHelpers.height * 0.7,
+                        ),
+                      ),
                     ],
                     title: Text(model.timeTableList[index].id,
                         style: uiHelpers.title)),
@@ -31,6 +43,16 @@ class AddEditTimeTableView extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
+          actions: [
+            TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Add New\nClass",
+                  style: uiHelpers.button
+                      .copyWith(color: uiHelpers.primaryColor, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ))
+          ],
           leading: Hero(
             tag: "backIcon",
             child: Material(

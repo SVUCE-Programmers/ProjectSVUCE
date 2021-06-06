@@ -38,7 +38,7 @@ class AuthServiceImpl implements AuthService {
       var authResult = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      await _populateCurrentUser(authResult.user);
+      _populateCurrentUser(authResult.user);
       await _analyticsService.logLogin();
 
       return authResult.user != null;
@@ -75,13 +75,16 @@ class AuthServiceImpl implements AuthService {
   ///   in [currentUser]
   bool isUserLoggedIn() {
     var user = _firebaseAuth.currentUser;
+    _populateCurrentUser(user);
     return user != null;
   }
 
   /// This function is responsible for getting user profile from Firestore.
-  Future _populateCurrentUser(User user) async {
+  _populateCurrentUser(User user) {
     if (user != null) {
-      currentUser = await _userService.getUser(user.email);
+      _userService.getUserFromStream(user.email).listen((event) {
+        currentUser = event;
+      });
       // _userStream.add(currentUser);
     }
   }
@@ -112,9 +115,6 @@ class AuthServiceImpl implements AuthService {
     User user = _firebaseAuth.currentUser;
     await user.updateProfile(displayName: displayName, photoURL: profileImg);
   }
-
-  @override
-  Future signUpUser({String email}) async {}
 
   @override
   String getUid() {

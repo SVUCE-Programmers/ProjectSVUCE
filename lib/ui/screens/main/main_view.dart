@@ -83,13 +83,21 @@ class MainView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    trailing: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                          uiHelpers.scalingHelper.size(80)),
-                      child: model.userImage != null
-                          ? Image.network(model.userImage,
-                              fit: BoxFit.cover, width: 40, height: 40)
-                          : SizedBox(),
+                    trailing: GestureDetector(
+                      onTap: model.navigateToProfile,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                            uiHelpers.scalingHelper.size(80)),
+                        child: model.userImage != null
+                            ? Image.asset(
+                                model.userImage == "Male"
+                                    ? "assets/images/boy1.png"
+                                    : "assets/images/girl2.png",
+                                fit: BoxFit.cover,
+                                width: 40,
+                                height: 40)
+                            : SizedBox(),
+                      ),
                     ),
                   ),
                   SizedBox(

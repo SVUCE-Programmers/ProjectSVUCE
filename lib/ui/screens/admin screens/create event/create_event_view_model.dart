@@ -30,13 +30,14 @@ class CreateEventViewModel extends BaseViewModel {
         name: titleController.text,
         organiser: "",
         place: "",
-        timeStamp: DateTime.now(),
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        startTime: DateTime.now().millisecondsSinceEpoch,
+        endTime: DateTime.now().millisecondsSinceEpoch,
         imageUrl: "",
         description: descController.text);
     log.d(event);
     setBusy(false);
   }
 
-  init() {
-  }
+  init() {}
 }

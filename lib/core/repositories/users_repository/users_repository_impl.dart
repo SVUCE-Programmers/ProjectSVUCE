@@ -82,7 +82,7 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
           email: _sharedPreferences.getString("email"),
           rollNo: _sharedPreferences.getInt("rollNo"),
           collegeName: _sharedPreferences.getString("collegeName"),
-          profileImg: _sharedPreferences.getString("profileImg"),
+          gender: _sharedPreferences.getString("gender"),
           userType: _sharedPreferences.getString("userType"));
       _userController.add(userModel);
     }

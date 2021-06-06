@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 final lightThemeData = (BuildContext context) => ThemeData(
+    primaryTextTheme: TextTheme(
+        headline6: TextStyle(
+      color: LightColorPalette.textPrimaryColor,
+      )),
     selectedRowColor: LightColorPalette.surfaceColor,
     fontFamily: 'Quicksand',
     popupMenuTheme: PopupMenuThemeData(
         color: LightColorPalette.backgroundColor,
         textStyle: TextStyle(
+            color: LightColorPalette.textPrimaryColor,
             fontSize: 14,
             fontFamily: "Quicksand",
             fontWeight: FontWeight.w500)),
@@ -30,6 +35,7 @@ final darkThemeData = (BuildContext context) => ThemeData(
     popupMenuTheme: PopupMenuThemeData(
         color: LightColorPalette.backgroundColor,
         textStyle: TextStyle(
+            color: DarkColorPalette.textPrimaryColor,
             fontSize: 14,
             fontFamily: "Quicksand",
             fontWeight: FontWeight.w500)),

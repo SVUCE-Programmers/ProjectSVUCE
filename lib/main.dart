@@ -5,7 +5,6 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/theme.dart';
-import 'package:svuce_app/ui/screens/Static%20Pages/onboard%20screens/onboard_view.dart';
 
 import 'core/services/firebaseAnalyticsService.dart';
 import 'core/services/theme_service.dart';
@@ -31,7 +30,6 @@ class App extends StatelessWidget {
         navigatorObservers: [
           locator<AnalyticsService>().getAnalyticsObserver(),
         ],
-        home: OnBoardView(),
         darkTheme: darkThemeData(context),
         themeMode: model.isDarkMode ? ThemeMode.dark : ThemeMode.light,
         theme:

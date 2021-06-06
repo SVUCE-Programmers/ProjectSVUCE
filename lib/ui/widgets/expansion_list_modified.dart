@@ -8,6 +8,7 @@ class ExpansionTileModified extends StatefulWidget {
     this.leadingColor,
     this.leading,
     @required this.title,
+    this.trailingColor,
     this.subtitle,
     this.containerBorder,
     this.backgroundColor,
@@ -41,6 +42,8 @@ class ExpansionTileModified extends StatefulWidget {
   final ValueChanged<bool> onExpansionChanged;
   final List<Widget> children;
   final Color backgroundColor;
+
+  final Color trailingColor;
   final Widget trailing;
   final bool initiallyExpanded;
   final bool maintainState;
@@ -144,7 +147,8 @@ class _ExpansionTileModifiedState extends State<ExpansionTileModified>
                         RotationTransition(
                           turns: _iconTurns,
                           child: (widget.trailingIconData) ??
-                              const Icon(Icons.expand_more),
+                              Icon(Icons.expand_more,
+                                  color: widget.trailingColor),
                         ),
                   )
                 : ListTile(

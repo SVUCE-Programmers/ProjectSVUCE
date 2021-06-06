@@ -12,6 +12,7 @@ class AnimatedInputField extends StatelessWidget {
   final int maxLines;
   final TextEditingController textEditingController;
   final double delay;
+  final TextInputType textInputType;
   final double xDistance, yDistance;
   final Function onTap;
   final double downPadding;
@@ -21,6 +22,7 @@ class AnimatedInputField extends StatelessWidget {
       @required this.title,
       this.hintText,
       this.validator,
+      this.textInputType = TextInputType.text,
       this.prefixIcon,
       this.downPadding = 15,
       this.suffixIcon,
@@ -56,6 +58,7 @@ class AnimatedInputField extends StatelessWidget {
           child: GestureDetector(
             onTap: onTap,
             child: TextFormField(
+              keyboardType: textInputType,
               enabled: enabled,
               maxLines: maxLines ?? 1,
               controller: textEditingController ?? TextEditingController(),

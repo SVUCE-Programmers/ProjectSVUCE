@@ -39,13 +39,10 @@ class EventListItem extends StatelessWidget {
                 Text.rich(
                   TextSpan(children: [
                     TextSpan(
-                        text: DateTimeUtils().getMonth(
-                                event.timeStamp.millisecondsSinceEpoch, true) +
+                        text: DateTimeUtils().getMonth(event.timeStamp, true) +
                             "\n"),
                     TextSpan(
-                      text: DateTimeUtils()
-                          .getDate(event.timeStamp.millisecondsSinceEpoch)
-                          .toString(),
+                      text: DateTimeUtils().getDate(event.timeStamp).toString(),
                       style: uiHelpers.title.copyWith(fontSize: 24),
                     )
                   ]),

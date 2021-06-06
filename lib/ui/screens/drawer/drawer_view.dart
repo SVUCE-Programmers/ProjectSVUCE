@@ -31,9 +31,14 @@ class DrawerView extends StatelessWidget {
                   leading: ClipRRect(
                     borderRadius:
                         BorderRadius.circular(uiHelpers.scalingHelper.size(80)),
-                    child: model.currentUser?.profileImg != null
-                        ? Image.network(model.currentUser.profileImg,
-                            fit: BoxFit.cover, width: 50, height: 50)
+                    child: model.currentUser?.gender != null
+                        ? Image.asset(
+                            model.currentUser.gender == "Male"
+                                ? "assets/images/boy1.png"
+                                : "assets/images/girl2.png",
+                            fit: BoxFit.cover,
+                            width: 50,
+                            height: 50)
                         : SizedBox(),
                   ),
                   title: Text.rich(TextSpan(children: [

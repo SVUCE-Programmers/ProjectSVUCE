@@ -24,7 +24,7 @@ class CalendarEventsViewModel extends BaseViewModel {
   void groupEvents(List<Event> events) {
     Map<String, List<Event>> data = {};
     events.forEach((e) {
-      DateTime h = e.timeStamp;
+      DateTime h = DateTime.fromMillisecondsSinceEpoch(e.timeStamp);
       DateTime date = DateTime(h.year, h.month, h.day);
       if (data[date] == null)
         data[DateTimeUtils()

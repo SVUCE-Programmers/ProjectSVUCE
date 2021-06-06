@@ -34,19 +34,7 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
       print('_handleDeepLink | deeplink: $deepLink');
 
       var isEvent = deepLink.pathSegments.contains('event');
-      if (isEvent) {
-        _navigationService.navigateTo(Routes.eventDetailsView,
-            arguments: EventDetailsViewArguments(
-                event: Event(
-                    id: deepLink.queryParameters["id"],
-                    name: deepLink.queryParameters["name"],
-                    organiser: deepLink.queryParameters["organiser"],
-                    place: deepLink.queryParameters["place"],
-                    timeStamp:
-                        DateTime.parse(deepLink.queryParameters["timeStamp"]),
-                    imageUrl: deepLink.queryParameters["imageUrl"],
-                    description: deepLink.queryParameters["description"])));
-      }
+      if (isEvent) {}
     }
   }
 
@@ -54,8 +42,7 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
     print("Enterex");
     final DynamicLinkParameters params = DynamicLinkParameters(
       uriPrefix: 'https://svuce.page.link',
-      link: Uri.parse(
-          'https://svuce.page.link/event?id=${event.id}&name=${event.name}&organiser=${event.organiser}&place=${event.place}&timeStamp=${event.timeStamp}&imageUrl=${event.imageUrl}&description=${event.description}'),
+      link: Uri.parse('https://svuce.page.link/event?id=${event.id}'),
       androidParameters: AndroidParameters(
         packageName: 'com.svuce.svuce_app',
       ),

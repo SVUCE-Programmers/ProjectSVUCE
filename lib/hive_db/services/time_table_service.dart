@@ -40,6 +40,7 @@ class TimeTableService {
   Stream getAllTimeTable() {
     var data = _universityRef.snapshots();
     data.listen((event) {
+      log.d(event.docs);
       List<TimeTable> list = event.docs
           .map((e) =>
               TimeTable.fromMap(Map<String, dynamic>.from(e.data()), e.id))
@@ -47,5 +48,18 @@ class TimeTableService {
       _alltimeTableStream.add(list);
     });
     return _alltimeTableStream.stream;
+  }
+
+  updateTimeTable(TimeTable timeTable) async {
+    try {
+      log.wtf(timeTable.tojson());
+      await _universityRef.doc(timeTable.id).update(timeTable.tojson());
+    } catch (e) {
+      //?SHow Error TODO
+    }
+  }
+
+  addToAllTimeTableStream(List<TimeTable> list) {
+    _alltimeTableStream.add(list);
   }
 }

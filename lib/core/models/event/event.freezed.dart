@@ -18,11 +18,13 @@ class _$EventTearOff {
 
 // ignore: unused_element
   _Event call(
-      {@required String id,
+      {String id,
       @required String name,
       @required String organiser,
       @required String place,
-      @required DateTime timeStamp,
+      @required int timeStamp,
+      @required int startTime,
+      @required int endTime,
       @required String imageUrl,
       @required String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference}) {
@@ -32,6 +34,8 @@ class _$EventTearOff {
       organiser: organiser,
       place: place,
       timeStamp: timeStamp,
+      startTime: startTime,
+      endTime: endTime,
       imageUrl: imageUrl,
       description: description,
       documentReference: documentReference,
@@ -54,7 +58,9 @@ mixin _$Event {
   String get name;
   String get organiser;
   String get place;
-  DateTime get timeStamp;
+  int get timeStamp;
+  int get startTime;
+  int get endTime;
   String get imageUrl;
   String get description;
   @JsonKey(ignore: true)
@@ -74,7 +80,9 @@ abstract class $EventCopyWith<$Res> {
       String name,
       String organiser,
       String place,
-      DateTime timeStamp,
+      int timeStamp,
+      int startTime,
+      int endTime,
       String imageUrl,
       String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference});
@@ -95,6 +103,8 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
     Object organiser = freezed,
     Object place = freezed,
     Object timeStamp = freezed,
+    Object startTime = freezed,
+    Object endTime = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
     Object documentReference = freezed,
@@ -104,8 +114,9 @@ class _$EventCopyWithImpl<$Res> implements $EventCopyWith<$Res> {
       name: name == freezed ? _value.name : name as String,
       organiser: organiser == freezed ? _value.organiser : organiser as String,
       place: place == freezed ? _value.place : place as String,
-      timeStamp:
-          timeStamp == freezed ? _value.timeStamp : timeStamp as DateTime,
+      timeStamp: timeStamp == freezed ? _value.timeStamp : timeStamp as int,
+      startTime: startTime == freezed ? _value.startTime : startTime as int,
+      endTime: endTime == freezed ? _value.endTime : endTime as int,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -126,7 +137,9 @@ abstract class _$EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String name,
       String organiser,
       String place,
-      DateTime timeStamp,
+      int timeStamp,
+      int startTime,
+      int endTime,
       String imageUrl,
       String description,
       @JsonKey(ignore: true) DocumentReference<Object> documentReference});
@@ -148,6 +161,8 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
     Object organiser = freezed,
     Object place = freezed,
     Object timeStamp = freezed,
+    Object startTime = freezed,
+    Object endTime = freezed,
     Object imageUrl = freezed,
     Object description = freezed,
     Object documentReference = freezed,
@@ -157,8 +172,9 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
       name: name == freezed ? _value.name : name as String,
       organiser: organiser == freezed ? _value.organiser : organiser as String,
       place: place == freezed ? _value.place : place as String,
-      timeStamp:
-          timeStamp == freezed ? _value.timeStamp : timeStamp as DateTime,
+      timeStamp: timeStamp == freezed ? _value.timeStamp : timeStamp as int,
+      startTime: startTime == freezed ? _value.startTime : startTime as int,
+      endTime: endTime == freezed ? _value.endTime : endTime as int,
       imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
       description:
           description == freezed ? _value.description : description as String,
@@ -174,11 +190,13 @@ class __$EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res>
 /// @nodoc
 class _$_Event extends _Event with DiagnosticableTreeMixin {
   _$_Event(
-      {@required this.id,
+      {this.id,
       @required this.name,
       @required this.organiser,
       @required this.place,
       @required this.timeStamp,
+      @required this.startTime,
+      @required this.endTime,
       @required this.imageUrl,
       @required this.description,
       @JsonKey(ignore: true) this.documentReference})
@@ -186,6 +204,8 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
         assert(organiser != null),
         assert(place != null),
         assert(timeStamp != null),
+        assert(startTime != null),
+        assert(endTime != null),
         assert(imageUrl != null),
         assert(description != null),
         super._();
@@ -202,7 +222,11 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
   @override
   final String place;
   @override
-  final DateTime timeStamp;
+  final int timeStamp;
+  @override
+  final int startTime;
+  @override
+  final int endTime;
   @override
   final String imageUrl;
   @override
@@ -213,7 +237,7 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Event(id: $id, name: $name, organiser: $organiser, place: $place, timeStamp: $timeStamp, imageUrl: $imageUrl, description: $description, documentReference: $documentReference)';
+    return 'Event(id: $id, name: $name, organiser: $organiser, place: $place, timeStamp: $timeStamp, startTime: $startTime, endTime: $endTime, imageUrl: $imageUrl, description: $description, documentReference: $documentReference)';
   }
 
   @override
@@ -226,6 +250,8 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('organiser', organiser))
       ..add(DiagnosticsProperty('place', place))
       ..add(DiagnosticsProperty('timeStamp', timeStamp))
+      ..add(DiagnosticsProperty('startTime', startTime))
+      ..add(DiagnosticsProperty('endTime', endTime))
       ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('documentReference', documentReference));
@@ -247,6 +273,12 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
             (identical(other.timeStamp, timeStamp) ||
                 const DeepCollectionEquality()
                     .equals(other.timeStamp, timeStamp)) &&
+            (identical(other.startTime, startTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.startTime, startTime)) &&
+            (identical(other.endTime, endTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.endTime, endTime)) &&
             (identical(other.imageUrl, imageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.imageUrl, imageUrl)) &&
@@ -266,6 +298,8 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(organiser) ^
       const DeepCollectionEquality().hash(place) ^
       const DeepCollectionEquality().hash(timeStamp) ^
+      const DeepCollectionEquality().hash(startTime) ^
+      const DeepCollectionEquality().hash(endTime) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(documentReference);
@@ -284,11 +318,13 @@ class _$_Event extends _Event with DiagnosticableTreeMixin {
 abstract class _Event extends Event {
   _Event._() : super._();
   factory _Event(
-          {@required String id,
+          {String id,
           @required String name,
           @required String organiser,
           @required String place,
-          @required DateTime timeStamp,
+          @required int timeStamp,
+          @required int startTime,
+          @required int endTime,
           @required String imageUrl,
           @required String description,
           @JsonKey(ignore: true) DocumentReference<Object> documentReference}) =
@@ -305,7 +341,11 @@ abstract class _Event extends Event {
   @override
   String get place;
   @override
-  DateTime get timeStamp;
+  int get timeStamp;
+  @override
+  int get startTime;
+  @override
+  int get endTime;
   @override
   String get imageUrl;
   @override

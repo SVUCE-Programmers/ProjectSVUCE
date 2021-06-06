@@ -15,7 +15,7 @@ class UserModel {
     this.email,
     this.userType,
     this.rollNo,
-    this.profileImg,
+    this.gender,
     this.collegeName,
     this.phoneNumber,
   });
@@ -25,7 +25,7 @@ class UserModel {
   final String email;
   final String userType;
   final int rollNo;
-  final String profileImg;
+  final String gender;
   final String collegeName;
   final int phoneNumber;
 
@@ -35,7 +35,7 @@ class UserModel {
     String email,
     String userType,
     int rollNo,
-    String profileImg,
+    String gender,
     String collegeName,
     int phoneNumber,
   }) =>
@@ -45,7 +45,7 @@ class UserModel {
         email: email ?? this.email,
         userType: userType ?? this.userType,
         rollNo: rollNo ?? this.rollNo,
-        profileImg: profileImg ?? this.profileImg,
+        gender: gender ?? this.gender,
         collegeName: collegeName ?? this.collegeName,
         phoneNumber: phoneNumber ?? this.phoneNumber,
       );
@@ -56,7 +56,7 @@ class UserModel {
         email: json["email"] == null ? null : json["email"],
         userType: json["userType"] == null ? null : json["userType"],
         rollNo: json["rollNo"] == null ? null : json["rollNo"],
-        profileImg: json["profileImg"] == null ? null : json["profileImg"],
+        gender: json["gender"] == null ? null : json["gender"],
         collegeName: json["collegeName"] == null ? null : json["collegeName"],
         phoneNumber: json["phoneNumber"] == null ? null : json["phoneNumber"],
       );
@@ -67,7 +67,7 @@ class UserModel {
         "email": email == null ? null : email,
         "userType": userType == null ? null : userType,
         "rollNo": rollNo == null ? null : rollNo,
-        "profileImg": profileImg == null ? null : profileImg,
+        "gender": gender == null ? null : gender,
         "collegeName": collegeName == null ? null : collegeName,
         "phoneNumber": phoneNumber == null ? null : phoneNumber,
       };
