@@ -1,7 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';

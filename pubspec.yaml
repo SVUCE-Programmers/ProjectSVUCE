@@ -69,6 +69,8 @@ dependencies:
   carousel_slider:
   flutter_native_timezone:
   timezone:
+  url_launcher:
+  flutter_highlight:
 dev_dependencies:
   flutter_test:
     sdk: flutter

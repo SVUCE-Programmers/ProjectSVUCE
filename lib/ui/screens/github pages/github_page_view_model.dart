@@ -7,7 +7,8 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/githubApiResponse.dart';
 import 'package:svuce_app/core/services/github_api_services.dart';
 import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
-import 'package:svuce_app/ui/screens/github%20pages/resource_viewer.dart';
+
+import 'Resource Viewer/resource_viewer.dart';
 
 class GithubPageViewModel extends BaseViewModel {
   static final Map<String, IconData> mimeTypeToIconDataMap = <String, IconData>{
@@ -134,24 +135,14 @@ class GithubPageViewModel extends BaseViewModel {
           transition: "fade",
           duration: Duration(milliseconds: 900));
     } else {
-      String data =
-          await getRawContent(_extensionUrl + "/${githubApiResponse.path}");
       _navigationService.navigateWithTransition(
           ResourceViewer(
             title: githubApiResponse.path,
-            data: data,
             urlLink: _extensionUrl + "/${githubApiResponse.path}",
           ),
           transition: "fade",
           duration: Duration(milliseconds: 900));
       log.v(githubApiResponse.toMap());
     }
-  }
-
-  getRawContent(String url) async {
-    setBusy(true);
-    String data = await _githubApiServices.getContentFromRaw(url);
-    setBusy(false);
-    return data;
   }
 }

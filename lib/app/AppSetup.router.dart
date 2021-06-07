@@ -148,7 +148,6 @@ class StackedRouter extends RouterBase {
         builder: (context) => EventDetailsView(
           key: args.key,
           event: args.event,
-          share: args.share,
         ),
         settings: data,
       );

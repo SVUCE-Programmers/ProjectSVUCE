@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';

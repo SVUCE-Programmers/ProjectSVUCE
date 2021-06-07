@@ -13,6 +13,8 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i13;
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
+import 'package:svuce_app/core/services/share%20service/share_service.dart';
+import 'package:svuce_app/core/services/share%20service/share_service_impl.dart';
 import 'package:svuce_app/core/services/student%20services/student_service.dart';
 import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
@@ -53,8 +55,6 @@ import '../core/services/third_party_registrations.dart' as _i36;
 import '../hive_db/services/attendance_service.dart' as _i4;
 import '../hive_db/services/hive_service.dart' as _i5;
 import '../hive_db/services/time_table_service.dart' as _i8;
-import '../ui/screens/login/login_viewmodel.dart.dart'
-    as _i6; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -67,6 +67,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i26.FirebaseFirestore>(registerDependencies.firestore);
   gh.singleton<_i27.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i19.DynamicLinkService>(_i20.DynamicLinkServiceImpl());
+  gh.singleton<ShareService>(ShareServiceImpl());
 
   gh.singleton<_i28.PushNotificationService>(_i29.PushNotificationServiceImp());
   gh.singleton<_i13.SnackbarService>(registerDependencies.snackbarService);
