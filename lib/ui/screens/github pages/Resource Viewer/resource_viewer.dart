@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/utils/highlight_view.dart';
 import 'package:svuce_app/ui/widgets/pdf_viewer.dart';
 
 import 'resource_viewer_view_model.dart';
@@ -21,19 +21,6 @@ class ResourceViewer extends StatelessWidget {
       onModelReady: (m) => m.init(urlLink),
       viewModel: ResourceViewerViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
-        appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Text(
-              "${title.replaceAll("_", " ").split(".")[0]}",
-              style: uiHelpers.headline,
-            ),
-            leading: IconButton(
-                onPressed: () => model.navigateBack(),
-                icon: Icon(
-                  backIcon,
-                  color: uiHelpers.textPrimaryColor,
-                ))),
         body: ModalHud(
           child: resourceViewer(urlLink, uiHelpers, model),
           isLoading: model.isBusy,
@@ -49,11 +36,24 @@ class ResourceViewer extends StatelessWidget {
         return PdfViewerWidget(
           url: url,
         );
+      case "py":
+      case "java":
+      case "c":
+      case "cpp":
+      case "js":
+      case "jsx":
+      case "css":
+      case "html":
+        return HightLightViewWidget(data: model.data, title: title);
+
       case "md":
         return model.data != null
             ? MarkdownWidget(
                 physics: BouncingScrollPhysics(),
                 styleConfig: StyleConfig(
+                    markdownTheme: !uiHelpers.isDark
+                        ? MarkdownTheme.darkTheme
+                        : MarkdownTheme.lightTheme,
                     olConfig: OlConfig(
                       textStyle: uiHelpers.body,
                       selectable: true,

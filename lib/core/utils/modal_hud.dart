@@ -25,7 +25,7 @@ class ModalHud extends StatelessWidget {
       height: screenUtils.height,
       child: Stack(
         children: [
-          child,
+          isLoading ? SizedBox() : child,
           isLoading
               ? Container(
                   decoration: BoxDecoration(

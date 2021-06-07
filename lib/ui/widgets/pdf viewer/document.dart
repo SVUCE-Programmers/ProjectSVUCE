@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/ui/widgets/pdf%20viewer/page.dart';
 
 class PDFDocument {
@@ -38,9 +40,12 @@ class PDFDocument {
   /// cache management
   static Future<PDFDocument> fromURL(String url,
       {Map<String, String> headers, CacheManager cacheManager}) async {
+    final ShareService _shareService = locator<ShareService>();
+
     // Download into cache
     File f = await (cacheManager ?? DefaultCacheManager())
         .getSingleFile(url, headers: headers);
+    await _shareService.launchUrl(urlLink: f.path);
     PDFDocument document = PDFDocument();
     document._filePath = f.path;
     try {

@@ -27,10 +27,13 @@ class _PdfViewerWidgetState extends State<PdfViewerWidget> {
       body: _isLoading
           ? Scaffold(
               body: Center(child: CircularProgressIndicator()),
-              appBar: AppBar(),
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+              ),
             )
           : PDFViewer(
-              maxScale: 10,
+              maxScale: 100,
               minScale: 1,
               scrollDirection: Axis.vertical,
               document: document,
@@ -43,7 +46,9 @@ class _PdfViewerWidgetState extends State<PdfViewerWidget> {
       document = await PDFDocument.fromURL(
         Uri.parse(widget.url).toString(),
       );
-    } catch (e) {}
+    } catch (e) {
+      //?TODO show error
+    }
 
     setState(() {
       _isLoading = false;
