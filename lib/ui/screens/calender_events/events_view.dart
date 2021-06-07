@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/ui/screens/calender_events/widgets/events_list_item.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -14,11 +15,13 @@ class CalenderEventsView extends StatelessWidget {
       onModelReady: (model) => model.getEvents(),
       viewModel: CalendarEventsViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: uiHelpers.primaryColor,
-          child: Icon(Icons.add),
-          onPressed: () => model.navigateToCreateEvent(),
-        ),
+        floatingActionButton: model.hasAdminAccess
+            ? FloatingActionButton(
+                backgroundColor: uiHelpers.primaryColor,
+                child: Icon(Icons.add),
+                onPressed: () => model.navigateToCreateEvent(),
+              )
+            : SizedBox(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -65,6 +68,7 @@ class CalenderEventsView extends StatelessWidget {
                   uiHelpers.verticalSpaceLow,
                   ListView.builder(
                     itemBuilder: (context, index) => EventListItem(
+                      onTap: (Event event) => model.gotoDetailsPage(event),
                       event: model.eventsList[DateTimeUtils()
                           .getWholeDate(model.dateTime.millisecondsSinceEpoch)
                           .toString()][index],

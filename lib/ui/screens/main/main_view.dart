@@ -1,10 +1,11 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/colors.dart';
 
 import 'package:svuce_app/app/default_view.dart';
-import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
@@ -38,9 +39,12 @@ class MainView extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: IconButton(
-                      icon: Icon(
-                        feedIcon,
-                        color: uiHelpers.textPrimaryColor,
+                      icon: Transform.rotate(
+                        angle: pi,
+                        child: Image.asset(
+                          "assets/icons/menu.png",
+                          color: uiHelpers.textPrimaryColor,
+                        ),
                       ),
                       onPressed: () =>
                           model.scaffoldKey.currentState.openEndDrawer()),
@@ -155,46 +159,89 @@ class MainView extends StatelessWidget {
                       style: uiHelpers.title,
                     ),
                   ),
-                  ListView.builder(
-                    primary: false,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      padding: const EdgeInsets.only(bottom: 15),
-                      child: Material(
-                        color: uiHelpers.surfaceColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        elevation: 0.3,
-                        child: ListTile(
-                          trailing: IconButton(
-                              icon: Icon(
-                                FlutterIcons.alarm_add_mdi,
-                                color: uiHelpers.textPrimaryColor,
+                  model.timeTable == null
+                      ? LinearProgressIndicator(
+                          color: uiHelpers.primaryColor,
+                          backgroundColor:
+                              uiHelpers.textSecondaryColor.withOpacity(0.4),
+                        )
+                      : (model.timeTable.tojson()[model.weekDay] == null ||
+                              model.timeTable.tojson()[model.weekDay].length ==
+                                  0)
+                          ? Container(
+                              width: uiHelpers.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/illustrations/no_classes.png",
+                                    height: uiHelpers.height * 0.25,
+                                    alignment: Alignment.center,
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "No classes today ,Enjoy!",
+                                    style: uiHelpers.headline,
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    "But remember,you got time to study & explore new things,check out our library",
+                                    style: uiHelpers.body,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  uiHelpers.verticalSpaceLow
+                                ],
+                              ))
+                          : ListView.builder(
+                              primary: false,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => Container(
+                                margin: const EdgeInsets.only(right: 20),
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Material(
+                                  color: uiHelpers.surfaceColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  elevation: 0.3,
+                                  child: ListTile(
+                                    trailing: IconButton(
+                                        icon: Icon(
+                                          FlutterIcons.alarm_add_mdi,
+                                          color: uiHelpers.textPrimaryColor,
+                                        ),
+                                        onPressed: () =>
+                                            NotifyService().addAlarm(context)),
+                                    dense: true,
+                                    title: Text(
+                                      "${model.timeTable.tojson()[model.weekDay].keys.elementAt(index)}",
+                                      style: uiHelpers.body.copyWith(
+                                          color: uiHelpers.primaryColor),
+                                    ),
+                                    subtitle: Text(
+                                      "${model.timeTable.tojson()[model.weekDay].values.elementAt(index)}",
+                                      style: uiHelpers.title,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 10),
+                                  ),
+                                ),
                               ),
-                              onPressed: () =>
-                                  NotifyService().addAlarm(context)),
-                          dense: true,
-                          title: Text(
-                            "9:30Am -10:30Am",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.primaryColor),
-                          ),
-                          subtitle: Text(
-                            "Discrete Mathematics",
-                            style: uiHelpers.title,
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                        ),
-                      ),
-                    ),
-                    itemCount: 5,
-                    scrollDirection: Axis.vertical,
-                  ),
+                              itemCount: (model.timeTable == null ||
+                                      model.weekDay == "Sunday")
+                                  ? 0
+                                  : model.timeTable
+                                      .tojson()[model.weekDay]
+                                      .length,
+                              scrollDirection: Axis.vertical,
+                            ),
                   ListTile(
                     contentPadding:
                         const EdgeInsets.only(bottom: 10).copyWith(right: 15),
@@ -268,6 +315,7 @@ class MainView extends StatelessWidget {
                               .reversed
                               .toList(),
                         ),
+                 
                   uiHelpers.verticalSpaceMedium,
                 ],
               ),

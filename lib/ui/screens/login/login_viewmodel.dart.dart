@@ -11,7 +11,6 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
 import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 
-@lazySingleton
 class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final AuthService _authenticationService = locator<AuthService>();
 

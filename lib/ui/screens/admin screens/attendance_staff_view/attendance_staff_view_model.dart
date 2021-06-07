@@ -29,13 +29,13 @@ class AttendanceStaffViewModel extends BaseViewModel {
     _navigationService.back();
   }
 
-  addNewSheetForStaff(
-      {String sheetName,
-      String totalCount,
-      List<String> excludingNo,
-      String startingNo}) async {
+  addNewSheetForStaff({
+    String sheetName,
+    String totalCount,
+    List<String> excludingNo,
+  }) async {
     log.d(
-        "Sheet Name iS:$sheetName and totalCount is:$totalCount and excluding List is:$excludingNo and starting no is:$startingNo");
+        "Sheet Name iS:$sheetName and totalCount is:$totalCount and excluding List is:$excludingNo ");
     List<int> totalList =
         List.generate(int.parse(totalCount), (index) => (index + 1));
     for (String s in excludingNo) {

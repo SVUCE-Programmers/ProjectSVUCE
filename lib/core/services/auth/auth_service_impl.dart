@@ -48,6 +48,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   UserModel currentUser;
+  bool hasAdminAccess = false;
 
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we
@@ -84,6 +85,7 @@ class AuthServiceImpl implements AuthService {
     if (user != null) {
       _userService.getUserFromStream(user.email).listen((event) {
         currentUser = event;
+        hasAdminAccess = currentUser.userType != "STUDENT";
       });
       // _userStream.add(currentUser);
     }

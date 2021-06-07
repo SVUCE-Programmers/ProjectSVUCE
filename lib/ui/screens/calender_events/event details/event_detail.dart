@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:svuce_app/app/icons.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/widgets/event_widget.dart';
 
 import 'event_detail_viewmodel.dart';
 
@@ -20,138 +22,67 @@ class EventDetailsView extends StatelessWidget {
         child: ViewModelBuilder<EventDetailViewModel>.reactive(
       viewModelBuilder: () => EventDetailViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: 250,
-                        child: Image.network(
-                          event.imageUrl,
-                          height: 250,
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                      ),
-                      Positioned(
-                          top: 20,
-                          left: 10,
-                          child: InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: uiHelpers.surfaceColor),
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.white,
-                              ),
-                            ),
-                          )),
-                      Positioned(
-                          top: 20,
-                          right: 10,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: uiHelpers.surfaceColor),
-                            child: IconButton(
-                              icon: Icon(Icons.share, color: Colors.white),
-                              onPressed: () => model.shareLink(event),
-                            ),
-                            // child: PopupMenuButton(
-                            //   color: uiHelpers.surfaceColor,
-                            //   itemBuilder: (BuildContext context) =>
-                            //       <PopupMenuEntry<String>>[
-                            //     const PopupMenuItem<String>(
-                            //         child: ListTile(
-                            //       leading: Icon(
-                            //         Icons.share,
-                            //         color: Colors.white,
-                            //       ),
-                            //       title: Text(
-                            //         "Share",
-                            //         style: TextStyle(color: Colors.white),
-                            //       ),
-                            //     )),
-                            //     const PopupMenuItem<String>(
-                            //         child: ListTile(
-                            //       leading: Icon(
-                            //         Icons.report,
-                            //         color: Colors.white,
-                            //       ),
-                            //       title: Text(
-                            //         "Report",
-                            //         style: TextStyle(color: Colors.white),
-                            //       ),
-                            //     ))
-                            //   ],
-                            //   icon: Icon(
-                            //     Icons.more_vert,
-                            //     color: Colors.white,
-                            //   ),
-                            // ),
-                          ))
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 10),
-                    child: Text(
-                      event.name,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: uiHelpers.textPrimaryColor),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 10),
-                    child: Text(
-                      event.description,
-                      style: TextStyle(
-                          color: uiHelpers.textSecondaryColor, fontSize: 18),
-                    ),
-                  )
-                ],
-              ),
+        appBar: AppBar(
+          title: Text(
+            event.name,
+            style: uiHelpers.headline,
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: model.goBack,
+            icon: Icon(
+              backIcon,
+              color: uiHelpers.textPrimaryColor,
             ),
-            Positioned(
-                bottom: 20,
-                left: 20,
-                right: 20,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: uiHelpers.primaryColor,
-                      borderRadius: BorderRadius.circular(15)),
-                  height: 50,
-                  child: TextButton(
-                      onPressed: () {
-                        // final Event event=Event(title: data["name"],
-                        // startDate: DateTime.fromMillisecondsSinceEpoch(int.parse(data["timestamp"])),
-                        // endDate: DateTime.fromMillisecondsSinceEpoch(int.parse(data["timestamp"])));
-                        // Add2Calendar.addEvent2Cal(event);
-                      },
-                      child: Text(
-                        "Add to Calendar",
-                        style: TextStyle(
-                            color: uiHelpers.textPrimaryColor,
-                            fontSize: 20,
-                            fontFamily: "Quicksand",
-                            fontWeight: FontWeight.w400),
-                      )),
-                )),
-          ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {},
+            backgroundColor: uiHelpers.primaryColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            label: Center(
+              child: Text(
+                "Add to calendar",
+                style: uiHelpers.button,
+              ),
+            )),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: 250,
+                child: EventWidget(event: event),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 10),
+                child: Text(
+                  event.name,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: uiHelpers.textPrimaryColor),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 10),
+                child: Text(
+                  event.description,
+                  style: TextStyle(
+                      color: uiHelpers.textSecondaryColor, fontSize: 18),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     ));

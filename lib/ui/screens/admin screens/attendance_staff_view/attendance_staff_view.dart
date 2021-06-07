@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/utils/text_field.dart';
 
 import 'attendance_staff_view_model.dart';
 
@@ -135,7 +136,6 @@ class AttendanceStaffView extends StatelessWidget {
 
   addNewExelBottomSheet(BuildContext context, AttendanceStaffViewModel model) {
     final TextEditingController _sheetNameController = TextEditingController();
-    final TextEditingController _startingNoController = TextEditingController();
     final TextEditingController _totalCountController = TextEditingController();
     final TextEditingController _excludingNoController =
         TextEditingController();
@@ -143,79 +143,25 @@ class AttendanceStaffView extends StatelessWidget {
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     showModalBottomSheet(
         backgroundColor: uiHelpers.backgroundColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25))),
         context: context,
         builder: (context) => Container(
-              height: uiHelpers.height * 0.7,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 25),
+              padding: const EdgeInsets.only(top: 25, right: 20, left: 20),
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Create New Sheet",
                       style: uiHelpers.title,
                     ),
                     SizedBox(height: 15),
-                    Text(
-                      "Sheet Name",
-                      style: uiHelpers.title.copyWith(fontSize: 12),
-                    ),
-                    SizedBox(height: 5),
-                    TextFormField(
-                      controller: _sheetNameController,
-                      decoration: InputDecoration(
+                    AnimatedInputField(
+                        title: "Sheet Name",
                         hintText: "Example CSE 3rd Year",
-                        hintStyle: uiHelpers.body,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12)),
-                        fillColor: uiHelpers.surfaceColor,
-                        filled: true,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Starting Roll No",
-                      style: uiHelpers.title.copyWith(fontSize: 12),
-                    ),
-                    Text(
-                        "Suppose roll No starts with 11706601 then its is 1170600"),
-                    TextFormField(
-                      controller: _startingNoController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: "1170600",
-                        hintStyle: uiHelpers.body,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12)),
-                        fillColor: uiHelpers.surfaceColor,
-                        filled: true,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      "Enter Total Count",
-                      style: uiHelpers.title.copyWith(fontSize: 12),
-                    ),
-                    SizedBox(height: 5),
-                    TextFormField(
-                      controller: _totalCountController,
-                      decoration: InputDecoration(
+                        textEditingController: _sheetNameController),
+                    AnimatedInputField(
+                        title: "Total count",
                         hintText: "Example: 84",
-                        hintStyle: uiHelpers.body,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12)),
-                        fillColor: uiHelpers.surfaceColor,
-                        filled: true,
-                      ),
-                    ),
-                    SizedBox(height: 10),
+                        textEditingController: _totalCountController),
                     Text(
                       "Enter Excluding Roll No",
                       style: uiHelpers.title.copyWith(fontSize: 12),
@@ -243,16 +189,24 @@ class AttendanceStaffView extends StatelessWidget {
                         ),
                         onPressed: () => model.addNewSheetForStaff(
                             sheetName: _sheetNameController.text,
-                            startingNo: _startingNoController.text,
                             totalCount: _totalCountController.text,
                             excludingNo:
                                 _excludingNoController.text.split(",")),
                         color: uiHelpers.primaryColor,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)))
+                            borderRadius: BorderRadius.circular(8))),
+                    AnimatedPadding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        duration: Duration(milliseconds: 700),
+                        child: uiHelpers.verticalSpaceLow),
                   ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
               ),
-            ));
+            ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25), topRight: Radius.circular(25))));
   }
 }

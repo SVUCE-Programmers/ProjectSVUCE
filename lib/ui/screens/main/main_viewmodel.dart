@@ -11,8 +11,11 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/theme_service.dart';
+import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
+import 'package:svuce_app/hive_db/models/time_table.dart';
 import 'package:svuce_app/hive_db/services/attendance_service.dart';
+import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
@@ -31,6 +34,8 @@ class MainViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final ThemeService _themeService = locator<ThemeService>();
   final AttendanceService _attendanceService = locator<AttendanceService>();
+  final TimeTableService _timeTableService = locator<TimeTableService>();
+  TimeTable timeTable;
   List<Attendance> attendanceList = [];
   List<String> subjects = [];
   UserModel _currentUser;
@@ -38,6 +43,7 @@ class MainViewModel extends BaseViewModel {
   UserModel get currentUser => _currentUser;
   String get name => _firebaseAuth.currentUser?.displayName;
   String get userImage => _firebaseAuth.currentUser?.photoURL;
+  String get weekDay => DateTimeUtils().getWeekDay();
 
   String getGreeting() {
     var h = DateTime.now().hour;
@@ -58,6 +64,7 @@ class MainViewModel extends BaseViewModel {
         _currentUser = event;
         _firebaseAuth.currentUser.updateProfile(
             displayName: _currentUser.fullName, photoURL: _currentUser.gender);
+        listenTimeTable(currentUser.rollNo.toString().substring(0, 6));
         notifyListeners();
       }
     });
@@ -94,9 +101,35 @@ class MainViewModel extends BaseViewModel {
     return graph;
   }
 
+  listenTimeTable(String rollNo) {
+    _timeTableService.getTimeTable("$rollNo").listen((event) {
+      timeTable = event;
+      makeSorted();
+      notifyListeners();
+    });
+  }
+
   toggleTheme() async {
     await _themeService.changeTheme();
     notifyListeners();
+  }
+
+  makeSorted() {
+    Map<String, dynamic> tem = timeTable.tojson();
+    tem.forEach((key, value) {
+      tem[key] = miniSort(value);
+    });
+    timeTable = TimeTable.fromMap(tem, timeTable.id);
+    notifyListeners();
+  }
+
+  miniSort(Map<String, String> data) {
+    Map<String, String> temp = {};
+    var sortedKeys = data.keys.toList()..sort();
+    sortedKeys.asMap().forEach((key, value) {
+      temp[value] = data[value];
+    });
+    return temp;
   }
 
   //?Navigation Functions
@@ -107,8 +140,7 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToAttendance() {
-    bool isStaff = false;
-    if (isStaff) {
+    if (_authService.hasAdminAccess) {
       _navigationService.navigateWithTransition(AttendanceStaffView(),
           transition: "rightToLeftWithFade",
           duration: Duration(milliseconds: 900));

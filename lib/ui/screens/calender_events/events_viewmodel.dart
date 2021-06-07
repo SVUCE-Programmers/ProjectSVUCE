@@ -7,6 +7,7 @@ import 'package:svuce_app/app/AppSetup.router.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
+import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/create%20event/create_event_view.dart';
 
@@ -14,6 +15,8 @@ class CalendarEventsViewModel extends BaseViewModel {
   final log = getLogger("CalendarEventsViewModel");
   final EventsRepository _eventsRepository = locator<EventsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final AuthService _authService = locator<AuthService>();
+  bool get hasAdminAccess => _authService.hasAdminAccess;
   DateTime dateTime = DateTime.now();
 
   List<Event> _eventList = [];
@@ -26,15 +29,18 @@ class CalendarEventsViewModel extends BaseViewModel {
     events.forEach((e) {
       DateTime h = DateTime.fromMillisecondsSinceEpoch(e.timeStamp);
       DateTime date = DateTime(h.year, h.month, h.day);
-      if (data[date] == null)
+      if (data[DateTimeUtils()
+              .getWholeDate(date.millisecondsSinceEpoch)
+              .toString()] ==
+          null) {
         data[DateTimeUtils()
             .getWholeDate(date.millisecondsSinceEpoch)
             .toString()] = [];
+      }
       data[DateTimeUtils().getWholeDate(date.millisecondsSinceEpoch).toString()]
           .add(e);
     });
     eventsList = data;
-    log.d(eventsList);
     notifyListeners();
   }
 

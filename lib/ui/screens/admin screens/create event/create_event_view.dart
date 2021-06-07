@@ -38,6 +38,12 @@ class CreateEventView extends HookWidget {
                           hintText: "Enter description...",
                         ),
                         AnimatedInputField(
+                          delay: 1.5,
+                          textEditingController: model.placeController,
+                          title: "Place",
+                          hintText: "Enter place...",
+                        ),
+                        AnimatedInputField(
                             delay: 1.5,
                             enabled: false,
                             suffixIcon: Icon(

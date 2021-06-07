@@ -16,11 +16,13 @@ class TimeTableView extends StatelessWidget {
       viewModel: TimeTableViewModel(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => model.navigateToEditTimeTable(),
-            child: Icon(Icons.edit),
-            backgroundColor: uiHelpers.primaryColor,
-          ),
+          floatingActionButton: model.hasAdminAccess
+              ? FloatingActionButton(
+                  onPressed: () => model.navigateToEditTimeTable(),
+                  child: Icon(Icons.edit),
+                  backgroundColor: uiHelpers.primaryColor,
+                )
+              : SizedBox(),
           appBar: AppBar(
             leading: Hero(
               tag: "backIcon",

@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 
+@lazySingleton
 abstract class ExcelService {
   //?For Attendance
   initForStaffExcel({String excelName});

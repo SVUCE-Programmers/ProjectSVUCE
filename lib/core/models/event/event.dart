@@ -9,7 +9,7 @@ part 'event.g.dart';
 abstract class Event implements _$Event {
   const Event._();
   factory Event(
-      {String id,
+      {@JsonKey(ignore: true) String id,
       @required String name,
       @required String organiser,
       @required String place,
@@ -42,7 +42,6 @@ abstract class Event implements _$Event {
     return Event(
         endTime: DateTime.now().millisecondsSinceEpoch,
         startTime: DateTime.now().millisecondsSinceEpoch,
-        id: '',
         name: '',
         organiser: '',
         place: '',

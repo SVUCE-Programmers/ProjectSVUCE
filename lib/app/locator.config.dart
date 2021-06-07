@@ -11,6 +11,10 @@ import 'package:hive/hive.dart' as _i27;
 import 'package:http/http.dart' as _i14;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i13;
+import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
+import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
+import 'package:svuce_app/core/services/student%20services/student_service.dart';
+import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i11;
@@ -58,10 +62,20 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String environment, _i2.EnvironmentFilter environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerDependencies = _$RegisterDependencies();
+  gh.singleton<_i13.NavigationService>(registerDependencies.navigationService);
+  gh.singleton<_i25.FirebaseAuth>(registerDependencies.firebaseAuth);
+  gh.singleton<_i26.FirebaseFirestore>(registerDependencies.firestore);
+  gh.singleton<_i27.HiveInterface>(registerDependencies.hive);
+  gh.singleton<_i19.DynamicLinkService>(_i20.DynamicLinkServiceImpl());
+
+  gh.singleton<_i28.PushNotificationService>(_i29.PushNotificationServiceImp());
+  gh.singleton<_i13.SnackbarService>(registerDependencies.snackbarService);
   gh.lazySingleton<_i3.AnalyticsService>(() => _i3.AnalyticsService());
   gh.lazySingleton<_i4.AttendanceService>(() => _i4.AttendanceService());
   gh.lazySingleton<_i5.HiveService>(() => _i5.HiveService());
-  gh.lazySingleton<_i6.LoginViewModel>(() => _i6.LoginViewModel());
+  gh.singleton<ExcelService>(ExcelServiceImpl());
+  gh.singleton<StudentService>(StudentServiceImpl());
+
   gh.lazySingleton<_i7.ThemeService>(() => _i7.ThemeService());
   gh.lazySingleton<_i8.TimeTableService>(() => _i8.TimeTableService());
   gh.singleton<_i9.APIService>(_i10.APIServiceImpl());
@@ -73,15 +87,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i15.CloudStorageService>(_i16.CloudStorageServiceImpl());
   gh.singleton<_i17.ClubsRepository>(_i18.ClubsRepositoryImpl());
   gh.singleton<_i13.DialogService>(registerDependencies.dialogService);
-  gh.singleton<_i19.DynamicLinkService>(_i20.DynamicLinkServiceImpl());
   gh.singleton<_i21.EventsRepository>(_i22.EventsRepositoryImpl());
   gh.singleton<_i23.FeedRepository>(_i24.FeedRepositoryImpl());
-  gh.singleton<_i25.FirebaseAuth>(registerDependencies.firebaseAuth);
-  gh.singleton<_i26.FirebaseFirestore>(registerDependencies.firestore);
-  gh.singleton<_i27.HiveInterface>(registerDependencies.hive);
-  gh.singleton<_i13.NavigationService>(registerDependencies.navigationService);
-  gh.singleton<_i28.PushNotificationService>(_i29.PushNotificationServiceImp());
-  gh.singleton<_i13.SnackbarService>(registerDependencies.snackbarService);
   gh.singleton<_i30.UserClubsRepository>(_i31.UserClubsRepositoryImpl());
   gh.singleton<_i32.UsersRepository>(_i33.UsersRepositoryImpl());
   gh.singleton<_i34.AuthService>(

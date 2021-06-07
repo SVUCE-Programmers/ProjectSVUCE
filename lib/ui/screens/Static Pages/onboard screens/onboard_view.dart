@@ -103,10 +103,12 @@ class OnBoardView extends StatelessWidget {
                                 duration: Duration(milliseconds: 750),
                                 margin:
                                     const EdgeInsets.symmetric(horizontal: 8),
-                                height: model.index == index ? 15 : 10,
-                                width: model.index == index ? 15 : 10,
+                                height: model.index == index ? 5 : 5,
+                                width: model.index == index ? 25 : 10,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
+                                    // shape: model.index == index
+                                    //     ? BoxShape.rectangle
+                                    //     : BoxShape.circle,
                                     color: model.index == index
                                         ? uiHelpers.primaryColor
                                         : uiHelpers.textSecondaryColor),

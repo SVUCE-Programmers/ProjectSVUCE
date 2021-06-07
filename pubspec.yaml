@@ -99,6 +99,7 @@ flutter:
     - assets/illustrations/
     - assets/images/
     - assets/lottie/
+    - assets/icons/
 
   fonts:
     - family: Quicksand

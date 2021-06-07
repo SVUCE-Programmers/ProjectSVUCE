@@ -103,6 +103,15 @@ String getCurrentWeekDay(int weekDay) {
 final List<String> weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 class DateTimeUtils {
+  List<String> weekDayList = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
   List<String> monthsList = [
     "January",
     "February",
@@ -132,7 +141,12 @@ class DateTimeUtils {
     "Dec"
   ];
 
-  getMonth(int timeStamp, bool isShort) {
+  String getWeekDay() {
+    int index = DateTime.now().weekday;
+    return weekDayList[index - 1];
+  }
+
+  String getMonth(int timeStamp, bool isShort) {
     var date = new DateTime.fromMillisecondsSinceEpoch(timeStamp);
     int month = date.month;
     return isShort ? shortMonthsList[month] : monthsList[month];
