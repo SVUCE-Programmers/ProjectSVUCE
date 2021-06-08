@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:svuce_app/app/colors.dart';
 
@@ -6,13 +7,26 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/core/utils/scaling.dart';
 
+enum DeviceType { android, ios, fuschia, web, windows, mac, linux }
+
+enum ScreenType { mobile, tablet }
+
 class UiHelpers {
+  Orientation orientation;
+
+  DeviceType deviceType;
+  ScreenType screenType;
+
   double width;
   double height;
+
+  double pixelRatio;
+  double pixelDensity;
 
   //block sizes that change according to ui
   double blockSizeHorizontal;
   double blockSizeVertical;
+  double sp;
 
   // An Utility tool to help scale things better.
   ScalingHelper scalingHelper;
@@ -47,14 +61,18 @@ class UiHelpers {
     final ThemeService _themeService = locator<ThemeService>();
     isDark = _themeService.darkMode.value;
 
+    orientation = MediaQuery.of(context).orientation;
+
     mediaQuery = MediaQuery.of(context);
     size = mediaQuery.size;
-    var screenWidth = mediaQuery.size.width;
-    var screenHeight = mediaQuery.size.height;
-    width = screenWidth;
-    height = screenHeight;
+    width = mediaQuery.size.width;
+    height = mediaQuery.size.height;
 
-    scalingHelper = ScalingHelper(width: screenWidth);
+    scalingHelper = ScalingHelper(width: width);
+    pixelRatio = WidgetsBinding.instance.window.devicePixelRatio ?? 1;
+    pixelDensity =
+        pixelRatio * (width > height ? (width / height) : (height / width));
+    sp = ((width > height) ? width : height) / pixelDensity / 100;
 
     primaryColor = _themeService.isDarkMode
         ? DarkColorPalette.primaryColor
@@ -80,31 +98,31 @@ class UiHelpers {
         fontFamily: Configs.headlineFont,
         color: textPrimaryColor,
         fontWeight: FontWeight.bold,
-        fontSize: scalingHelper.size(24));
+        fontSize: 20 * sp);
 
     title = TextStyle(
         decoration: TextDecoration.none,
         fontFamily: Configs.titleFont,
         color: textPrimaryColor,
         fontWeight: FontWeight.w700,
-        fontSize: scalingHelper.size(18));
+        fontSize: 12 * sp);
 
     body = TextStyle(
         decoration: TextDecoration.none,
         color: textSecondaryColor,
         fontFamily: Configs.bodyFont,
         fontWeight: FontWeight.w300,
-        fontSize: scalingHelper.size(16));
+        fontSize: 10 * sp);
 
     button = TextStyle(
         decoration: TextDecoration.none,
         fontFamily: Configs.headlineFont,
         fontWeight: FontWeight.w600,
         color: Colors.white,
-        fontSize: scalingHelper.size(18));
+        fontSize: 14 * sp);
 
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
+    blockSizeHorizontal = width / 100;
+    blockSizeVertical = height / 100;
 
     verticalSpaceLow = SizedBox(
       height: blockSizeVertical * 1.5,
@@ -125,5 +143,37 @@ class UiHelpers {
     horizontalSpaceHigh = SizedBox(
       width: blockSizeHorizontal * 7,
     );
+    if (kIsWeb) {
+      deviceType = DeviceType.web;
+    } else {
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.android:
+          deviceType = DeviceType.android;
+          break;
+        case TargetPlatform.iOS:
+          deviceType = DeviceType.ios;
+          break;
+        case TargetPlatform.windows:
+          deviceType = DeviceType.windows;
+          break;
+        case TargetPlatform.macOS:
+          deviceType = DeviceType.mac;
+          break;
+        case TargetPlatform.linux:
+          deviceType = DeviceType.linux;
+          break;
+        case TargetPlatform.fuchsia:
+          deviceType = DeviceType.fuschia;
+          break;
+      }
+    }
+
+    // Sets ScreenType
+    if ((orientation == Orientation.portrait && width < 600) ||
+        (orientation == Orientation.landscape && height < 600)) {
+      screenType = ScreenType.mobile;
+    } else {
+      screenType = ScreenType.tablet;
+    }
   }
 }

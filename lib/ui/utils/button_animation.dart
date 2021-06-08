@@ -25,7 +25,7 @@ class AnimatedButton extends HookWidget {
       this.xDistance = 0,
       this.yDistance = 30,
       this.elevation,
-      this.animatePaddingValue = 8,
+      this.animatePaddingValue = 4,
       this.shapeBorder,
       this.minLeadingWidth = 0})
       : super(key: key);
@@ -67,17 +67,9 @@ class AnimatedButton extends HookWidget {
                       mainAxisAlignment:
                           mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
                       children: [
-                        leading ??
-                            SizedBox(
-                              width: 0,
-                              height: 0,
-                            ),
+                        leading ?? SizedBox(),
                         title,
-                        trailing ??
-                            SizedBox(
-                              width: 0,
-                              height: 0,
-                            ),
+                        trailing ?? SizedBox(),
                       ],
                     ),
                   )),

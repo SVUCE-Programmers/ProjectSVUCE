@@ -8,6 +8,7 @@ import 'package:svuce_app/core/repositories/users_repository/users_repository.da
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/app/AppSetup.router.dart';
+import 'package:svuce_app/core/services/connectivity%20service/connectivity_services.dart';
 
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
@@ -22,8 +23,11 @@ class StartUpViewModel extends BaseViewModel {
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
+  final ConnectivityServices _connectivityServices =
+      locator<ConnectivityServices>();
 
   Future handleStartUpLogic(BuildContext context) async {
+    _connectivityServices.initializeConnectionService();
     _analyticsService.logAppOpen();
     await precacheImage(AssetImage(hexagonPattern), context);
     await _notificationService.initialise();

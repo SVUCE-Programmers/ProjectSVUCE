@@ -11,6 +11,7 @@ import 'package:hive/hive.dart' as _i27;
 import 'package:http/http.dart' as _i14;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i13;
+import 'package:svuce_app/core/services/connectivity%20service/connectivity_services.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
@@ -68,6 +69,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i27.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i19.DynamicLinkService>(_i20.DynamicLinkServiceImpl());
   gh.singleton<ShareService>(ShareServiceImpl());
+  gh.lazySingleton(() => ConnectivityServices());
 
   gh.singleton<_i28.PushNotificationService>(_i29.PushNotificationServiceImp());
   gh.singleton<_i13.SnackbarService>(registerDependencies.snackbarService);

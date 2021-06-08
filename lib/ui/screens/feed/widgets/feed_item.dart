@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:svuce_app/app/locator.dart';
 
 import 'package:svuce_app/core/models/feed/feed.dart';
+import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 
@@ -20,6 +22,7 @@ class FeedItem extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final ShareService _shareService = locator<ShareService>();
     return Container(
       decoration: BoxDecoration(
           color: uiHelpers.surfaceColor,
@@ -90,7 +93,8 @@ class FeedItem extends StatelessWidget {
                     TextSpan(text: "Link:  "),
                     TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Navigator.pop(context),
+                          ..onTap =
+                              () => _shareService.launchUrl(urlLink: feed.link),
                         text: feed.link,
                         style: uiHelpers.body.apply(
                             decoration: TextDecoration.underline,

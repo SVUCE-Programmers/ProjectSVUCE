@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
-import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/ui/screens/login/consumers/login_body.dart';
 import 'package:svuce_app/ui/widgets/lazy_indexed_stack.dart';
 
@@ -19,7 +18,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<LoginViewModel>(
-      viewModel: locator<LoginViewModel>(),
+      viewModel: LoginViewModel(),
       disposeViewModel: false,
       builder: (context, uiHelpers, model) {
         return WillPopScope(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/utils/button_animation.dart';
 import 'package:svuce_app/ui/utils/text_field.dart';
 
 import 'attendance_staff_view_model.dart';
@@ -38,20 +39,28 @@ class AttendanceStaffView extends StatelessWidget {
         ),
         body: (!model.isExcelCreated ||
                 (model.excelSheets != null && model.excelSheets.length == 0))
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: uiHelpers.width * 0.1),
-                    child: Text(
-                        "Click On add Button to create a new sheet to add attendance",
-                        style: uiHelpers.title,
-                        textAlign: TextAlign.center),
-                  )
-                ],
+            ? SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    uiHelpers.verticalSpaceHigh,
+                    Hero(
+                        tag: 'Attendance Hero',
+                        child:
+                            Image.asset("assets/illustrations/attendance.png")),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: uiHelpers.width * 0.1),
+                      child: Text(
+                          "Click On add Button to create a new sheet to add attendance",
+                          style: uiHelpers.title,
+                          textAlign: TextAlign.center),
+                    ),
+                    uiHelpers.verticalSpaceHigh,
+                  ],
+                ),
               )
             : SingleChildScrollView(
                 child: Container(
@@ -142,6 +151,7 @@ class AttendanceStaffView extends StatelessWidget {
 
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     showModalBottomSheet(
+        isScrollControlled: true,
         backgroundColor: uiHelpers.backgroundColor,
         context: context,
         builder: (context) => Container(
@@ -162,38 +172,24 @@ class AttendanceStaffView extends StatelessWidget {
                         title: "Total count",
                         hintText: "Example: 84",
                         textEditingController: _totalCountController),
-                    Text(
-                      "Enter Excluding Roll No",
-                      style: uiHelpers.title.copyWith(fontSize: 12),
-                    ),
-                    SizedBox(height: 5),
-                    TextFormField(
-                      controller: _excludingNoController,
-                      decoration: InputDecoration(
-                        hintText: "Ex:  32,52,90",
-                        hintStyle: uiHelpers.body,
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12)),
-                        fillColor: uiHelpers.surfaceColor,
-                        filled: true,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    MaterialButton(
-                        child: Center(
+                    AnimatedInputField(
+                        title: "Excluding Roll No:",
+                        hintText: "Example: 32,50,62",
+                        textEditingController: _excludingNoController),
+                    SizedBox(height: 10),
+                    AnimatedButton(
+                        title: Center(
                           child: Text(
                             "Add New Sheet",
                             style: uiHelpers.button,
                           ),
                         ),
-                        onPressed: () => model.addNewSheetForStaff(
+                        onTap: () => model.addNewSheetForStaff(
                             sheetName: _sheetNameController.text,
                             totalCount: _totalCountController.text,
                             excludingNo:
                                 _excludingNoController.text.split(",")),
-                        color: uiHelpers.primaryColor,
-                        shape: RoundedRectangleBorder(
+                        shapeBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                     AnimatedPadding(
                         padding: EdgeInsets.only(

@@ -7,6 +7,7 @@ import 'package:svuce_app/app/colors.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
+import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
 import 'package:svuce_app/ui/screens/main/widgets/greeting_widget.dart';
@@ -19,6 +20,7 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<MainViewModel>(
+      enableConnectionStream: false,
       viewModel: MainViewModel(),
       onModelReady: (m) => m.init(),
       builder: (context, uiHelpers, model) {
@@ -108,6 +110,7 @@ class MainView extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
+                    width: uiHelpers.width,
                     child: CarouselSlider(
                         items: model.imageList
                             .map((e) => Container(
@@ -137,7 +140,12 @@ class MainView extends StatelessWidget {
                   GridView.builder(
                     padding: const EdgeInsets.all(0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
+                        crossAxisCount:
+                            uiHelpers.screenType == ScreenType.mobile
+                                ? uiHelpers.orientation == Orientation.landscape
+                                    ? 4
+                                    : 3
+                                : 4),
                     itemBuilder: (context, index) => spotLightItems[index],
                     shrinkWrap: true,
                     primary: false,
@@ -315,7 +323,6 @@ class MainView extends StatelessWidget {
                               .reversed
                               .toList(),
                         ),
-                 
                   uiHelpers.verticalSpaceMedium,
                 ],
               ),
