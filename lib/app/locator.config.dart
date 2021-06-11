@@ -94,8 +94,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i23.FeedRepository>(_i24.FeedRepositoryImpl());
   gh.singleton<_i30.UserClubsRepository>(_i31.UserClubsRepositoryImpl());
   gh.singleton<_i32.UsersRepository>(_i33.UsersRepositoryImpl());
-  gh.singleton<_i34.AuthService>(
-      _i35.AuthServiceImpl(get<_i25.FirebaseAuth>()));
+  gh.singleton<_i34.AuthService>(_i35.AuthServiceImpl());
   return get;
 }
 

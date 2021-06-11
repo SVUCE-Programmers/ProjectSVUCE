@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked/stacked.dart';
+
 import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/utils/connectivity_widget.dart';
 
-class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
+import 'colors.dart';
+
+class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
   final bool disposeViewModel;
   final bool isReactive;
   final Widget Function(BuildContext, UiHelpers, T) builder;
@@ -20,7 +24,7 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
       @required this.builder,
       this.appTitle = "Svuce",
       @required this.viewModel,
-      this.enableConnectionStream=false,
+      this.enableConnectionStream = false,
       this.disposeViewModel = false,
       this.onModelReady,
       this.showLoadingOnBusy = true,
@@ -29,12 +33,17 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UiHelpers uiHelpers = UiHelpers.fromContext(context);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: uiHelpers.isDark
+            ? DarkColorPalette.primaryColor
+            : LightColorPalette.primaryColor));
     SystemChrome.setApplicationSwitcherDescription(
         ApplicationSwitcherDescription(
       label: appTitle,
       primaryColor: Theme.of(context).primaryColor.value,
     ));
-    UiHelpers uiHelpers = UiHelpers.fromContext(context);
+
     if (isReactive) {
       return ConnectivityWidget(
         onOnlineBack: enableConnectionStream,
@@ -49,8 +58,8 @@ class ScreenBuilder<T extends BaseViewModel> extends StatelessWidget {
               return showLoadingOnBusy
                   ? IgnorePointer(
                       ignoring: model.isBusy && showLoadingOnBusy,
-                      child: SafeArea(
-                          child: ModalHud(
+                      child: Scaffold(
+                          body: ModalHud(
                         child: builder(context, uiHelpers, model),
                         isLoading: model.isBusy,
                       )))

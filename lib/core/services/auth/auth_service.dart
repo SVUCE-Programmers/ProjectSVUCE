@@ -4,11 +4,13 @@ import 'package:svuce_app/core/models/user/user.dart';
 abstract class AuthService {
   UserModel currentUser;
   bool hasAdminAccess;
+  bool isGuest;
   Future loginUser({@required String email, @required String password});
   Future createStudent({
     @required String email,
     @required String password,
   });
+  listenAuthStatusStream();
 
   bool isUserLoggedIn();
   Future resetPassword(String email);

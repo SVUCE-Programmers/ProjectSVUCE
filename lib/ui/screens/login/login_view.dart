@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                           side: BorderSide(color: uiHelpers.primaryColor)),
-                      onPressed: () {},
+                      onPressed: model.continueAsGuest,
                       child: Center(
                         child: Text(
                           "Continue as Guest",

@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
@@ -8,7 +10,7 @@ import 'package:svuce_app/ui/utils/text_field.dart';
 
 import 'attendance_staff_view_model.dart';
 
-class AttendanceStaffView extends StatelessWidget {
+class AttendanceStaffView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<AttendanceStaffViewModel>(

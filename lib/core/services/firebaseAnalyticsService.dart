@@ -22,6 +22,10 @@ class AnalyticsService {
     await _analytics.logEvent(name: name, parameters: parameters);
   }
 
+  Future logGuestSignin() async {
+    await _analytics.logLogin(loginMethod: "Guest Signin");
+  }
+
   Future logAppOpen() async {
     await _analytics.logAppOpen();
   }

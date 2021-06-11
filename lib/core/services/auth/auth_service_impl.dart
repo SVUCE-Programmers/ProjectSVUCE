@@ -18,14 +18,13 @@ import 'auth_service.dart';
 @Singleton(as: AuthService)
 class AuthServiceImpl implements AuthService {
   final log = getLogger("AuthServiceImpl");
-  final FirebaseAuth _firebaseAuth;
+  static final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final UsersRepository _userService = locator<UsersRepository>();
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   // for testing
-  AuthServiceImpl(this._firebaseAuth);
 
   /// This method uses FirebaseAuth to Sign in
   /// It will generate Firebase User if there are no errors and we return
@@ -49,6 +48,13 @@ class AuthServiceImpl implements AuthService {
 
   UserModel currentUser;
   bool hasAdminAccess = false;
+  bool isGuest = true;
+
+  listenAuthStatusStream() {
+    _firebaseAuth.authStateChanges().listen((user) {
+      isGuest = user == null;
+    });
+  }
 
   /// This method creates a Firebase user with FirebaseAuth API and returns
   ///  Firebase User as AuthResult if there is no errors and at the same we

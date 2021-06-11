@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -10,6 +11,7 @@ import 'package:svuce_app/core/models/graph.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/github_api_services.dart';
 import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/attendance.dart';
@@ -35,14 +37,17 @@ class MainViewModel extends BaseViewModel {
   final ThemeService _themeService = locator<ThemeService>();
   final AttendanceService _attendanceService = locator<AttendanceService>();
   final TimeTableService _timeTableService = locator<TimeTableService>();
+  final GithubApiServices githubApiServices = GithubApiServices();
+  bool isGuest = false;
+  bool get isAdmin => _authService.hasAdminAccess;
   TimeTable timeTable;
   List<Attendance> attendanceList = [];
   List<String> subjects = [];
   UserModel _currentUser;
   bool get isDarkMode => _themeService.isDarkMode;
   UserModel get currentUser => _currentUser;
-  String get name => _firebaseAuth.currentUser?.displayName;
-  String get userImage => _firebaseAuth.currentUser?.photoURL;
+  String get name => isGuest ? "Guest" : _firebaseAuth.currentUser?.displayName;
+  String get userImage => isGuest ? null : _firebaseAuth.currentUser?.photoURL;
   String get weekDay => DateTimeUtils().getWeekDay();
 
   String getGreeting() {
@@ -57,23 +62,30 @@ class MainViewModel extends BaseViewModel {
   }
 
   getCurrentUserDetails() {
-    _userRepository
-        .getUserFromStream(_firebaseAuth.currentUser.email)
-        .listen((event) {
-      if (event != null) {
-        _currentUser = event;
-        _firebaseAuth.currentUser.updateProfile(
-            displayName: _currentUser.fullName, photoURL: _currentUser.gender);
-        listenTimeTable(currentUser.rollNo.toString().substring(0, 6));
-        notifyListeners();
-      }
-    });
+    if (!isGuest) {
+      _userRepository
+          .getUserFromStream(_firebaseAuth.currentUser.email)
+          .listen((event) {
+        if (event != null) {
+          _currentUser = event;
+          _firebaseAuth.currentUser.updateProfile(
+              displayName: _currentUser.fullName,
+              photoURL: _currentUser.gender);
+          listenTimeTable(currentUser.rollNo.toString().substring(0, 6));
+          notifyListeners();
+        }
+      });
+    }
   }
 
   init() {
-    listenAttendanceStream();
-    getCurrentUserDetails();
-    getAttendanceData();
+    isGuest = _authService.isGuest;
+    notifyListeners();
+    if (!isGuest) {
+      listenAttendanceStream();
+      getCurrentUserDetails();
+      getAttendanceData();
+    }
   }
 
   getGraph() {
@@ -140,14 +152,20 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToAttendance() {
-    if (_authService.hasAdminAccess) {
-      _navigationService.navigateWithTransition(AttendanceStaffView(),
-          transition: "rightToLeftWithFade",
-          duration: Duration(milliseconds: 900));
+    if (_authService.isGuest) {
+      showToast(
+          "Sorry you can't access to this feature\nBut don't worry we will provide you soon",
+          backgroundColor: Colors.red);
     } else {
-      _navigationService.navigateWithTransition(AttendanceManagerView(),
-          transition: "rightToLeftWithFade",
-          duration: Duration(milliseconds: 900));
+      if (_authService.hasAdminAccess) {
+        _navigationService.navigateWithTransition(AttendanceStaffView(),
+            transition: "rightToLeftWithFade",
+            duration: Duration(milliseconds: 900));
+      } else {
+        _navigationService.navigateWithTransition(AttendanceManagerView(),
+            transition: "rightToLeftWithFade",
+            duration: Duration(milliseconds: 900));
+      }
     }
   }
 
@@ -168,12 +186,17 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToExploreClubs() {
-    _navigationService.navigateWithTransition(
-        SelectClubsView(
-          isSelectClubs: false,
-        ),
-        transition: "fade",
-        duration: Duration(milliseconds: 900));
+    if (isGuest) {
+      showToast("Sorry only students of svuce can access this.",
+          backgroundColor: Colors.red);
+    } else {
+      _navigationService.navigateWithTransition(
+          SelectClubsView(
+            isSelectClubs: false,
+          ),
+          transition: "fade",
+          duration: Duration(milliseconds: 900));
+    }
   }
 
   navigateToProfile() {

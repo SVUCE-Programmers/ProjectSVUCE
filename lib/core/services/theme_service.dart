@@ -1,12 +1,17 @@
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
+import 'package:svuce_app/app/colors.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 
 import 'keyStorageService.dart';
 
 @lazySingleton
 class ThemeService with ReactiveServiceMixin {
+  final AnalyticsService _analyticsService = locator<AnalyticsService>();
   final log = getLogger("ThemeService");
   ThemeService() {
     listenToReactiveValues([darkMode]);
@@ -28,7 +33,14 @@ class ThemeService with ReactiveServiceMixin {
   }
 
   Future changeTheme() async {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: !isDarkMode
+            ? DarkColorPalette.primaryColor
+            : LightColorPalette.primaryColor));
     darkMode.value = !darkMode.value;
+    _analyticsService.logEvent(name: "Theme Switch", parameters: {
+      "theme": "${darkMode.value ? "Dark Mode" : "Light Theme"}"
+    });
     log.i("Changing theme");
     await _keyStorageService.saveToDisk<bool>(key, darkMode.value);
     notifyListeners();

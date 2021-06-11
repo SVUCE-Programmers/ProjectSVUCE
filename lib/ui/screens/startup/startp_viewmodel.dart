@@ -27,6 +27,7 @@ class StartUpViewModel extends BaseViewModel {
       locator<ConnectivityServices>();
 
   Future handleStartUpLogic(BuildContext context) async {
+    _authenticationService.listenAuthStatusStream();
     _connectivityServices.initializeConnectionService();
     _analyticsService.logAppOpen();
     await precacheImage(AssetImage(hexagonPattern), context);

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -9,9 +10,11 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
+import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
 import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
 import 'package:svuce_app/ui/screens/main/widgets/greeting_widget.dart';
 import 'package:svuce_app/ui/utils/animatedText.dart';
+import 'package:svuce_app/ui/widgets/Empty%20States/no_classes_empty_State.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
 import 'main_viewmodel.dart';
@@ -151,105 +154,119 @@ class MainView extends StatelessWidget {
                     primary: false,
                     itemCount: spotLightItems.length,
                   ),
-                  ListTile(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10)
-                        .copyWith(right: 15),
-                    trailing: TextButton(
-                      onPressed: () => model.navigateToTimeTable(),
-                      child: Text(
-                        "View More",
-                        style: uiHelpers.body
-                            .copyWith(color: uiHelpers.primaryColor),
-                      ),
-                    ),
-                    title: Text(
-                      "Today\'s Classes",
-                      style: uiHelpers.title,
-                    ),
-                  ),
-                  model.timeTable == null
-                      ? LinearProgressIndicator(
-                          color: uiHelpers.primaryColor,
-                          backgroundColor:
-                              uiHelpers.textSecondaryColor.withOpacity(0.4),
-                        )
-                      : (model.timeTable.tojson()[model.weekDay] == null ||
-                              model.timeTable.tojson()[model.weekDay].length ==
-                                  0)
-                          ? Container(
-                              width: uiHelpers.width,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/illustrations/no_classes.png",
-                                    height: uiHelpers.height * 0.25,
-                                    alignment: Alignment.center,
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text(
-                                    "No classes today ,Enjoy!",
-                                    style: uiHelpers.headline,
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    "But remember,you got time to study & explore new things,check out our library",
-                                    style: uiHelpers.body,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  uiHelpers.verticalSpaceLow
-                                ],
-                              ))
-                          : ListView.builder(
-                              primary: false,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => Container(
-                                margin: const EdgeInsets.only(right: 20),
-                                padding: const EdgeInsets.only(bottom: 15),
-                                child: Material(
-                                  color: uiHelpers.surfaceColor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  elevation: 0.3,
-                                  child: ListTile(
-                                    trailing: IconButton(
-                                        icon: Icon(
-                                          FlutterIcons.alarm_add_mdi,
-                                          color: uiHelpers.textPrimaryColor,
-                                        ),
-                                        onPressed: () =>
-                                            NotifyService().addAlarm(context)),
-                                    dense: true,
-                                    title: Text(
-                                      "${model.timeTable.tojson()[model.weekDay].keys.elementAt(index)}",
-                                      style: uiHelpers.body.copyWith(
-                                          color: uiHelpers.primaryColor),
-                                    ),
-                                    subtitle: Text(
-                                      "${model.timeTable.tojson()[model.weekDay].values.elementAt(index)}",
-                                      style: uiHelpers.title,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 10),
-                                  ),
+                  model.isGuest
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 10)
+                                      .copyWith(right: 15),
+                              trailing: TextButton(
+                                onPressed: () => model.navigateToTimeTable(),
+                                child: Text(
+                                  "View More",
+                                  style: uiHelpers.body
+                                      .copyWith(color: uiHelpers.primaryColor),
                                 ),
                               ),
-                              itemCount: (model.timeTable == null ||
-                                      model.weekDay == "Sunday")
-                                  ? 0
-                                  : model.timeTable
-                                      .tojson()[model.weekDay]
-                                      .length,
-                              scrollDirection: Axis.vertical,
+                              title: Text(
+                                "Today\'s Classes",
+                                style: uiHelpers.title,
+                              ),
                             ),
+                            model.timeTable == null
+                                ? LinearProgressIndicator(
+                                    color: uiHelpers.primaryColor,
+                                    backgroundColor: uiHelpers
+                                        .textSecondaryColor
+                                        .withOpacity(0.4),
+                                  )
+                                : (model.timeTable.tojson()[model.weekDay] ==
+                                            null ||
+                                        model.timeTable
+                                                .tojson()[model.weekDay]
+                                                .length ==
+                                            0)
+                                    ? OpenContainer(
+                                        closedColor: uiHelpers.backgroundColor,
+                                        closedElevation: 0,
+                                        openColor: uiHelpers.backgroundColor,
+                                        openElevation: 0,
+                                        middleColor: uiHelpers.backgroundColor,
+                                        transitionType:
+                                            ContainerTransitionType.fadeThrough,
+                                        transitionDuration:
+                                            Duration(milliseconds: 1500),
+                                        openBuilder: (context, function) =>
+                                            GithubPageView(
+                                              url: model
+                                                  .githubApiServices.programUrl,
+                                              extensionUrl: model
+                                                  .githubApiServices
+                                                  .rawGithubUrl,
+                                            ),
+                                        closedBuilder: (context, function) =>
+                                            NoClassesEmptyState())
+                                    : ListView.builder(
+                                        primary: false,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) =>
+                                            Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 20),
+                                          padding:
+                                              const EdgeInsets.only(bottom: 15),
+                                          child: Material(
+                                            color: uiHelpers.surfaceColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            elevation: 0.3,
+                                            child: ListTile(
+                                              trailing: IconButton(
+                                                  icon: Icon(
+                                                    FlutterIcons.alarm_add_mdi,
+                                                    color: uiHelpers
+                                                        .textPrimaryColor,
+                                                  ),
+                                                  onPressed: () =>
+                                                      NotifyService()
+                                                          .addAlarm(context)),
+                                              dense: true,
+                                              title: Text(
+                                                "${model.timeTable.tojson()[model.weekDay].keys.elementAt(index)}",
+                                                style: uiHelpers.body.copyWith(
+                                                    color:
+                                                        uiHelpers.primaryColor),
+                                              ),
+                                              subtitle: Text(
+                                                "${model.timeTable.tojson()[model.weekDay].values.elementAt(index)}",
+                                                style: uiHelpers.title,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12)),
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 15,
+                                                      vertical: 10),
+                                            ),
+                                          ),
+                                        ),
+                                        itemCount: (model.timeTable == null ||
+                                                model.weekDay == "Sunday")
+                                            ? 0
+                                            : model.timeTable
+                                                .tojson()[model.weekDay]
+                                                .length,
+                                        scrollDirection: Axis.vertical,
+                                      ),
+                          ],
+                        ),
                   ListTile(
                     contentPadding:
                         const EdgeInsets.only(bottom: 10).copyWith(right: 15),

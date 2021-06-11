@@ -4,7 +4,6 @@ import 'package:stacked/stacked.dart';
 
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/main/main_viewmodel.dart';
-import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/drawer_item.dart';
 
@@ -15,7 +14,7 @@ class DrawerView extends StatelessWidget {
 
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      onModelReady: (model) => model.getCurrentUserDetails(),
+      onModelReady: (model) => model.init(),
       builder: (context, model, child) => ClipRRect(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
@@ -26,12 +25,12 @@ class DrawerView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 ListTile(
-                  // onTap: () => model.viewUserProfile(),
+                  onTap: () => model.navigateToProfile(),
                   contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                   leading: ClipRRect(
                     borderRadius:
                         BorderRadius.circular(uiHelpers.scalingHelper.size(80)),
-                    child: model.currentUser?.gender != null
+                    child: (!model.isGuest && model.currentUser?.gender != null)
                         ? Image.asset(
                             model.currentUser.gender == "Male"
                                 ? "assets/images/boy1.png"
@@ -39,7 +38,8 @@ class DrawerView extends StatelessWidget {
                             fit: BoxFit.cover,
                             width: 50,
                             height: 50)
-                        : SizedBox(),
+                        : Image.asset("assets/images/boy1.png",
+                            fit: BoxFit.cover, width: 50, height: 50),
                   ),
                   title: Text.rich(TextSpan(children: [
                     TextSpan(
@@ -70,29 +70,30 @@ class DrawerView extends StatelessWidget {
                 ),
                 DrawerItem(
                   title: "Faculty",
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PlacementView()));
-                  },
+                  onTap: () {},
                   iconData: facultyIcon,
                 ),
-                DrawerItem(
-                  title: "Explore Clubs",
-                  onTap: () => model.navigateToExploreClubs(),
-                  iconData: clubsIcon,
-                ),
-                DrawerItem(
-                  title: "Timetable",
-                  // onTap: () => model.viewTimeTable(),
-                  iconData: timeTableIcon,
-                ),
-                DrawerItem(
-                  title: "Attendance",
-                  // onTap: () => model.viewAttendance(),
-                  iconData: attendanceIcon,
-                ),
+                model.isGuest
+                    ? SizedBox()
+                    : DrawerItem(
+                        title: "Explore Clubs",
+                        onTap: () => model.navigateToExploreClubs(),
+                        iconData: clubsIcon,
+                      ),
+                model.isGuest
+                    ? SizedBox()
+                    : DrawerItem(
+                        title: "Timetable",
+                        onTap: () => model.navigateToTimeTable(),
+                        iconData: timeTableIcon,
+                      ),
+                model.isGuest
+                    ? SizedBox()
+                    : DrawerItem(
+                        title: "Attendance",
+                        // onTap: () => model.viewAttendance(),
+                        iconData: attendanceIcon,
+                      ),
                 DrawerItem(
                   title: "Campus Map",
                   onTap: () {},
@@ -108,11 +109,13 @@ class DrawerView extends StatelessWidget {
                   onTap: () => model.navigateToAboutApp(),
                   iconData: infoIcon,
                 ),
-                DrawerItem(
-                  title: "Student Details",
-                  onTap: () => model.navigateToAddStudent(),
-                  iconData: FlutterIcons.users_fea,
-                ),
+                model.isAdmin
+                    ? DrawerItem(
+                        title: "Student Details",
+                        onTap: () => model.navigateToAddStudent(),
+                        iconData: FlutterIcons.users_fea,
+                      )
+                    : SizedBox(),
                 Spacer(),
                 DrawerItem(
                   onTap: () => model.logout(),

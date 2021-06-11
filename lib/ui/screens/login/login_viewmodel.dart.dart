@@ -8,12 +8,15 @@ import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/mixins/validators.dart';
+import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
+import 'package:svuce_app/ui/screens/main/main_view.dart';
 
 class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final AuthService _authenticationService = locator<AuthService>();
 
   final NavigationService _navigationService = locator<NavigationService>();
+  final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   int _index = 0;
   int get index => _index;
@@ -99,6 +102,8 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
     setBusy(false);
 
     if (authResult is bool && authResult) {
+      _analyticsService.logLogin();
+
       _navigationService.navigateTo(Routes.mainView);
     } else {
       showCommonError();
@@ -110,7 +115,8 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   }
 
   continueAsGuest() {
-    //TODO: Implement guest sign in
+    _analyticsService.logGuestSignin();
+    _navigationService.navigateWithTransition(MainView(), transition: "fade");
   }
 
   showCommonError() {
