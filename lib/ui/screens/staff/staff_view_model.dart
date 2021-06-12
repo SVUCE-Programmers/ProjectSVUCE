@@ -1,4 +1,5 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
@@ -8,11 +9,12 @@ import 'package:svuce_app/hive_db/services/hive_service.dart';
 
 class StaffViewModel extends BaseViewModel with SnackbarHelper {
   int length;
-  List<Staff> _staffList =[];
+  List<Staff> _staffList = [];
   List<Staff> get staffList => _staffList;
 
   final HiveService hiveService = locator<HiveService>();
   final APIService apiService = locator<APIService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   final String url =
       "https://firebasestorage.googleapis.com/v0/b/svuce-52b0b.appspot.com/o/staff.json?alt=media&token=0abf1cf0-27b3-4702-89a8-362333c38235";
@@ -55,5 +57,9 @@ class StaffViewModel extends BaseViewModel with SnackbarHelper {
         );
       }
     }
+  }
+
+  goBack() {
+    _navigationService.back();
   }
 }

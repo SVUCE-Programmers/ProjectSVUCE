@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
+import 'package:svuce_app/ui/utils/text_field.dart';
+import 'package:svuce_app/ui/widgets/animations/fade_transition.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 import 'package:svuce_app/ui/widgets/input_field.dart';
 
@@ -25,11 +27,12 @@ class SignUpView extends StatelessWidget {
                 onPressed: model.gotoLogin),
             actions: <Widget>[
               IconButton(
-                  icon: Icon(
-                    Icons.info,
-                    color: uiHelpers.primaryColor,
-                  ),
-                  onPressed: () => model.changeEmailVerified())
+                onPressed: () {},
+                icon: Icon(
+                  Icons.info,
+                  color: uiHelpers.primaryColor,
+                ),
+              )
             ],
           ),
           body: ListView(
@@ -50,12 +53,12 @@ class SignUpView extends StatelessWidget {
               uiHelpers.verticalSpaceMedium,
               IgnorePointer(
                 ignoring: model.isEmailVerified,
-                child: InputField(
-                  title: "Your email here..",
-                  keyboardType: TextInputType.emailAddress,
-                  iconData: emailIcon,
-                  error: model.emailError,
-                  validator: model.updateEmail,
+                child: AnimatedInputField(
+                  title: "Email",
+                  textInputType: TextInputType.text,
+                  prefixIcon: Icon(emailIcon),
+                  isObscure: false,
+                  textEditingController: model.emailController,
                 ),
               ),
               AnimatedContainer(
@@ -65,47 +68,48 @@ class SignUpView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InputField(
-                        title: "Your password here",
-                        keyboardType: TextInputType.text,
-                        iconData: passwordIcon,
-                        isSecure: true,
-                        error: model.passwordError,
-                        validator: model.updatePassword,
+                      AnimatedInputField(
+                        title: "Password",
+                        textInputType: TextInputType.text,
+                        prefixIcon: Icon(passwordIcon),
+                        isObscure: true,
+                        textEditingController: model.passController,
                       ),
-                      InputField(
-                        title: "Your password once again",
-                        keyboardType: TextInputType.text,
-                        iconData: passwordIcon,
-                        isSecure: true,
-                        error: model.confirmPasswordError,
-                        validator: model.updateConfirmPassword,
+                      AnimatedInputField(
+                        title: "Confirm Password",
+                        textInputType: TextInputType.text,
+                        prefixIcon: Icon(passwordIcon),
+                        isObscure: true,
+                        textEditingController: model.confirmPassController,
                       ),
                     ],
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  TextButton(
-                      onPressed: model.gotoLogin,
-                      child: Text.rich(TextSpan(children: [
-                        TextSpan(
-                            text: "If you already have an \naccount,",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.textSecondaryColor)),
-                        TextSpan(
-                            text: " Login",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.primaryColor)),
-                      ]))),
-                  Button(
-                    isBusy: false,
-                    onPressed: model.handleSignup,
-                  ),
-                ],
+              FadeAnimation(
+                delay: 1.7,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    TextButton(
+                        onPressed: model.gotoLogin,
+                        child: Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: "If you already have an \naccount,",
+                              style: uiHelpers.body.copyWith(
+                                  color: uiHelpers.textSecondaryColor)),
+                          TextSpan(
+                              text: " Login",
+                              style: uiHelpers.body
+                                  .copyWith(color: uiHelpers.primaryColor)),
+                        ]))),
+                    Button(
+                      isBusy: false,
+                      onPressed: model.handleSignup,
+                    ),
+                  ],
+                ),
               )
             ],
           ),

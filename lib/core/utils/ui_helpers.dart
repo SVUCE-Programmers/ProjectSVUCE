@@ -98,7 +98,7 @@ class UiHelpers {
         fontFamily: Configs.headlineFont,
         color: textPrimaryColor,
         fontWeight: FontWeight.bold,
-        fontSize: 20 * sp);
+        fontSize: 18 * sp);
 
     title = TextStyle(
         decoration: TextDecoration.none,

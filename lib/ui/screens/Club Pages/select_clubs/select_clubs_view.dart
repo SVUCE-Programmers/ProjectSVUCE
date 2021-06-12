@@ -24,9 +24,16 @@ class SelectClubsView extends StatelessWidget {
               automaticallyImplyLeading: false,
               leading: isSelectClubs
                   ? SizedBox()
-                  : IconButton(
-                      icon: Icon(backIcon, color: uiHelpers.textPrimaryColor),
-                      onPressed: model.navigateBack),
+                  : Hero(
+                      tag: "Back Button",
+                      child: Material(
+                        color: Colors.transparent,
+                        child: IconButton(
+                            icon: Icon(backIcon,
+                                color: uiHelpers.textPrimaryColor),
+                            onPressed: model.navigateBack),
+                      ),
+                    ),
               title: Text(
                 isSelectClubs ? "Select Clubs" : "Explore Clubs",
                 style: uiHelpers.headline
@@ -41,11 +48,17 @@ class SelectClubsView extends StatelessWidget {
                     padding: EdgeInsets.all(10.0),
                     itemCount: model.clubs.length,
                     itemBuilder: (context, index) {
-                      return ClubTile(
-                        index: index,
-                        headline: uiHelpers.title,
-                        body: uiHelpers.body,
-                        isSelectClubs: isSelectClubs,
+                      return GestureDetector(
+                        onTap: isSelectClubs
+                            ? null
+                            : () =>
+                                model.navigateToClubDetails(model.clubs[index]),
+                        child: ClubTile(
+                          index: index,
+                          headline: uiHelpers.title,
+                          body: uiHelpers.body,
+                          isSelectClubs: isSelectClubs,
+                        ),
                       );
                     },
                   ),

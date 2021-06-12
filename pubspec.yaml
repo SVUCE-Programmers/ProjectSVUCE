@@ -49,7 +49,7 @@ dependencies:
   flutter_icons: ^1.1.0
 
   # main utilities
-  image_picker: ^0.7.5+2
+  image_picker:
   observable_ish:
   flutter_cache_manager:
   logger:
@@ -86,8 +86,7 @@ dev_dependencies:
   json_serializable:
 
   # testing
-  mockito: null
-  cloud_firestore_mocks: null
+  cloud_firestore_mocks:
   flutter_launcher_icons:
   flutter_native_splash:
 flutter_native_splash:

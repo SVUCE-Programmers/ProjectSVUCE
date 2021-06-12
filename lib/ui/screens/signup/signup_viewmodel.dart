@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
@@ -10,56 +12,21 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
+  final log = getLogger("SignupViewModel");
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
-
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
   bool isEmailVerified = false;
-
-  String emailError = '';
-  String passwordError = '';
-  String confirmPasswordError = '';
-
-  String _email;
-  String get email => _email;
-  String _password;
-  String get password => _password;
-  String _confirmPassword;
-  String get confirmPassword => _confirmPassword;
   changeEmailVerified() {
     isEmailVerified = !isEmailVerified;
     notifyListeners();
   }
 
-  bool get result =>
-      emailError.isEmpty &&
-      passwordError.isEmpty &&
-      confirmPasswordError.isEmpty;
-
-  updateEmail(String email) {
-    _email = email;
-    emailError = validateEmail(email);
-    notifyListeners();
-  }
-
-  updatePassword(String password) {
-    _password = password;
-    passwordError = validatePassword(password);
-    notifyListeners();
-  }
-
-  updateConfirmPassword(String confirmPassword) {
-    _confirmPassword = confirmPassword;
-    confirmPasswordError = validatePassword(confirmPassword);
-    notifyListeners();
-  }
-
   handleSignup() async {
-    if (!result) {
-      return null;
-    }
-
-    if (password != confirmPassword) {
+    if (passController.text != confirmPassController.text) {
       showInfoMessage(
         title: commonErrorTitle,
         message: passwordMatchErrorInfo,
@@ -70,12 +37,8 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
     if (isEmailVerified) {
       setBusy(true);
       var result = await _authService.createStudent(
-        email: _email,
-        password: _password,
-      );
-
+          email: emailController.text, password: passController.text);
       setBusy(false);
-
       if (result is bool) {
         if (result) {
           _navigationService.navigateTo(Routes.selectClubsView,
@@ -89,29 +52,18 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
     } else {
       setBusy(true);
       var authResult = await _usersRepository.signupUser(
-        email,
+        emailController.text,
       );
-
+      log.i("Result at Sign up User is:$authResult");
       setBusy(false);
-
       if (authResult is bool && authResult) {
         isEmailVerified = true;
         notifyListeners();
-      } else {
-        showErrorMessage(
-            title: "Error Occured",
-            message: "Please try again or contact administration");
       }
     }
   }
 
   gotoLogin() {
     _navigationService.back();
-  }
-
-  gotoProfile() {
-    _navigationService.navigateTo(Routes.createProfileView,
-        arguments:
-            CreateProfileViewArguments(email: email, password: password));
   }
 }

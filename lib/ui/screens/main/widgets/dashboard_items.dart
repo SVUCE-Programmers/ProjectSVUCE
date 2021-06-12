@@ -57,8 +57,8 @@ final List<SpotlightItem> spotLightItems = [
     name: "Feed",
   ),
   SpotlightItem(
-    icon: hallOfFameIcon,
-    name: "Hall of Fame",
+    icon: FlutterIcons.video_fea,
+    name: "Video Call",
   ),
   SpotlightItem(
     onTap: () => _navigationService.navigateWithTransition(CalenderEventsView(),

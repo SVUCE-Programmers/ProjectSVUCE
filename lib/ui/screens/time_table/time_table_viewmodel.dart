@@ -30,8 +30,11 @@ class TimeTableViewModel extends BaseViewModel {
   init() async {
     log.wtf(weekDates);
     currentIndex = weekDates.indexOf(DateTime.now().day);
-    timeTableService.getTimeTable("117060").listen((event) {
+    String rollNo = _authService.currentUser.rollNo.toString().substring(0, 6);
+    timeTableService.getTimeTable(rollNo).listen((event) {
       timeTable = event;
+      log.wtf("Got TimeTable is:$event");
+
       notifyListeners();
     });
   }
@@ -48,7 +51,8 @@ class TimeTableViewModel extends BaseViewModel {
   }
 
   Map<String, String> getTimeTable() {
-    switch (currentDay + 1) {
+    log.wtf(currentIndex);
+    switch (currentIndex + 1) {
       case 1:
         return timeTable.monday;
       case 2:

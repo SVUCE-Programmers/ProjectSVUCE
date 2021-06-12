@@ -38,6 +38,7 @@ class MainViewModel extends BaseViewModel {
   final AttendanceService _attendanceService = locator<AttendanceService>();
   final TimeTableService _timeTableService = locator<TimeTableService>();
   final GithubApiServices githubApiServices = GithubApiServices();
+  Graph attendanceGraph;
   bool isGuest = false;
   bool get isAdmin => _authService.hasAdminAccess;
   TimeTable timeTable;
@@ -98,7 +99,6 @@ class MainViewModel extends BaseViewModel {
             double.parse((value.present / value.total).toStringAsFixed(3)));
       }
     });
-    log.d(temp);
     DataSet dataSet = DataSet(
       temp,
     );
@@ -218,12 +218,13 @@ class MainViewModel extends BaseViewModel {
 
   listenAttendanceStream() {
     _attendanceService.getAttendanceStream().listen((event) {
+      subjects.clear();
       attendanceList = event;
       attendanceList.asMap().forEach((key, value) {
         subjects.add(value.subject);
+        log.wtf("Subjects are:$subjects");
         notifyListeners();
       });
-      notifyListeners();
     });
   }
 

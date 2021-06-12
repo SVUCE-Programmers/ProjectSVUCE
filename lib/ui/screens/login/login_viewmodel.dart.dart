@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 
@@ -13,78 +15,20 @@ import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 import 'package:svuce_app/ui/screens/main/main_view.dart';
 
 class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
+  final log = getLogger("Login View Model");
   final AuthService _authenticationService = locator<AuthService>();
 
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
-
-  int _index = 0;
-  int get index => _index;
-
-  void changeTab(int index) {
-    _index = index;
-    emailError = '';
-    passwordError = '';
-    notifyListeners();
-  }
-
-  String emailError = '';
-  String passwordError = '';
-
-  bool get isStudent => index == 0;
-
-  // For Student
-  String _studentEmail = '';
-  String get studentEmail => _studentEmail;
-  String _studentPassword = '';
-  String get studentPassword => _studentPassword;
-
-  // For teacher
-  String _teacherEmail = '';
-  String get teacherEmail => _teacherEmail;
-  String _teacherPassword = '';
-  String get teacherPassword => _teacherPassword;
-
-  updateEmail(String email) {
-    if (isStudent) {
-      _studentEmail = email;
-      emailError = validateEmail(email);
-    }
-    //
-    else {
-      _teacherEmail = email;
-      emailError = validateEmail(email);
-    }
-
-    notifyListeners();
-  }
-
-  updatePassword(String password) {
-    if (isStudent) {
-      _studentPassword = password;
-      passwordError = validatePassword(password);
-    }
-    //
-    else {
-      _teacherPassword = password;
-      passwordError = validatePassword(password);
-    }
-
-    notifyListeners();
-  }
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void handleLogin() async {
-    bool result = emailError.isEmpty && passwordError.isEmpty;
+    bool result = emailController.text.trim().isEmpty ||
+        passwordController.text.trim().isEmpty;
+    log.i(result);
 
-    if (isStudent) {
-      result =
-          result && _studentEmail.isNotEmpty && _studentPassword.isNotEmpty;
-    } else {
-      result =
-          result && _teacherEmail.isNotEmpty && _teacherPassword.isNotEmpty;
-    }
-
-    if (!result) {
+    if (result) {
       showInfoMessage(
           title: commonErrorTitle,
           message: "Please check your details and try again");
@@ -95,8 +39,8 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
     setBusy(true);
 
     var authResult = await _authenticationService.loginUser(
-      email: isStudent ? _studentEmail : _teacherEmail,
-      password: isStudent ? _studentPassword : _teacherPassword,
+      email: emailController.text,
+      password: passwordController.text,
     );
 
     setBusy(false);

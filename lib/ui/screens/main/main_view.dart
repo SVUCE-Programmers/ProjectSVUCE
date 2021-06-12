@@ -284,6 +284,7 @@ class MainView extends StatelessWidget {
                     ),
                   ),
                   (model.attendanceList == [] ||
+                          model.subjects == [] ||
                           model.attendanceList == null ||
                           model.attendanceList.length == 0)
                       ? GestureDetector(

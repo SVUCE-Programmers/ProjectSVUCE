@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/widgets/animations/fade_transition.dart';
 
-class AnimatedInputField extends StatelessWidget {
+class AnimatedInputField extends HookWidget {
   final String title;
   final String hintText;
   final Function(String) validator;
@@ -16,11 +18,13 @@ class AnimatedInputField extends StatelessWidget {
   final double xDistance, yDistance;
   final Function onTap;
   final double downPadding;
+  final bool isObscure;
 
   const AnimatedInputField(
       {Key key,
       @required this.title,
       this.hintText,
+      this.isObscure = false,
       this.validator,
       this.textInputType = TextInputType.text,
       this.prefixIcon,
@@ -37,6 +41,7 @@ class AnimatedInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final showPassword = useState(false);
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,6 +63,7 @@ class AnimatedInputField extends StatelessWidget {
           child: GestureDetector(
             onTap: onTap,
             child: TextFormField(
+              obscureText: isObscure && !showPassword.value,
               keyboardType: textInputType,
               enabled: enabled,
               maxLines: maxLines ?? 1,
@@ -74,9 +80,25 @@ class AnimatedInputField extends StatelessWidget {
                       maxWidth: prefixIcon != null ? 40 : 15,
                       minWidth: prefixIcon != null ? 40 : 15),
                   suffixIconConstraints: BoxConstraints(
-                      maxWidth: suffixIcon != null ? 60 : 15,
+                      maxWidth: isObscure
+                          ? 60
+                          : suffixIcon != null
+                              ? 60
+                              : 15,
                       minWidth: suffixIcon != null ? 60 : 15),
-                  suffixIcon: Center(child: suffixIcon ?? SizedBox()),
+                  suffixIcon: isObscure
+                      ? IconButton(
+                          splashRadius: 0.1,
+                          onPressed: () {
+                            showPassword.value = !showPassword.value;
+                          },
+                          icon: Icon(
+                            showPassword.value
+                                ? FlutterIcons.eye_off_fea
+                                : FlutterIcons.eye_fea,
+                            color: uiHelpers.textSecondaryColor,
+                          ))
+                      : Center(child: suffixIcon ?? SizedBox()),
                   prefixIcon: Center(child: prefixIcon ?? SizedBox()),
                   fillColor: uiHelpers.surfaceColor,
                   filled: true,

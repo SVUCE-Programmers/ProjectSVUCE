@@ -159,7 +159,10 @@ class DateTimeUtils {
 
   getTime(int timeStamp) {
     var date = new DateTime.fromMillisecondsSinceEpoch(timeStamp);
-    String time = date.hour.toString() + ":" + date.minute.toString();
+    String time = date.hour.toString() +
+        ":" +
+        (date.minute < 10 ? "${date.minute}" : "${date.minute}") +
+        " ${date.hour < 12 ? "AM" : "PM"}";
     return time;
   }
 

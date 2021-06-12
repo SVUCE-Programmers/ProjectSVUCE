@@ -15,6 +15,7 @@ import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository.dart';
 import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
 import 'package:svuce_app/core/services/push_notifications/push_notification_service.dart';
+import 'package:svuce_app/ui/screens/Club%20Pages/Club%20Details%20Page/club_details_page.dart';
 
 class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   final log = getLogger("Select Clubs View Model");
@@ -79,6 +80,12 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
 
   gotoHome() {
     _navigationService.navigateTo(Routes.mainView);
+  }
+
+  navigateToClubDetails(Club club) {
+    _navigationService.navigateWithTransition(ClubDetaislPageView(club: club),
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
   }
 
   addFlags(int length) {

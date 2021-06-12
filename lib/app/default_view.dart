@@ -7,7 +7,6 @@ import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/utils/connectivity_widget.dart';
 
-import 'colors.dart';
 
 class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
   final bool disposeViewModel;
@@ -34,10 +33,7 @@ class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
   @override
   Widget build(BuildContext context) {
     UiHelpers uiHelpers = UiHelpers.fromContext(context);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: uiHelpers.isDark
-            ? DarkColorPalette.primaryColor
-            : LightColorPalette.primaryColor));
+
     SystemChrome.setApplicationSwitcherDescription(
         ApplicationSwitcherDescription(
       label: appTitle,

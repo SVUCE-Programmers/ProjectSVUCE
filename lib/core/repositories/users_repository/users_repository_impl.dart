@@ -120,7 +120,7 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
   Future signupUser(String email) async {
     try {
       var data = await _userRef.doc(email).get();
-      if (data != null && data.data() != null) {
+      if (data.exists && data != null && data.data() != null) {
         if (Map<String, dynamic>.from(data.data())["id"] != null) {
           showInfoMessage(
             title: commonErrorTitle,

@@ -26,12 +26,29 @@ class TimeTableService {
     var data = _universityRef.doc(rollNo).snapshots();
     data.listen((event) {
       var data = Map<String, dynamic>.from(event.data());
-      log.v(data);
+      TimeTable timeTable = makeSorted(TimeTable.fromMap(data, event.id));
 
-      TimeTable timeTable = TimeTable.fromMap(data, event.id);
       _timeTableStream.add(timeTable);
     });
     return _timeTableStream.stream;
+  }
+
+  makeSorted(timeTable) {
+    Map<String, dynamic> tem = timeTable.tojson();
+    tem.forEach((key, value) {
+      tem[key] = miniSort(value);
+    });
+    timeTable = TimeTable.fromMap(tem, timeTable.id);
+    return timeTable;
+  }
+
+  miniSort(Map<String, String> data) {
+    Map<String, String> temp = {};
+    var sortedKeys = data.keys.toList()..sort();
+    sortedKeys.asMap().forEach((key, value) {
+      temp[value] = data[value];
+    });
+    return temp;
   }
 
   final StreamController<List<TimeTable>> _alltimeTableStream =

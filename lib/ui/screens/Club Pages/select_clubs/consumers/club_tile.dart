@@ -25,8 +25,11 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
     return Card(
       color: uiHelpers.surfaceColor,
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(club.clubLogo),
+        leading: Hero(
+          tag: "Club Logo",
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(club.clubLogo),
+          ),
         ),
         title: Text(
           club?.name,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:observable_ish/observable_ish.dart';
@@ -34,9 +35,7 @@ class ThemeService with ReactiveServiceMixin {
 
   Future changeTheme() async {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: !isDarkMode
-            ? DarkColorPalette.primaryColor
-            : LightColorPalette.primaryColor));
+        statusBarColor: !isDarkMode ? Colors.grey[500] : Colors.grey[800]));
     darkMode.value = !darkMode.value;
     _analyticsService.logEvent(name: "Theme Switch", parameters: {
       "theme": "${darkMode.value ? "Dark Mode" : "Light Theme"}"

@@ -3,6 +3,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/widgets/Empty%20States/animated_empty_state.dart';
 import 'package:svuce_app/ui/widgets/graphs/pie_chart.dart';
 import 'attendance_manager_view_model.dart';
 import 'widgets/attendance_item.dart';
@@ -20,32 +21,12 @@ class AttendanceManagerView extends StatelessWidget {
           child: Icon(Icons.add),
         ),
         body: model.attendanceList.length == 0
-            ? Column(
-                children: [
-                  Hero(
-                    tag: "Attendance Hero",
-                    child: Image.asset(
-                      "assets/illustrations/attendance.png",
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                        "Plan your bunks with this latest attendance feature",
-                        style: uiHelpers.title,
-                        textAlign: TextAlign.center),
-                  ),
-                  MaterialButton(
-                      child: Text(
-                        "Add Subject",
-                        style: uiHelpers.title
-                            .copyWith(color: uiHelpers.primaryColor),
-                      ),
-                      onPressed: () => addNewSubject(context, model)),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
+            ? AnimatedEmptyState(
+                title: "Plan your bunks with this latest attendance feature",
+                imageAsset: "assets/illustrations/attendance.png",
+                heroTag: "Attendance Hero",
+                buttonTitle: "Add New Subject",
+                onTap: () => addNewSubject(context, model),
               )
             : SingleChildScrollView(
                 child: Column(
