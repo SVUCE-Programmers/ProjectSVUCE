@@ -4,6 +4,7 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/screens/login/login_viewmodel.dart.dart';
 import 'package:svuce_app/ui/utils/text_field.dart';
+import 'package:svuce_app/ui/widgets/animations/fade_transition.dart';
 import 'package:svuce_app/ui/widgets/button.dart';
 
 class LoginViewBody extends ViewModelWidget<LoginViewModel> {
@@ -43,31 +44,36 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
           textInputType: TextInputType.text,
           prefixIcon: Icon(passwordIcon),
         ),
-        Row(
-          mainAxisAlignment: isStudent
-              ? MainAxisAlignment.spaceBetween
-              : MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            isStudent
-                ? TextButton(
-                    onPressed: viewModel.gotoSignup,
-                    child: Text.rich(TextSpan(children: [
-                      TextSpan(
-                          text: "If you don\'t have an \naccount,",
-                          style: uiHelpers.body
-                              .copyWith(color: uiHelpers.textSecondaryColor)),
-                      TextSpan(
-                          text: " Signup",
-                          style: uiHelpers.body
-                              .copyWith(color: uiHelpers.primaryColor)),
-                    ])))
-                : SizedBox(),
-            Button(
-              isBusy: viewModel.isBusy,
-              onPressed: () => viewModel.handleLogin(),
-            ),
-          ],
+        FadeAnimation(
+          delay: 1,
+          yDistance: 30,
+          xDistance: 0,
+          child: Row(
+            mainAxisAlignment: isStudent
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              isStudent
+                  ? TextButton(
+                      onPressed: viewModel.gotoSignup,
+                      child: Text.rich(TextSpan(children: [
+                        TextSpan(
+                            text: "If you don\'t have an \naccount,",
+                            style: uiHelpers.body
+                                .copyWith(color: uiHelpers.textSecondaryColor)),
+                        TextSpan(
+                            text: " Signup",
+                            style: uiHelpers.body
+                                .copyWith(color: uiHelpers.primaryColor)),
+                      ])))
+                  : SizedBox(),
+              Button(
+                isBusy: viewModel.isBusy,
+                onPressed: () => viewModel.handleLogin(),
+              ),
+            ],
+          ),
         )
       ],
     );

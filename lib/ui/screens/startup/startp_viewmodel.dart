@@ -13,6 +13,7 @@ import 'package:svuce_app/core/services/connectivity%20service/connectivity_serv
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/core/services/one_signal_service.dart';
+import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/ui/screens/Static%20Pages/onboard%20screens/onboard_view.dart';
 
 class StartUpViewModel extends BaseViewModel {
@@ -23,6 +24,7 @@ class StartUpViewModel extends BaseViewModel {
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
+  final ShareService _shareService = locator<ShareService>();
   final ConnectivityServices _connectivityServices =
       locator<ConnectivityServices>();
 
@@ -30,9 +32,11 @@ class StartUpViewModel extends BaseViewModel {
     _authenticationService.listenAuthStatusStream();
     _connectivityServices.initializeConnectionService();
     _analyticsService.logAppOpen();
+    _shareService.initFlutterDownload();
     await precacheImage(AssetImage(hexagonPattern), context);
     await _notificationService.initialise();
     await _dynamicLinkService.handleDynamicLinks();
+    _shareService.initFlutterDownload();
     var userLoggedIn = _authenticationService.isUserLoggedIn();
     log.i("User Login Status is:$userLoggedIn");
     if (userLoggedIn) {

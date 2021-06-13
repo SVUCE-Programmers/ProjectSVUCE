@@ -45,6 +45,7 @@
             </intent-filter>
         
         </activity>
+        
         <service
             android:name="io.flutter.plugins.androidalarmmanager.AlarmService"
             android:permission="android.permission.BIND_JOB_SERVICE"

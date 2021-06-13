@@ -11,6 +11,7 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/services/cloud_storage/cloud_storage_service.dart';
 import 'package:svuce_app/core/utils/image_selector.dart';
 
 class CreatePostViewModel extends BaseViewModel {
@@ -31,6 +32,8 @@ class CreatePostViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final ImageSelector _imageSelector = ImageSelector();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
+  final CloudStorageService _cloudStorageService =
+      locator<CloudStorageService>();
   final FeedRepository _feedRepository = locator<FeedRepository>();
   UserModel userModel;
   goBack() {
@@ -85,12 +88,20 @@ class CreatePostViewModel extends BaseViewModel {
       setBusy(false);
     } else {
       setBusy(true);
+      String imgUrl;
+      if (file != null) {
+        imgUrl = await _cloudStorageService.uploadImage(
+            imageToUpload: file,
+            fileName: DateTime.now().toUtc().toString(),
+            collectionName: "Feed");
+      }
       var data = await _feedRepository.createPost(
           feed: Feed(
         link: urlController.text,
         description: descController.text,
         title: titleController.text,
         category: type,
+        imgUrl: imgUrl,
         fullName: _firebaseAuth.currentUser.displayName,
         profileImg: _firebaseAuth.currentUser.photoURL,
         uid: _firebaseAuth.currentUser.uid,

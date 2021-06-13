@@ -47,35 +47,38 @@ class LoginView extends StatelessWidget {
                   itemCount: _views.length,
                   itemBuilder: (_, index) => _views[index],
                 ),
-                bottomNavigationBar: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TextButton(
-                      onPressed: model.navigateToForgotPassword,
-                      child: Text(
-                        "Forgot Password?",
-                        style: uiHelpers.title
-                            .copyWith(color: uiHelpers.primaryColor),
+                bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom !=
+                        0
+                    ? SizedBox()
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          TextButton(
+                            onPressed: model.navigateToForgotPassword,
+                            child: Text(
+                              "Forgot Password?",
+                              style: uiHelpers.title
+                                  .copyWith(color: uiHelpers.primaryColor),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(12.0),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: uiHelpers.primaryColor, width: 2),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextButton(
+                              onPressed: model.continueAsGuest,
+                              child: Text(
+                                "Continue as Guest",
+                                style: uiHelpers.title
+                                    .copyWith(color: uiHelpers.primaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(12.0),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: uiHelpers.primaryColor, width: 2),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextButton(
-                        onPressed: model.continueAsGuest,
-                        child: Text(
-                          "Continue as Guest",
-                          style: uiHelpers.title
-                              .copyWith(color: uiHelpers.primaryColor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               )),
         );
       },

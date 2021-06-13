@@ -12,6 +12,7 @@ dependencies:
 
   # for os-specific path directory
   path_provider:
+  downloads_path_provider_28:
 
   # Local Database
   hive:
@@ -54,6 +55,7 @@ dependencies:
   flutter_cache_manager:
   logger:
   http:
+  dio:
   table_calendar: ^3.0.0
   firebase_dynamic_links: ^2.0.4
   share_plus:
