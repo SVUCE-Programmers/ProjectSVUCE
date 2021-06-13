@@ -154,7 +154,7 @@ class MainView extends StatelessWidget {
                     primary: false,
                     itemCount: spotLightItems.length,
                   ),
-                  model.isGuest
+                  (model.isGuest || model.isAdmin)
                       ? SizedBox()
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,10 +283,10 @@ class MainView extends StatelessWidget {
                       style: uiHelpers.title,
                     ),
                   ),
-                  (model.attendanceList == [] ||
+                  ((model.attendanceList == [] ||
                           model.subjects == [] ||
                           model.attendanceList == null ||
-                          model.attendanceList.length == 0)
+                          model.attendanceList.length == 0))
                       ? GestureDetector(
                           onTap: model.navigateToAttendance,
                           child: AnimatedContainer(

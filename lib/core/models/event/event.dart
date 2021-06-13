@@ -1,53 +1,78 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final event = eventFromMap(jsonString);
 
-part 'event.freezed.dart';
-part 'event.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class Event implements _$Event {
-  const Event._();
-  factory Event(
-      {@JsonKey(ignore: true) String id,
-      @required String name,
-      @required String organiser,
-      @required String place,
-      @required int timeStamp,
-      @required int startTime,
-      @required int endTime,
-      @required String imageUrl,
-      @required String description,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _Event;
+Event eventFromMap(String str) => Event.fromMap(json.decode(str));
 
-  factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
+String eventToMap(Event data) => json.encode(data.toMap());
 
-  static Event fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
-    return Event(
-        name: docData["name"],
-        organiser: docData["organiser"],
-        place: docData["place"],
-        timeStamp: docData["timeStamp"],
-        startTime: docData["startTime"],
-        endTime: docData["endTime"],
-        description: docData["description"],
-        imageUrl: docData["imageUrl"],
-        id: document.id,
-        documentReference: document.reference);
-  }
+class Event {
+  Event({
+    this.endTime,
+    this.startTime,
+    this.name,
+    this.organiser,
+    this.place,
+    this.timeStamp,
+    this.imageUrl,
+    this.id,
+    this.description,
+  });
 
-  static Event empty() {
-    return Event(
-        endTime: DateTime.now().millisecondsSinceEpoch,
-        startTime: DateTime.now().millisecondsSinceEpoch,
-        name: '',
-        organiser: '',
-        place: '',
-        timeStamp: DateTime.now().millisecondsSinceEpoch,
-        imageUrl: '',
-        description: '',
-        documentReference: null);
-  }
+  final int endTime;
+  final int startTime;
+  final String name;
+  final String organiser;
+  final String id;
+  final String place;
+  final int timeStamp;
+  final String imageUrl;
+  final String description;
+
+  Event copyWith({
+    int endTime,
+    int startTime,
+    String name,
+    String organiser,
+    String place,
+    int timeStamp,
+    String imageUrl,
+    String description,
+  }) =>
+      Event(
+        endTime: endTime ?? this.endTime,
+        startTime: startTime ?? this.startTime,
+        name: name ?? this.name,
+        organiser: organiser ?? this.organiser,
+        place: place ?? this.place,
+        timeStamp: timeStamp ?? this.timeStamp,
+        imageUrl: imageUrl ?? this.imageUrl,
+        description: description ?? this.description,
+      );
+
+  factory Event.fromMap(Map<String, dynamic> json) => Event(
+        id: json["id"] == null ? null : json["id"],
+        endTime: json["endTime"] == null ? null : json["endTime"],
+        startTime: json["startTime"] == null ? null : json["startTime"],
+        name: json["name"] == null ? null : json["name"],
+        organiser: json["organiser"] == null ? null : json["organiser"],
+        place: json["place"] == null ? null : json["place"],
+        timeStamp: json["timeStamp"] == null ? null : json["timeStamp"],
+        imageUrl: json["imageUrl"] == null ? null : json["imageUrl"],
+        description: json["description"] == null ? null : json["description"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
+        "endTime": endTime == null ? null : endTime,
+        "startTime": startTime == null ? null : startTime,
+        "name": name == null ? null : name,
+        "organiser": organiser == null ? null : organiser,
+        "place": place == null ? null : place,
+        "timeStamp": timeStamp == null ? null : timeStamp,
+        "imageUrl": imageUrl == null ? null : imageUrl,
+        "description": description == null ? null : description,
+      };
 }

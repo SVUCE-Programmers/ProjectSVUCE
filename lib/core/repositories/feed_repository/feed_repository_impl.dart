@@ -47,7 +47,8 @@ class FeedRepositoryImpl implements FeedRepository {
 
     feedQuery.snapshots().listen((postsSnapshot) {
       var feedItems = postsSnapshot.docs
-          .map((snapshot) => Feed.fromDocument(snapshot))
+          .map((snapshot) =>
+              Feed.fromMap(Map<String, dynamic>.from(snapshot.data())))
           .where((mappedItem) => mappedItem.title != null)
           .toList();
 
@@ -85,7 +86,7 @@ class FeedRepositoryImpl implements FeedRepository {
   @override
   createPost({Feed feed}) async {
     try {
-      await _feedRef.add(feed.toJson());
+      await _feedRef.add(feed.toMap());
       return true;
     } catch (e) {
       return false;
@@ -108,7 +109,7 @@ class FeedRepositoryImpl implements FeedRepository {
   @override
   updatePost({Feed feed}) async {
     try {
-      await _feedRef.doc(feed.id).update(feed.toJson());
+      await _feedRef.doc(feed.id).update(feed.toMap());
       log.i("Updated Post Successfully");
 
       return true;

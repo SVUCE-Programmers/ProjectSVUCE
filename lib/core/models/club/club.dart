@@ -1,49 +1,62 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final club = clubFromMap(jsonString);
 
-part 'club.freezed.dart';
-part 'club.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class Club implements _$Club {
-  const Club._();
-  factory Club(
-      {String id,
-      String name,
-      String moto,
-      String clubBanner,
-      String clubLogo,
-      String description,
-      String followers,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _Club;
+Club clubFromMap(String str) => Club.fromMap(json.decode(str));
 
-  factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);
+String clubToMap(Club data) => json.encode(data.toMap());
 
-  static Club fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
+class Club {
+  Club({
+    this.id,
+    this.name,
+    this.moto,
+    this.clubBanner,
+    this.clubLogo,
+    this.description,
+  });
 
-    return Club(
-        name: docData["name"],
-        moto: docData["moto"],
-        clubBanner: docData["clubBanner"],
-        clubLogo: docData["clubLogo"],
-        description: docData["description"],
-        followers: docData["followers"],
-        id: document.id,
-        documentReference: document.reference);
-  }
+  final String id;
+  final String name;
+  final String moto;
+  final String clubBanner;
+  final String clubLogo;
+  final String description;
 
-  static Club empty() {
-    return Club(
-        id: '',
-        name: '',
-        moto: '',
-        clubBanner: '',
-        clubLogo: '',
-        description: '',
-        followers: '',
-        documentReference: null);
-  }
+  Club copyWith({
+    String id,
+    String name,
+    String moto,
+    String clubBanner,
+    String clubLogo,
+    String description,
+  }) =>
+      Club(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        moto: moto ?? this.moto,
+        clubBanner: clubBanner ?? this.clubBanner,
+        clubLogo: clubLogo ?? this.clubLogo,
+        description: description ?? this.description,
+      );
+
+  factory Club.fromMap(Map<String, dynamic> json) => Club(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        moto: json["moto"] == null ? null : json["moto"],
+        clubBanner: json["clubBanner"] == null ? null : json["clubBanner"],
+        clubLogo: json["clubLogo"] == null ? null : json["clubLogo"],
+        description: json["description"] == null ? null : json["description"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "moto": moto == null ? null : moto,
+        "clubBanner": clubBanner == null ? null : clubBanner,
+        "clubLogo": clubLogo == null ? null : clubLogo,
+        "description": description == null ? null : description,
+      };
 }

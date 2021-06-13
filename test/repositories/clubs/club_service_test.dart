@@ -67,6 +67,5 @@ bool verifyData(Club club, int index) {
       club.moto == mockData['moto'] &&
       club.clubBanner == mockData['clubBanner'] &&
       club.clubLogo == mockData['clubLogo'] &&
-      club.description == mockData['description'] &&
-      club.followers == mockData['followers'];
+      club.description == mockData['description'] ;
 }

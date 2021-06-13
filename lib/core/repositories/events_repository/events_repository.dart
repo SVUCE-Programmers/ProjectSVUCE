@@ -5,4 +5,5 @@ abstract class EventsRepository {
   Future<bool> createEvent(Event event);
   Future<bool> updateEvent(Event event);
   Future<bool> deleteEvent(Event event);
+  Future<Event> getEventDetails(String id);
 }

@@ -1,44 +1,60 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final announcement = announcementFromMap(jsonString);
 
-part 'announcement.freezed.dart';
-part 'announcement.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class Announcement implements _$Announcement {
-  const Announcement._();
-  factory Announcement(
-          {String id,
-          String timeStamp,
-          String desc,
-          String type,
-          String imgUrl,
-          @JsonKey(ignore: true) DocumentReference documentReference}) =
-      _Announcement;
 
-  factory Announcement.fromJson(Map<String, dynamic> json) =>
-      _$AnnouncementFromJson(json);
+Announcement announcementFromMap(String str) =>
+    Announcement.fromMap(json.decode(str));
 
-  static Announcement fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
-    return Announcement(
-        imgUrl: docData["imgUrl"],
-        timeStamp: docData["timeStamp"],
-        desc: docData["desc"],
-        type: docData["type"],
-        id: document.id,
-        documentReference: document.reference);
-  }
+String announcementToMap(Announcement data) => json.encode(data.toMap());
 
-  static Announcement empty() {
-    return Announcement(
-        type: '',
-        desc: '',
-        timeStamp: '',
-        imgUrl: '',
-        id: '',
-        documentReference: null);
-  }
+class Announcement {
+  Announcement({
+    this.type,
+    this.desc,
+    this.timeStamp,
+    this.imgUrl,
+    this.id,
+  
+  });
+
+  final String type;
+  final String desc;
+  final String timeStamp;
+  final String imgUrl;
+  final String id;
+
+  Announcement copyWith({
+    String type,
+    String desc,
+    String timeStamp,
+    String imgUrl,
+    String id,
+    
+  }) =>
+      Announcement(
+        type: type ?? this.type,
+        desc: desc ?? this.desc,
+        timeStamp: timeStamp ?? this.timeStamp,
+        imgUrl: imgUrl ?? this.imgUrl,
+        id: id ?? this.id,
+      );
+
+  factory Announcement.fromMap(Map<String, dynamic> json) => Announcement(
+        type: json["type"] == null ? null : json["type"],
+        desc: json["desc"] == null ? null : json["desc"],
+        timeStamp: json["timeStamp"] == null ? null : json["timeStamp"],
+        imgUrl: json["imgUrl"] == null ? null : json["imgUrl"],
+        id: json["id"] == null ? null : json["id"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "type": type == null ? null : type,
+        "desc": desc == null ? null : desc,
+        "timeStamp": timeStamp == null ? null : timeStamp,
+        "imgUrl": imgUrl == null ? null : imgUrl,
+        "id": id == null ? null : id,
+      };
 }

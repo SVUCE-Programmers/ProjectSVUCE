@@ -24,26 +24,17 @@ class OnBoardView extends StatelessWidget {
                 actions: [
                   MaterialButton(
                     onPressed: model.handleNextAction,
-                    child: AnimatedSwitcher(
-                      transitionBuilder: (child, animation) => ScaleTransition(
-                        scale: animation,
-                        child: child,
-                      ),
-                      switchInCurve: Curves.easeInOutCubic,
-                      switchOutCurve: Curves.easeOutCubic,
-                      duration: Duration(milliseconds: 454),
-                      child: model.index < model.titles.length - 1
-                          ? Text(
-                              "Next",
-                              key: UniqueKey(),
-                              style: uiHelpers.title,
-                            )
-                          : Text(
-                              "Go to Login",
-                              key: UniqueKey(),
-                              style: uiHelpers.title,
-                            ),
-                    ),
+                    child: model.index < model.titles.length - 1
+                        ? Text(
+                            "Next",
+                            key: UniqueKey(),
+                            style: uiHelpers.title,
+                          )
+                        : Text(
+                            "Go to Login",
+                            key: UniqueKey(),
+                            style: uiHelpers.title,
+                          ),
                   )
                 ],
               ),

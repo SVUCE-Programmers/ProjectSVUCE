@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -9,11 +11,13 @@ import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
+import 'package:svuce_app/core/utils/image_selector.dart';
 
 class CreatePostViewModel extends BaseViewModel {
   final log = getLogger("Create Post View Model");
 
   Feed feed;
+  File file;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
@@ -25,6 +29,7 @@ class CreatePostViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
   final AuthService _authService = locator<AuthService>();
+  final ImageSelector _imageSelector = ImageSelector();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final FeedRepository _feedRepository = locator<FeedRepository>();
   UserModel userModel;
@@ -99,5 +104,24 @@ class CreatePostViewModel extends BaseViewModel {
 
       setBusy(false);
     }
+  }
+
+  pickImage(String type) async {
+    switch (type) {
+      case "delete":
+        file = null;
+        notifyListeners();
+        break;
+      case "camera":
+        file = await _imageSelector.pickImageFromCamera();
+        notifyListeners();
+        break;
+      case "gallery":
+        file = await _imageSelector.pickImageFromGallery();
+        notifyListeners();
+        break;
+      default:
+    }
+    _navigationService.back();
   }
 }

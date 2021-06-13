@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
@@ -37,62 +35,35 @@ class EventWidget extends StatelessWidget {
                   SizedBox(
                     height: 4,
                   ),
-                  MaterialButton(
-                    color: uiHelpers.primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    onPressed: () {},
-                    child: Text(
-                      "Share Event",
-                      style: uiHelpers.button.copyWith(fontSize: 12),
-                    ),
-                  )
                 ],
               ),
             ),
             Positioned(
-                child: Image.asset(
-                  "assets/illustrations/down_blob.png",
-                  color: uiHelpers.primaryColor,
-                ),
-                bottom: 0,
-                right: 0),
+                top: -30,
+                left: -45,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: uiHelpers.primaryColor,
+                )),
             Positioned(
-                child: Transform.rotate(
-                  angle: pi,
-                  child: Image.asset(
-                    "assets/illustrations/down_blob.png",
-                    color: uiHelpers.primaryColor,
-                  ),
-                ),
-                top: 0,
-                left: 0),
+                top: 30,
+                left: uiHelpers.width * 0.8,
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: uiHelpers.primaryColor,
+                )),
             Positioned(
-                child: Transform.rotate(
-                  angle: pi / 2,
-                  child: Image.asset(
-                    "assets/illustrations/down_blob.png",
-                    color: uiHelpers.primaryColor,
-                  ),
-                ),
-                bottom: -5,
-                left: -15),
-            Positioned(
-                child: Transform.rotate(
-                  angle: -pi / 2,
-                  child: Image.asset(
-                    "assets/illustrations/down_blob.png",
-                    color: uiHelpers.primaryColor,
-                  ),
-                ),
-                top: -10,
-                right: -4)
+                bottom: -30,
+                right: -35,
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundColor: uiHelpers.primaryColor,
+                )),
           ],
         ),
         height: 200,
         width: uiHelpers.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
           color: uiHelpers.surfaceColor,
         ));
   }

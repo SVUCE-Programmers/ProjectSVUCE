@@ -22,6 +22,15 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  int _index = 0;
+  int get index => _index;
+
+  void changeTab(int index) {
+    _index = index;
+    emailController.text = '';
+    passwordController.text = '';
+    notifyListeners();
+  }
 
   void handleLogin() async {
     bool result = emailController.text.trim().isEmpty ||

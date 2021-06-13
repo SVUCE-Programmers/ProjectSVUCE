@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
-import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 

@@ -62,7 +62,7 @@ class AnimatedButton extends HookWidget {
                   color: uiHelpers.primaryColor,
                   onPressed: onTap,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Row(
                       mainAxisAlignment:
                           mainAxisAlignment ?? MainAxisAlignment.spaceBetween,

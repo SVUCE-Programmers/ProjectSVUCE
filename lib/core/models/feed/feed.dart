@@ -1,58 +1,92 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final feed = feedFromMap(jsonString);
 
-part 'feed.freezed.dart';
-part 'feed.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class Feed implements _$Feed {
-  const Feed._();
-  factory Feed(
-      {String id,
-      String fullName,
-      String uid,
-      String feedId,
-      String title,
-      String description,
-      String link,
-      String category,
-      String timeStamp,
-      String profileImg,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _Feed;
+Feed feedFromMap(String str) => Feed.fromMap(json.decode(str));
 
-  factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
+String feedToMap(Feed data) => json.encode(data.toMap());
 
-  static Feed fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
+class Feed {
+  Feed({
+    this.uid,
+    this.id,
+    this.feedId,
+    this.link,
+    this.title,
+    this.imgUrl,
+    this.description,
+    this.category,
+    this.fullName,
+    this.profileImg,
+    this.timeStamp,
+  });
 
-    return Feed(
-        id: document.id,
-        uid: docData['uid'],
-        feedId: docData['feedId'],
-        link: docData['link'],
-        fullName: docData['fullName'],
-        profileImg: docData['profileImg'],
-        title: docData['title'],
-        description: docData['description'],
-        timeStamp: docData['timeStamp'],
-        category: docData['category'],
-        documentReference: document.reference);
-  }
+  final String uid;
+  final String id;
+  final String feedId;
+  final String link;
+  final String title;
+  final String imgUrl;
+  final String description;
+  final String category;
+  final String fullName;
+  final String profileImg;
+  final String timeStamp;
 
-  static Feed empty() {
-    return Feed(
-        uid: '',
-        id: '',
-        feedId: '',
-        link: '',
-        title: '',
-        description: '',
-        category: '',
-        fullName: '',
-        profileImg: '',
-        timeStamp: '',
-        documentReference: null);
-  }
+  Feed copyWith({
+    String uid,
+    String id,
+    String feedId,
+    String link,
+    String title,
+    String imgUrl,
+    String description,
+    String category,
+    String fullName,
+    String profileImg,
+    String timeStamp,
+  }) =>
+      Feed(
+        uid: uid ?? this.uid,
+        id: id ?? this.id,
+        feedId: feedId ?? this.feedId,
+        link: link ?? this.link,
+        title: title ?? this.title,
+        imgUrl: imgUrl ?? this.imgUrl,
+        description: description ?? this.description,
+        category: category ?? this.category,
+        fullName: fullName ?? this.fullName,
+        profileImg: profileImg ?? this.profileImg,
+        timeStamp: timeStamp ?? this.timeStamp,
+      );
+
+  factory Feed.fromMap(Map<String, dynamic> json) => Feed(
+        uid: json["uid"] == null ? null : json["uid"],
+        id: json["id"] == null ? null : json["id"],
+        feedId: json["feedId"] == null ? null : json["feedId"],
+        link: json["link"] == null ? null : json["link"],
+        title: json["title"] == null ? null : json["title"],
+        imgUrl: json["imgUrl"] == null ? null : json["imgUrl"],
+        description: json["description"] == null ? null : json["description"],
+        category: json["category"] == null ? null : json["category"],
+        fullName: json["fullName"] == null ? null : json["fullName"],
+        profileImg: json["profileImg"] == null ? null : json["profileImg"],
+        timeStamp: json["timeStamp"] == null ? null : json["timeStamp"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "uid": uid == null ? null : uid,
+        "id": id == null ? null : id,
+        "feedId": feedId == null ? null : feedId,
+        "link": link == null ? null : link,
+        "title": title == null ? null : title,
+        "imgUrl": imgUrl == null ? null : imgUrl,
+        "description": description == null ? null : description,
+        "category": category == null ? null : category,
+        "fullName": fullName == null ? null : fullName,
+        "profileImg": profileImg == null ? null : profileImg,
+        "timeStamp": timeStamp == null ? null : timeStamp,
+      };
 }

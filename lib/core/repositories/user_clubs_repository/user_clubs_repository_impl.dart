@@ -21,7 +21,7 @@ class UserClubsRepositoryImpl implements UserClubsRepository {
         .doc(userId)
         .collection("clubs")
         .doc(userClub.id)
-        .set(userClub.toJson());
+        .set(userClub.toMap());
   }
 
   @override
@@ -31,7 +31,8 @@ class UserClubsRepositoryImpl implements UserClubsRepository {
     query.snapshots().listen((snapshot) {
       if (snapshot.docs.isNotEmpty) {
         var items = snapshot.docs
-            .map((snapshot) => UserClub.fromDocument(snapshot))
+            .map((snapshot) =>
+                UserClub.fromMap(Map<String, dynamic>.from(snapshot.data())))
             .toList();
 
         _userClubStreamController.add(items);

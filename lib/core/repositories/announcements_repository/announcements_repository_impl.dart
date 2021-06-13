@@ -23,7 +23,7 @@ class AnnouncementsRepositoryImpl implements AnnouncementsRepository {
     query.snapshots().listen((snapshot) {
       if (snapshot.docs.isNotEmpty) {
         var items = snapshot.docs
-            .map((snapshot) => Announcement.fromDocument(snapshot))
+            .map((snapshot) => Announcement.fromMap(Map<String,dynamic>.from(snapshot.data())))
             .toList();
 
         _announcementStreamController.add(items);

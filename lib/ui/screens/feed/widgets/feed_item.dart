@@ -86,20 +86,33 @@ class FeedItem extends StatelessWidget {
                       .apply(color: uiHelpers.textSecondaryColor)),
             ])),
             SizedBox(
-              height: 5,
+              height: 8,
             ),
+            Container(
+                height: 200,
+                width: uiHelpers.width,
+                decoration: BoxDecoration(
+                    color: uiHelpers.backgroundColor,
+                    borderRadius: BorderRadius.circular(12))),
             (feed.link != null && feed.link != "")
-                ? Text.rich(TextSpan(children: [
-                    TextSpan(text: "Link:  "),
-                    TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap =
-                              () => _shareService.launchUrl(urlLink: feed.link),
-                        text: feed.link,
-                        style: uiHelpers.body.apply(
-                            decoration: TextDecoration.underline,
-                            color: uiHelpers.primaryColor))
-                  ]))
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text.rich(TextSpan(children: [
+                        TextSpan(text: "Link:  "),
+                        TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () =>
+                                  _shareService.launchUrl(urlLink: feed.link),
+                            text: feed.link,
+                            style: uiHelpers.body.apply(
+                                decoration: TextDecoration.underline,
+                                color: uiHelpers.primaryColor))
+                      ]))
+                    ],
+                  )
                 : SizedBox(),
             uiHelpers.verticalSpaceLow,
             Row(

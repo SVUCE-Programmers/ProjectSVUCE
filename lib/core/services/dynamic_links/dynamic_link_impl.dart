@@ -1,14 +1,17 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 
 import 'package:svuce_app/core/models/event/event.dart';
+import 'package:svuce_app/ui/screens/calender_events/event%20details/event_detail.dart';
 
 import 'dynamic_links.dart';
 
 @Singleton(as: DynamicLinkService)
 class DynamicLinkServiceImpl implements DynamicLinkService {
+  final log = getLogger("Dynamic Link Service");
   // for testing
   DynamicLinkServiceImpl();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -23,22 +26,28 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
         onSuccess: (PendingDynamicLinkData dynamicLink) async {
       _handleDeepLink(dynamicLink);
     }, onError: (OnLinkErrorException e) async {
-      print('Link Failed: ${e.message}');
+      log.e('Link Failed: ${e.message}');
     });
   }
 
   void _handleDeepLink(PendingDynamicLinkData data) {
     final Uri deepLink = data?.link;
     if (deepLink != null) {
-      print('_handleDeepLink | deeplink: $deepLink');
+      log.i('_handleDeepLink | deeplink: $deepLink');
 
       var isEvent = deepLink.pathSegments.contains('event');
-      if (isEvent) {}
+      if (isEvent) {
+        log.i(deepLink.queryParameters["id"]);
+        _navigationService.navigateWithTransition(
+            EventDetailsView(
+              id: deepLink.queryParameters["id"],
+            ),
+            transition: "fade");
+      }
     }
   }
 
   Future<String> createEventLink(Event event) async {
-    print("Enterex");
     final DynamicLinkParameters params = DynamicLinkParameters(
       uriPrefix: 'https://svuce.page.link',
       link: Uri.parse('https://svuce.page.link/event?id=${event.id}'),
@@ -52,14 +61,13 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
       //   appStoreId: '123456789',
       // ),
       googleAnalyticsParameters: GoogleAnalyticsParameters(
-        campaign: 'Event-Link',
-        medium: 'social',
-        source: 'orkut',
-      ),
+          campaign: 'Event-Link', medium: 'social', source: event.organiser),
 
       socialMetaTagParameters: SocialMetaTagParameters(
         title: event.name,
-        description: event.description.substring(0, 50),
+        description: event.description.length > 50
+            ? event.description.substring(0, 50)
+            : event.description,
       ),
     );
 
@@ -70,7 +78,7 @@ class DynamicLinkServiceImpl implements DynamicLinkService {
             shortDynamicLinkPathLength:
                 ShortDynamicLinkPathLength.unguessable));
     var shortUrl = k.shortUrl;
-    print(shortUrl.toString());
+    log.wtf(shortUrl.toString());
     return shortUrl.toString();
   }
 }

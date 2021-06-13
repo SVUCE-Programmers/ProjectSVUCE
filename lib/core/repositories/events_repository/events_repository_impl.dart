@@ -24,7 +24,8 @@ class EventsRepositoryImpl implements EventsRepository {
       log.d(snapshot.docs);
 
       var items = snapshot.docs
-          .map((snapshot) => Event.fromDocument(snapshot))
+          .map((snapshot) =>
+              Event.fromMap(Map<String, dynamic>.from(snapshot.data())))
           .toList();
 
       _eventStreamController.add(items);
@@ -36,7 +37,7 @@ class EventsRepositoryImpl implements EventsRepository {
   @override
   Future<bool> createEvent(Event event) async {
     try {
-      await _eventRef.add(event.toJson());
+      await _eventRef.add(event.toMap());
       return true;
     } catch (e) {
       return false;
@@ -56,10 +57,24 @@ class EventsRepositoryImpl implements EventsRepository {
   @override
   Future<bool> updateEvent(Event event) async {
     try {
-      await _eventRef.doc(event.id).update(event.toJson());
+      await _eventRef.doc(event.id).update(event.toMap());
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<Event> getEventDetails(String id) async {
+    log.w(id);
+
+    DocumentSnapshot data = await _eventRef.doc(id).get();
+    log.w(data);
+    if (data.exists) {
+      Event event = Event.fromMap(Map<String, dynamic>.from(data.data()));
+      return event;
+    } else {
+      return null;
     }
   }
 }

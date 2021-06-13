@@ -1,39 +1,50 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+// To parse this JSON data, do
+//
+//     final userClub = userClubFromMap(jsonString);
 
-part 'user_club.freezed.dart';
-part 'user_club.g.dart';
+import 'dart:convert';
 
-@freezed
-abstract class UserClub implements _$UserClub {
-  const UserClub._();
-  factory UserClub(
-      {String id,
-      String clubLogo,
-      String name,
-      @JsonKey(ignore: true) DocumentReference documentReference}) = _UserClub;
+UserClub userClubFromMap(String str) => UserClub.fromMap(json.decode(str));
 
-  factory UserClub.fromJson(Map<String, dynamic> json) =>
-      _$UserClubFromJson(json);
+String userClubToMap(UserClub data) => json.encode(data.toMap());
 
-  static UserClub fromDocument(DocumentSnapshot document) {
-    if (document == null || document.data() == null) return null;
-    var docData = Map<String, dynamic>.from(document.data());
+class UserClub {
+  UserClub({
+    this.id,
+    this.name,
+    this.clubLogo,
+    this.description,
+  });
 
-    return UserClub(
-        id: document.id,
-        documentReference: document.reference,
-        clubLogo: docData['clubLogo'],
-        name: docData['name']);
-  }
+  final String id;
+  final String name;
+  final String clubLogo;
+  final String description;
 
-  static UserClub empty() {
-    return UserClub(
-      id: '',
-      clubLogo: '',
-      name: '',
-      documentReference: null,
-    );
-  }
+  UserClub copyWith({
+    String id,
+    String name,
+    String clubLogo,
+    String description,
+  }) =>
+      UserClub(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        clubLogo: clubLogo ?? this.clubLogo,
+        description: description ?? this.description,
+      );
+
+  factory UserClub.fromMap(Map<String, dynamic> json) => UserClub(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        clubLogo: json["clubLogo"] == null ? null : json["clubLogo"],
+        description: json["description"] == null ? null : json["description"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
+        "clubLogo": clubLogo == null ? null : clubLogo,
+        "description": description == null ? null : description,
+      };
 }

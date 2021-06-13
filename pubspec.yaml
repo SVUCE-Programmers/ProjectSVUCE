@@ -77,12 +77,11 @@ dev_dependencies:
 
   # generators
   hive_generator:
-  build_runner: null
-  auto_route_generator: null
-  injectable_generator: null
+  build_runner:
+  injectable_generator:
+  stacked_generator:
 
   # for models
-  freezed: ^0.12.7
   json_serializable:
 
   # testing

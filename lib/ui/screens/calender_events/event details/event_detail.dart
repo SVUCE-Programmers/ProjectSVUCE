@@ -10,13 +10,14 @@ import 'event_detail_viewmodel.dart';
 
 class EventDetailsView extends StatelessWidget {
   final Event event;
+  final String id;
 
-  const EventDetailsView({Key key, this.event}) : super(key: key);
+  const EventDetailsView({Key key, this.event, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<EventDetailViewModel>(
-      onModelReady: (m)=>m.init(event),
+      onModelReady: (m) => m.init(event, id),
       viewModel: EventDetailViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
         appBar: AppBar(
@@ -43,7 +44,9 @@ class EventDetailsView extends StatelessWidget {
                     ])
           ],
           title: Text(
-            event.name,
+            (model.event != null && model.event.name != null)
+                ? model.event?.name ?? ""
+                : "Loading...",
             style: uiHelpers.headline,
           ),
           elevation: 0,
@@ -68,44 +71,46 @@ class EventDetailsView extends StatelessWidget {
                 style: uiHelpers.button,
               ),
             )),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              RepaintBoundary(
-                key: model.globalKey,
-                child: Container(
-                  height: 250,
-                  child: EventWidget(event: event),
+        body: model.event == null
+            ? SizedBox()
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    RepaintBoundary(
+                      key: model.globalKey,
+                      child: Container(
+                        height: 250,
+                        child: EventWidget(event: model.event),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                      child: Text(
+                        model.event?.name ?? "",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: uiHelpers.textPrimaryColor),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 10),
+                      child: Text(
+                        model.event?.description ?? "",
+                        style: TextStyle(
+                            color: uiHelpers.textSecondaryColor, fontSize: 18),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 10),
-                child: Text(
-                  event.name,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: uiHelpers.textPrimaryColor),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 10),
-                child: Text(
-                  event.description,
-                  style: TextStyle(
-                      color: uiHelpers.textSecondaryColor, fontSize: 18),
-                ),
-              )
-            ],
-          ),
-        ),
       ),
     );
   }

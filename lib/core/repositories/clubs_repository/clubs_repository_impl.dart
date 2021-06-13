@@ -34,7 +34,8 @@ class ClubsRepositoryImpl implements ClubsRepository {
     _clubsRef.snapshots().listen((snapshots) {
       if (snapshots.docs.isNotEmpty) {
         var posts = snapshots.docs
-            .map((snapshot) => Club.fromDocument(snapshot))
+            .map((snapshot) =>
+                Club.fromMap(Map<String, dynamic>.from(snapshot.data())))
             .toList();
 
         // Add the [items] onto the controller

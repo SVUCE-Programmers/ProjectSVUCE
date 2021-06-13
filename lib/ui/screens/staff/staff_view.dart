@@ -17,8 +17,7 @@ class StaffView extends HookWidget {
         builder: (context, uiHelpers, model) {
           return Scaffold(
             body: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
                   TabBar(
@@ -50,33 +49,29 @@ class StaffView extends HookWidget {
                         itemBuilder: (context, index) => Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: uiHelpers.dividerColor),
+                                  color: uiHelpers.surfaceColor,
                                   borderRadius: BorderRadius.circular(12)),
-                              child: GridTile(
-                                child: SizedBox(),
-                                footer: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(60),
-                                      child: Image.asset(
-                                        "assets/images/logo.png",
-                                        color: uiHelpers.primaryColor,
-                                        alignment: Alignment.bottomCenter,
-                                        height: 80,
-                                      ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child: Image.asset(
+                                      "assets/images/logo.png",
+                                      color: uiHelpers.primaryColor,
+                                      alignment: Alignment.bottomCenter,
+                                      height: 80,
                                     ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      "Shashi Kumar",
-                                      style: uiHelpers.title,
-                                    ),
-                                    Text("Professor")
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    "Shashi Kumar",
+                                    style: uiHelpers.title,
+                                  ),
+                                  Text("Professor")
+                                ],
                               ),
                             )),
                   ),

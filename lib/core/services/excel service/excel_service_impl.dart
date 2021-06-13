@@ -66,11 +66,11 @@ class ExcelServiceImpl implements ExcelService {
   saveToExcel({@required String sheetName}) async {
     var dir = await getExternalStorageDirectory();
     var knockDir = await new Directory('${dir.path}').create(recursive: true);
-    _excel.encode().then((onValue) {
-      File((knockDir.path + "/Attendance/attendance_sheet.xlsx"))
-        ..createSync(recursive: true)
-        ..writeAsBytesSync(onValue);
-    });
+    List<int> bytes = _excel.encode();
+
+    File((knockDir.path + "/Attendance/attendance_sheet.xlsx"))
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(bytes);
   }
 
   @override
@@ -148,11 +148,11 @@ class ExcelServiceImpl implements ExcelService {
       var dir = await getExternalStorageDirectory();
       var knockDir = await new Directory('${dir.path}').create(recursive: true);
       String path = knockDir.path + "/Sent/attendance.xlsx";
-      downloadExcel.encode().then((onValue) {
-        File((path))
-          ..createSync(recursive: true)
-          ..writeAsBytesSync(onValue);
-      });
+     List<int> bytes = _excel.encode();
+
+    File(path)
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(bytes);
       Share.shareFiles([path],
           subject: "Attendance",
           text:
