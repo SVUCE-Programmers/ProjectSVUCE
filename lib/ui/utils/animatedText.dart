@@ -6,9 +6,14 @@ class AnimatedText extends Text {
   final double xDistance, yDistance, delay;
   final TextStyle style;
   final TextAlign textAlign;
+  final Duration xDuration, yDuration, fadeDuration;
+
   AnimatedText(
       {@required String data,
       this.delay = 0.5,
+      this.xDuration = const Duration(milliseconds: 454),
+      this.yDuration = const Duration(milliseconds: 454),
+      this.fadeDuration = const Duration(milliseconds: 454),
       this.style,
       this.textAlign,
       this.xDistance,
@@ -19,6 +24,9 @@ class AnimatedText extends Text {
   Widget build(BuildContext context) {
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return FadeAnimation(
+      xDuration: xDuration,
+      yDuration: yDuration,
+      fadeDuration: fadeDuration,
       xDistance: xDistance ?? 0,
       yDistance: yDistance ?? 30,
       child: Text(

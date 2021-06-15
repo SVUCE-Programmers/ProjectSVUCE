@@ -9,6 +9,7 @@ import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
+import 'package:svuce_app/ui/screens/change%20password/change_password_view.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services
@@ -17,6 +18,11 @@ class UserProfileViewModel extends BaseViewModel {
 
   final UserClubsRepository _userClubsRepository =
       locator<UserClubsRepository>();
+  navigateToChangePassword() {
+    _navigationService.navigateWithTransition(ChangePasswordView(),
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
+  }
 
   final log = getLogger('User Profile View Model');
   List<Map<String, dynamic>> socialLinksData = [

@@ -44,29 +44,26 @@ class ShareServiceImpl implements ShareService {
   initFlutterDownload() async {}
 
   @override
-  Future downloadFile(String urlLink, String fileName) async {
+  Future downloadFile(String urlLink, String fileName,
+      {String pathName, String extensionName}) async {
     //TODO Add storage Permission
-
+    bool granted = await Permission.storage.isGranted;
+    log.w("Permission For STorage is:$granted");
     Directory downloadsDirectory =
         await DownloadsPathProvider.downloadsDirectory;
     String path = downloadsDirectory.path;
     log.w(path);
 
-    bool isDirExists = await Directory(path + "/Svuce").exists();
+    bool isDirExists = await Directory(path + pathName).exists();
     log.i(isDirExists);
-    if (isDirExists) {
-    } else {
-      Directory(path + "/Svuce").createSync(recursive: true);
+    if (!isDirExists) {
+      Directory(path + pathName).createSync(recursive: true);
     }
-    bool granted = await Permission.storage.isGranted;
-    log.w("Permission For STorage is:$granted");
+
     Dio dio = Dio();
 
     try {
-      String filePath = downloadsDirectory.path +
-          "/Svuce/" +
-          fileName.replaceAll(" ", "") +
-          ".png";
+      String filePath = path + pathName + fileName.replaceAll(" ", "") + extensionName;
       log.wtf(filePath);
       await dio.download(
         urlLink,

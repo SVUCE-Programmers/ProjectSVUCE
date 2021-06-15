@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
@@ -18,8 +19,8 @@ abstract class ExcelService {
   });
 
   saveAttendance({@required String sheetName, @required List<String> data});
-  getAttendanceDetails({@required String sheetName});
-  downloadExcelService({@required String sheetName});
+  Future<List<List<Data>>> getAttendanceDetails({@required String sheetName});
+  downloadExcelService({@required String sheetName,bool isDownload=false});
   deleteSheet({@required String sheetName});
 
   //?General Services

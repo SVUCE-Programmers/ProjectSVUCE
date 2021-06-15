@@ -1,3 +1,4 @@
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/default_view.dart';
@@ -6,7 +7,7 @@ import 'attendance_staff_view_model.dart';
 
 class ViewAttendance extends StatelessWidget {
   final String sheetName;
-  final List<dynamic> data;
+  final List<List<Data>> data;
   const ViewAttendance({Key key, @required this.sheetName, @required this.data})
       : super(key: key);
   @override
@@ -43,8 +44,11 @@ class ViewAttendance extends StatelessWidget {
                                   (subIdx) => Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "${data[index][subIdx]}",
+                                          "${data[index][subIdx].value}",
                                           textAlign: TextAlign.center,
+                                          style: index == 0
+                                              ? uiHelpers.title
+                                              : uiHelpers.body,
                                         ),
                                       ))))),
                 ),
@@ -60,28 +64,28 @@ class ViewAttendance extends StatelessWidget {
             style: uiHelpers.headline,
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
+            Tooltip(
+              message: "Share Csv",
+              child: IconButton(
                 onPressed: () => model.downloadExcelToDir(sheetName: sheetName),
                 color: Colors.green,
-                child: Row(
-                  children: [
-                    Icon(
-                      FlutterIcons.share_2_fea,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Share CSV",
-                      style: uiHelpers.button.copyWith(fontSize: 14),
-                    ),
-                  ],
+                icon: Icon(
+                  FlutterIcons.share_2_fea,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+            Tooltip(
+              message: "Download Csv",
+              child: IconButton(
+                onPressed: () => model.downloadExcelToDir(
+                    sheetName: sheetName, isDownload: true),
+                color: Colors.green,
+                icon: Icon(
+                  FlutterIcons.download_fea,
+                  color: Colors.white,
+                  size: 20,
                 ),
               ),
             )

@@ -44,14 +44,19 @@ class AddEditTimeTableView extends StatelessWidget {
         ),
         appBar: AppBar(
           actions: [
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Add New\nClass",
-                  style: uiHelpers.button
-                      .copyWith(color: uiHelpers.primaryColor, fontSize: 16),
-                  textAlign: TextAlign.center,
-                ))
+            PopupMenuButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: uiHelpers.textPrimaryColor,
+                ),
+                color: uiHelpers.surfaceColor,
+                itemBuilder: (_) => [
+                      PopupMenuItem(
+                          child: Text(
+                        "Add New Class",
+                        style: uiHelpers.title,
+                      ))
+                    ]),
           ],
           leading: Hero(
             tag: "backIcon",

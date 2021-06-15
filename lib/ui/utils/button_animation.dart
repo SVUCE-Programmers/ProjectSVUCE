@@ -12,12 +12,15 @@ class AnimatedButton extends HookWidget {
   final double elevation, minLeadingWidth, animatePaddingValue;
   final ShapeBorder shapeBorder;
   final Duration paddingAnimationDuration;
-  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisAlignment mainAxisAlignment;  final Duration xDuration, yDuration, fadeDuration;
+
   const AnimatedButton(
       {Key key,
       @required this.onTap,
       this.paddingAnimationDuration,
-      this.leading,
+      this.leading, this.xDuration = const Duration(milliseconds: 454),
+      this.yDuration = const Duration(milliseconds: 454),
+      this.fadeDuration = const Duration(milliseconds: 454),
       this.trailing,
       this.title,
       this.delay = 2,
@@ -45,7 +48,9 @@ class AnimatedButton extends HookWidget {
       child: AnimatedPadding(
         padding: padding.value,
         duration: paddingAnimationDuration ?? Duration(milliseconds: 400),
-        child: FadeAnimation(
+        child: FadeAnimation(   xDuration: xDuration,
+          yDuration: yDuration,
+          fadeDuration: fadeDuration,
           delay: delay,
           xDistance: xDistance,
           yDistance: yDistance,

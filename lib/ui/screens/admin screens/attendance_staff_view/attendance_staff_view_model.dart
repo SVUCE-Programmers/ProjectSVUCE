@@ -1,3 +1,4 @@
+import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -70,7 +71,8 @@ class AttendanceStaffViewModel extends BaseViewModel {
   }
 
   viewDetails(String sheetName) async {
-    var data = await _excelService.getAttendanceDetails(sheetName: sheetName);
+    List<List<Data>> data =
+        await _excelService.getAttendanceDetails(sheetName: sheetName);
     _navigationService.navigateWithTransition(
         ViewAttendance(
           sheetName: sheetName,
@@ -105,8 +107,14 @@ class AttendanceStaffViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  downloadExcelToDir({@required String sheetName}) async {
-    await _excelService.downloadExcelService(sheetName: sheetName);
+  downloadExcelToDir(
+      {@required String sheetName, bool isDownload = false}) async {
+    if (isDownload) {
+      await _excelService.downloadExcelService(
+          sheetName: sheetName, isDownload: true);
+    } else {
+      await _excelService.downloadExcelService(sheetName: sheetName);
+    }
   }
 
   deleteSheet({@required String sheetName}) async {

@@ -72,7 +72,7 @@ class DrawerView extends StatelessWidget {
                   ),
                   DrawerItem(
                     title: "Faculty",
-                    onTap: () {},
+                    onTap: model.navigateToStaff,
                     iconData: facultyIcon,
                   ),
                   model.isGuest
@@ -93,7 +93,7 @@ class DrawerView extends StatelessWidget {
                       ? SizedBox()
                       : DrawerItem(
                           title: "Attendance",
-                          // onTap: () => model.viewAttendance(),
+                          onTap: model.navigateToAttendance,
                           iconData: attendanceIcon,
                         ),
                   DrawerItem(

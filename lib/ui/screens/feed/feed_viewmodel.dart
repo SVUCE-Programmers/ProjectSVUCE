@@ -47,7 +47,8 @@ class FeedViewModel extends BaseViewModel {
       ),
       transition: "rightToLeftWithFade",
       duration: Duration(milliseconds: 900));
-  downloadFile(String urlLink,String fileName) async {
-    await _shareService.downloadFile(urlLink,fileName);
+  downloadFile(String urlLink, String fileName) async {
+    await _shareService.downloadFile(urlLink, fileName,
+        pathName: "/Svuce/Feed/", extensionName: ".png");
   }
 }

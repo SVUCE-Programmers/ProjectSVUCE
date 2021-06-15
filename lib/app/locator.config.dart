@@ -16,6 +16,8 @@ import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/core/services/share%20service/share_service_impl.dart';
+import 'package:svuce_app/core/services/student%20services/student_service.dart';
+import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
 import '../core/repositories/announcements_repository/announcements_repository.dart'
     as _i10;
@@ -76,6 +78,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i15.Client>(registerDependencies.client);
   gh.singleton<_i28.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i33.UsersRepository>(_i34.UsersRepositoryImpl());
+  gh.singleton<StudentService>(StudentServiceImpl());
 
   gh.lazySingleton<_i4.AttendanceService>(() => _i4.AttendanceService());
   gh.lazySingleton<_i5.HiveService>(() => _i5.HiveService());

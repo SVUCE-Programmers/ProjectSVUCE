@@ -169,6 +169,7 @@ class TimeTableWidget extends HookWidget {
     }
 
     showModalBottomSheet(
+        backgroundColor: uiHelpers.backgroundColor,
         context: context,
         builder: (context) => Container(
               padding: const EdgeInsets.only(top: 25, right: 20, left: 20),
@@ -193,7 +194,7 @@ class TimeTableWidget extends HookWidget {
                                 initialTime: TimeOfDay.now());
                             if (finalTime != null) {
                               timeController.text =
-                                  "${initialTime.hour}:${initialTime.minute} - ${finalTime.hour}:${finalTime.minute}";
+                                  "${initialTime.hourOfPeriod}:${initialTime.minute} ${initialTime.period == DayPeriod.pm ? "PM" : "AM"} - ${finalTime.hourOfPeriod}:${finalTime.minute} ${initialTime.period == DayPeriod.pm ? "PM" : "AM"}";
                             }
                           }
                         },

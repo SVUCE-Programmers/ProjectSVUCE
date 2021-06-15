@@ -31,9 +31,32 @@ class UserProfileView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, uiHelpers, model) {
         final newLine = TextSpan(text: "\n");
-
         return Scaffold(
           appBar: AppBar(
+            actions: [
+              PopupMenuButton(
+                  onSelected: (value) {
+                    switch (value) {
+                      case "cp":
+                        model.navigateToChangePassword();
+                        break;
+                      default:
+                    }
+                  },
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: uiHelpers.textPrimaryColor,
+                  ),
+                  color: uiHelpers.surfaceColor,
+                  itemBuilder: (_) => [
+                        PopupMenuItem(
+                            value: "cp",
+                            child: Text(
+                              "Change Password",
+                              style: uiHelpers.title,
+                            ))
+                      ])
+            ],
             title: Text(
               "Profile",
               style: uiHelpers.headline,

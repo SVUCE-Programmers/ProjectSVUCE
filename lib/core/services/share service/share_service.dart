@@ -6,5 +6,6 @@ abstract class ShareService {
   launchUrl({@required String urlLink});
   shareData({@required String title, @required String description, File file});
   initFlutterDownload();
-  Future downloadFile(String urlLink,String fileName);
+  Future downloadFile(String urlLink, String fileName,
+      {String pathName, String extensionName});
 }

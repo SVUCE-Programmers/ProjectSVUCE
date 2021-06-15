@@ -20,6 +20,7 @@ import 'package:svuce_app/hive_db/services/attendance_service.dart';
 import 'package:svuce_app/hive_db/services/time_table_service.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
+import 'package:svuce_app/ui/screens/staff/staff_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_view.dart';
 import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
@@ -152,6 +153,8 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToAttendance() {
+    log.i(_authService.hasAdminAccess);
+
     if (_authService.isGuest) {
       showToast(
           "Sorry you can't access to this feature\nBut don't worry we will provide you soon",
@@ -171,6 +174,12 @@ class MainViewModel extends BaseViewModel {
 
   navigateToAddStudent() {
     _navigationService.navigateWithTransition(AddStudentView(),
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
+  }
+
+  navigateToStaff() {
+    _navigationService.navigateWithTransition(StaffView(),
         transition: "rightToLeftWithFade",
         duration: Duration(milliseconds: 900));
   }

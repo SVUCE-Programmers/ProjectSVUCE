@@ -1,3 +1,4 @@
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -118,11 +119,12 @@ class ExcelServiceImpl implements ExcelService {
   }
 
   @override
-  getAttendanceDetails({String sheetName}) async {
-    List<dynamic> resultData = [];
+  Future<List<List<Data>>> getAttendanceDetails({String sheetName}) async {
+    List<List<Data>> resultData = [];
     _excel.sheets.forEach((key, value) {
       if (key == sheetName) {
-        var data = value.rows;
+        List<List<Data>> data = value.rows;
+
         resultData = data;
       }
     });
@@ -130,7 +132,7 @@ class ExcelServiceImpl implements ExcelService {
   }
 
   @override
-  downloadExcelService({String sheetName}) async {
+  downloadExcelService({String sheetName, bool isDownload = false}) async {
     PermissionService _permissionService = PermissionService();
     bool permissionResult = await _permissionService.requestStoragePermission();
     if (permissionResult) {
@@ -145,18 +147,32 @@ class ExcelServiceImpl implements ExcelService {
           downloadExcel.delete(s);
         }
       }
-      var dir = await getExternalStorageDirectory();
-      var knockDir = await new Directory('${dir.path}').create(recursive: true);
-      String path = knockDir.path + "/Sent/attendance.xlsx";
-     List<int> bytes = _excel.encode();
+      if (isDownload) {
+        Directory downloadsDirectory =
+            await DownloadsPathProvider.downloadsDirectory;
+        String path = downloadsDirectory.path +
+            "/Svuce/Staff_Attendance/attendance_${DateTimeUtils().getWholeDate(DateTime.now().millisecondsSinceEpoch)}.xlsx";
+        List<int> bytes = _excel.encode();
 
-    File(path)
-      ..createSync(recursive: true)
-      ..writeAsBytesSync(bytes);
-      Share.shareFiles([path],
-          subject: "Attendance",
-          text:
-              "Generated On ${DateTimeUtils().getWholeDate(DateTime.now().millisecondsSinceEpoch)}");
+        File(path)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(bytes);
+          
+      } else {
+        var dir = await getExternalStorageDirectory();
+        var knockDir =
+            await new Directory('${dir.path}').create(recursive: true);
+        String path = knockDir.path + "/Sent/attendance.xlsx";
+        List<int> bytes = _excel.encode();
+
+        File(path)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(bytes);
+        Share.shareFiles([path],
+            subject: "Attendance",
+            text:
+                "Generated On ${DateTimeUtils().getWholeDate(DateTime.now().millisecondsSinceEpoch)}");
+      }
     }
   }
 

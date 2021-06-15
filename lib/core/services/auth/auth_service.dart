@@ -19,4 +19,5 @@ abstract class AuthService {
   String getStudentPresentYear();
   String getUid();
   String getEmail();
+  Future changePassword(String password);
 }

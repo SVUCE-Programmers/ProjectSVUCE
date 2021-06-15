@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/github%20pages/github_page_view_model.dart';
@@ -39,8 +40,31 @@ class GithubPageView extends StatelessWidget {
                                         : "assets/images/file_icon.png",
                                     height: 40,
                                   ),
-                                  trailing: Icon(Icons.arrow_forward_ios,
-                                      color: uiHelpers.textPrimaryColor),
+                                  trailing: model.githubApiList[index].type ==
+                                          "tree"
+                                      ? Icon(Icons.arrow_forward_ios,
+                                          color: uiHelpers.textPrimaryColor)
+                                      : PopupMenuButton(
+                                          icon: Icon(Icons.more_vert,
+                                              color:
+                                                  uiHelpers.textPrimaryColor),
+                                          color: uiHelpers.backgroundColor,
+                                          itemBuilder: (context) =>
+                                              <PopupMenuItem>[
+                                                PopupMenuItem(
+                                                    child: ListTile(
+                                                  dense: true,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  horizontalTitleGap: 4,
+                                                  leading: Icon(
+                                                      FlutterIcons.download_fea,
+                                                      color: uiHelpers
+                                                          .textPrimaryColor),
+                                                  title: Text("Download",
+                                                      style: uiHelpers.title),
+                                                ))
+                                              ]),
                                   tileColor: uiHelpers.surfaceColor,
                                   onTap: () => model.navigationMode(
                                       model.githubApiList[index]),

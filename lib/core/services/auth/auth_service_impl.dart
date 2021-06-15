@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -136,5 +138,41 @@ class AuthServiceImpl implements AuthService {
     return _firebaseAuth.currentUser != null
         ? _firebaseAuth.currentUser.email
         : null;
+  }
+
+  @override
+  Future changePassword(String password) async {
+    try {
+      User user = _firebaseAuth.currentUser;
+      await user.updatePassword(password);
+      showToast("Changed password successfully!",
+          textStyle:
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+          textPadding:
+              const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+      return true;
+    } catch (e) {
+      if (e.message == "Password should be at least 6 characters") {
+        showToast("Password is too weak",
+            textStyle:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.red,
+            textPadding:
+                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+      } else {
+        log.e(e);
+        showToast("Error occured,please login again!!",
+            textStyle:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.red,
+            textPadding:
+                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+      }
+      return false;
+    }
   }
 }

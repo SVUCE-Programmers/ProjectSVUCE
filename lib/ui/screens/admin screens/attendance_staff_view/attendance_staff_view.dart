@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -78,6 +77,7 @@ class AttendanceStaffView extends HookWidget {
                             onTap: () =>
                                 model.getSheetData(model.excelSheets[index]),
                             trailing: PopupMenuButton(
+                              color: uiHelpers.surfaceColor,
                               icon: Icon(
                                 Icons.more_vert,
                                 color: uiHelpers.textPrimaryColor,

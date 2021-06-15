@@ -8,9 +8,13 @@ class FadeAnimation extends StatelessWidget {
   final Widget child;
   final double xDistance;
   final double yDistance;
+  final Duration xDuration, yDuration, fadeDuration;
   const FadeAnimation(
       {@required this.delay,
       @required this.child,
+      this.xDuration = const Duration(milliseconds: 454),
+      this.yDuration = const Duration(milliseconds: 454),
+      this.fadeDuration = const Duration(milliseconds: 454),
       this.xDistance = 30,
       this.yDistance = 0.0});
 
@@ -20,17 +24,17 @@ class FadeAnimation extends StatelessWidget {
       ..add(
         AnimationType.opacity,
         Tween(begin: 0.0, end: 1.0),
-        Duration(milliseconds: 500),
+        fadeDuration,
       )
       ..add(
         AnimationType.translateX,
         Tween(begin: xDistance, end: 1.0),
-        Duration(milliseconds: 500),
+        xDuration,
       )
       ..add(
         AnimationType.translateY,
         Tween(begin: yDistance, end: 1.0),
-        Duration(milliseconds: 500),
+        yDuration,
       );
 
     return PlayAnimation<MultiTweenValues<AnimationType>>(

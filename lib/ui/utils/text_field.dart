@@ -18,6 +18,8 @@ class AnimatedInputField extends HookWidget {
   final double xDistance, yDistance;
   final Function onTap;
   final double downPadding;
+  final Duration xDuration, yDuration, fadeDuration;
+
   final bool isObscure;
 
   const AnimatedInputField(
@@ -34,6 +36,9 @@ class AnimatedInputField extends HookWidget {
       @required this.textEditingController,
       this.onTap,
       this.delay = 0.75,
+      this.xDuration = const Duration(milliseconds: 454),
+      this.yDuration = const Duration(milliseconds: 454),
+      this.fadeDuration = const Duration(milliseconds: 454),
       this.xDistance = 0,
       this.yDistance = 30,
       this.enabled = true})
@@ -48,6 +53,9 @@ class AnimatedInputField extends HookWidget {
       children: [
         FadeAnimation(
           delay: delay,
+          xDuration: xDuration,
+          yDuration: yDuration,
+          fadeDuration: fadeDuration,
           xDistance: xDistance,
           yDistance: yDistance,
           child: Text(

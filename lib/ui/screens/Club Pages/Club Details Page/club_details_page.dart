@@ -29,7 +29,7 @@ class ClubDetaislPageView extends StatelessWidget {
                         image: NetworkImage(club.clubBanner)),
                     Positioned(
                       bottom: 0,
-                      left: 10,
+                      left: 20,
                       child: Hero(
                         tag: "Club Logo",
                         child: FadeInImage(
@@ -46,7 +46,7 @@ class ClubDetaislPageView extends StatelessWidget {
                         style: uiHelpers.headline,
                       ),
                       bottom: 20,
-                      left: uiHelpers.width * 0.3 + 20,
+                      left: uiHelpers.width * 0.3 + 30,
                     )
                   ],
                 ),

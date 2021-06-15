@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 
+import 'consumers/staff_widget.dart';
 import 'staff_view_model.dart';
 
 class StaffView extends HookWidget {
@@ -17,7 +18,7 @@ class StaffView extends HookWidget {
         builder: (context, uiHelpers, model) {
           return Scaffold(
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.only(left: 20),
               child: Column(
                 children: [
                   TabBar(
@@ -39,41 +40,91 @@ class StaffView extends HookWidget {
                         "Chemical",
                         "EEE"
                       ].map((e) => Tab(child: Text(e))).toList()),
-                  uiHelpers.verticalSpaceLow,
                   Expanded(
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 15,
-                            crossAxisCount: 2),
-                        itemBuilder: (context, index) => Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                  color: uiHelpers.surfaceColor,
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(60),
-                                    child: Image.asset(
-                                      "assets/images/logo.png",
-                                      color: uiHelpers.primaryColor,
-                                      alignment: Alignment.bottomCenter,
-                                      height: 80,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text(
-                                    "Shashi Kumar",
-                                    style: uiHelpers.title,
-                                  ),
-                                  Text("Professor")
-                                ],
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          uiHelpers.verticalSpaceLow,
+                          Text(
+                            "Head of Department",
+                            style: uiHelpers.title,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                            child: StaffWidget(),
+                          ),
+                          uiHelpers.verticalSpaceMedium,
+                          Text(
+                            "Professors",
+                            style: uiHelpers.title,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 180,
+                            child: ListView.builder(
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(right: 12),
+                                child: StaffWidget(),
                               ),
-                            )),
+                              itemCount: 10,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          ),
+                          uiHelpers.verticalSpaceMedium,
+                          Text(
+                            "Assistant Professors",
+                            style: uiHelpers.title,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 180,
+                            child: ListView.builder(
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(right: 12),
+                                child: StaffWidget(),
+                              ),
+                              itemCount: 10,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          ),
+                          uiHelpers.verticalSpaceMedium,
+                          Text(
+                            "Lab Assistants & Others",
+                            style: uiHelpers.title,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: GridView.builder(
+                                primary: false,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 15,
+                                        mainAxisSpacing: 15,
+                                        crossAxisCount: 2),
+                                itemCount: 50,
+                                itemBuilder: (context, index) => StaffWidget()),
+                          ),
+                          uiHelpers.verticalSpaceHigh,
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
