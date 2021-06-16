@@ -36,6 +36,7 @@ dependencies:
   firebase_storage: ^8.1.0
   firebase_core: ^1.2.0
   firebase_analytics:
+  firebase_crashlytics:
 
   #notifications
   onesignal_flutter:

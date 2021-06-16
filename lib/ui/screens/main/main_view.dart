@@ -198,7 +198,7 @@ class MainView extends StatelessWidget {
                                         transitionType:
                                             ContainerTransitionType.fadeThrough,
                                         transitionDuration:
-                                            Duration(milliseconds: 1500),
+                                            Duration(milliseconds: 700),
                                         openBuilder: (context, function) =>
                                             GithubPageView(
                                               url: model
@@ -303,7 +303,9 @@ class MainView extends StatelessWidget {
                                     style: uiHelpers.title
                                         .copyWith(color: Colors.white)),
                                 leading: Hero(
-                                  tag: "Attendance Hero",
+                                  tag: model.attendanceList.length == 0
+                                      ? "none"
+                                      : "Attendance Hero",
                                   child: Image.asset(
                                       "assets/illustrations/attendance.png",
                                       height: 120,

@@ -32,8 +32,12 @@ class ShareServiceImpl implements ShareService {
   @override
   shareData({String title, String description, File file}) async {
     try {
-      await Share.shareFiles([file.path],
-          text: title + "\n\n" + description, subject: title);
+      if (file != null) {
+        await Share.shareFiles([file.path],
+            text: title + "\n\n" + description, subject: title);
+      } else {
+        await Share.share(title + "\n\n" + description, subject: title);
+      }
     } catch (e) {
       log.e(e);
       //TODO show error
@@ -48,40 +52,47 @@ class ShareServiceImpl implements ShareService {
       {String pathName, String extensionName}) async {
     //TODO Add storage Permission
     bool granted = await Permission.storage.isGranted;
-    log.w("Permission For STorage is:$granted");
-    Directory downloadsDirectory =
-        await DownloadsPathProvider.downloadsDirectory;
-    String path = downloadsDirectory.path;
-    log.w(path);
-
-    bool isDirExists = await Directory(path + pathName).exists();
-    log.i(isDirExists);
-    if (!isDirExists) {
-      Directory(path + pathName).createSync(recursive: true);
+    if (!granted) {
+      await Permission.storage.request();
     }
+    granted = await Permission.storage.isGranted;
+    if (granted) {
+      log.w("Permission For STorage is:$granted");
+      Directory downloadsDirectory =
+          await DownloadsPathProvider.downloadsDirectory;
+      String path = downloadsDirectory.path;
+      log.w(path);
 
-    Dio dio = Dio();
-
-    try {
-      String filePath = path + pathName + fileName.replaceAll(" ", "") + extensionName;
-      log.wtf(filePath);
-      await dio.download(
-        urlLink,
-        filePath,
-        onReceiveProgress: (value, total) {
-          if (total != -1) {
-            showNotificationWIthValue(value, total, filename: fileName);
-          }
-        },
-        options: Options(
-            responseType: ResponseType.bytes,
-            followRedirects: false,
-            validateStatus: (status) {
-              return status < 500;
-            }),
-      );
-    } catch (e) {
-      print(e);
+      bool isDirExists = await Directory(path + pathName).exists();
+      log.i(isDirExists);
+      if (!isDirExists) {
+        Directory(path + pathName).createSync(recursive: true);
+      }
+      Dio dio = Dio();
+      try {
+        String filePath =
+            path + pathName + fileName.replaceAll(" ", "") + extensionName;
+        log.wtf(filePath);
+        await dio.download(
+          urlLink,
+          filePath,
+          onReceiveProgress: (value, total) {
+            if (total != -1) {
+              showNotificationWIthValue(value, total, filename: fileName);
+            }
+          },
+          options: Options(
+              responseType: ResponseType.bytes,
+              followRedirects: false,
+              validateStatus: (status) {
+                return status < 500;
+              }),
+        );
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      //TODO show No Permission
     }
   }
 

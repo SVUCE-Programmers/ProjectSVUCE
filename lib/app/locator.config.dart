@@ -78,6 +78,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i15.Client>(registerDependencies.client);
   gh.singleton<_i28.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i33.UsersRepository>(_i34.UsersRepositoryImpl());
+  gh.singleton<_i12.AuthService>(_i13.AuthServiceImpl());
+
   gh.singleton<StudentService>(StudentServiceImpl());
 
   gh.lazySingleton<_i4.AttendanceService>(() => _i4.AttendanceService());
@@ -87,7 +89,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i8.APIService>(_i9.APIServiceImpl());
   gh.singleton<_i10.AnnouncementsRepository>(
       _i11.AnnouncementsRepositoryImpl());
-  gh.singleton<_i12.AuthService>(_i13.AuthServiceImpl());
 
   gh.singleton<_i16.CloudStorageService>(_i17.CloudStorageServiceImpl());
   gh.singleton<_i18.ClubsRepository>(_i19.ClubsRepositoryImpl());

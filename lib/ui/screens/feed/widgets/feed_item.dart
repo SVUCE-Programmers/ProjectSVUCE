@@ -191,10 +191,13 @@ class FeedItem extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               backgroundColor: uiHelpers.backgroundColor,
               contentPadding: EdgeInsets.zero,
               content: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
                     placeholder: AssetImage("assets/images/logo.png"),
                     width: uiHelpers.width,

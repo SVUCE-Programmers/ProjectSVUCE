@@ -17,6 +17,7 @@ class AnimatedInputField extends HookWidget {
   final TextInputType textInputType;
   final double xDistance, yDistance;
   final Function onTap;
+  final FocusNode focusNode;
   final double downPadding;
   final Duration xDuration, yDuration, fadeDuration;
 
@@ -28,6 +29,7 @@ class AnimatedInputField extends HookWidget {
       this.hintText,
       this.isObscure = false,
       this.validator,
+      this.focusNode,
       this.textInputType = TextInputType.text,
       this.prefixIcon,
       this.downPadding = 15,
@@ -71,6 +73,7 @@ class AnimatedInputField extends HookWidget {
           child: GestureDetector(
             onTap: onTap,
             child: TextFormField(
+              focusNode: focusNode ?? FocusNode(),
               obscureText: isObscure && !showPassword.value,
               keyboardType: textInputType,
               enabled: enabled,
