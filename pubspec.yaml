@@ -38,9 +38,6 @@ dependencies:
   firebase_analytics:
   firebase_crashlytics:
 
-  #notifications
-  onesignal_flutter:
-
   #Animations
   animations:
   simple_animations:

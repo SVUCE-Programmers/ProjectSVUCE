@@ -7,7 +7,6 @@ import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/utils/connectivity_widget.dart';
 
-
 class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
   final bool disposeViewModel;
   final bool isReactive;
@@ -46,10 +45,7 @@ class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
         childWidget: ViewModelBuilder<T>.reactive(
             builder: (context, model, child) {
               if (model.isBusy && showLoadingOnBusy) {
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                if (!currentFocus.hasPrimaryFocus) {
-                  currentFocus.unfocus();
-                }
+                FocusScope.of(context).unfocus();
               }
               return showLoadingOnBusy
                   ? IgnorePointer(

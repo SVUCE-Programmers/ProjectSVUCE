@@ -24,7 +24,7 @@ class ShareServiceImpl implements ShareService {
         //TODO Show cant can show url
       }
     } catch (e) {
-      //TODO Error
+      //  TODO Show ertror
 
     }
   }

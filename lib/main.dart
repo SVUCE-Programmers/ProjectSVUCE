@@ -27,25 +27,25 @@ class App extends StatelessWidget {
     return ViewModelBuilder<AppViewModel>.reactive(
       onModelReady: (model) => model.initTheme(),
       viewModelBuilder: () => AppViewModel(),
-      builder: (context, model, child) => OKToast(
-        position: ToastPosition.bottom,
-        backgroundColor: model.isDarkMode
-            ? DarkColorPalette.backgroundColor
-            : LightColorPalette.backgroundColor,
-        child: MaterialApp(
-          title: 'SVUCE ',
-          navigatorObservers: [
-            locator<AnalyticsService>().getAnalyticsObserver(),
-          ],
-          darkTheme: darkThemeData(context),
-          themeMode: model.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          theme: model.isDarkMode
-              ? darkThemeData(context)
-              : lightThemeData(context),
-          onGenerateRoute: StackedRouter().onGenerateRoute,
-          navigatorKey: StackedService.navigatorKey,
-          debugShowCheckedModeBanner: false,
+      builder: (context, model, child) => MaterialApp(
+        title: 'SVUCE ',
+        navigatorObservers: [
+          locator<AnalyticsService>().getAnalyticsObserver(),
+        ],
+        builder: (context, widget) => OKToast(
+          child: widget,
+          position: ToastPosition.bottom,
+          backgroundColor: model.isDarkMode
+              ? DarkColorPalette.backgroundColor
+              : LightColorPalette.backgroundColor,
         ),
+        darkTheme: darkThemeData(context),
+        themeMode: model.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        theme:
+            model.isDarkMode ? darkThemeData(context) : lightThemeData(context),
+        onGenerateRoute: StackedRouter().onGenerateRoute,
+        navigatorKey: StackedService.navigatorKey,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

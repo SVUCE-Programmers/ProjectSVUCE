@@ -41,9 +41,9 @@ class AuthServiceImpl implements AuthService {
 
       _populateCurrentUser(authResult.user);
       await _analyticsService.logLogin();
-
       return authResult.user != null;
     } catch (e) {
+      log.e(e);
       return e;
     }
   }

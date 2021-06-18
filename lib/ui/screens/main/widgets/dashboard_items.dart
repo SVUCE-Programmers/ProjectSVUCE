@@ -53,17 +53,17 @@ final List<SpotlightItem> spotLightItems = [
             backgroundColor: Colors.red)
         : _navigationService.navigateWithTransition(FeedView(),
             duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
-    icon: feedIcon,
+    icon: FlutterIcons.news_ent,
     name: "Feed",
   ),
   SpotlightItem(
-    icon: FlutterIcons.video_fea,
-    name: "Video Call",
+    icon: campusIcon,
+    name: "Campus Map",
   ),
   SpotlightItem(
     onTap: () => _navigationService.navigateWithTransition(CalenderEventsView(),
         duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
-    icon: eventsIcon,
+    icon: FlutterIcons.calendar_ant,
     name: "Event Calendar",
   ),
 ];
