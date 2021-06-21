@@ -2,6 +2,7 @@ name: svuce_app
 description: A new Flutter project.
 
 version: 1.0.0+1
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -46,6 +47,14 @@ dependencies:
   # icons
   eva_icons_flutter: ^3.0.0
   flutter_icons: ^1.1.0
+
+  # For Map
+  google_maps_flutter:
+  geolocator:
+  open_location_code:
+    git:
+      url: git://github.com/google/open-location-code.git
+      path: dart
 
   # main utilities
   image_picker:

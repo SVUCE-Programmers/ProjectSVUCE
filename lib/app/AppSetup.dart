@@ -1,6 +1,7 @@
 import 'package:stacked/stacked_annotations.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/Club%20Details%20Page/club_details_page.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
+import 'package:svuce_app/ui/screens/Static%20Pages/campus%20map/campus_map_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/add_edit_time_table.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/attendance_staff_view/attendance_staff_view.dart';
@@ -47,6 +48,7 @@ import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
     MaterialRoute(page: ClubDetaislPageView),
     MaterialRoute(page: GithubPageView),
     MaterialRoute(page: ResourceViewer),
+    MaterialRoute(page: CampusMapView),
   ],
   logger: StackedLogger(),
 )

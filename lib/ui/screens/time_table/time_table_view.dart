@@ -54,6 +54,7 @@ class TimeTableView extends StatelessWidget {
                       children: List.generate(
                           model.getTimeTable().length,
                           (index) => TimeTableItem(
+                                model: model,
                                 className: model
                                     .getTimeTable()
                                     .values

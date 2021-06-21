@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:svuce_app/app/icons.dart';
 
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/screens/time_table/time_table_viewmodel.dart';
 
 class TimeTableItem extends StatelessWidget {
   final String date;
   final String className;
+  final TimeTableViewModel model;
 
-  const TimeTableItem({Key key, @required this.date, @required this.className})
+  const TimeTableItem(
+      {Key key,
+      @required this.date,
+      @required this.className,
+      @required this.model})
       : super(key: key);
 
   @override
@@ -33,7 +39,7 @@ class TimeTableItem extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () => model.addAlarm(context, className, date),
             splashColor: uiHelpers.backgroundColor,
             icon: Icon(
               notificationIcon,

@@ -11,12 +11,10 @@ class NotifyService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   final log = getLogger("Notify Service");
-  addAlarm(BuildContext context) async {
-    scheduleAlarm(DateTime.now());
-  }
-
-  printAlarmFired() {
-    log.v("Done");
+  addAlarm(BuildContext context,
+      {String title, DateTime dateTime, String subject}) async {
+    log.wtf("Scheduled Alarm for :$dateTime");
+    scheduleAlarm(DateTime.now(), title: title, subject: subject);
   }
 
   addEventToCalendar({eventModel.Event eventModel}) async {
@@ -48,7 +46,8 @@ class NotifyService {
     });
   }
 
-  void scheduleAlarm(DateTime scheduledNotificationDateTime) async {
+  void scheduleAlarm(DateTime scheduledNotificationDateTime,
+      {String title, String subject}) async {
     await initFlutterNotifications();
     initializeTimeZones();
 
@@ -56,8 +55,8 @@ class NotifyService {
         await FlutterNativeTimezone.getLocalTimezone();
     await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
-      "title",
-      "body",
+      "$title",
+      "$subject",
       TZDateTime.now(getLocation(currentTimeZone)).add(Duration(seconds: 5)),
       NotificationDetails(
           android: AndroidNotificationDetails(
@@ -66,7 +65,6 @@ class NotifyService {
         "channelDescription",
         importance: Importance.high,
         priority: Priority.max,
-        showProgress: true,
         playSound: true,
         enableVibration: true,
       )),

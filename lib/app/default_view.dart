@@ -38,6 +38,9 @@ class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
       label: appTitle,
       primaryColor: Theme.of(context).primaryColor.value,
     ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor:
+            !uiHelpers.isDark ? Colors.grey[500] : Colors.grey[800]));
 
     if (isReactive) {
       return ConnectivityWidget(

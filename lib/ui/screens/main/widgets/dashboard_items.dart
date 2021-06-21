@@ -7,6 +7,7 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/github_api_services.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
+import 'package:svuce_app/ui/screens/Static%20Pages/campus%20map/campus_map_view.dart';
 import 'package:svuce_app/ui/screens/calender_events/events_view.dart';
 import 'package:svuce_app/ui/screens/feed/feed_view.dart';
 import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
@@ -48,15 +49,16 @@ final List<SpotlightItem> spotLightItems = [
     name: "Faculty",
   ),
   SpotlightItem(
-    onTap: () => _authService.isGuest
-        ? showToast("Sorry only students of svuce can access this.",
-            backgroundColor: Colors.red)
-        : _navigationService.navigateWithTransition(FeedView(),
-            duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
+    onTap: () => _navigationService.navigateWithTransition(FeedView(),
+        duration: Duration(milliseconds: 900),
+        transition: "rightToLeftWithFade"),
     icon: FlutterIcons.news_ent,
     name: "Feed",
   ),
   SpotlightItem(
+    onTap: () => _navigationService.navigateWithTransition(CampusMapView(),
+        duration: Duration(milliseconds: 900),
+        transition: "rightToLeftWithFade"),
     icon: campusIcon,
     name: "Campus Map",
   ),

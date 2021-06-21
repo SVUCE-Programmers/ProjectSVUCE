@@ -98,7 +98,7 @@ class DrawerView extends StatelessWidget {
                         ),
                   DrawerItem(
                     title: "Campus Map",
-                    onTap: () {},
+                    onTap: model.navigateToCampusMap,
                     iconData: campusIcon,
                   ),
                   DrawerItem(

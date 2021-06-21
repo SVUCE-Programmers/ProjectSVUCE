@@ -2,6 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
@@ -13,6 +14,7 @@ class TimeTableViewModel extends BaseViewModel {
   final TimeTableService timeTableService = locator<TimeTableService>();
   final AuthService _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final NotifyService _notifyService = NotifyService();
   TimeTable timeTable;
   bool get hasAdminAccess => _authService.hasAdminAccess;
 
@@ -69,6 +71,27 @@ class TimeTableViewModel extends BaseViewModel {
         return {};
       default:
         return {};
+    }
+  }
+
+  addAlarm(context, String title, String time) {
+    var hour = (time.split("-")[0].split(":")[0]);
+    var minute = (time.split("-")[0].split(":")[1]);
+    minute = minute.replaceAll("PM", "");
+    minute = minute.replaceAll("AM", "");
+
+    DateTime dateTime = DateTime.now();
+    DateTime schedulingTime = DateTime(dateTime.year, dateTime.month,
+        weekDates[currentIndex], int.parse(hour), int.parse(minute));
+    if (schedulingTime.millisecondsSinceEpoch <
+        dateTime.millisecondsSinceEpoch) {
+      //TODO CANT SCHEDULE NOW
+
+    } else {
+      _notifyService.addAlarm(context,
+          title: title,
+          subject: "Get ready for $title class",
+          dateTime: schedulingTime);
     }
   }
 }
