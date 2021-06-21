@@ -19,9 +19,4 @@ jobs:
           flutter-version: "2.3.0-24.0.pre"
           channel: "dev"
       - run: flutter pub get
-      # run static analys code
-      - run: flutter  analyze
-      # # run  flutter widgets tests  and unit tests
-      # - run: flutter test --coverage
-      # run  flutter widgets tests  and unit tests
       - run: flutter build apk --release --split-per-abi
