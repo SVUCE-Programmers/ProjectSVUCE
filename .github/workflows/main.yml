@@ -21,7 +21,7 @@ jobs:
       - run: flutter pub get
       # run static analys code
       - run: flutter  analyze
-      # run  flutter widgets tests  and unit tests
-      - run: flutter test --coverage
+      # # run  flutter widgets tests  and unit tests
+      # - run: flutter test --coverage
       # run  flutter widgets tests  and unit tests
       - run: flutter build apk --release --split-per-abi
