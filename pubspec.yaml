@@ -51,10 +51,6 @@ dependencies:
   # For Map
   google_maps_flutter:
   geolocator:
-  open_location_code:
-    git:
-      url: git://github.com/google/open-location-code.git
-      path: dart
 
   # main utilities
   image_picker:

@@ -7,6 +7,7 @@ import 'package:svuce_app/ui/widgets/animations/fade_transition.dart';
 class AnimatedInputField extends HookWidget {
   final String title;
   final String hintText;
+  final Function(String) onChanged;
   final Function(String) validator;
   final Widget prefixIcon;
   final bool enabled;
@@ -29,6 +30,7 @@ class AnimatedInputField extends HookWidget {
       this.hintText,
       this.isObscure = false,
       this.validator,
+      this.onChanged,
       this.focusNode,
       this.textInputType = TextInputType.text,
       this.prefixIcon,
@@ -73,6 +75,7 @@ class AnimatedInputField extends HookWidget {
           child: GestureDetector(
             onTap: onTap,
             child: TextFormField(
+              onChanged: onChanged ?? (value) {},
               focusNode: focusNode ?? FocusNode(),
               obscureText: isObscure && !showPassword.value,
               keyboardType: textInputType,
