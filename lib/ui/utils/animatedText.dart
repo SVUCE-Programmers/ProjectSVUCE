@@ -29,10 +29,13 @@ class AnimatedText extends Text {
       fadeDuration: fadeDuration,
       xDistance: xDistance ?? 0,
       yDistance: yDistance ?? 30,
-      child: Text(
-        data,
-        style: style ?? uiHelpers.body,
-        textAlign: textAlign ?? TextAlign.start,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: Text(
+          data,
+          style: style ?? uiHelpers.body,
+          textAlign: textAlign ?? TextAlign.start,
+        ),
       ),
       delay: delay,
     );

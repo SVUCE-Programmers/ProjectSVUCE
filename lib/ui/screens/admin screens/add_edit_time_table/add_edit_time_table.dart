@@ -4,6 +4,7 @@ import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/consumers/time_table_add_subject.dart';
 import 'package:svuce_app/ui/widgets/expansion_list_modified.dart';
 import 'add_edit_time_table_view_model.dart';
+import 'consumers/add_new_class.dart';
 
 class AddEditTimeTableView extends StatelessWidget {
   @override
@@ -45,6 +46,14 @@ class AddEditTimeTableView extends StatelessWidget {
         appBar: AppBar(
           actions: [
             PopupMenuButton(
+                onSelected: (value) {
+                  switch (value) {
+                    case "Add":
+                    showAddNewClass(uiHelpers,model,context);
+                      break;
+                    default:
+                  }
+                },
                 icon: Icon(
                   Icons.more_vert,
                   color: uiHelpers.textPrimaryColor,
@@ -52,10 +61,11 @@ class AddEditTimeTableView extends StatelessWidget {
                 color: uiHelpers.surfaceColor,
                 itemBuilder: (_) => [
                       PopupMenuItem(
+                          value: "Add",
                           child: Text(
-                        "Add New Class",
-                        style: uiHelpers.title,
-                      ))
+                            "Add New Class",
+                            style: uiHelpers.title,
+                          ))
                     ]),
           ],
           leading: Hero(

@@ -132,11 +132,12 @@ class ShareServiceImpl implements ShareService {
           payload: 'item x');
     } else {
       await flutterLocalNotificationsPlugin.show(
-          0,
-          '$filename',
-          '${((value / maxProgress) * 100).toInt()}% Completed',
-          platformChannelSpecifics,
-          payload: 'item x');
+        0,
+        '$filename',
+        '${((value / maxProgress) * 100).toInt()}% Completed',
+        platformChannelSpecifics,
+        payload: 'item x',
+      );
     }
   }
 }

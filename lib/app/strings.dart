@@ -11,7 +11,7 @@ const String commonErrorInfo =
     "Something went wrong, please try again after some time";
 
 const String passwordMatchErrorInfo =
-    "Your passwords does not matched, try again";
+    "Your passwords does not match, try again";
 
 // Notice Messages
 

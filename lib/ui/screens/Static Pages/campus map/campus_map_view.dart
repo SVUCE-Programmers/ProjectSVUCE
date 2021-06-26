@@ -11,6 +11,7 @@ class CampusMapView extends StatelessWidget {
       onModelReady: (m) => m.init(),
       viewModel: CampuusMapViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
+        endDrawer: Drawer(),
         body: Stack(
           children: [
             Container(

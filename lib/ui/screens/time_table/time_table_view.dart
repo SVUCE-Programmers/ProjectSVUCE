@@ -39,7 +39,7 @@ class TimeTableView extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
-              "Timetable",
+              "Timetable ",
               style: uiHelpers.headline
                   .copyWith(color: uiHelpers.textPrimaryColor),
             ),

@@ -18,11 +18,10 @@ class StartUpView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                model.isLottieLoaded
-                    ? Lottie.asset("assets/lottie/dashboard_setting.json",
-                        alignment: Alignment.bottomCenter,
-                        onLoaded: (composition) => model.changeToLoaded())
-                    : MultiCircularLoader(),
+                Lottie.asset("assets/lottie/dashboard_setting.json",
+                    alignment: Alignment.bottomCenter,
+                    onLoaded: (composition) => model.changeToLoaded()),
+                model.isLottieLoaded ? SizedBox() : MultiCircularLoader(),
                 SizedBox(
                   height: 5,
                 ),

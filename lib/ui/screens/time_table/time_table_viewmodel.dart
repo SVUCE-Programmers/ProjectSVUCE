@@ -16,7 +16,7 @@ class TimeTableViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final NotifyService _notifyService = NotifyService();
   TimeTable timeTable;
-  bool get hasAdminAccess => _authService.hasAdminAccess;
+  bool hasAdminAccess = false;
 
   changeCurrentDay(int index) {
     currentDay = weekDates[index];
@@ -30,15 +30,20 @@ class TimeTableViewModel extends BaseViewModel {
   int currentIndex;
 
   init() async {
+    getAdminAccess();
     log.wtf(weekDates);
     currentIndex = weekDates.indexOf(DateTime.now().day);
     String rollNo = _authService.currentUser.rollNo.toString().substring(0, 6);
     timeTableService.getTimeTable(rollNo).listen((event) {
       timeTable = event;
       log.wtf("Got TimeTable is:$event");
-
       notifyListeners();
     });
+  }
+
+  getAdminAccess() {
+    hasAdminAccess = _authService.hasAdminAccess;
+    notifyListeners();
   }
 
   //?Navigation Services

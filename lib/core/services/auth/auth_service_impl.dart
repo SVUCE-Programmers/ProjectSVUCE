@@ -94,6 +94,7 @@ class AuthServiceImpl implements AuthService {
       _userService.getUserFromStream(user.email).listen((event) {
         currentUser = event;
         hasAdminAccess = currentUser.userType != "STUDENT";
+        log.v("IS ADMIN IS:$hasAdminAccess");
       });
       // _userStream.add(currentUser);
     }
@@ -141,23 +142,40 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future changePassword(String password) async {
+  Future changePassword(String oldPassword, String newPassword) async {
     try {
       User user = _firebaseAuth.currentUser;
-      await user.updatePassword(password);
-      showToast("Changed password successfully!",
-          textStyle:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-          textPadding:
-              const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
-      return true;
+      var newUser;
+      try {
+        newUser = await _firebaseAuth.signInWithEmailAndPassword(
+            email: user.email, password: oldPassword);
+      } catch (e) {
+        log.e("ERROR is:${e.message}");
+        return false;
+      }
+
+      if (newUser != null && newUser.user != null) {
+        await user.updatePassword(newPassword);
+        showToast("Changed password successfully!",
+            textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.none),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.green,
+            textPadding:
+                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+        return true;
+      }
     } catch (e) {
       if (e.message == "Password should be at least 6 characters") {
         showToast("Password is too weak",
-            textStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.none),
             duration: Duration(seconds: 2),
             backgroundColor: Colors.red,
             textPadding:
@@ -165,8 +183,11 @@ class AuthServiceImpl implements AuthService {
       } else {
         log.e(e);
         showToast("Error occured,please login again!!",
-            textStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.none),
             duration: Duration(seconds: 2),
             backgroundColor: Colors.red,
             textPadding:

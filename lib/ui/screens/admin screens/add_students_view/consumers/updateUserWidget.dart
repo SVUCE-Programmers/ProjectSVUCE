@@ -43,7 +43,10 @@ class UpdateUserWidget extends HookWidget {
                   "Change search type",
                   style: uiHelpers.title,
                 ),
-                subtitle: Text("Enable to search user by rollNo"),
+                subtitle: Text(
+                  "Enable to search user by rollNo",
+                  style: uiHelpers.body,
+                ),
               ),
               AnimatedInputField(
                   focusNode: focusNode,

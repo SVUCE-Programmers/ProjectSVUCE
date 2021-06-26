@@ -3,6 +3,15 @@ mixin Configs {
   static const String titleFont = "Quicksand";
   static const String bodyFont = "Quicksand";
 }
-mixin ApiKeys {
-}
+mixin ApiKeys {}
 
+mixin Validators {
+  static String validatePassword(value) {
+    if (value.isEmpty) {
+      return "Please enter password";
+    } else if (value.length < 6) {
+      return "Password should be atleast of length 6.";
+    }
+    return null;
+  }
+}

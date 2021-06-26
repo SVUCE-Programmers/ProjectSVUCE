@@ -120,7 +120,7 @@ class FeedItem extends StatelessWidget {
                               size: 20,
                             ),
                             onPressed: () =>
-                                model.downloadFile(feed.imgUrl, feed.title),
+                                model.downloadFile(feed.imgUrl, feed),
                           ),
                         ),
                       )
