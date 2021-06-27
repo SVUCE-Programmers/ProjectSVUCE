@@ -54,6 +54,12 @@ class UserProfileView extends StatelessWidget {
                             child: Text(
                               "Change Password",
                               style: uiHelpers.title,
+                            )),
+                        PopupMenuItem(
+                            value: "cp",
+                            child: Text(
+                              "Log out",
+                              style: uiHelpers.title,
                             ))
                       ])
             ],
@@ -103,19 +109,41 @@ class UserProfileView extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
                       width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.all(20),
+                      padding: model.hasUserClubs
+                          ? EdgeInsets.all(20)
+                          : const EdgeInsets.symmetric(horizontal: 20)
+                              .copyWith(bottom: 20, top: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: uiHelpers.surfaceColor),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            "Clubs",
-                            style: uiHelpers.title
-                                .apply(color: uiHelpers.primaryColor),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Clubs",
+                                style: uiHelpers.title
+                                    .apply(color: uiHelpers.primaryColor),
+                              ),
+                              !model.hasUserClubs
+                                  ? MaterialButton(
+                                      onPressed: model.navigateToRegisterClub,
+                                      child: Text(
+                                        "Register clubs",
+                                        style: uiHelpers.title.copyWith(
+                                          fontSize: 14,
+                                          color: uiHelpers.textPrimaryColor,
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox()
+                            ],
                           ),
-                          uiHelpers.verticalSpaceLow,
+                          model.hasUserClubs
+                              ? uiHelpers.verticalSpaceLow
+                              : SizedBox(),
                           model.hasUserClubs
                               ? Wrap(
                                   children: model.hasUserClubs
@@ -276,7 +304,8 @@ class UserProfileView extends StatelessWidget {
                                       size: 24,
                                       color: model.socialLinksData[index]
                                           ["color"]),
-                                  onPressed: () {},
+                                  onPressed: () => model.launchUrl(
+                                      model.socialLinksData[index]["link"]),
                                 )),
                       ),
                     ),

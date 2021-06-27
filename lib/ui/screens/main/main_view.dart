@@ -303,7 +303,7 @@ class MainView extends StatelessWidget {
                                     style: uiHelpers.title
                                         .copyWith(color: Colors.white)),
                                 leading: Hero(
-                                  tag: model.attendanceList.length == 0
+                                  tag: model.attendanceList.length != 0
                                       ? "none"
                                       : "Attendance Hero",
                                   child: Image.asset(

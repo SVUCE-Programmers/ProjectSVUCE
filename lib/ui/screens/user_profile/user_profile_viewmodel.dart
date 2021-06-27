@@ -9,12 +9,15 @@ import 'package:svuce_app/core/models/user_club/user_club.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 
 import 'package:svuce_app/core/repositories/user_clubs_repository/user_clubs_repository.dart';
+import 'package:svuce_app/core/services/share%20service/share_service.dart';
+import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
 import 'package:svuce_app/ui/screens/change%20password/change_password_view.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   // Required Services
   final AuthService _authenticationService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final ShareService _shareService = locator<ShareService>();
 
   final UserClubsRepository _userClubsRepository =
       locator<UserClubsRepository>();
@@ -28,25 +31,26 @@ class UserProfileViewModel extends BaseViewModel {
   List<Map<String, dynamic>> socialLinksData = [
     {
       "name": "Youtube",
-      "link": "",
+      "link":
+          "https://www.youtube.com/channel/UCt6zvDyrdSCivo-6sPsJDwA/featured",
       "icon": FlutterIcons.youtube_ant,
       "color": Color(0xFFFF0000)
     },
     {
       "name": "Instagram",
-      "link": "",
+      "link": "https://www.instagram.com/svucesv?r=nametag",
       "icon": FlutterIcons.instagram_ant,
-      "color": Color(0xFF405DE6)
+      "color": Color(0xFFDD915E)
     },
     {
       "name": "Twitter",
-      "link": "",
+      "link": "https://twitter.com/svucesv",
       "icon": FlutterIcons.twitter_ant,
       "color": Color(0xFF1DA1F2)
     },
     {
       "name": "Facebook",
-      "link": "",
+      "link": "https://www.facebook.com/SvuceSV",
       "icon": FlutterIcons.facebook_square_ant,
       "color": Color(0xFF4267B2),
     }
@@ -79,6 +83,18 @@ class UserProfileViewModel extends BaseViewModel {
       }
     });
     setBusy(false);
+  }
+
+  navigateToRegisterClub() {
+    _navigationService.navigateWithTransition(
+        SelectClubsView(
+          isSelectClubs: false,
+        ),
+        transition: "scale");
+  }
+
+  launchUrl(String url) {
+    _shareService.launchUrl(urlLink: url);
   }
 
   goBack() => _navigationService.back();

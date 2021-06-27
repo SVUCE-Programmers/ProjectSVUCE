@@ -173,10 +173,12 @@ class FeedItem extends StatelessWidget {
                     ),
                     TextSpan(text: " | ", style: uiHelpers.body),
                     TextSpan(
-                      text: DateTimeUtils()
-                              .timeAgoSinceDate(DateTime.parse(feed.timeStamp)
-                                  .millisecondsSinceEpoch)
-                              ?.toString() ??
+                      text: "${feed.isUpdated ? "Updated " : ""}" +
+                              DateTimeUtils()
+                                  .timeAgoSinceDate(
+                                      DateTime.parse(feed.timeStamp)
+                                          .millisecondsSinceEpoch)
+                                  ?.toString() ??
                           "10 mins ago",
                     ),
                   ])),

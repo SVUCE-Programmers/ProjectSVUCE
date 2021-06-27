@@ -71,7 +71,7 @@ class Feed {
         id: json["id"] == null ? null : json["id"],
         feedId: json["feedId"] == null ? null : json["feedId"],
         link: json["link"] == null ? null : json["link"],
-        isUpdated: json["isUpdated"] ? false : json["isUpdated"],
+        isUpdated: json["isUpdated"] == null ? false : json["isUpdated"],
         title: json["title"] == null ? null : json["title"],
         imgUrl: json["imgUrl"] == null ? null : json["imgUrl"],
         description: json["description"] == null ? null : json["description"],

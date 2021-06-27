@@ -60,16 +60,14 @@ class ToastWidget extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: uiHelpers.title
-                            .copyWith(fontSize: uiHelpers.sp * 12),
+                        style: uiHelpers.title.copyWith(fontSize: 16),
                       ),
                       SizedBox(
                         height: 4,
                       ),
                       Text(
                         description,
-                        style: uiHelpers.body
-                            .copyWith(fontSize: uiHelpers.sp * 10),
+                        style: uiHelpers.body.copyWith(fontSize: 14),
                       ),
                     ],
                   ),

@@ -74,6 +74,7 @@ class CreatePostViewModel extends BaseViewModel {
     if (feed != null) {
       setBusy(true);
       feed = feed.copyWith(
+          timeStamp: DateTime.now().millisecondsSinceEpoch.toString(),
           isUpdated: true,
           link: urlController.text,
           title: titleController.text,
