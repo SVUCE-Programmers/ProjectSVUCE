@@ -39,7 +39,7 @@ class AlumniView extends StatelessWidget {
                   children: [
                     Text(
                       "${index + 1}.  " + data.keys.elementAt(index),
-                      style: uiHelpers.headline,
+                      style: uiHelpers.title,
                     ),
                     SizedBox(height: 10),
                     Column(

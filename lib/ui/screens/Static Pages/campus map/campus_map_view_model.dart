@@ -8,11 +8,13 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/location_model.dart';
+import 'package:svuce_app/core/services/theme_service.dart';
 import 'package:svuce_app/ui/screens/Static%20Pages/campus%20map/utils/data.dart';
 
 class CampuusMapViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final log = getLogger("Campus View Model");
+  final ThemeService _themeService = locator<ThemeService>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   GoogleMapController mapController;
   final TextEditingController searchController = TextEditingController();
@@ -48,11 +50,12 @@ class CampuusMapViewModel extends BaseViewModel {
   navigateToLocation(LocationModel locationModel) {
     _navigationService.back();
     mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(
-          locationModel.latitude,
-          locationModel.longitude,
-        ),
-        zoom: 20.4746)));
+      target: LatLng(
+        locationModel.latitude,
+        locationModel.longitude,
+      ),
+      zoom: 18.4746,
+    )));
   }
 
   getPresentLocation() async {
@@ -70,7 +73,8 @@ class CampuusMapViewModel extends BaseViewModel {
   void onMapCreated(GoogleMapController controller) async {
     try {
       mapController = controller;
-      controller.setMapStyle(mapNightStyle);
+      controller.setMapStyle(
+          _themeService.isDarkMode ? mapNightStyle : lightMapStyle);
 
       final locData = await Geolocator.getCurrentPosition();
       markers.add(Marker(

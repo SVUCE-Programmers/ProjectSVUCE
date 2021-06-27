@@ -21,6 +21,7 @@ class Feed {
     this.fullName,
     this.profileImg,
     this.timeStamp,
+    this.isUpdated = false,
   });
 
   final String uid;
@@ -34,6 +35,7 @@ class Feed {
   final String fullName;
   final String profileImg;
   final String timeStamp;
+  final bool isUpdated;
 
   Feed copyWith({
     String uid,
@@ -45,6 +47,7 @@ class Feed {
     String description,
     String category,
     String fullName,
+    bool isUpdated,
     String profileImg,
     String timeStamp,
   }) =>
@@ -52,6 +55,7 @@ class Feed {
         uid: uid ?? this.uid,
         id: id ?? this.id,
         feedId: feedId ?? this.feedId,
+        isUpdated: isUpdated ?? this.isUpdated,
         link: link ?? this.link,
         title: title ?? this.title,
         imgUrl: imgUrl ?? this.imgUrl,
@@ -67,6 +71,7 @@ class Feed {
         id: json["id"] == null ? null : json["id"],
         feedId: json["feedId"] == null ? null : json["feedId"],
         link: json["link"] == null ? null : json["link"],
+        isUpdated: json["isUpdated"] ? false : json["isUpdated"],
         title: json["title"] == null ? null : json["title"],
         imgUrl: json["imgUrl"] == null ? null : json["imgUrl"],
         description: json["description"] == null ? null : json["description"],
@@ -82,6 +87,7 @@ class Feed {
         "feedId": feedId == null ? null : feedId,
         "link": link == null ? null : link,
         "title": title == null ? null : title,
+        "isUpdated": isUpdated == null ? false : isUpdated,
         "imgUrl": imgUrl == null ? null : imgUrl,
         "description": description == null ? null : description,
         "category": category == null ? null : category,

@@ -74,17 +74,16 @@ class CreatePostViewModel extends BaseViewModel {
     if (feed != null) {
       setBusy(true);
       feed = feed.copyWith(
+          isUpdated: true,
           link: urlController.text,
           title: titleController.text,
           description: descController.text,
           category: type ?? "General");
       var data = await _feedRepository.updatePost(feed: feed);
-
       log.i(data);
       if (data is bool && data) {
         _navigationService.back();
       }
-
       setBusy(false);
     } else {
       setBusy(true);

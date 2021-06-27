@@ -11,7 +11,9 @@ class CampusMapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<CampuusMapViewModel>(
-      onModelReady: (m) => m.init(),
+      onModelReady: (m) => m.init(
+        
+      ),
       viewModel: CampuusMapViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
         key: model.scaffoldKey,
