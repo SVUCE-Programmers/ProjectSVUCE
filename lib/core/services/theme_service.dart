@@ -23,12 +23,11 @@ class ThemeService with ReactiveServiceMixin {
 
   bool get isDarkMode =>
       darkMode.value == null ? getThemeMode() : darkMode.value;
-
   static const String key = "isDarkMode";
 
   bool getThemeMode() {
     bool value = _keyStorageService.getValue(key);
-    darkMode.value = value == null ? true : value;
+    darkMode.value = value == null ? false : value;
     return darkMode.value;
   }
 
@@ -36,9 +35,12 @@ class ThemeService with ReactiveServiceMixin {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: !isDarkMode ? Colors.grey[500] : Colors.grey[800]));
     darkMode.value = !darkMode.value;
-    _analyticsService.logEvent(name: "Theme Switch", parameters: {
-      "theme": "${darkMode.value ? "Dark Mode" : "Light Theme"}"
-    });
+    try {
+      _analyticsService.logEvent(name: "Theme_Switch", parameters: {
+        "theme": "${darkMode.value ? "Dark Mode" : "Light Theme"}"
+      });
+    } catch (e) {}
+
     log.i("Changing theme");
     await _keyStorageService.saveToDisk<bool>(key, darkMode.value);
     notifyListeners();

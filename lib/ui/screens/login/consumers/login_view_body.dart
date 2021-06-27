@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
@@ -19,6 +20,11 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
     return ListView(
       padding: EdgeInsets.all(20.0),
       children: <Widget>[
+        Container(
+          height: uiHelpers.height * 0.25,
+          child: Lottie.asset("assets/lottie/login.json",
+              repeat: false, alignment: Alignment.bottomCenter),
+        ),
         Text.rich(TextSpan(children: [
           TextSpan(
             text: "💐 Welcome Back, \n",
@@ -32,12 +38,19 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
         ])),
         uiHelpers.verticalSpaceMedium,
         AnimatedInputField(
+          downPadding: 0,
           textEditingController: viewModel.emailController,
           title: "Email",
           textInputType: TextInputType.emailAddress,
           prefixIcon: Icon(emailIcon),
         ),
         AnimatedInputField(
+          rowWidget: TextButton(
+              onPressed: viewModel.navigateToForgotPassword,
+              child: Text(
+                "Forgot Password",
+                style: uiHelpers.body.copyWith(color: uiHelpers.primaryColor),
+              )),
           textEditingController: viewModel.passwordController,
           title: "Password",
           isObscure: true,
@@ -49,25 +62,21 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
           yDistance: 30,
           xDistance: 0,
           child: Row(
-            mainAxisAlignment: isStudent
-                ? MainAxisAlignment.spaceBetween
-                : MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              isStudent
-                  ? TextButton(
-                      onPressed: viewModel.gotoSignup,
-                      child: Text.rich(TextSpan(children: [
-                        TextSpan(
-                            text: "If you don\'t have an \naccount,",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.textSecondaryColor)),
-                        TextSpan(
-                            text: " Signup",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.primaryColor)),
-                      ])))
-                  : SizedBox(),
+              TextButton(
+                  onPressed: viewModel.gotoSignup,
+                  child: Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: "If you don\'t have an \naccount,",
+                        style: uiHelpers.body
+                            .copyWith(color: uiHelpers.textSecondaryColor)),
+                    TextSpan(
+                        text: " Signup",
+                        style: uiHelpers.body
+                            .copyWith(color: uiHelpers.primaryColor)),
+                  ]))),
               Button(
                 isBusy: viewModel.isBusy,
                 onPressed: () => viewModel.handleLogin(),

@@ -49,9 +49,12 @@ final List<SpotlightItem> spotLightItems = [
     name: "Faculty",
   ),
   SpotlightItem(
-    onTap: () => _navigationService.navigateWithTransition(FeedView(),
-        duration: Duration(milliseconds: 900),
-        transition: "rightToLeftWithFade"),
+    onTap: () => _authService.isGuest
+        ? showToast("Sorry only students of svuce can access this.",
+            backgroundColor: Colors.red)
+        : _navigationService.navigateWithTransition(FeedView(),
+            duration: Duration(milliseconds: 900),
+            transition: "rightToLeftWithFade"),
     icon: FlutterIcons.news_ent,
     name: "Feed",
   ),
@@ -63,8 +66,11 @@ final List<SpotlightItem> spotLightItems = [
     name: "Campus Map",
   ),
   SpotlightItem(
-    onTap: () => _navigationService.navigateWithTransition(CalenderEventsView(),
-        duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
+    onTap: () => _authService.isGuest
+        ? showToast("Sorry only students of svuce can access this.",
+            backgroundColor: Colors.red)
+        : _navigationService.navigateWithTransition(CalenderEventsView(),
+            duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: FlutterIcons.calendar_ant,
     name: "Event Calendar",
   ),

@@ -104,8 +104,8 @@ addNewSubject(BuildContext context, AttendanceManagerViewModel model) {
                       ),
                       SizedBox(height: 20),
                       MaterialButton(
-                          onPressed: formKey.currentState.validate()
-                              ? () => model.addNewSubject(
+                          onPressed: () => formKey.currentState.validate()
+                              ? model.addNewSubject(
                                   _subjectNameController.text, color)
                               : () {},
                           child: Center(

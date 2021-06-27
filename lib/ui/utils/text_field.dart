@@ -23,6 +23,7 @@ class AnimatedInputField extends HookWidget {
   final Duration xDuration, yDuration, fadeDuration;
 
   final bool isObscure;
+  final Widget rowWidget;
 
   const AnimatedInputField(
       {Key key,
@@ -31,6 +32,7 @@ class AnimatedInputField extends HookWidget {
       this.isObscure = false,
       this.validator,
       this.onChanged,
+      this.rowWidget = const SizedBox(),
       this.focusNode,
       this.textInputType = TextInputType.text,
       this.prefixIcon,
@@ -62,9 +64,16 @@ class AnimatedInputField extends HookWidget {
           fadeDuration: fadeDuration,
           xDistance: xDistance,
           yDistance: yDistance,
-          child: Text(
-            "$title",
-            style: uiHelpers.title.copyWith(fontSize: 14),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              title == ""
+                  ? SizedBox()
+                  : Text(
+                      "$title",
+                    ),
+              rowWidget
+            ],
           ),
         ),
         SizedBox(height: 5),

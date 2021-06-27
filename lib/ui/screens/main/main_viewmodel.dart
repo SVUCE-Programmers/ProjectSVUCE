@@ -1,33 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:svuce_app/app/AppSetup.logger.dart';
-import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/core/models/dataset.dart';
-import 'package:svuce_app/core/models/graph.dart';
-import 'package:svuce_app/core/models/user/user.dart';
-import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
-import 'package:svuce_app/core/services/auth/auth_service.dart';
-import 'package:svuce_app/core/services/github_api_services.dart';
-import 'package:svuce_app/core/services/theme_service.dart';
-import 'package:svuce_app/core/utils/date_utils.dart';
-import 'package:svuce_app/hive_db/models/attendance.dart';
-import 'package:svuce_app/hive_db/models/time_table.dart';
-import 'package:svuce_app/hive_db/services/attendance_service.dart';
-import 'package:svuce_app/hive_db/services/time_table_service.dart';
-import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
-import 'package:svuce_app/ui/screens/Static%20Pages/campus%20map/campus_map_view.dart';
-import 'package:svuce_app/ui/screens/admin%20screens/add_students_view/add_student_view.dart';
-import 'package:svuce_app/ui/screens/staff/staff_view.dart';
-import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
-import 'package:svuce_app/ui/screens/Static Pages/about_college/about_college_view.dart';
-import 'package:svuce_app/ui/screens/Static Pages/About App/about_app_view.dart';
-import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
-import '../../screens/admin screens/attendance_staff_view/attendance_staff_view.dart';
-import '../attendance_manager/attendance_manager_view.dart';
+import 'consumers/imports.dart';
 
 class MainViewModel extends BaseViewModel {
   final log = getLogger("MainViewModel");
@@ -156,20 +127,14 @@ class MainViewModel extends BaseViewModel {
   navigateToAttendance() {
     log.i(_authService.hasAdminAccess);
 
-    if (_authService.isGuest) {
-      showToast(
-          "Sorry you can't access to this feature\nBut don't worry we will provide you soon",
-          backgroundColor: Colors.red);
+    if (_authService.hasAdminAccess) {
+      _navigationService.navigateWithTransition(AttendanceStaffView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
     } else {
-      if (_authService.hasAdminAccess) {
-        _navigationService.navigateWithTransition(AttendanceStaffView(),
-            transition: "rightToLeftWithFade",
-            duration: Duration(milliseconds: 900));
-      } else {
-        _navigationService.navigateWithTransition(AttendanceManagerView(),
-            transition: "rightToLeftWithFade",
-            duration: Duration(milliseconds: 900));
-      }
+      _navigationService.navigateWithTransition(AttendanceManagerView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
     }
   }
 

@@ -37,22 +37,29 @@ class SignUpView extends StatelessWidget {
           body: ListView(
             padding: EdgeInsets.all(20.0),
             children: <Widget>[
-              Text.rich(TextSpan(children: [
-                TextSpan(
-                  text: "Hi There,\n",
-                  style: uiHelpers.headline
-                      .copyWith(color: uiHelpers.textPrimaryColor),
-                ),
-                TextSpan(
-                  text: "Enter your information\nbelow to continue",
-                  style: uiHelpers.body
-                      .copyWith(color: uiHelpers.textSecondaryColor),
-                )
-              ])),
+              FadeAnimation(
+                delay: 0.7,
+                yDistance: 0,
+                xDistance: -100,
+                child: Text.rich(TextSpan(children: [
+                  TextSpan(
+                    text: "Hi There,\n",
+                    style: uiHelpers.headline
+                        .copyWith(color: uiHelpers.textPrimaryColor),
+                  ),
+                  TextSpan(
+                    text: "Enter your information\nbelow to continue",
+                    style: uiHelpers.body
+                        .copyWith(color: uiHelpers.textSecondaryColor),
+                  )
+                ])),
+              ),
               uiHelpers.verticalSpaceMedium,
               IgnorePointer(
                 ignoring: model.isEmailVerified,
                 child: AnimatedInputField(
+                  xDistance: 100,
+                  yDistance: 0,
                   title: "Email",
                   textInputType: TextInputType.text,
                   prefixIcon: Icon(emailIcon),
@@ -86,7 +93,9 @@ class SignUpView extends StatelessWidget {
                 ),
               ),
               FadeAnimation(
-                delay: 1.7,
+                delay: 1.25,
+                yDistance: 100,
+                xDistance: 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
