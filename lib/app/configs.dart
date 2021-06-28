@@ -15,3 +15,6 @@ mixin Validators {
     return null;
   }
 }
+mixin UrlConfigs{
+  static const staffJsonUrl="https://raw.githubusercontent.com/shashiben/RepoToTestGitApi/master/Tools/Database/staff.json";
+}

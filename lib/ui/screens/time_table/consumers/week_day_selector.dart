@@ -34,7 +34,7 @@ class WeekDaySelector extends ViewModelWidget<TimeTableViewModel> {
                             text: weekDay + "\n",
                             style:
                                 TextStyle(color: uiHelpers.textSecondaryColor)),
-                        TextSpan(text: model.weekDates[index].toString()),
+                        TextSpan(text: model.weekDates[index].day.toString()),
                       ]),
                       textAlign: TextAlign.center,
                     ),

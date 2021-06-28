@@ -14,7 +14,7 @@ class NotifyService {
   addAlarm(BuildContext context,
       {String title, DateTime dateTime, String subject}) async {
     log.wtf("Scheduled Alarm for :$dateTime");
-    scheduleAlarm(DateTime.now(), title: title, subject: subject);
+    scheduleAlarm(dateTime, title: title, subject: subject);
   }
 
   addEventToCalendar({eventModel.Event eventModel}) async {

@@ -21,12 +21,12 @@ class TimeTableViewModel extends BaseViewModel {
   bool hasAdminAccess = false;
 
   changeCurrentDay(int index) {
-    currentDay = weekDates[index];
+    currentDay = weekDates[index].day;
     currentIndex = index;
     notifyListeners();
   }
 
-  List<int> weekDates = generateCurrentWeekDays();
+  List<DateTime> weekDates = generateCurrentWeekDays();
 
   int currentDay = DateTime.now().day;
   int currentIndex;
@@ -34,7 +34,10 @@ class TimeTableViewModel extends BaseViewModel {
   init() async {
     getAdminAccess();
     log.wtf(weekDates);
-    currentIndex = weekDates.indexOf(DateTime.now().day);
+    currentIndex = weekDates
+        .map((e) => e.day == DateTime.now().day ? weekDates.indexOf(e) : -1)
+        .toList()[0];
+    log.wtf('Current Index  at Init is:$currentIndex');
     String rollNo = _authService.currentUser.rollNo.toString().substring(0, 6);
     timeTableService.getTimeTable(rollNo).listen((event) {
       timeTable = event;
@@ -88,8 +91,12 @@ class TimeTableViewModel extends BaseViewModel {
     minute = minute.replaceAll("AM", "");
 
     DateTime dateTime = DateTime.now();
-    DateTime schedulingTime = DateTime(dateTime.year, dateTime.month,
-        weekDates[currentIndex], int.parse(hour), int.parse(minute));
+    DateTime schedulingTime = DateTime(
+        weekDates[currentIndex].year,
+        weekDates[currentIndex].month,
+        weekDates[currentIndex].day,
+        int.parse(hour),
+        int.parse(minute));
     if (schedulingTime.millisecondsSinceEpoch <
         dateTime.millisecondsSinceEpoch) {
       showToast("Can't schedule alarm at this time",
