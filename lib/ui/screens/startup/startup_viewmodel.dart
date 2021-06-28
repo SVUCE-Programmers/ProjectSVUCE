@@ -25,6 +25,7 @@ class StartUpViewModel extends BaseViewModel {
   final ShareService _shareService = locator<ShareService>();
   final ConnectivityServices _connectivityServices =
       locator<ConnectivityServices>();
+
   bool isLottieLoaded = false;
 
   changeToLoaded() {

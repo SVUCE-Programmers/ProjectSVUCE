@@ -55,16 +55,15 @@ class HiveService {
 
   getBoxAtIndex<T>(String boxName, int index) async {
     int length = _hiveInterface.box(boxName).length;
-
     if (index >= length) {
       return "INDEX_ERROR";
     }
-
-    final openBox = await _hiveInterface.openBox(boxName);
-
+    final openBox = Hive.box(boxName).isOpen
+        ? _hiveInterface.box<T>(boxName)
+        : await _hiveInterface.openBox<T>(boxName);
     var result = openBox.getAt(index);
-
-    return result as T;
+    print(result.runtimeType);
+    return result;
   }
 
   updateBoxAtIndex<T>(String boxName, var newBox, int oldBoxIndex) async {

@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/ui/widgets/loaders/multi_circular_loader.dart';
 
-import 'startp_viewmodel.dart';
+import 'startup_viewmodel.dart';
 
 class StartUpView extends StatelessWidget {
   @override

@@ -7,19 +7,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
-import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 import 'users_repository.dart';
 
 @Singleton(as: UsersRepository)
-class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
+class UsersRepositoryImpl implements UsersRepository {
   final log = getLogger("UsersRepositoryImpl");
   static FirebaseFirestore firestore = locator<FirebaseFirestore>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
-
   static CollectionReference _userRef = firestore.collection("users");
   final StreamController<UserModel> _userController =
       StreamController<UserModel>.broadcast();
@@ -123,9 +121,10 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
       var data = await _userRef.doc(email).get();
       if (data.exists && data != null && data.data() != null) {
         if (Map<String, dynamic>.from(data.data())["id"] != null) {
-          showInfoMessage(
-            title: commonErrorTitle,
-            message: "Your account already exists, try logging in",
+          showToast(
+            commonErrorTitle +
+                "\n" +
+                "Your account already exists, try logging in",
           );
           return false;
         } else {
@@ -138,9 +137,8 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
         return false;
       }
     } catch (e) {
-      showInfoMessage(
-        title: commonErrorTitle,
-        message: "$e",
+      showToast(
+        commonErrorTitle + "\n" + "$e",
       );
       return false;
     }

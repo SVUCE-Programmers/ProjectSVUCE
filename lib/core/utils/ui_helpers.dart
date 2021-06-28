@@ -119,7 +119,7 @@ class UiHelpers {
         fontFamily: Configs.headlineFont,
         fontWeight: FontWeight.w600,
         color: Colors.white,
-        fontSize: 12 * sp);
+        fontSize: 14);
 
     blockSizeHorizontal = width / 100;
     blockSizeVertical = height / 100;

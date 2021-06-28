@@ -16,6 +16,8 @@ import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service_impl.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/core/services/share%20service/share_service_impl.dart';
+import 'package:svuce_app/core/services/staff%20service/staff_service.dart';
+import 'package:svuce_app/core/services/staff%20service/staff_service_impl.dart';
 import 'package:svuce_app/core/services/student%20services/student_service.dart';
 import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
@@ -64,40 +66,36 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String environment, _i2.EnvironmentFilter environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerDependencies = _$RegisterDependencies();
-  gh.singleton<_i14.SnackbarService>(registerDependencies.snackbarService);
-  gh.singleton<_i14.NavigationService>(registerDependencies.navigationService);
-  gh.singleton<_i27.FirebaseFirestore>(registerDependencies.firestore);
-  gh.singleton<_i26.FirebaseAuth>(registerDependencies.firebaseAuth);
-  gh.lazySingleton<_i3.AnalyticsService>(() => _i3.AnalyticsService());
-  gh.lazySingleton<ConnectivityServices>(() => ConnectivityServices());
-  gh.lazySingleton<ExcelService>(() => ExcelServiceImpl());
-  gh.lazySingleton<ShareService>(() => ShareServiceImpl());
-
   gh.singleton<_i14.BottomSheetService>(
       registerDependencies.bottomSheetService);
-  gh.singleton<_i15.Client>(registerDependencies.client);
+  gh.lazySingleton<ConnectivityServices>(() => ConnectivityServices());
+  gh.lazySingleton<_i3.AnalyticsService>(() => _i3.AnalyticsService());
+  gh.singleton<_i14.NavigationService>(registerDependencies.navigationService);
+  gh.singleton<_i26.FirebaseAuth>(registerDependencies.firebaseAuth);
+  gh.singleton<_i27.FirebaseFirestore>(registerDependencies.firestore);
   gh.singleton<_i28.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i33.UsersRepository>(_i34.UsersRepositoryImpl());
-  gh.singleton<_i12.AuthService>(_i13.AuthServiceImpl());
-
-  gh.singleton<StudentService>(StudentServiceImpl());
-
-  gh.lazySingleton<_i4.AttendanceService>(() => _i4.AttendanceService());
-  gh.lazySingleton<_i5.HiveService>(() => _i5.HiveService());
   gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());
+  gh.singleton<_i15.Client>(registerDependencies.client);
+  gh.singleton<_i12.AuthService>(_i13.AuthServiceImpl());
+  gh.singleton<_i29.PushNotificationService>(_i30.PushNotificationServiceImp());
+  gh.singleton<_i14.SnackbarService>(registerDependencies.snackbarService);
+  gh.lazySingleton<_i4.AttendanceService>(() => _i4.AttendanceService());
+  gh.singleton<ExcelService>(ExcelServiceImpl());
+  gh.singleton<StudentService>(StudentServiceImpl());
+  gh.lazySingleton<_i5.HiveService>(() => _i5.HiveService());
+  gh.singleton<StaffService>(StaffServiceImpl());
+  gh.singleton<ShareService>(ShareServiceImpl());
   gh.lazySingleton<_i7.TimeTableService>(() => _i7.TimeTableService());
   gh.singleton<_i8.APIService>(_i9.APIServiceImpl());
   gh.singleton<_i10.AnnouncementsRepository>(
       _i11.AnnouncementsRepositoryImpl());
-
   gh.singleton<_i16.CloudStorageService>(_i17.CloudStorageServiceImpl());
   gh.singleton<_i18.ClubsRepository>(_i19.ClubsRepositoryImpl());
   gh.singleton<_i14.DialogService>(registerDependencies.dialogService);
   gh.singleton<_i20.DynamicLinkService>(_i21.DynamicLinkServiceImpl());
   gh.singleton<_i22.EventsRepository>(_i23.EventsRepositoryImpl());
   gh.singleton<_i24.FeedRepository>(_i25.FeedRepositoryImpl());
-
-  gh.singleton<_i29.PushNotificationService>(_i30.PushNotificationServiceImp());
   gh.singleton<_i31.UserClubsRepository>(_i32.UserClubsRepositoryImpl());
   return get;
 }

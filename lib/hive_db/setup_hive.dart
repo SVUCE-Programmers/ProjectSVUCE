@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/hive_db/models/staff_model.dart';
 
 import 'models/attendance.dart';
 import 'models/placement.dart';
-import 'models/staff.dart';
 
 void setupHive() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
@@ -13,7 +13,7 @@ void setupHive() async {
   final path = appDocumentDir.path;
   _hiveInterface.init(path);
 
-  _hiveInterface.registerAdapter(StaffAdapter());
   _hiveInterface.registerAdapter(AttendanceAdapter());
   _hiveInterface.registerAdapter(PlacementAdapter());
+  _hiveInterface.registerAdapter(StaffModelAdapter());
 }

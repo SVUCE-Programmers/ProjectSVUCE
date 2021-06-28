@@ -14,6 +14,7 @@ import '../core/models/event/event.dart';
 import '../core/models/feed/feed.dart';
 import '../ui/screens/Club%20Pages/Club%20Details%20Page/club_details_page.dart';
 import '../ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
+import '../ui/screens/Static%20Pages/campus%20map/campus_map_view.dart';
 import '../ui/screens/admin%20screens/add_edit_time_table/add_edit_time_table.dart';
 import '../ui/screens/admin%20screens/add_students_view/add_student_view.dart';
 import '../ui/screens/admin%20screens/attendance_staff_view/attendance_staff_view.dart';
@@ -58,6 +59,7 @@ class Routes {
   static const String clubDetaislPageView = '/club-detaisl-page-view';
   static const String githubPageView = '/github-page-view';
   static const String resourceViewer = '/resource-viewer';
+  static const String campusMapView = '/campus-map-view';
   static const all = <String>{
     startUpView,
     entryView,
@@ -81,6 +83,7 @@ class Routes {
     clubDetaislPageView,
     githubPageView,
     resourceViewer,
+    campusMapView,
   };
 }
 
@@ -111,6 +114,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.clubDetaislPageView, page: ClubDetaislPageView),
     RouteDef(Routes.githubPageView, page: GithubPageView),
     RouteDef(Routes.resourceViewer, page: ResourceViewer),
+    RouteDef(Routes.campusMapView, page: CampusMapView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -284,6 +288,12 @@ class StackedRouter extends RouterBase {
           urlLink: args.urlLink,
           title: args.title,
         ),
+        settings: data,
+      );
+    },
+    CampusMapView: (data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => CampusMapView(),
         settings: data,
       );
     },
