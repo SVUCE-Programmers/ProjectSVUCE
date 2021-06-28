@@ -78,16 +78,29 @@ class AddStudentViewModel extends BaseViewModel {
 
   searchUser(bool value) async {
     setBusy(true);
-
     _studentService
         .getStudentsByQuery(userController.text, value)
         .listen((event) {
-      log.wtf(event);
       if (event != null) {
         userModelList = event ?? [];
       }
       setBusy(false);
     });
+  }
+
+  updateStudent(UserModel userModel) async {
+    _navigationService.back();
+    setBusy(true);
+    var result = await _studentService.updateStudent(userModel);
+    setBusy(false);
+    if (result) {
+      showToast("Updated User Successfully",
+          backgroundColor: Colors.green,
+          textPadding:
+              const EdgeInsets.symmetric(horizontal: 25, vertical: 10));
+    } else {
+      showToast("Failed to update user");
+    }
   }
 
   deleteStudent(UserModel userModel) async {

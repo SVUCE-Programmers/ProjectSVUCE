@@ -45,7 +45,8 @@ class LoginViewBody extends ViewModelWidget<LoginViewModel> {
           prefixIcon: Icon(emailIcon),
         ),
         AnimatedInputField(
-          rowWidget: TextButton(
+          rowWidget: MaterialButton(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: viewModel.navigateToForgotPassword,
               child: Text(
                 "Forgot Password",

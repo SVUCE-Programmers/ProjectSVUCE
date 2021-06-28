@@ -7,6 +7,7 @@ import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/create%20post/create_post_view.dart';
+import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 class FeedViewModel extends BaseViewModel {
   final log = getLogger("Feed View Model");
@@ -50,12 +51,16 @@ class FeedViewModel extends BaseViewModel {
       transition: "rightToLeftWithFade",
       duration: Duration(milliseconds: 900));
   downloadFile(String urlLink, Feed feed) async {
-    _analyticsService.logEvent(name: "File Downloaded From Feed", parameters: {
-      "id": feed.id,
-      "title": feed.title,
-      "timeStamp": DateTime.now().toIso8601String()
-    });
+    showToast("Download will be started soon!", backgroundColor: Colors.orange);
     await _shareService.downloadFile(urlLink, feed.title,
         pathName: "/Svuce/Feed/", extensionName: ".png");
+    try {
+      _analyticsService
+          .logEvent(name: "File Downloaded From Feed", parameters: {
+        "id": feed.id,
+        "title": feed.title,
+        "timeStamp": DateTime.now().toIso8601String()
+      });
+    } catch (e) {}
   }
 }

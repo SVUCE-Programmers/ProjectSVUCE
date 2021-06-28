@@ -32,23 +32,24 @@ Future showAddNewClass(UiHelpers uiHelpers, AddEditTimeTableViewModel model,
                       data: "Add New Class",
                       style: uiHelpers.headline,
                     ),
-                    AnimatedDropdown(
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Please choose branch name";
-                          }
-                          return null;
-                        },
-                        items: [
-                          "CSE",
-                          "ECE",
-                          "MECH",
-                          "EEE",
-                          "CIV",
-                          "CHE",
-                        ],
-                        title: "Class Name",
-                        textEditingController: branchController),
+                    AnimatedDropdownWidget(
+                      textEditingController: branchController,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Please choose branch name";
+                        }
+                        return null;
+                      },
+                      items: [
+                        "CSE",
+                        "ECE",
+                        "MECH",
+                        "EEE",
+                        "CIV",
+                        "CHE",
+                      ],
+                      title: "Class Name",
+                    ),
                     AnimatedInputField(
                         title: "Year", textEditingController: yearController),
                     AnimatedButton(

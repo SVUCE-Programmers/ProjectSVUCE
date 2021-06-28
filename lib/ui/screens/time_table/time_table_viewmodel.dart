@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -90,8 +92,8 @@ class TimeTableViewModel extends BaseViewModel {
         weekDates[currentIndex], int.parse(hour), int.parse(minute));
     if (schedulingTime.millisecondsSinceEpoch <
         dateTime.millisecondsSinceEpoch) {
-      //TODO CANT SCHEDULE NOW
-
+      showToast("Can't schedule alarm at this time",
+          backgroundColor: Colors.red);
     } else {
       _notifyService.addAlarm(context,
           title: title,

@@ -4,6 +4,7 @@ import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
@@ -21,11 +22,10 @@ class ShareServiceImpl implements ShareService {
       if (await canLaunch(urlLink)) {
         launch(urlLink);
       } else {
-        //TODO Show cant can show url
+        showToast("Error in opening url", backgroundColor: Colors.red);
       }
     } catch (e) {
-      //  TODO Show ertror
-
+      showToast("Error in opening url", backgroundColor: Colors.red);
     }
   }
 
@@ -40,7 +40,7 @@ class ShareServiceImpl implements ShareService {
       }
     } catch (e) {
       log.e(e);
-      //TODO show error
+      showToast("Error occured please try again!", backgroundColor: Colors.red);
     }
   }
 
@@ -91,7 +91,7 @@ class ShareServiceImpl implements ShareService {
         print(e);
       }
     } else {
-      //TODO show No Permission
+      showToast("Please enable storage access", backgroundColor: Colors.red);
     }
   }
 

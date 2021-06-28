@@ -71,49 +71,51 @@ class CreatePostViewModel extends BaseViewModel {
   }
 
   createPost() async {
-    if (feed != null) {
-      setBusy(true);
-      feed = feed.copyWith(
-          timeStamp: DateTime.now().millisecondsSinceEpoch.toString(),
-          isUpdated: true,
+    if (formKey.currentState.validate()) {
+      if (feed != null) {
+        setBusy(true);
+        feed = feed.copyWith(
+            timeStamp: DateTime.now().millisecondsSinceEpoch.toString(),
+            isUpdated: true,
+            link: urlController.text,
+            title: titleController.text,
+            description: descController.text,
+            category: type ?? "General");
+        var data = await _feedRepository.updatePost(feed: feed);
+        log.i(data);
+        if (data is bool && data) {
+          _navigationService.back();
+        }
+        setBusy(false);
+      } else {
+        setBusy(true);
+        String imgUrl;
+        if (file != null) {
+          imgUrl = await _cloudStorageService.uploadImage(
+              imageToUpload: file,
+              fileName: DateTime.now().toUtc().toString(),
+              collectionName: "Feed");
+        }
+        var data = await _feedRepository.createPost(
+            feed: Feed(
           link: urlController.text,
-          title: titleController.text,
           description: descController.text,
-          category: type ?? "General");
-      var data = await _feedRepository.updatePost(feed: feed);
-      log.i(data);
-      if (data is bool && data) {
-        _navigationService.back();
-      }
-      setBusy(false);
-    } else {
-      setBusy(true);
-      String imgUrl;
-      if (file != null) {
-        imgUrl = await _cloudStorageService.uploadImage(
-            imageToUpload: file,
-            fileName: DateTime.now().toUtc().toString(),
-            collectionName: "Feed");
-      }
-      var data = await _feedRepository.createPost(
-          feed: Feed(
-        link: urlController.text,
-        description: descController.text,
-        title: titleController.text,
-        category: type,
-        imgUrl: imgUrl,
-        fullName: _firebaseAuth.currentUser.displayName,
-        profileImg: _firebaseAuth.currentUser.photoURL,
-        uid: _firebaseAuth.currentUser.uid,
-        timeStamp: DateTime.now().toString(),
-      ));
+          title: titleController.text,
+          category: type,
+          imgUrl: imgUrl,
+          fullName: _firebaseAuth.currentUser.displayName,
+          profileImg: _firebaseAuth.currentUser.photoURL,
+          uid: _firebaseAuth.currentUser.uid,
+          timeStamp: DateTime.now().toString(),
+        ));
 
-      log.i(data);
-      if (data is bool && data) {
-        _navigationService.back();
-      }
+        log.i(data);
+        if (data is bool && data) {
+          _navigationService.back();
+        }
 
-      setBusy(false);
+        setBusy(false);
+      }
     }
   }
 

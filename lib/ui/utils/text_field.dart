@@ -76,7 +76,7 @@ class AnimatedInputField extends HookWidget {
             ],
           ),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: rowWidget == null ? 0 : 5),
         FadeAnimation(
           delay: delay + 0.2,
           xDistance: xDistance,

@@ -9,6 +9,7 @@ import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
 import 'package:svuce_app/core/models/user/user.dart';
+import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 import 'users_repository.dart';
 
@@ -131,8 +132,10 @@ class UsersRepositoryImpl with SnackbarHelper implements UsersRepository {
           return true;
         }
       } else {
+        showToast("User not found in our database",
+            backgroundColor: Colors.red);
+
         return false;
-        //TODO Show User is Not Found in Database
       }
     } catch (e) {
       showInfoMessage(
