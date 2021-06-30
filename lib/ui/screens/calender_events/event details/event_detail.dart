@@ -61,7 +61,7 @@ class EventDetailsView extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {},
+            onPressed: model.addToCalendar,
             backgroundColor: uiHelpers.primaryColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

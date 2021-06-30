@@ -64,7 +64,7 @@ class StaffModel {
         phone: json["phone"] == null ? null : json["phone"],
         email: json["email"] == null ? null : json["email"],
         details: json["details"] == null ? null : json["details"],
-        imgUrl: json["imgUrl"] == null ? null : json["imgUrl"],
+        imgUrl: json["imgurl"] == null ? "" : json["imgurl"],
         branch: json["branch"] == null ? null : json["branch"],
       );
 

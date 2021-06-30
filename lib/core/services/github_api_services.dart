@@ -9,7 +9,7 @@ class GithubApiServices {
   final String programUrl =
       "https://api.github.com/repos/shashiben/RepoToTestGitApi/git/trees/e6097373b7ad814fd388c77514581cdd8f25a5fb";
   final String rawGithubUrl =
-      "https://raw.githubusercontent.com/shashiben/RepoToTestGitApi/master/";
+      "https://raw.githubusercontent.com/shashiben/RepoToTestGitApi/master/Library";
   getPrograms(String url) async {
     List<GithubApiResponse> _githubApiResponse = [];
     log.v(url);

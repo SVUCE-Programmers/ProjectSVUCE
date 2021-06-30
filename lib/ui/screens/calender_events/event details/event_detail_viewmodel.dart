@@ -7,6 +7,7 @@ import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/event/event.dart';
 import 'package:svuce_app/core/repositories/events_repository/events_repository.dart';
+import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/core/services/dynamic_links/dynamic_links.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:svuce_app/ui/utils/widget_to_image.dart';
@@ -18,11 +19,16 @@ class EventDetailViewModel extends BaseViewModel {
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
   GlobalKey globalKey = new GlobalKey();
   final ShareService _shareService = locator<ShareService>();
+  final NotifyService _notifyService = NotifyService();
   Event event;
 
   shareLink() async {
     String link = await _dynamicLinkService.createEventLink(event);
     return link;
+  }
+
+  addToCalendar() {
+    _notifyService.addEventToCalendar(eventModel: event);
   }
 
   File file;

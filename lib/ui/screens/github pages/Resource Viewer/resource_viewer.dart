@@ -45,70 +45,74 @@ class ResourceViewer extends StatelessWidget {
       case "css":
       case "html":
         return HightLightViewWidget(data: model.data, title: title);
-
       case "md":
         return model.data != null
-            ? MarkdownWidget(
-                physics: BouncingScrollPhysics(),
-                styleConfig: StyleConfig(
-                    markdownTheme: !uiHelpers.isDark
-                        ? MarkdownTheme.darkTheme
-                        : MarkdownTheme.lightTheme,
-                    olConfig: OlConfig(
-                      textStyle: uiHelpers.body,
-                      selectable: true,
-                      indexWidget: (deep, index) => Container(
-                        child: Text("${index + 1})  "),
-                      ),
-                    ),
-                    ulConfig: UlConfig(
-                      textStyle: uiHelpers.body,
-                      selectable: true,
-                      dotWidget: (deep, index) => Center(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 8, right: 12),
-                          height: 8,
-                          width: 8,
-                          decoration: BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
+            ? Scaffold(
+                appBar:
+                    AppBar(elevation: 0, backgroundColor: Colors.transparent),
+                body: MarkdownWidget(
+                  physics: BouncingScrollPhysics(),
+                  styleConfig: StyleConfig(
+                      markdownTheme: !uiHelpers.isDark
+                          ? MarkdownTheme.darkTheme
+                          : MarkdownTheme.lightTheme,
+                      olConfig: OlConfig(
+                        textStyle: uiHelpers.body,
+                        selectable: true,
+                        indexWidget: (deep, index) => Container(
+                          child: Text("${index + 1})  "),
                         ),
                       ),
-                    ),
-                    pConfig: PConfig(
-                      delStyle: uiHelpers.body,
-                      emStyle: uiHelpers.body,
-                      textStyle: uiHelpers.body,
-                      linkStyle: uiHelpers.body.copyWith(
-                          fontStyle: FontStyle.italic,
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue),
-                      selectable: true,
-                      onLinkTap: model.openUrl,
-                    ),
-                    blockQuoteConfig: BlockQuoteConfig(
-                      leftSpace: 10,
-                      backgroundColor: uiHelpers.surfaceColor,
-                    ),
-                    codeConfig: CodeConfig(
-                        codeStyle: uiHelpers.title,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: uiHelpers.surfaceColor,
-                            border: Border.all(color: uiHelpers.dividerColor))),
-                    titleConfig: TitleConfig(
-                        space: 12,
-                        showDivider: true,
-                        commonStyle: uiHelpers.title,
-                        textConfig: TextConfig(textAlign: TextAlign.start),
-                        h1: uiHelpers.headline,
-                        h2: uiHelpers.headline.copyWith(fontSize: 24),
-                        h3: uiHelpers.headline.copyWith(fontSize: 22),
-                        h4: uiHelpers.headline.copyWith(fontSize: 20),
-                        h5: uiHelpers.headline.copyWith(fontSize: 18),
-                        h6: uiHelpers.headline.copyWith(fontSize: 16)),
-                    hrConfig: HrConfig(color: uiHelpers.textPrimaryColor)),
-                data: model.data,
-                padding: const EdgeInsets.all(16.0),
+                      ulConfig: UlConfig(
+                        textStyle: uiHelpers.body,
+                        selectable: true,
+                        dotWidget: (deep, index) => Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 8, right: 12),
+                            height: 8,
+                            width: 8,
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                          ),
+                        ),
+                      ),
+                      pConfig: PConfig(
+                        delStyle: uiHelpers.body,
+                        emStyle: uiHelpers.body,
+                        textStyle: uiHelpers.body,
+                        linkStyle: uiHelpers.body.copyWith(
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue),
+                        selectable: true,
+                        onLinkTap: model.openUrl,
+                      ),
+                      blockQuoteConfig: BlockQuoteConfig(
+                        leftSpace: 10,
+                        backgroundColor: uiHelpers.surfaceColor,
+                      ),
+                      codeConfig: CodeConfig(
+                          codeStyle: uiHelpers.title,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: uiHelpers.surfaceColor,
+                              border:
+                                  Border.all(color: uiHelpers.dividerColor))),
+                      titleConfig: TitleConfig(
+                          space: 12,
+                          showDivider: true,
+                          commonStyle: uiHelpers.title,
+                          textConfig: TextConfig(textAlign: TextAlign.start),
+                          h1: uiHelpers.headline,
+                          h2: uiHelpers.headline.copyWith(fontSize: 24),
+                          h3: uiHelpers.headline.copyWith(fontSize: 22),
+                          h4: uiHelpers.headline.copyWith(fontSize: 20),
+                          h5: uiHelpers.headline.copyWith(fontSize: 18),
+                          h6: uiHelpers.headline.copyWith(fontSize: 16)),
+                      hrConfig: HrConfig(color: uiHelpers.textPrimaryColor)),
+                  data: model.data,
+                  padding: const EdgeInsets.all(16.0),
+                ),
               )
             : SizedBox();
 

@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final club = clubFromMap(jsonString);
-
-import 'dart:convert';
-
-Club clubFromMap(String str) => Club.fromMap(json.decode(str));
-
-String clubToMap(Club data) => json.encode(data.toMap());
-
 class Club {
   Club({
     this.id,
@@ -42,8 +32,8 @@ class Club {
         description: description ?? this.description,
       );
 
-  factory Club.fromMap(Map<String, dynamic> json) => Club(
-        id: json["id"] == null ? null : json["id"],
+  factory Club.fromMap(Map<String, dynamic> json, String id) => Club(
+        id: id,
         name: json["name"] == null ? null : json["name"],
         moto: json["moto"] == null ? null : json["moto"],
         clubBanner: json["clubBanner"] == null ? null : json["clubBanner"],

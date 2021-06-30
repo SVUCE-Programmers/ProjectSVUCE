@@ -9,13 +9,15 @@ List<DateTime> generateCurrentWeekDays() {
 
   //?Add Left Dates
   for (int i = 0; i < weekDay - 1; i++) {
-    weekDays
-        .add(dateTime.subtract(Duration(days: dateTime.weekday - i - 1)));
+    DateTime tempData =
+        dateTime.subtract(Duration(days: dateTime.weekday - i - 1));
+    weekDays.add(DateTime(tempData.year, tempData.month, tempData.day));
   }
 
   //?Add Right Dates
   for (int i = weekDay - 1; i < 7; i++) {
-    weekDays.add(dateTime.add(Duration(days: i - dateTime.weekday + 1)));
+    DateTime tempData = dateTime.add(Duration(days: i - dateTime.weekday + 1));
+    weekDays.add(DateTime(tempData.year, tempData.month, tempData.day));
   }
   log.w("Generate Week Dates are:$weekDays");
 

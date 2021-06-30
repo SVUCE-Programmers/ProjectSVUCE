@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
-import 'package:svuce_app/app/assets.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
@@ -38,7 +37,6 @@ class StartUpViewModel extends BaseViewModel {
     _connectivityServices.initializeConnectionService();
     _analyticsService.logAppOpen();
     _shareService.initFlutterDownload();
-    await precacheImage(AssetImage(hexagonPattern), context);
     await _dynamicLinkService.handleDynamicLinks();
     _shareService.initFlutterDownload();
     var userLoggedIn = _authenticationService.isUserLoggedIn();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
@@ -50,19 +51,31 @@ class TimeTableView extends StatelessWidget {
                   children: <Widget>[
                     WeekDaySelector(),
                     uiHelpers.verticalSpaceLow,
-                    Column(
-                      children: List.generate(
-                          model.getTimeTable().length,
-                          (index) => TimeTableItem(
-                                model: model,
-                                className: model
-                                    .getTimeTable()
-                                    .values
-                                    .elementAt(index),
-                                date:
-                                    model.getTimeTable().keys.elementAt(index),
-                              )),
-                    )
+                    model.getTimeTable().length == 0
+                        ? Column(
+                            children: [
+                              Lottie.asset("assets/lottie/no_classes.json"),
+                              Text(
+                                "No classes today",
+                                style: uiHelpers.headline,
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: List.generate(
+                                model.getTimeTable().length,
+                                (index) => TimeTableItem(
+                                      model: model,
+                                      className: model
+                                          .getTimeTable()
+                                          .values
+                                          .elementAt(index),
+                                      date: model
+                                          .getTimeTable()
+                                          .keys
+                                          .elementAt(index),
+                                    )),
+                          )
                   ],
                 )
               : Center(child: CircularProgressIndicator()),

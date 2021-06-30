@@ -32,18 +32,22 @@ class StaffWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(120),
-              child: Image.asset(
-                "assets/images/logo.png",
-                color: uiHelpers.primaryColor,
-                alignment: Alignment.bottomCenter,
-                height: 80,
-                width: uiHelpers.width * 0.2,
-              ),
-            ),
+            Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(120),
+                  child: FadeInImage(
+                    fit: BoxFit.fitWidth,
+                    placeholder: AssetImage('assets/images/logo.png'),
+                    image: NetworkImage(staffModel.imgUrl),
+                    imageErrorBuilder: (context, object, stack) =>
+                        Image.asset('assets/images/logo.png'),
+                  ),
+                ),
+                height: 75,
+                width: 75,
+                decoration: BoxDecoration(shape: BoxShape.circle)),
             SizedBox(
-              height: 8,
+              width: 8,
             ),
             Expanded(
                 child: Column(
@@ -54,7 +58,7 @@ class StaffWidget extends StatelessWidget {
                 SizedBox(height: 5),
                 Text("${staffModel.designation.join(',')}"),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: null,
                     child: Text(
                       "More Details",
                       style: uiHelpers.button

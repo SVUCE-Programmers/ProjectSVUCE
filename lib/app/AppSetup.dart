@@ -15,6 +15,7 @@ import 'package:svuce_app/ui/screens/forgot_password/forgot_password_view.dart';
 import 'package:svuce_app/ui/screens/github%20pages/Resource%20Viewer/resource_viewer.dart';
 import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
 import 'package:svuce_app/ui/screens/login/login_view.dart';
+import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 import 'package:svuce_app/ui/screens/main/main_view.dart';
 import 'package:svuce_app/ui/screens/notifications/notifications_view.dart';
 import 'package:svuce_app/ui/screens/placements/placements_view.dart';

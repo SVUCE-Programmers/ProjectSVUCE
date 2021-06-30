@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/club/club.dart';
+import 'package:svuce_app/core/models/user/user.dart';
 import 'clubs_repository.dart';
 
 @Singleton(as: ClubsRepository)
@@ -16,12 +17,17 @@ class ClubsRepositoryImpl implements ClubsRepository {
       StreamController<List<Club>>.broadcast();
 
   @override
-  Future followClub(String clubId, String userId) async {
+  Future followClub(String clubId, UserModel userModel) async {
     try {
-      Map<String, dynamic> map = {"id": userId};
-
-      await _clubsRef.doc(clubId).collection("followers").doc(userId).set(map);
-
+      Map<String, dynamic> map = {
+        "id": userModel.id,
+        "name": userModel.fullName
+      };
+      await _clubsRef
+          .doc(clubId)
+          .collection("followers")
+          .doc(userModel.id)
+          .set(map);
       return true;
     } catch (e) {
       return false;
@@ -34,8 +40,8 @@ class ClubsRepositoryImpl implements ClubsRepository {
     _clubsRef.snapshots().listen((snapshots) {
       if (snapshots.docs.isNotEmpty) {
         var posts = snapshots.docs
-            .map((snapshot) =>
-                Club.fromMap(Map<String, dynamic>.from(snapshot.data())))
+            .map((snapshot) => Club.fromMap(
+                Map<String, dynamic>.from(snapshot.data()), snapshot.id))
             .toList();
 
         // Add the [items] onto the controller

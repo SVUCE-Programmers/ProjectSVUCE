@@ -41,7 +41,11 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
         ),
         trailing: isSelectClubs
             ? TextButton.icon(
-                icon: Icon(addIcon),
+                icon: Icon(
+                  addIcon,
+                  color:
+                      success ? uiHelpers.surfaceColor : uiHelpers.primaryColor,
+                ),
                 onPressed: onFollowButtonPressed != null
                     ? model.isBusy || success
                         ? null
@@ -54,7 +58,10 @@ class ClubTile extends ViewModelWidget<SelectClubsViewModel> {
                       )
                     : CircularProgressIndicator(),
               )
-            : Icon(forwardIcon),
+            : Icon(
+                forwardIcon,
+                color: uiHelpers.textSecondaryColor,
+              ),
       ),
     );
   }

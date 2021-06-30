@@ -60,13 +60,14 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
     }
     try {
       var selectedClub = clubs[index];
-      await _clubsRepository.followClub(selectedClub.id, user.id);
+      await _clubsRepository.followClub(selectedClub.id, user);
       await _userClubsRepository.addClubToUser(
           UserClub(
+              description: selectedClub.description,
               id: selectedClub.id,
               clubLogo: selectedClub.clubLogo,
               name: selectedClub.name),
-          user.id);
+          user.email);
       await _pushNotifyService.subscribe(clubs[index].id);
       flags[index] = true;
       setBusy(false);
@@ -100,17 +101,15 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   }
 
   init(bool isSelectClubs) {
-    if (isSelectClubs) {
-      getClubListOnce();
-    } else {
-      getClubListOnce();
+    getClubListOnce();
+    if (!isSelectClubs) {
       getUserClubs();
     }
   }
 
   getUserClubs() {
     _userClubsRepository
-        .getUserClubs(_firebaseAuth.currentUser.uid)
+        .getUserClubs(_firebaseAuth.currentUser.email)
         .listen((event) {
       if (event != null) {
         userClubList = event;

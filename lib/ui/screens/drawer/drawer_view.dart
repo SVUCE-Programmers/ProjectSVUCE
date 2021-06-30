@@ -14,7 +14,6 @@ class DrawerView extends StatelessWidget {
 
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      onModelReady: (model) => model.init(),
       builder: (context, model, child) => SafeArea(
         child: ClipRRect(
           borderRadius: BorderRadius.only(
@@ -70,55 +69,62 @@ class DrawerView extends StatelessWidget {
                   Divider(
                     color: uiHelpers.textSecondaryColor,
                   ),
-                  DrawerItem(
-                    title: "Faculty",
-                    onTap: model.navigateToStaff,
-                    iconData: facultyIcon,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          DrawerItem(
+                            title: "Faculty",
+                            onTap: model.navigateToStaff,
+                            iconData: facultyIcon,
+                          ),
+                          model.isGuest
+                              ? SizedBox()
+                              : DrawerItem(
+                                  title: "Explore Clubs",
+                                  onTap: () => model.navigateToExploreClubs(),
+                                  iconData: clubsIcon,
+                                ),
+                          model.isGuest
+                              ? SizedBox()
+                              : DrawerItem(
+                                  title: "Timetable",
+                                  onTap: () => model.navigateToTimeTable(),
+                                  iconData: timeTableIcon,
+                                ),
+                          model.isGuest
+                              ? SizedBox()
+                              : DrawerItem(
+                                  title: "Attendance",
+                                  onTap: model.navigateToAttendance,
+                                  iconData: attendanceIcon,
+                                ),
+                          DrawerItem(
+                            title: "Campus Map",
+                            onTap: model.navigateToCampusMap,
+                            iconData: campusIcon,
+                          ),
+                          DrawerItem(
+                            title: "About College",
+                            onTap: () => model.navigateToAboutCollege(),
+                            iconData: schoolIcon,
+                          ),
+                          DrawerItem(
+                            title: "About App",
+                            onTap: () => model.navigateToAboutApp(),
+                            iconData: infoIcon,
+                          ),
+                          model.isAdmin
+                              ? DrawerItem(
+                                  title: "Student Details",
+                                  onTap: () => model.navigateToAddStudent(),
+                                  iconData: FlutterIcons.users_fea,
+                                )
+                              : SizedBox(),
+                        ],
+                      ),
+                    ),
                   ),
-                  model.isGuest
-                      ? SizedBox()
-                      : DrawerItem(
-                          title: "Explore Clubs",
-                          onTap: () => model.navigateToExploreClubs(),
-                          iconData: clubsIcon,
-                        ),
-                  model.isGuest
-                      ? SizedBox()
-                      : DrawerItem(
-                          title: "Timetable",
-                          onTap: () => model.navigateToTimeTable(),
-                          iconData: timeTableIcon,
-                        ),
-                  model.isGuest
-                      ? SizedBox()
-                      : DrawerItem(
-                          title: "Attendance",
-                          onTap: model.navigateToAttendance,
-                          iconData: attendanceIcon,
-                        ),
-                  DrawerItem(
-                    title: "Campus Map",
-                    onTap: model.navigateToCampusMap,
-                    iconData: campusIcon,
-                  ),
-                  DrawerItem(
-                    title: "About College",
-                    onTap: () => model.navigateToAboutCollege(),
-                    iconData: schoolIcon,
-                  ),
-                  DrawerItem(
-                    title: "About App",
-                    onTap: () => model.navigateToAboutApp(),
-                    iconData: infoIcon,
-                  ),
-                  model.isAdmin
-                      ? DrawerItem(
-                          title: "Student Details",
-                          onTap: () => model.navigateToAddStudent(),
-                          iconData: FlutterIcons.users_fea,
-                        )
-                      : SizedBox(),
-                  Spacer(),
                   DrawerItem(
                     onTap: () => model.logout(),
                     title: "Logout",

@@ -34,9 +34,9 @@ class TimeTableViewModel extends BaseViewModel {
   init() async {
     getAdminAccess();
     log.wtf(weekDates);
-    currentIndex = weekDates
-        .map((e) => e.day == DateTime.now().day ? weekDates.indexOf(e) : -1)
-        .toList()[0];
+    DateTime dateTime =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    currentIndex = weekDates.indexOf(dateTime);
     log.wtf('Current Index  at Init is:$currentIndex');
     String rollNo = _authService.currentUser.rollNo.toString().substring(0, 6);
     timeTableService.getTimeTable(rollNo).listen((event) {

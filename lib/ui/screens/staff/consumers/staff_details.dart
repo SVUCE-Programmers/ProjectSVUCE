@@ -26,14 +26,16 @@ class StaffDetailsView extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(120),
                       child: FadeInImage(
+                        fit: BoxFit.fitWidth,
                         placeholder: AssetImage('assets/images/logo.png'),
                         image: NetworkImage(staffModel.imgUrl),
                         imageErrorBuilder: (context, object, stack) =>
                             Image.asset('assets/images/logo.png'),
                       ),
                     ),
-                    height: uiHelpers.blockSizeVertical * 15,
-                    decoration: BoxDecoration()),
+                    height: 175,
+                    width: 175,
+                    decoration: BoxDecoration(shape: BoxShape.circle)),
               ),
               SizedBox(
                 height: 15,

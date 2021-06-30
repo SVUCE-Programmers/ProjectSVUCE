@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/models/club/club.dart';
 import 'package:svuce_app/core/repositories/clubs_repository/clubs_repository.dart';
+import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 import 'mock_data.dart';
 
@@ -47,7 +48,7 @@ main() {
 
     test("Follow Club", () async {
       String clubId = "clubId1";
-      String userId = "userId";
+      UserModel userId = UserModel();
 
       final MockFirestoreInstance mockFirestoreInstance =
           MockFirestoreInstance();
@@ -67,5 +68,5 @@ bool verifyData(Club club, int index) {
       club.moto == mockData['moto'] &&
       club.clubBanner == mockData['clubBanner'] &&
       club.clubLogo == mockData['clubLogo'] &&
-      club.description == mockData['description'] ;
+      club.description == mockData['description'];
 }

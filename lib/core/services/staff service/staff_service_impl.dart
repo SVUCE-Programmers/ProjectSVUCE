@@ -21,6 +21,7 @@ class StaffServiceImpl implements StaffService {
     var res = await get(Uri.parse("${UrlConfigs.staffJsonUrl}"));
     if (res.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(res.body);
+      log.d(data);
       if (!Hive.box("Staff").isOpen) await Hive.openBox("Staff");
       data.forEach((key, value) async {
         List<StaffModel> staffModelList = [];
@@ -29,7 +30,6 @@ class StaffServiceImpl implements StaffService {
         });
         dataToSend[key] = staffModelList;
         await updateStaffDetailsToHive(key, staffModelList);
-        log.v("List is:$staffModelList");
       });
       staffDataController.add(dataToSend);
     }
@@ -42,7 +42,6 @@ class StaffServiceImpl implements StaffService {
     if (!Hive.isBoxOpen("Staff")) {
       await Hive.openBox("Staff");
     }
-
     var box = Hive.box("Staff");
     int boxLength = Hive.box("Staff").length;
     log.d("Box Length is:$boxLength");
