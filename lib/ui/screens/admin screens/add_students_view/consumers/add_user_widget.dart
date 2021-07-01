@@ -43,7 +43,8 @@ class AddUserWidget extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                           tileColor: uiHelpers.surfaceColor,
                           title: Text("Download Excel", style: uiHelpers.title),
-                          subtitle: Text("Download sample and use it."),
+                          subtitle: Text("Download sample and use it.",
+                              style: uiHelpers.body),
                           trailing: TextButton(
                               onPressed: model.downloadSample,
                               child: Text("Download",

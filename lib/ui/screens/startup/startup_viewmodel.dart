@@ -16,6 +16,7 @@ import 'package:svuce_app/ui/screens/Static%20Pages/onboard%20screens/onboard_vi
 
 class StartUpViewModel extends BaseViewModel {
   final log = getLogger("Startup View Model");
+
   final AuthService _authenticationService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
@@ -27,18 +28,14 @@ class StartUpViewModel extends BaseViewModel {
 
   bool isLottieLoaded = false;
 
-  changeToLoaded() {
+  changeToLoaded() async {
     isLottieLoaded = true;
     notifyListeners();
+    await Future.delayed(Duration(seconds: 3));
+    handleNavigation();
   }
 
-  Future handleStartUpLogic(BuildContext context) async {
-    _authenticationService.listenAuthStatusStream();
-    _connectivityServices.initializeConnectionService();
-    _analyticsService.logAppOpen();
-    _shareService.initFlutterDownload();
-    await _dynamicLinkService.handleDynamicLinks();
-    _shareService.initFlutterDownload();
+  handleNavigation() {
     var userLoggedIn = _authenticationService.isUserLoggedIn();
     log.i("User Login Status is:$userLoggedIn");
     if (userLoggedIn) {
@@ -47,5 +44,14 @@ class StartUpViewModel extends BaseViewModel {
     } else {
       _navigationService.navigateToView(OnBoardView());
     }
+  }
+
+  Future handleStartUpLogic(BuildContext context) async {
+    _authenticationService.listenAuthStatusStream();
+    _connectivityServices.initializeConnectionService();
+    _analyticsService.logAppOpen();
+    _shareService.initFlutterDownload();
+    _dynamicLinkService.handleDynamicLinks();
+    _shareService.initFlutterDownload();
   }
 }
