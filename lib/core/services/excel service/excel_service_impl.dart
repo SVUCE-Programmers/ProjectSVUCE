@@ -11,6 +11,7 @@ import 'dart:io';
 
 import 'package:svuce_app/core/services/permission_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
+import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 @Singleton(as: ExcelService)
 class ExcelServiceImpl implements ExcelService {
@@ -124,7 +125,6 @@ class ExcelServiceImpl implements ExcelService {
     _excel.sheets.forEach((key, value) {
       if (key == sheetName) {
         List<List<Data>> data = value.rows;
-
         resultData = data;
       }
     });
@@ -157,7 +157,6 @@ class ExcelServiceImpl implements ExcelService {
         File(path)
           ..createSync(recursive: true)
           ..writeAsBytesSync(bytes);
-          
       } else {
         var dir = await getExternalStorageDirectory();
         var knockDir =
@@ -208,5 +207,38 @@ class ExcelServiceImpl implements ExcelService {
       }
     }
     return data;
+  }
+
+  @override
+  downloadExcelSample() async {
+    try {
+      Excel tempExcel;
+      tempExcel = Excel.createExcel();
+      tempExcel.appendRow(
+          "User Data", ["Name", "Roll No", "Gender", "Email", "Phone Number"]);
+      tempExcel.delete("Sheet1");
+      PermissionService _permissionService = PermissionService();
+      bool permissionResult =
+          await _permissionService.requestStoragePermission();
+
+      if (permissionResult) {
+        Directory downloadsDirectory =
+            await DownloadsPathProvider.downloadsDirectory;
+        String path =
+            downloadsDirectory.path + "/Svuce/Staff_Attendance/sample.xlsx";
+        List<int> bytes = tempExcel.encode();
+        File(path)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(bytes);
+      }
+      showToast("Downloaded Successfully",
+          backgroundColor: Colors.green.withOpacity(0.2),
+          radius: 8,
+          textPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+          textStyle: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.green));
+    } catch (e) {
+      log.e(e);
+    }
   }
 }

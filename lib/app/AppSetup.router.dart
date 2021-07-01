@@ -284,6 +284,7 @@ class StackedRouter extends RouterBase {
       );
       return MaterialPageRoute<dynamic>(
         builder: (context) => ResourceViewer(
+          type: args.type,
           key: args.key,
           urlLink: args.urlLink,
           title: args.title,
@@ -347,5 +348,6 @@ class ResourceViewerArguments {
   final Key key;
   final String urlLink;
   final String title;
-  ResourceViewerArguments({this.key, this.urlLink, this.title});
+  final String type;
+  ResourceViewerArguments({this.key, this.urlLink, this.title, this.type});
 }

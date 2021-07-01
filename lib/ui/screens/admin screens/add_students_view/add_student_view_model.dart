@@ -64,9 +64,9 @@ class AddStudentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  saveUserData() async {
+  saveUserData({bool isStudent = true}) async {
     setBusy(true);
-    await _studentService.addStudentDataToFirebase(data);
+    await _studentService.addStudentDataToFirebase(data, isStudent);
     setBusy(false);
   }
 
@@ -132,5 +132,8 @@ class AddStudentViewModel extends BaseViewModel {
     });
     _shareService.shareData(
         title: "${userModel.fullName} Data", description: data);
+  }
+  downloadSample(){
+    _excelService.downloadExcelSample();
   }
 }

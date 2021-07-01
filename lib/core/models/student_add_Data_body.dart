@@ -58,11 +58,11 @@ class StudentAddDataBody {
       };
   static StudentAddDataBody getFromExcel(List<dynamic> data) {
     return StudentAddDataBody(
-      name: data[0],
-      rollNo: data[1].toInt(),
-      gender: data[2],
-      email: data[3],
-      phoneNumber: data[4].toInt(),
+      name: data[0].value,
+      rollNo: data[1].value.toInt(),
+      gender: data[2].value,
+      email: data[3].value,
+      phoneNumber: data[4].value.toInt(),
     );
   }
 }

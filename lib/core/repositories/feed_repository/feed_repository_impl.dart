@@ -36,8 +36,8 @@ class FeedRepositoryImpl implements FeedRepository {
     var currentRequestIndex = _allFeedResults.length;
     feedQuery.snapshots().listen((postsSnapshot) {
       var feedItems = postsSnapshot.docs
-          .map((snapshot) =>
-              Feed.fromMap(Map<String, dynamic>.from(snapshot.data())))
+          .map((snapshot) => Feed.fromMap(
+              Map<String, dynamic>.from(snapshot.data()), snapshot.id))
           .where((mappedItem) => mappedItem.title != null)
           .toList();
       var pageExists = currentRequestIndex < _allFeedResults.length;
@@ -74,31 +74,33 @@ class FeedRepositoryImpl implements FeedRepository {
     } catch (e) {
       return false;
     }
-    //?Todo Add Snackbar
+    //?TODO Add Snackbar
   }
 
   @override
   deletePost({Feed feed}) async {
     try {
+      log.i(feed.toMap());
+      log.i("Feed with id:${feed.id} is going to be deleted");
       await _feedRef.doc(feed.id).delete();
       log.i("Delete Post Successfully");
       return true;
     } catch (e) {
       return false;
     }
-    //?Todo Add Snackbar
+    //?TODO Add Snackbar
   }
 
   @override
   updatePost({Feed feed}) async {
     try {
+      log.i("Feed with id:${feed.id} is going to be updated");
       await _feedRef.doc(feed.id).update(feed.toMap());
       log.i("Updated Post Successfully");
-
       return true;
     } catch (e) {
       return false;
     }
-    //?Todo Add Update Snackbar
+    //?TODO Add Update Snackbar
   }
 }

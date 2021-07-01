@@ -12,9 +12,9 @@ class ResourceViewerViewModel extends BaseViewModel {
   GithubApiServices _githubApiServices = GithubApiServices();
   final ShareService _shareService = locator<ShareService>();
 
-  init(String urlLink) async {
+  init(String urlLink, String type) async {
     _urlLink = urlLink;
-    await getDataFromUrl();
+    if (!["pdf", "docx", "txt", "doc"].contains(type)) await getDataFromUrl();
     notifyListeners();
   }
 

@@ -22,6 +22,7 @@ abstract class ExcelService {
   Future<List<List<Data>>> getAttendanceDetails({@required String sheetName});
   downloadExcelService({@required String sheetName,bool isDownload=false});
   deleteSheet({@required String sheetName});
+  downloadExcelSample();
 
   //?General Services
   List<StudentAddDataBody> getDataFromExcelFile({@required File file});

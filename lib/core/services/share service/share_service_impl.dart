@@ -49,7 +49,7 @@ class ShareServiceImpl implements ShareService {
 
   @override
   Future downloadFile(String urlLink, String fileName,
-      {String pathName, String extensionName}) async {
+      {@required String pathName, @required String extensionName}) async {
     bool granted = await Permission.storage.isGranted;
     if (!granted) {
       await Permission.storage.request();

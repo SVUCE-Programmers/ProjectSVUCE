@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:svuce_app/app/default_view.dart';
+import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
 import 'package:svuce_app/ui/utils/highlight_view.dart';
@@ -11,14 +12,19 @@ import 'resource_viewer_view_model.dart';
 class ResourceViewer extends StatelessWidget {
   final String urlLink;
   final String title;
+  final String type;
 
-  const ResourceViewer({Key key, @required this.urlLink, @required this.title})
+  const ResourceViewer(
+      {Key key,
+      @required this.urlLink,
+      @required this.title,
+      @required this.type})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<ResourceViewerViewModel>(
       showLoadingOnBusy: false,
-      onModelReady: (m) => m.init(urlLink),
+      onModelReady: (m) => m.init(urlLink, type),
       viewModel: ResourceViewerViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
         body: ModalHud(
@@ -48,8 +54,13 @@ class ResourceViewer extends StatelessWidget {
       case "md":
         return model.data != null
             ? Scaffold(
-                appBar:
-                    AppBar(elevation: 0, backgroundColor: Colors.transparent),
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  leading: IconButton(
+                      onPressed: () => model.navigateBack(),
+                      icon: Icon(backIcon, color: uiHelpers.textPrimaryColor)),
+                ),
                 body: MarkdownWidget(
                   physics: BouncingScrollPhysics(),
                   styleConfig: StyleConfig(

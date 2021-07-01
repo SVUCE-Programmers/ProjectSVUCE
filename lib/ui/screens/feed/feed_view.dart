@@ -12,7 +12,7 @@ class FeedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenBuilder<FeedViewModel>(
       viewModel: FeedViewModel(),
-      onModelReady: (model) => model.getFeed(),
+      onModelReady: (model) => model.init(),
       builder: (context, uiHelpers, model) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(

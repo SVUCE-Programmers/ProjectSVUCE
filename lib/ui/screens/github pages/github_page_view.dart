@@ -45,6 +45,22 @@ class GithubPageView extends StatelessWidget {
                                       ? Icon(Icons.arrow_forward_ios,
                                           color: uiHelpers.textPrimaryColor)
                                       : PopupMenuButton(
+                                          onSelected: (value) {
+                                            switch (value) {
+                                              case "Download":
+                                                String url = model.getUrl(
+                                                    model.githubApiList[index]);
+                                                model.downloadFile(
+                                                    url,
+                                                    model.githubApiList[index]
+                                                        .path
+                                                        .replaceAll("_", " ")
+                                                        .split(".")
+                                                        .first);
+                                                break;
+                                              default:
+                                            }
+                                          },
                                           icon: Icon(Icons.more_vert,
                                               color:
                                                   uiHelpers.textPrimaryColor),
@@ -52,18 +68,21 @@ class GithubPageView extends StatelessWidget {
                                           itemBuilder: (context) =>
                                               <PopupMenuItem>[
                                                 PopupMenuItem(
+                                                    value: "Download",
                                                     child: ListTile(
-                                                  dense: true,
-                                                  contentPadding:
-                                                      EdgeInsets.zero,
-                                                  horizontalTitleGap: 4,
-                                                  leading: Icon(
-                                                      FlutterIcons.download_fea,
-                                                      color: uiHelpers
-                                                          .textPrimaryColor),
-                                                  title: Text("Download",
-                                                      style: uiHelpers.title),
-                                                ))
+                                                      dense: true,
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      horizontalTitleGap: 4,
+                                                      leading: Icon(
+                                                          FlutterIcons
+                                                              .download_fea,
+                                                          color: uiHelpers
+                                                              .textPrimaryColor),
+                                                      title: Text("Download",
+                                                          style:
+                                                              uiHelpers.title),
+                                                    ))
                                               ]),
                                   tileColor: uiHelpers.surfaceColor,
                                   onTap: () => model.navigationMode(
@@ -71,7 +90,8 @@ class GithubPageView extends StatelessWidget {
                                   title: Text(
                                     model.githubApiList[index].path
                                         .replaceAll("_", " ")
-                                        .split(".")[0],
+                                        .split(".")
+                                        .first,
                                     style: uiHelpers.title,
                                   )),
                             ),

@@ -13,9 +13,10 @@ class FeedViewModel extends BaseViewModel {
   final log = getLogger("Feed View Model");
   final FeedRepository _feedRepository = locator<FeedRepository>();
   final ShareService _shareService = locator<ShareService>();
+  final AuthService _authService = locator<AuthService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
   final NavigationService _navigationService = locator<NavigationService>();
-
+  bool isAdmin = false;
   List<Feed> _feedItems;
   List<Feed> get feedItems => _feedItems;
 
@@ -37,6 +38,12 @@ class FeedViewModel extends BaseViewModel {
 
   navigateBack() {
     _navigationService.back();
+  }
+
+  init() {
+    isAdmin = _authService.hasAdminAccess;
+    notifyListeners();
+    getFeed();
   }
 
   navigationToCreatePost() =>

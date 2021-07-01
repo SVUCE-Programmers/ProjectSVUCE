@@ -19,47 +19,69 @@ class AddUserWidget extends StatelessWidget {
             children: [
               uiHelpers.verticalSpaceLow,
               model.excelFile != null
-                  ? MaterialBanner(
-                      content: Text(
-                        "${model.excelFile.path.split("/").last}",
-                        style: uiHelpers.title,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 15),
-                      actions: [
-                          IconButton(
-                              onPressed: () => model.removeFile(),
-                              icon: Icon(FlutterIcons.x_fea))
-                        ])
-                  : DottedBorder(
-                      color: uiHelpers.primaryColor,
-                      dashPattern: [8, 8],
-                      radius: Radius.circular(8),
-                      borderType: BorderType.RRect,
-                      child: InkWell(
-                        onTap: () => model.pickExcel(),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: uiHelpers.surfaceColor,
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: MaterialBanner(
+                          content: Text(
+                            "${model.excelFile.path.split("/").last}",
+                            style: uiHelpers.title,
                           ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.drive_folder_upload),
-                                SizedBox(width: 10),
-                                Text(
-                                  "Please Upload Excel Sheet",
-                                  style: uiHelpers.title
-                                      .copyWith(color: uiHelpers.primaryColor),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          actions: [
+                            IconButton(
+                                onPressed: () => model.removeFile(),
+                                icon: Icon(FlutterIcons.x_fea))
+                          ]),
+                    )
+                  : Column(
+                      children: [
+                        ListTile(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                          tileColor: uiHelpers.surfaceColor,
+                          title: Text("Download Excel", style: uiHelpers.title),
+                          subtitle: Text("Download sample and use it."),
+                          trailing: TextButton(
+                              onPressed: model.downloadSample,
+                              child: Text("Download",
+                                  style: uiHelpers.button.copyWith(
+                                      color: uiHelpers.primaryColor))),
+                        ),
+                        SizedBox(height: 20),
+                        DottedBorder(
+                          color: uiHelpers.primaryColor,
+                          dashPattern: [8, 8],
+                          radius: Radius.circular(8),
+                          borderType: BorderType.RRect,
+                          child: InkWell(
+                            onTap: () => model.pickExcel(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: uiHelpers.surfaceColor,
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.drive_folder_upload),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Please Upload Excel Sheet",
+                                      style: uiHelpers.title.copyWith(
+                                          color: uiHelpers.primaryColor),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
+                              height: 75,
                             ),
                           ),
-                          height: 75,
                         ),
-                      ),
+                      ],
                     ),
               uiHelpers.verticalSpaceLow,
               model.data != null && model.data.length != 0
@@ -160,7 +182,8 @@ class AddUserWidget extends StatelessWidget {
                         ),
                         MaterialButton(
                           color: uiHelpers.primaryColor,
-                          onPressed: model.saveUserData,
+                          onPressed: () => model.saveUserData(
+                              isStudent: model.isStudentsData),
                           padding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 30),
                           shape: RoundedRectangleBorder(

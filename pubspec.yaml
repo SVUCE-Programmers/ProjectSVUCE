@@ -54,6 +54,7 @@ dependencies:
 
   # main utilities
   image_picker:
+  flutter_cached_pdfview:
   observable_ish:
   flutter_cache_manager:
   logger:
@@ -102,7 +103,6 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/icon.png"
-
 
 flutter:
   uses-material-design: true

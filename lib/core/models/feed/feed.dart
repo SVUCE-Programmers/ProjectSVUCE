@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final feed = feedFromMap(jsonString);
-
-import 'dart:convert';
-
-Feed feedFromMap(String str) => Feed.fromMap(json.decode(str));
-
-String feedToMap(Feed data) => json.encode(data.toMap());
-
 class Feed {
   Feed({
     this.uid,
@@ -66,9 +56,9 @@ class Feed {
         timeStamp: timeStamp ?? this.timeStamp,
       );
 
-  factory Feed.fromMap(Map<String, dynamic> json) => Feed(
+  factory Feed.fromMap(Map<String, dynamic> json, String id) => Feed(
         uid: json["uid"] == null ? null : json["uid"],
-        id: json["id"] == null ? null : json["id"],
+        id: id,
         feedId: json["feedId"] == null ? null : json["feedId"],
         link: json["link"] == null ? null : json["link"],
         isUpdated: json["isUpdated"] == null ? false : json["isUpdated"],

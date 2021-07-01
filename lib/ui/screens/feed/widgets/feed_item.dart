@@ -36,35 +36,37 @@ class FeedItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ListTile(
-            trailing: PopupMenuButton(
-              icon: Icon(
-                Icons.more_vert,
-                color: uiHelpers.textSecondaryColor,
-              ),
-              color: uiHelpers.backgroundColor,
-              onSelected: (value) {
-                switch (value) {
-                  case "Update":
-                    updateItem(feed);
-                    break;
-                  case "Delete":
-                    deleteItem(feed);
+            trailing: !model.isAdmin
+                ? SizedBox()
+                : PopupMenuButton(
+                    icon: Icon(
+                      Icons.more_vert,
+                      color: uiHelpers.textSecondaryColor,
+                    ),
+                    color: uiHelpers.backgroundColor,
+                    onSelected: (value) {
+                      switch (value) {
+                        case "Update":
+                          updateItem(feed);
+                          break;
+                        case "Delete":
+                          deleteItem(feed);
 
-                    break;
-                  default:
-                }
-              },
-              itemBuilder: (_) => [
-                PopupMenuItem(
-                  child: Text("Update", style: uiHelpers.body),
-                  value: "Update",
-                ),
-                PopupMenuItem(
-                  child: Text("Delete", style: uiHelpers.body),
-                  value: "Delete",
-                )
-              ],
-            ),
+                          break;
+                        default:
+                      }
+                    },
+                    itemBuilder: (_) => [
+                      PopupMenuItem(
+                        child: Text("Update", style: uiHelpers.body),
+                        value: "Update",
+                      ),
+                      PopupMenuItem(
+                        child: Text("Delete", style: uiHelpers.body),
+                        value: "Delete",
+                      )
+                    ],
+                  ),
             dense: true,
             contentPadding: EdgeInsets.zero,
             subtitle: Text.rich(

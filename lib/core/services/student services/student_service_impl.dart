@@ -17,14 +17,15 @@ class StudentServiceImpl extends StudentService {
       locator<FirebaseFirestore>().collection("users");
   final AuthService _authService = locator<AuthService>();
   @override
-  Future addStudentDataToFirebase(List<StudentAddDataBody> data) async {
+  Future addStudentDataToFirebase(
+      List<StudentAddDataBody> data, bool isStudent) async {
     try {
       for (int i = 0; i < data.length; i++) {
         await _userCollection.doc(data[i].email).set(UserModel(
               fullName: data[i].name,
               email: data[i].email,
               rollNo: data[i].rollNo,
-              userType: "STUDENT",
+              userType: isStudent ? "STUDENT" : "ADMIN",
               phoneNumber: data[i].phoneNumber,
               collegeName: "SVUCE",
             ).toMap());
