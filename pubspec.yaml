@@ -29,6 +29,7 @@ dependencies:
   injectable:
   get_it:
   flutter_hooks:
+  observable_ish:
 
   # firebase
   cloud_firestore: ^2.2.0
@@ -38,6 +39,7 @@ dependencies:
   firebase_core: ^1.2.0
   firebase_analytics:
   firebase_crashlytics:
+  firebase_dynamic_links: ^2.0.4
 
   #Animations
   animations:
@@ -52,31 +54,36 @@ dependencies:
   google_maps_flutter:
   geolocator:
 
-  # main utilities
+  #File Utilities
+  open_file:
   image_picker:
+  markdown_widget:
+  file_picker:
   flutter_cached_pdfview:
-  observable_ish:
-  flutter_cache_manager:
-  logger:
+
+  #Http requests
   http:
   dio:
+
+  #For UI
   table_calendar: ^3.0.0
-  firebase_dynamic_links: ^2.0.4
+  dotted_border:
+  flutter_colorpicker:
+  carousel_slider:
+
+  # main utilities
+  logger:
   share_plus:
   fl_chart:
   excel:
-  dotted_border:
-  file_picker:
   permission_handler:
-  flutter_colorpicker:
   flutter_local_notifications:
   add_2_calendar:
-  markdown_widget:
-  carousel_slider:
   flutter_native_timezone:
   timezone:
   url_launcher:
   oktoast:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

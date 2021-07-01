@@ -4,9 +4,11 @@ import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
+import 'package:svuce_app/ui/screens/github%20pages/Resource%20Viewer/not_available.dart';
 import 'package:svuce_app/ui/utils/highlight_view.dart';
 import 'package:svuce_app/ui/widgets/pdf_viewer.dart';
 
+import 'photo_viewer.dart';
 import 'resource_viewer_view_model.dart';
 
 class ResourceViewer extends StatelessWidget {
@@ -27,6 +29,7 @@ class ResourceViewer extends StatelessWidget {
       onModelReady: (m) => m.init(urlLink, type),
       viewModel: ResourceViewerViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
+        
         body: ModalHud(
           child: resourceViewer(urlLink, uiHelpers, model),
           isLoading: model.isBusy,
@@ -38,6 +41,15 @@ class ResourceViewer extends StatelessWidget {
   Widget resourceViewer(
       String url, UiHelpers uiHelpers, ResourceViewerViewModel model) {
     switch (url.split(".").last) {
+      case "jpg":
+      case "jpeg":
+      case "png":
+      case "gif":
+        return ImageViewerWidget(
+          title: title,
+          url: url,
+          onBack: model.navigateBack,
+        );
       case "pdf":
         return PdfViewerWidget(
           url: url,
@@ -128,7 +140,7 @@ class ResourceViewer extends StatelessWidget {
             : SizedBox();
 
       default:
-        return SizedBox();
+        return NotAvailable(onBack:model.navigateBack);
     }
   }
 }

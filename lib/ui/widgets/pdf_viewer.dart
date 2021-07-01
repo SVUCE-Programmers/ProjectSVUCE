@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:lottie/lottie.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
@@ -85,38 +86,45 @@ class PdfViewerWidget extends StatelessWidget {
           backgroundColor: uiHelpers.backgroundColor,
         ),
         body: Container(
-          child: model.pdfViewController == null
-              ? Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset("assets/lottie/loading_resource.json"),
-                      Text("Loading Document...", style: uiHelpers.title)
-                    ],
-                  ),
-                )
-              : Stack(
-                  children: [
-                    PDF(
-                            onPageChanged: (a, total) {
-                              print("$a ,$total");
-                              model.changePage(a, total);
-                            },
-                            pageSnap: true,
-                            onRender: (int value) {},
-                            fitEachPage: true,
-                            autoSpacing: true,
-                            onViewCreated: model.assignController)
-                        .cachedFromUrl(url),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Chip(
-                          label: Text(
-                              "${model.currentPage + 1}/ ${model.pageCount}")),
-                    )
-                  ],
-                ),
+          child:
+              // model.pdfViewController == null
+              //     ? Center(
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.center,
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Lottie.asset("assets/lottie/loading_resource.json"),
+              //             Text("Loading Document...", style: uiHelpers.title)
+              //           ],
+              //         ),
+              //       )
+              //     :
+              Stack(
+            children: [
+              PDF(
+                onError: (value) {
+                  log(value);
+                },
+                onPageChanged: (a, total) {
+                  print("$a ,$total");
+                  model.changePage(a, total);
+                },
+                pageSnap: true,
+                onRender: (int value) {
+                  log("ON RENDER VALUE IS:$value");
+                },
+                fitEachPage: true,
+                autoSpacing: true,
+                onViewCreated: model.assignController,
+              ).cachedFromUrl(url),
+              Align(
+                alignment: Alignment.topRight,
+                child: Chip(
+                    label:
+                        Text("${model.currentPage + 1}/ ${model.pageCount}")),
+              )
+            ],
+          ),
           color: uiHelpers.backgroundColor,
         ),
       ),

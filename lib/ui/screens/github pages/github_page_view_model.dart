@@ -19,7 +19,9 @@ class GithubPageViewModel extends BaseViewModel {
   init(String url, String extensionUrl) async {
     _extensionUrl = extensionUrl;
     setBusy(true);
+    log.i(url);
     githubApiList = await _githubApiServices.getPrograms(url) ?? [];
+    log.i(githubApiList.length);
     setBusy(false);
 
     notifyListeners();

@@ -8,13 +8,14 @@ import 'package:svuce_app/core/services/share%20service/share_service.dart';
 class ResourceViewerViewModel extends BaseViewModel {
   final log = getLogger("Resource View Model");
   String _urlLink;
-  String data;
+  String data = "";
   GithubApiServices _githubApiServices = GithubApiServices();
   final ShareService _shareService = locator<ShareService>();
 
   init(String urlLink, String type) async {
     _urlLink = urlLink;
-    if (!["pdf", "docx", "txt", "doc"].contains(type)) await getDataFromUrl();
+    if (!["pdf", "docx", "txt", "doc", "png", "jpg", "jpeg", "gif"]
+        .contains(type)) await getDataFromUrl();
     notifyListeners();
   }
 
