@@ -14,7 +14,9 @@ class LoginView extends StatelessWidget {
       builder: (context, uiHelpers, model) {
         return SafeArea(
           child: WillPopScope(
-              onWillPop: model.showExitSnackbar,
+            onWillPop: model.showExitSnackbar,
+            child: Form(
+              key: model.formKey,
               child: Scaffold(
                 body: LoginViewBody(),
                 bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom !=
@@ -41,7 +43,9 @@ class LoginView extends StatelessWidget {
                           ),
                         ],
                       ),
-              )),
+              ),
+            ),
+          ),
         );
       },
     );

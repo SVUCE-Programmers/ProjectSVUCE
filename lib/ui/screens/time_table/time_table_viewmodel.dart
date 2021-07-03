@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
@@ -99,8 +98,9 @@ class TimeTableViewModel extends BaseViewModel {
         int.parse(minute));
     if (schedulingTime.millisecondsSinceEpoch <
         dateTime.millisecondsSinceEpoch) {
-      showToast("Can't schedule alarm at this time",
-          backgroundColor: Colors.red);
+      showWarningToast(
+        "Can't schedule alarm at this time",
+      );
     } else {
       _notifyService.addAlarm(context,
           title: title,

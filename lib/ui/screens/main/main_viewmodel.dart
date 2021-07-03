@@ -1,3 +1,6 @@
+import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/add_edit_time_table.dart';
+
 import 'consumers/imports.dart';
 
 class MainViewModel extends BaseViewModel {
@@ -119,9 +122,16 @@ class MainViewModel extends BaseViewModel {
 
   //?Navigation Functions
   navigateToTimeTable() {
-    _navigationService.navigateWithTransition(TimeTableView(),
-        transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 900));
+    log.i("IS ADMIN is:$isAdmin");
+    if (!isAdmin) {
+      _navigationService.navigateWithTransition(TimeTableView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
+    } else {
+      _navigationService.navigateWithTransition(AddEditTimeTableView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
+    }
   }
 
   navigateToAttendance() {
@@ -162,8 +172,9 @@ class MainViewModel extends BaseViewModel {
 
   navigateToExploreClubs() {
     if (isGuest) {
-      showToast("Sorry only students of svuce can access this.",
-          backgroundColor: Colors.red);
+      showInfoToast(
+        "Sorry only students of svuce can access this.",
+      );
     } else {
       _navigationService.navigateWithTransition(
           SelectClubsView(

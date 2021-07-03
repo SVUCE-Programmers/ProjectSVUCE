@@ -13,6 +13,7 @@ import 'package:svuce_app/core/mixins/validators.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final log = getLogger("SignupViewModel");
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _authService = locator<AuthService>();
   final UsersRepository _usersRepository = locator<UsersRepository>();
@@ -50,15 +51,17 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
         showErrorMessage(title: commonErrorTitle, message: result);
       }
     } else {
-      setBusy(true);
-      var authResult = await _usersRepository.signupUser(
-        emailController.text,
-      );
-      log.i("Result at Sign up User is:$authResult");
-      setBusy(false);
-      if (authResult is bool && authResult) {
-        isEmailVerified = true;
-        notifyListeners();
+      if (emailController.text.isNotEmpty) {
+        setBusy(true);
+        var authResult = await _usersRepository.signupUser(
+          emailController.text,
+        );
+        log.i("Result at Sign up User is:$authResult");
+        setBusy(false);
+        if (authResult is bool && authResult) {
+          isEmailVerified = true;
+          notifyListeners();
+        }
       }
     }
   }

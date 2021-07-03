@@ -1,45 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:svuce_app/app/default_view.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/consumers/time_table_add_subject.dart';
-import 'package:svuce_app/ui/widgets/expansion_list_modified.dart';
+import 'package:svuce_app/ui/widgets/bottom%20sheets/delete_class_sheet.dart';
 import 'add_edit_time_table_view_model.dart';
 import '../../../widgets/bottom sheets/add_new_class.dart';
 
-class AddEditTimeTableView extends StatelessWidget {
+class AddEditTimeTableView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<AddEditTimeTableViewModel>(
       onModelReady: (m) => m.getTimeTableStream(),
       viewModel: AddEditTimeTableViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
-        body: SingleChildScrollView(
+        body: DefaultTabController(
+          length: model.timeTableList.length,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListView.builder(
-                itemBuilder: (context, index) => ExpansionTileModified(
-                    trailingColor: uiHelpers.textPrimaryColor,
-                    expandedAlignment: Alignment.centerLeft,
-                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 8),
-                        child: Container(
-                          child: TimeTableWidget(
-                              model, model.timeTableList[index], index),
-                          height: uiHelpers.height * 0.7,
-                        ),
-                      ),
-                    ],
-                    title: Text(model.timeTableList[index].id,
-                        style: uiHelpers.title)),
-                itemCount: model.timeTableList.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                primary: false,
-              )
+              TabBar(
+                  isScrollable: true,
+                  labelColor: uiHelpers.textPrimaryColor,
+                  unselectedLabelColor: uiHelpers.textSecondaryColor,
+                  tabs:
+                      model.timeTableList.map((e) => Tab(text: e.id)).toList()),
+              Expanded(
+                child: TabBarView(
+                  children: model.timeTableList
+                      .map((timeTable) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 8),
+                            child: Container(
+                              child: TimeTableWidget(model, timeTable,
+                                  model.timeTableList.indexOf(timeTable)),
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
             ],
           ),
         ),
@@ -49,7 +48,10 @@ class AddEditTimeTableView extends StatelessWidget {
                 onSelected: (value) {
                   switch (value) {
                     case "Add":
-                    showAddNewClass(uiHelpers,model,context);
+                      showAddNewClass(uiHelpers, model, context);
+                      break;
+                    case "Delete":
+                      deleteClassSheet(uiHelpers, model, context);
                       break;
                     default:
                   }
@@ -64,6 +66,12 @@ class AddEditTimeTableView extends StatelessWidget {
                           value: "Add",
                           child: Text(
                             "Add New Class",
+                            style: uiHelpers.title,
+                          )),
+                      PopupMenuItem(
+                          value: "Delete",
+                          child: Text(
+                            "Delete Class",
                             style: uiHelpers.title,
                           ))
                     ]),

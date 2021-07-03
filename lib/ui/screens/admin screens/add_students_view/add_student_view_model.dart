@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
@@ -94,12 +94,10 @@ class AddStudentViewModel extends BaseViewModel {
     var result = await _studentService.updateStudent(userModel);
     setBusy(false);
     if (result) {
-      showToast("Updated User Successfully",
-          backgroundColor: Colors.green,
-          textPadding:
-              const EdgeInsets.symmetric(horizontal: 25, vertical: 10));
+      showSuccessToast("Updated User Successfully",
+        );
     } else {
-      showToast("Failed to update user");
+      showErrorToast("Failed to update user");
     }
   }
 
@@ -114,12 +112,10 @@ class AddStudentViewModel extends BaseViewModel {
       setBusy(false);
 
       if (result) {
-        showToast("Deleted User Successfully",
-            backgroundColor: Colors.green,
-            textPadding:
-                const EdgeInsets.symmetric(horizontal: 25, vertical: 10));
+        showSuccessToast("Deleted User Successfully",
+          );
       } else {
-        showToast("Failed to delete user");
+        showErrorToast("Failed to delete user");
       }
     }
   }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/services/api/api_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/hive_db/models/time_table.dart';
@@ -73,7 +74,26 @@ class TimeTableService {
       log.wtf(timeTable.tojson());
       await _universityRef.doc(timeTable.id).update(timeTable.tojson());
     } catch (e) {
-      showToast("Error occured please try again!", backgroundColor: Colors.red);
+      showErrorToast(
+        "Error occured please try again!",
+      );
+    }
+  }
+
+  addNewYear(String year) async {
+    try {
+      await _universityRef.doc(year).set(TimeTable.getEmptyTimeTable());
+    } catch (e) {
+      showErrorToast("Error occured please try again!");
+    }
+  }
+
+  deleteClass(String year) async {
+    try {
+      await _universityRef.doc(year).delete();
+    } catch (e) {
+      log.e(e);
+      showErrorToast("Error occured please try again!");
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
@@ -68,8 +69,9 @@ class StudentServiceImpl extends StudentService {
         return false;
       }
     } else {
-      showToast("You don't have access to perform this operation",
-          backgroundColor: Colors.orangeAccent);
+      showWarningToast(
+        "You don't have access to perform this operation",
+      );
       return false;
     }
   }
@@ -85,8 +87,9 @@ class StudentServiceImpl extends StudentService {
         return false;
       }
     } else {
-      showToast("You don't have access to perform this operation",
-          backgroundColor: Colors.orangeAccent);
+      showWarningToast(
+        "You don't have access to perform this operation",
+      );
       return false;
     }
   }

@@ -21,10 +21,6 @@ import 'package:svuce_app/core/services/staff%20service/staff_service_impl.dart'
 import 'package:svuce_app/core/services/student%20services/student_service.dart';
 import 'package:svuce_app/core/services/student%20services/student_service_impl.dart';
 
-import '../core/repositories/announcements_repository/announcements_repository.dart'
-    as _i10;
-import '../core/repositories/announcements_repository/announcements_repository_impl.dart'
-    as _i11;
 import '../core/repositories/clubs_repository/clubs_repository.dart' as _i18;
 import '../core/repositories/clubs_repository/clubs_repository_impl.dart'
     as _i19;
@@ -88,8 +84,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<ShareService>(ShareServiceImpl());
   gh.lazySingleton<_i7.TimeTableService>(() => _i7.TimeTableService());
   gh.singleton<_i8.APIService>(_i9.APIServiceImpl());
-  gh.singleton<_i10.AnnouncementsRepository>(
-      _i11.AnnouncementsRepositoryImpl());
   gh.singleton<_i16.CloudStorageService>(_i17.CloudStorageServiceImpl());
   gh.singleton<_i18.ClubsRepository>(_i19.ClubsRepositoryImpl());
   gh.singleton<_i14.DialogService>(registerDependencies.dialogService);

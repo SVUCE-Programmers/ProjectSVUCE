@@ -4,10 +4,10 @@ import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,10 +22,14 @@ class ShareServiceImpl implements ShareService {
       if (await canLaunch(urlLink)) {
         launch(urlLink);
       } else {
-        showToast("Error in opening url", backgroundColor: Colors.red);
+        showWarningToast(
+          "Error in opening url",
+        );
       }
     } catch (e) {
-      showToast("Error in opening url", backgroundColor: Colors.red);
+      showErrorToast(
+        "Error in opening url",
+      );
     }
   }
 
@@ -40,7 +44,9 @@ class ShareServiceImpl implements ShareService {
       }
     } catch (e) {
       log.e(e);
-      showToast("Error occured please try again!", backgroundColor: Colors.red);
+      showErrorToast(
+        "Error occured please try again!",
+      );
     }
   }
 
@@ -91,7 +97,9 @@ class ShareServiceImpl implements ShareService {
         print(e);
       }
     } else {
-      showToast("Please enable storage access", backgroundColor: Colors.red);
+      showWarningToast(
+        "Please enable storage access",
+      );
     }
   }
 

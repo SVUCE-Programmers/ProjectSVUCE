@@ -69,6 +69,7 @@ class AnimatedDropdownWidget extends HookWidget {
           ),
           SizedBox(height: 5),
           DropdownButtonFormField(
+              dropdownColor: uiHelpers.surfaceColor,
               isDense: true,
               value: items.contains(textEditingController.text)
                   ? textEditingController.text
@@ -85,6 +86,7 @@ class AnimatedDropdownWidget extends HookWidget {
                 border: OutlineInputBorder(borderSide: BorderSide.none),
                 fillColor: uiHelpers.surfaceColor,
                 filled: true,
+                hintStyle: uiHelpers.body,
                 hintText: hintText ??
                     "Enter ${title.toLowerCase().replaceAll("*", "")}",
                 focusColor: Colors.white,
@@ -93,7 +95,12 @@ class AnimatedDropdownWidget extends HookWidget {
                 textEditingController.text = value;
               },
               items: (items ?? [])
-                  .map((e) => DropdownMenuItem(child: Text(e), value: e))
+                  .map((e) => DropdownMenuItem(
+                      child: Text(
+                        e,
+                        style: uiHelpers.body,
+                      ),
+                      value: e))
                   .toList()),
           SizedBox(
             height: downPadding,

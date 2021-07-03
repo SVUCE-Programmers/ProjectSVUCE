@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/services/github_api_services.dart';
 import 'package:svuce_app/ui/screens/Club%20Pages/select_clubs/select_clubs_view.dart';
@@ -21,8 +20,9 @@ final AuthService _authService = locator<AuthService>();
 final List<SpotlightItem> spotLightItems = [
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showToast("Sorry only students of svuce can access this.",
-            backgroundColor: Colors.red)
+        ? showInfoToast(
+            "Sorry only students of svuce can access this.",
+          )
         : _navigationService.navigateWithTransition(
             SelectClubsView(
               isSelectClubs: false,
@@ -50,8 +50,9 @@ final List<SpotlightItem> spotLightItems = [
   ),
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showToast("Sorry only students of svuce can access this.",
-            backgroundColor: Colors.red)
+        ? showInfoToast(
+            "Sorry only students of svuce can access this.",
+          )
         : _navigationService.navigateWithTransition(FeedView(),
             duration: Duration(milliseconds: 900),
             transition: "rightToLeftWithFade"),
@@ -67,8 +68,9 @@ final List<SpotlightItem> spotLightItems = [
   ),
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showToast("Sorry only students of svuce can access this.",
-            backgroundColor: Colors.red)
+        ? showInfoToast(
+            "Sorry only students of svuce can access this.",
+          )
         : _navigationService.navigateWithTransition(CalenderEventsView(),
             duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: FlutterIcons.calendar_ant,

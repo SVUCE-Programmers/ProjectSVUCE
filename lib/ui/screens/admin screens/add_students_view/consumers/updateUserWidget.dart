@@ -48,8 +48,8 @@ class UpdateUserWidget extends HookWidget {
                       model.clearTextField();
                     },
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                  shape: BeveledRectangleBorder(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   title: Text(
                     "Change search type",

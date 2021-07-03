@@ -28,6 +28,17 @@ class TimeTable {
     };
   }
 
+  static Map<String, dynamic> getEmptyTimeTable() {
+    return {
+      "Monday": {},
+      "Tuesday": {},
+      "Wednesday": {},
+      "Thursday": {},
+      "Friday": {},
+      "Saturday": {}
+    };
+  }
+
   static TimeTable fromMap(Map<String, dynamic> json, String id) {
     return TimeTable(
         id: id,

@@ -17,6 +17,7 @@ import 'package:svuce_app/ui/screens/main/main_view.dart';
 class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final log = getLogger("Login View Model");
   final AuthService _authenticationService = locator<AuthService>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
@@ -24,33 +25,35 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final TextEditingController passwordController = TextEditingController();
 
   void handleLogin() async {
-    bool result = emailController.text.trim().isEmpty ||
-        passwordController.text.trim().isEmpty;
-    log.i(result);
+    if (formKey.currentState.validate()) {
+      bool result = emailController.text.trim().isEmpty ||
+          passwordController.text.trim().isEmpty;
+      log.i(result);
 
-    if (result) {
-      showInfoMessage(
-          title: commonErrorTitle,
-          message: "Please check your details and try again");
+      if (result) {
+        showInfoMessage(
+            title: commonErrorTitle,
+            message: "Please check your details and try again");
 
-      return;
-    }
+        return;
+      }
 
-    setBusy(true);
+      setBusy(true);
 
-    var authResult = await _authenticationService.loginUser(
-      email: emailController.text,
-      password: passwordController.text,
-    );
+      var authResult = await _authenticationService.loginUser(
+        email: emailController.text,
+        password: passwordController.text,
+      );
 
-    setBusy(false);
+      setBusy(false);
 
-    if (authResult is bool && authResult) {
-      _analyticsService.logLogin();
+      if (authResult is bool && authResult) {
+        _analyticsService.logLogin();
 
-      _navigationService.navigateTo(Routes.mainView);
-    } else {
-      showCommonError();
+        _navigationService.navigateTo(Routes.mainView);
+      } else {
+        showCommonError();
+      }
     }
   }
 

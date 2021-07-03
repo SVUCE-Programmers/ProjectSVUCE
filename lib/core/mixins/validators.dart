@@ -1,54 +1,53 @@
 mixin Validators {
-  String validateName(String name) {
+  static String validateName(String name) {
     RegExp reg = new RegExp(r"^[a-zA-Z ]{5,}$");
     if (name.isEmpty) {
       return "Please Enter your name";
     } else if (!reg.hasMatch(name)) {
       return "Enter a valid name";
     }
-    return "";
+    return null;
   }
 
-  String validateEmail(String email) {
+  static String validateEmail(String email) {
     RegExp reg = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
     if (!reg.hasMatch(email)) {
       return 'Please enter a valid email';
     } else if (email.length < 5) {
       return 'Please enter a valid email';
     }
-    return "";
+    return null;
   }
 
-  String validatePassword(String password) {
+  static String validatePassword(String password) {
     if (password.isEmpty) {
       return 'Please Enter Your Password';
     } else if (password.length < 6) {
       return 'Your password must be atleast 6';
     }
-    return "";
+    return null;
   }
 
-  String validateRollNo(String rollNo) {
+  static String validateRollNo(String rollNo) {
     RegExp regExp = new RegExp(r'^1[0-9]{3}[1-6]{1}[0-9]{3}$');
     if (rollNo.isEmpty) {
       return 'Please enter your rollno.';
     } else if (!regExp.hasMatch(rollNo) || rollNo.length < 8) {
       return 'Please enter a valid rollno.';
     } else {
-      return "";
+      return null;
     }
   }
 
-  String validatePhoneNo(String phone) {
+  static String validatePhoneNo(String phone) {
     RegExp regex = new RegExp(r"^[0-9]{10}$");
     if (phone.isEmpty) {
       return "Please enter your contact details";
     } else if (!regex.hasMatch(phone)) {
       return "Please enter a valid number";
     } else {
-      return "";
+      return null;
     }
   }
 }

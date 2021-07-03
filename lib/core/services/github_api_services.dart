@@ -7,9 +7,9 @@ import 'package:svuce_app/core/models/githubApiResponse.dart';
 class GithubApiServices {
   final log = getLogger("Github Api Services");
   final String programUrl =
-      "https://api.github.com/repos/shashiben/RepoToTestGitApi/git/trees/6a50a2b1e7f22c9b0d45312eefc67df180975d58";
+      "https://api.github.com/repos/SVUCE-Programmers/E-Library/git/trees/master";
   final String rawGithubUrl =
-      "https://raw.githubusercontent.com/shashiben/RepoToTestGitApi/master/Library";
+      "https://raw.githubusercontent.com/SVUCE-Programmers/E-Library/master";
   getPrograms(String url) async {
     List<GithubApiResponse> _githubApiResponse = [];
     log.v(url);

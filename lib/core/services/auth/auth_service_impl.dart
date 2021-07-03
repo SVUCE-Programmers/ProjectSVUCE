@@ -4,12 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
@@ -156,42 +156,18 @@ class AuthServiceImpl implements AuthService {
 
       if (newUser != null && newUser.user != null) {
         await user.updatePassword(newPassword);
-        showToast("Changed password successfully!",
-            textStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.none),
-            duration: Duration(seconds: 2),
-            backgroundColor: Colors.green,
-            textPadding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+        showSuccessToast("Changed password successfully!",
+           );
         return true;
       }
     } catch (e) {
       if (e.message == "Password should be at least 6 characters") {
-        showToast("Password is too weak",
-            textStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.none),
-            duration: Duration(seconds: 2),
-            backgroundColor: Colors.red,
-            textPadding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+        showWarningToast("Password is too weak",
+           );
       } else {
         log.e(e);
-        showToast("Error occured,please login again!!",
-            textStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.none),
-            duration: Duration(seconds: 2),
-            backgroundColor: Colors.red,
-            textPadding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10));
+        showErrorToast("Error occured,please login again!!",
+          );
       }
       return false;
     }

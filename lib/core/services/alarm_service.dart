@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/models/event/event.dart' as eventModel;
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
@@ -40,10 +41,9 @@ class NotifyService {
       _analyticsService.logEvent(
           name: "Event Added to calendar", parameters: eventModel.toMap());
     } else {
-      showToast("Error in adding event",
-          backgroundColor: Colors.red,
-          radius: 8,
-          textPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 20));
+      showErrorToast(
+        "Error in adding event",
+      );
     }
   }
 

@@ -19,6 +19,22 @@ class AddEditTimeTableViewModel extends BaseViewModel {
     });
   }
 
+  List<String> getAllYears() {
+    return timeTableList.map((e) => e.id).toList();
+  }
+
+  addNewClass(String year) async {
+    setBusy(true);
+    await _timeTableService.addNewYear(year);
+    setBusy(false);
+  }
+
+  deleteClass(String year) async {
+    setBusy(true);
+    await _timeTableService.deleteClass(year);
+    setBusy(false);
+  }
+
   //?Navigation Services
   navigateBack() {
     _navigationService.back();

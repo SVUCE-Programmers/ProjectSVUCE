@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'dart:io';
@@ -231,12 +232,9 @@ class ExcelServiceImpl implements ExcelService {
           ..createSync(recursive: true)
           ..writeAsBytesSync(bytes);
       }
-      showToast("Downloaded Successfully",
-          backgroundColor: Colors.green.withOpacity(0.2),
-          radius: 8,
-          textPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-          textStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.green));
+      showSuccessToast(
+        "Downloaded Successfully",
+      );
     } catch (e) {
       log.e(e);
     }

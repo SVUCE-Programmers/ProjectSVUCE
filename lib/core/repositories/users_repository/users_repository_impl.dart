@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
@@ -121,7 +122,7 @@ class UsersRepositoryImpl implements UsersRepository {
       var data = await _userRef.doc(email).get();
       if (data.exists && data != null && data.data() != null) {
         if (Map<String, dynamic>.from(data.data())["id"] != null) {
-          showToast(
+          showWarningToast(
             commonErrorTitle +
                 "\n" +
                 "Your account already exists, try logging in",
@@ -131,13 +132,14 @@ class UsersRepositoryImpl implements UsersRepository {
           return true;
         }
       } else {
-        showToast("User not found in our database",
-            backgroundColor: Colors.red);
+        showErrorToast(
+          "User not found in our database",
+        );
 
         return false;
       }
     } catch (e) {
-      showToast(
+      showErrorToast(
         commonErrorTitle + "\n" + "$e",
       );
       return false;
