@@ -18,6 +18,7 @@ class GithubPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<GithubPageViewModel>(
+      enableConnectionStream: true,
       onModelReady: (m) => m.init(url, extensionUrl),
       viewModel: GithubPageViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(

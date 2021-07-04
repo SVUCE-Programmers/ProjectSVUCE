@@ -1,5 +1,6 @@
 import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/add_edit_time_table.dart';
+import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 
 import 'consumers/imports.dart';
 
@@ -162,12 +163,20 @@ class MainViewModel extends BaseViewModel {
 
   navigateToAboutCollege() {
     _navigationService.navigateWithTransition(AboutCollegeView(),
-        transition: "fade", duration: Duration(milliseconds: 900));
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
   }
 
   navigateToAboutApp() {
     _navigationService.navigateWithTransition(AboutAppView(),
-        transition: "fade", duration: Duration(milliseconds: 900));
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
+  }
+
+  navigateToPlacements() {
+    _navigationService.navigateWithTransition(PlacementView(),
+        transition: "rightToLeftWithFade",
+        duration: Duration(milliseconds: 900));
   }
 
   navigateToExploreClubs() {

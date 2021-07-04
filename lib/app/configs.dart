@@ -17,5 +17,5 @@ mixin Validators {
 }
 mixin UrlConfigs {
   static const staffJsonUrl =
-      "https://raw.githubusercontent.com/shashiben/RepoToTestGitApi/master/Tools/Database/Staff%20Data/staff.json";
+      "https://raw.githubusercontent.com/SVUCE-Programmers/Svuce-App-Resources/master/Database/Staff%20Data/staff.json";
 }

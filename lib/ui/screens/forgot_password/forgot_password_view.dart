@@ -13,6 +13,7 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<ForgotPasswordViewModel>(
+      enableConnectionStream: true,
       viewModel: ForgotPasswordViewModel(),
       builder: (context, uiHelpers, model) {
         return Scaffold(

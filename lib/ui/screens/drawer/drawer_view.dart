@@ -105,6 +105,11 @@ class DrawerView extends StatelessWidget {
                             iconData: campusIcon,
                           ),
                           DrawerItem(
+                            title: "Placements",
+                            onTap: model.navigateToPlacements,
+                            iconData: FlutterIcons.bar_chart_2_fea,
+                          ),
+                          DrawerItem(
                             title: "About College",
                             onTap: () => model.navigateToAboutCollege(),
                             iconData: schoolIcon,

@@ -12,6 +12,7 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<SignUpViewModel>(
+      enableConnectionStream: true,
       viewModel: SignUpViewModel(),
       builder: (context, uiHelpers, model) {
         return Scaffold(

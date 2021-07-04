@@ -9,6 +9,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBuilder<LoginViewModel>(
+      enableConnectionStream: true,
       viewModel: LoginViewModel(),
       disposeViewModel: false,
       builder: (context, uiHelpers, model) {
