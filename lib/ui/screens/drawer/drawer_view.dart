@@ -25,7 +25,8 @@ class DrawerView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    onTap: () => model.navigateToProfile(),
+                    onTap:
+                        model.isGuest ? null : () => model.navigateToProfile(),
                     contentPadding: EdgeInsets.symmetric(vertical: 20.0),
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(
@@ -44,7 +45,7 @@ class DrawerView extends StatelessWidget {
                     ),
                     title: Text.rich(TextSpan(children: [
                       TextSpan(
-                        text: model.name ?? "Harry Potter",
+                        text: model.name ?? "User",
                         style: uiHelpers.title
                             .apply(color: uiHelpers.textPrimaryColor),
                       ),
@@ -54,7 +55,7 @@ class DrawerView extends StatelessWidget {
                       TextSpan(
                         text: model.currentUser != null
                             ? model.currentUser.rollNo.toString()
-                            : "",
+                            : "Hey Guest",
                         style:
                             uiHelpers.body.apply(color: uiHelpers.primaryColor),
                       ),
@@ -103,11 +104,6 @@ class DrawerView extends StatelessWidget {
                             title: "Campus Map",
                             onTap: model.navigateToCampusMap,
                             iconData: campusIcon,
-                          ),
-                          DrawerItem(
-                            title: "Placements",
-                            onTap: model.navigateToPlacements,
-                            iconData: FlutterIcons.bar_chart_2_fea,
                           ),
                           DrawerItem(
                             title: "About College",

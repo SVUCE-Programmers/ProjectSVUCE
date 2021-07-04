@@ -18,7 +18,7 @@ class TeamViewWidget extends StatelessWidget {
             child: FadeInImage(
               image: NetworkImage(data["image"]),
               placeholder: AssetImage("assets/images/logo.png"),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               height: radius,
               width: radius,
             ),

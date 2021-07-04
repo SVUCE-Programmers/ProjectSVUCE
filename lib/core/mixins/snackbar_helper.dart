@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/strings.dart';
 
 mixin SnackbarHelper {
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   Future<bool> showExitSnackbar() async {
-    _snackbarService.showSnackbar(
+    _snackbarService.showCustomSnackBar(
+        variant: SnackBarType.floating,
         title: confirmExitInfo,
         duration: Duration(seconds: 5),
         message: confirmExitMessage,
@@ -19,7 +21,8 @@ mixin SnackbarHelper {
   }
 
   showInfoMessage({String title, String message}) async {
-    _snackbarService.showSnackbar(
+    _snackbarService.showCustomSnackBar(
+      variant: SnackBarType.floating,
       title: title ?? "",
       // icon: Icon(FontAwesome5Solid.frown_open, color: Colors.orange),
       duration: Duration(seconds: 5),
@@ -28,7 +31,9 @@ mixin SnackbarHelper {
   }
 
   showErrorMessage({String title, String message}) async {
-    _snackbarService.showSnackbar(
+    _snackbarService.showCustomSnackBar(
+      variant: SnackBarType.floating,
+
       title: title ?? "Error Occured!",
       // icon: Icon(FontAwesome5Solid.sad_tear, color: Colors.red),
       duration: Duration(seconds: 5),
@@ -37,7 +42,9 @@ mixin SnackbarHelper {
   }
 
   showSuccessMessage({String title, String message}) async {
-    _snackbarService.showSnackbar(
+    _snackbarService.showCustomSnackBar(
+      variant: SnackBarType.floating,
+
       title: title,
       // icon: Icon(
       //   FontAwesome5Solid.smile_beam,

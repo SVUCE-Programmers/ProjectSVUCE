@@ -54,7 +54,7 @@ class AuthServiceImpl implements AuthService {
 
   listenAuthStatusStream() {
     _firebaseAuth.authStateChanges().listen((user) {
-      isGuest = user == null;
+      isGuest = (user == null);
     });
   }
 
@@ -97,6 +97,8 @@ class AuthServiceImpl implements AuthService {
         log.v("IS ADMIN IS:$hasAdminAccess");
       });
       // _userStream.add(currentUser);
+    } else {
+      isGuest = true;
     }
   }
 
@@ -156,18 +158,21 @@ class AuthServiceImpl implements AuthService {
 
       if (newUser != null && newUser.user != null) {
         await user.updatePassword(newPassword);
-        showSuccessToast("Changed password successfully!",
-           );
+        showSuccessToast(
+          "Changed password successfully!",
+        );
         return true;
       }
     } catch (e) {
       if (e.message == "Password should be at least 6 characters") {
-        showWarningToast("Password is too weak",
-           );
+        showWarningToast(
+          "Password is too weak",
+        );
       } else {
         log.e(e);
-        showErrorToast("Error occured,please login again!!",
-          );
+        showErrorToast(
+          "Error occured,please login again!!",
+        );
       }
       return false;
     }

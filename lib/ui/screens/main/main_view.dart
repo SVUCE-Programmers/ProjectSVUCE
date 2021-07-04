@@ -13,7 +13,6 @@ import 'package:svuce_app/ui/screens/drawer/drawer_view.dart';
 import 'package:svuce_app/ui/screens/github%20pages/github_page_view.dart';
 import 'package:svuce_app/ui/screens/main/widgets/dashboard_items.dart';
 import 'package:svuce_app/ui/screens/main/widgets/greeting_widget.dart';
-import 'package:svuce_app/ui/utils/animatedText.dart';
 import 'package:svuce_app/ui/widgets/Empty%20States/no_classes_empty_State.dart';
 import 'package:svuce_app/ui/widgets/graph_widget.dart';
 
@@ -65,11 +64,8 @@ class MainView extends StatelessWidget {
               elevation: 0,
               backgroundColor: Colors.transparent,
               automaticallyImplyLeading: false,
-              title: AnimatedText(
-                delay: 1,
-                xDistance: -30,
-                yDistance: 0,
-                data: "Home",
+              title: Text(
+                "Home",
                 style:
                     uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor),
               ),
@@ -307,7 +303,9 @@ class MainView extends StatelessWidget {
                                     horizontal: 20, vertical: 15),
                                 child: ListTile(
                                   subtitle: Text(
-                                    "With this you can plan to bunk your class",
+                                    model.isAdmin
+                                        ? "With this you can manage attendance paperless and safe with us"
+                                        : "With this you can plan to bunk your class",
                                     style: uiHelpers.body
                                         .copyWith(color: Colors.white54),
                                   ),

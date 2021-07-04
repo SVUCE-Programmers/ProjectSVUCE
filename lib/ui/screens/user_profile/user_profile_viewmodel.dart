@@ -88,7 +88,7 @@ class UserProfileViewModel extends BaseViewModel {
   navigateToRegisterClub() {
     _navigationService.navigateWithTransition(
         SelectClubsView(
-          isSelectClubs: false,
+          isSelectClubs: true,
         ),
         transition: "scale");
   }

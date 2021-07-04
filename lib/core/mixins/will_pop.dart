@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/strings.dart';
 
 mixin WillPopHelper {
   final SnackbarService _snackbarService = locator<SnackbarService>();
 
   Future<bool> onWillPop() async {
-    _snackbarService.showSnackbar(
+    _snackbarService.showCustomSnackBar(
+        variant: SnackBarType.floating,
         title: confirmExitInfo,
         duration: Duration(seconds: 5),
         message: confirmExitMessage,

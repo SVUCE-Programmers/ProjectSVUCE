@@ -13,29 +13,27 @@ enum InternetConnectionStatus {
 @lazySingleton
 class ConnectivityServices {
   final log = getLogger("Connectivity Service");
-  bool hasNetwork = false;
+  bool hasNetwork = true;
 
-  StreamController<bool> connectionStatus = StreamController<bool>.broadcast();
+  final StreamController<bool> _connectionStatus =
+      StreamController<bool>.broadcast();
   initializeConnectionService() async {
-    connectionStatus.add(true);
+    _connectionStatus.add(true);
     InternetConnectionChecker().onStatusChange.listen((status) {
-      switch (status) {
-        case InternetConnectionStatus.connected:
-          log.d("Is Online");
-          connectionStatus.add(true);
-          hasNetwork = true;
-          break;
-        case InternetConnectionStatus.disconnected:
-          log.w("Is Offline");
-          connectionStatus.add(false);
-          hasNetwork = false;
-          break;
+      if (status == InternetConnectionStatus.connected) {
+        log.d("Is Online");
+        _connectionStatus.add(true);
+        hasNetwork = true;
+      } else {
+        log.w("Is Offline");
+        _connectionStatus.add(false);
+        hasNetwork = false;
       }
     });
   }
 
-  Stream listenStream() {
-    return connectionStatus.stream;
+  Stream<bool> listenStream() {
+    return _connectionStatus.stream;
   }
 
   getStatus() {

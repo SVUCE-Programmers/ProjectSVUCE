@@ -16,7 +16,7 @@ class MainViewModel extends BaseViewModel {
   final TimeTableService _timeTableService = locator<TimeTableService>();
   final GithubApiServices githubApiServices = GithubApiServices();
   Graph attendanceGraph;
-  bool isGuest = false;
+  bool get isGuest => _authService.isGuest;
   bool get isAdmin => _authService.hasAdminAccess;
   TimeTable timeTable;
   List<Attendance> attendanceList = [];
@@ -57,9 +57,7 @@ class MainViewModel extends BaseViewModel {
   }
 
   init() {
-    isGuest = _authService.isGuest;
-    notifyListeners();
-    if (!isGuest) {
+    if (!_authService.isGuest) {
       listenAttendanceStream();
       getCurrentUserDetails();
       getAttendanceData();
@@ -195,9 +193,11 @@ class MainViewModel extends BaseViewModel {
   }
 
   navigateToProfile() {
-    _navigationService.navigateWithTransition(UserProfileView(),
-        transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 900));
+    if (!_authService.isGuest) {
+      _navigationService.navigateWithTransition(UserProfileView(),
+          transition: "rightToLeftWithFade",
+          duration: Duration(milliseconds: 900));
+    }
   }
 
   navigateToCampusMap() {

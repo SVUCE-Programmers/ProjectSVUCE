@@ -5,7 +5,6 @@ import 'package:stacked/stacked.dart';
 
 import 'package:svuce_app/core/utils/modal_hud.dart';
 import 'package:svuce_app/core/utils/ui_helpers.dart';
-import 'package:svuce_app/ui/utils/connectivity_widget.dart';
 
 class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
   final bool disposeViewModel;
@@ -43,27 +42,24 @@ class ScreenBuilder<T extends BaseViewModel> extends HookWidget {
             !uiHelpers.isDark ? Colors.grey[500] : Colors.grey[800]));
 
     if (isReactive) {
-      return ConnectivityWidget(
-        onOnlineBack: enableConnectionStream,
-        childWidget: ViewModelBuilder<T>.reactive(
-            builder: (context, model, child) {
-              if (model.isBusy && showLoadingOnBusy) {
-                FocusScope.of(context).unfocus();
-              }
-              return showLoadingOnBusy
-                  ? IgnorePointer(
-                      ignoring: model.isBusy && showLoadingOnBusy,
-                      child: Scaffold(
-                          body: ModalHud(
-                        child: builder(context, uiHelpers, model),
-                        isLoading: model.isBusy,
-                      )))
-                  : SafeArea(child: builder(context, uiHelpers, model));
-            },
-            disposeViewModel: disposeViewModel ?? true,
-            onModelReady: onModelReady,
-            viewModelBuilder: () => viewModel),
-      );
+      return ViewModelBuilder<T>.reactive(
+          builder: (context, model, child) {
+            if (model.isBusy && showLoadingOnBusy) {
+              FocusScope.of(context).unfocus();
+            }
+            return showLoadingOnBusy
+                ? IgnorePointer(
+                    ignoring: model.isBusy && showLoadingOnBusy,
+                    child: Scaffold(
+                        body: ModalHud(
+                      child: builder(context, uiHelpers, model),
+                      isLoading: model.isBusy,
+                    )))
+                : SafeArea(child: builder(context, uiHelpers, model));
+          },
+          disposeViewModel: disposeViewModel ?? true,
+          onModelReady: onModelReady,
+          viewModelBuilder: () => viewModel);
     } else {
       return ViewModelBuilder<T>.nonReactive(
           builder: (context, model, child) => IgnorePointer(

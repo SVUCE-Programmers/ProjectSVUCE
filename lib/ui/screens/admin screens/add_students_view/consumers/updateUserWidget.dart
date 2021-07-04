@@ -13,8 +13,6 @@ class UpdateUserWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isrollType = useState(true);
-    final focusNode = useFocusNode();
-
     final UiHelpers uiHelpers = UiHelpers.fromContext(context);
     return Scaffold(
       body: IgnorePointer(
@@ -65,7 +63,6 @@ class UpdateUserWidget extends HookWidget {
                 ),
                 AnimatedInputField(
                     delay: 0,
-                    focusNode: focusNode,
                     textInputType: isrollType.value
                         ? TextInputType.number
                         : TextInputType.emailAddress,

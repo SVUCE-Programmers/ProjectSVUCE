@@ -5,8 +5,9 @@ import 'package:svuce_app/core/utils/ui_helpers.dart';
 
 class NotAvailable extends StatelessWidget {
   final Function onBack;
+  final Function downloadFile;
 
-  const NotAvailable({Key key, this.onBack}) : super(key: key);
+  const NotAvailable({Key key, this.onBack,this.downloadFile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,12 @@ class NotAvailable extends StatelessWidget {
               "But don't worry you can download this and view in your phone offline!",
               style: uiHelpers.body,
               textAlign: TextAlign.center,
-            )
+            ),
+            MaterialButton(
+              onPressed: ()=>downloadFile(),
+                child: Text("Download",
+                    style: uiHelpers.button
+                        .copyWith(color: uiHelpers.primaryColor)))
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/colors.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/theme.dart';
 
 import 'core/services/firebaseAnalyticsService.dart';
@@ -16,7 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await setupLocator();
-
+  setupSnackbarUi();
   setupHive();
   runApp(App());
 }

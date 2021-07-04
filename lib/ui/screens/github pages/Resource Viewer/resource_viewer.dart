@@ -15,10 +15,12 @@ class ResourceViewer extends StatelessWidget {
   final String urlLink;
   final String title;
   final String type;
+  final Function downloadFile;
 
   const ResourceViewer(
       {Key key,
       @required this.urlLink,
+      this.downloadFile,
       @required this.title,
       @required this.type})
       : super(key: key);
@@ -29,7 +31,6 @@ class ResourceViewer extends StatelessWidget {
       onModelReady: (m) => m.init(urlLink, type),
       viewModel: ResourceViewerViewModel(),
       builder: (context, uiHelpers, model) => Scaffold(
-        
         body: ModalHud(
           child: resourceViewer(urlLink, uiHelpers, model),
           isLoading: model.isBusy,
@@ -140,7 +141,7 @@ class ResourceViewer extends StatelessWidget {
             : SizedBox();
 
       default:
-        return NotAvailable(onBack:model.navigateBack);
+        return NotAvailable(onBack: model.navigateBack);
     }
   }
 }

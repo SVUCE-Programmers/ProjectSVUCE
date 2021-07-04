@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/core/services/connectivity%20service/connectivity_services.dart';
 import 'package:svuce_app/ui/widgets/offline_widget.dart';
 
 class ConnectivityWidget extends StatelessWidget {
   final Widget childWidget;
-  final bool onOnlineBack;
+  final bool showOnline;
 
   const ConnectivityWidget(
-      {Key key, @required this.childWidget, this.onOnlineBack})
+      {Key key, @required this.childWidget, this.showOnline})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ConenctivityWidgetViewModel>.reactive(
-        onModelReady: (m) => m.listenConnectionStatus(),
+        onModelReady: (m) => m.init(),
         viewModelBuilder: () => ConenctivityWidgetViewModel(),
-        builder: (context, model, child) => (model.isOnline)
-            ? childWidget
-            : onOnlineBack
-                ? OfflineWidget()
-                : childWidget);
+        builder: (context, model, child) => Scaffold(
+              body: !showOnline
+                  ? childWidget
+                  : model.hasNetwork
+                      ? childWidget
+                      : OfflineWidget(),
+            ));
   }
 }
 
 class ConenctivityWidgetViewModel extends BaseViewModel {
-  bool isOnline = true;
+  final log = getLogger('Connectivty View Model');
+  bool hasNetwork = true;
   final ConnectivityServices _connectivityServices =
       locator<ConnectivityServices>();
-  listenConnectionStatus() {
+
+  init() {
     _connectivityServices.listenStream().listen((event) {
-      isOnline = event;
-      if (isOnline) {}
+      hasNetwork = event;
       notifyListeners();
     });
   }

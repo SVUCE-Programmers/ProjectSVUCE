@@ -53,6 +53,7 @@ class GithubPageViewModel extends BaseViewModel {
       log.d("Type is:${githubApiResponse.path.split(".").last}");
       _navigationService.navigateWithTransition(
           ResourceViewer(
+            downloadFile:()=> downloadFile(_extensionUrl + "/${githubApiResponse.path}", githubApiResponse.path),
             type: githubApiResponse.path.split(".").last,
             title: githubApiResponse.path,
             urlLink: _extensionUrl + "/${githubApiResponse.path}",

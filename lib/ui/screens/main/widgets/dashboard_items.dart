@@ -1,4 +1,5 @@
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/icons.dart';
 import 'package:svuce_app/app/locator.dart';
@@ -20,9 +21,8 @@ final AuthService _authService = locator<AuthService>();
 final List<SpotlightItem> spotLightItems = [
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showInfoToast(
-            "Sorry only students of svuce can access this.",
-          )
+        ? showInfoToast("Sorry only students of svuce can access this.",
+            toastPosition: ToastPosition.center)
         : _navigationService.navigateWithTransition(
             SelectClubsView(
               isSelectClubs: false,
@@ -50,9 +50,8 @@ final List<SpotlightItem> spotLightItems = [
   ),
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showInfoToast(
-            "Sorry only students of svuce can access this.",
-          )
+        ? showInfoToast("Sorry only students of svuce can access this.",
+            toastPosition: ToastPosition.center)
         : _navigationService.navigateWithTransition(FeedView(),
             duration: Duration(milliseconds: 900),
             transition: "rightToLeftWithFade"),
@@ -68,9 +67,8 @@ final List<SpotlightItem> spotLightItems = [
   ),
   SpotlightItem(
     onTap: () => _authService.isGuest
-        ? showInfoToast(
-            "Sorry only students of svuce can access this.",
-          )
+        ? showInfoToast("Sorry only students of svuce can access this.",
+            toastPosition: ToastPosition.center)
         : _navigationService.navigateWithTransition(CalenderEventsView(),
             duration: Duration(seconds: 01), transition: "rightToLeftWithFade"),
     icon: FlutterIcons.calendar_ant,
