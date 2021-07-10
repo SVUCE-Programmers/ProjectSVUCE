@@ -63,8 +63,11 @@ class StaffDetailsView extends StatelessWidget {
                     ListTile(
                       dense: true,
                       contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      trailing:
-                          Text("${staffModel.phone}", style: uiHelpers.body),
+                      trailing: Text(
+                        "${staffModel.phone.replaceAll(",", "\n")}",
+                        style: uiHelpers.body,
+                        textAlign: TextAlign.end,
+                      ),
                       title: Text("Phone Number",
                           style: uiHelpers.body.copyWith(
                               color: uiHelpers.textPrimaryColor,
@@ -76,20 +79,6 @@ class StaffDetailsView extends StatelessWidget {
                       trailing: Text("${staffModel.designation.join(',')}",
                           style: uiHelpers.body),
                       title: Text("Designations",
-                          style: uiHelpers.body.copyWith(
-                              color: uiHelpers.textPrimaryColor,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    ListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      trailing: TextButton(
-                        onPressed: () {},
-                        child: Text("Click here",
-                            style: uiHelpers.body
-                                .copyWith(color: uiHelpers.primaryColor)),
-                      ),
-                      title: Text("More Details",
                           style: uiHelpers.body.copyWith(
                               color: uiHelpers.textPrimaryColor,
                               fontWeight: FontWeight.bold)),

@@ -70,7 +70,9 @@ class MainView extends StatelessWidget {
                     uiHelpers.title.copyWith(color: uiHelpers.textPrimaryColor),
               ),
             ),
-            endDrawer: DrawerView(),
+            endDrawer: DrawerView(
+              model: model,
+            ),
             body: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Container(

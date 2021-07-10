@@ -6,7 +6,7 @@ final lightThemeData = (BuildContext context) => ThemeData(
     primaryTextTheme: TextTheme(
         headline6: TextStyle(
       color: LightColorPalette.textPrimaryColor,
-      )),
+    )),
     selectedRowColor: LightColorPalette.surfaceColor,
     fontFamily: 'Quicksand',
     popupMenuTheme: PopupMenuThemeData(

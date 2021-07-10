@@ -21,9 +21,8 @@ class MainViewModel extends BaseViewModel {
   TimeTable timeTable;
   List<Attendance> attendanceList = [];
   List<String> subjects = [];
-  UserModel _currentUser;
+  UserModel currentUser;
   bool get isDarkMode => _themeService.isDarkMode;
-  UserModel get currentUser => _currentUser;
   String get name => isGuest ? "Guest" : _firebaseAuth.currentUser?.displayName;
   String get userImage => isGuest ? null : _firebaseAuth.currentUser?.photoURL;
   String get weekDay => DateTimeUtils().getWeekDay();
@@ -40,23 +39,23 @@ class MainViewModel extends BaseViewModel {
   }
 
   getCurrentUserDetails() {
-    if (!isGuest) {
+    if (!_authService.isGuest) {
       _userRepository
           .getUserFromStream(_firebaseAuth.currentUser.email)
           .listen((event) {
-        if (event != null) {
-          _currentUser = event;
-          _firebaseAuth.currentUser.updateProfile(
-              displayName: _currentUser.fullName,
-              photoURL: _currentUser.gender);
-          listenTimeTable(currentUser.rollNo.toString().substring(0, 6));
-          notifyListeners();
-        }
+        log.d("User Details Event is:${event.toString()}");
+        currentUser = event;
+        notifyListeners();
+        _firebaseAuth.currentUser.updateProfile(
+            displayName: currentUser.fullName, photoURL: currentUser.gender);
+        listenTimeTable(currentUser.rollNo.toString().substring(0, 5));
+        notifyListeners();
       });
     }
   }
 
   init() {
+    log.d("Is Guest is:${_authService.isGuest}");
     if (!_authService.isGuest) {
       listenAttendanceStream();
       getCurrentUserDetails();

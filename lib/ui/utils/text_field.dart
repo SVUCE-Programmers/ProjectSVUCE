@@ -116,7 +116,6 @@ class AnimatedInputField extends HookWidget {
                             showPassword.value
                                 ? FlutterIcons.eye_off_fea
                                 : FlutterIcons.eye_fea,
-                            color: uiHelpers.textSecondaryColor,
                           ))
                       : Center(child: suffixIcon ?? SizedBox()),
                   prefixIcon: Center(child: prefixIcon ?? SizedBox()),

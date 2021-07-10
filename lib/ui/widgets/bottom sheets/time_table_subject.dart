@@ -43,8 +43,12 @@ buildBottomSheet(UiHelpers uiHelpers, BuildContext context,
                                 context: context,
                                 initialTime: TimeOfDay.now());
                             if (finalTime != null) {
-                              timeController.text =
-                                  "${initialTime.hourOfPeriod}:${initialTime.minute} ${initialTime.period == DayPeriod.pm ? "PM" : "AM"} - ${finalTime.hourOfPeriod}:${finalTime.minute} ${initialTime.period == DayPeriod.pm ? "PM" : "AM"}";
+                              String sTime =
+                                  "${initialTime.hourOfPeriod.toString().length == 1 ? ("0" + initialTime.hourOfPeriod.toString()) : (initialTime.hourOfPeriod.toString())}:${initialTime.minute.toString().length == 1 ? ("0" + initialTime.minute.toString()) : (initialTime.minute.toString())} ${initialTime.period == DayPeriod.pm ? "PM" : "AM"}";
+                              String eTime =
+                                  "${finalTime.hourOfPeriod.toString().length == 1 ? ("0" + finalTime.hourOfPeriod.toString()) : (finalTime.hourOfPeriod.toString())}:${finalTime.minute.toString().length == 1 ? ("0" + finalTime.minute.toString()) : (finalTime.minute.toString())} ${finalTime.period == DayPeriod.pm ? "PM" : "AM"}";
+
+                              timeController.text = "$sTime - $eTime";
                             }
                           }
                         },

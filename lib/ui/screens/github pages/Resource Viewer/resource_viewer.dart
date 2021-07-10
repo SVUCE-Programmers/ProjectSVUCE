@@ -141,7 +141,10 @@ class ResourceViewer extends StatelessWidget {
             : SizedBox();
 
       default:
-        return NotAvailable(onBack: model.navigateBack);
+        return NotAvailable(
+          onBack: model.navigateBack,
+          downloadFile: () => downloadFile(),
+        );
     }
   }
 }
