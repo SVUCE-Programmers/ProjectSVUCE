@@ -6,8 +6,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/services/share%20service/share_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ShareServiceImpl implements ShareService {
   final log = getLogger("Share Service Impl");
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
 
   @override
   launchUrl({String urlLink}) async {
@@ -22,13 +25,17 @@ class ShareServiceImpl implements ShareService {
       if (await canLaunch(urlLink)) {
         launch(urlLink);
       } else {
-        showWarningToast(
-          "Error in opening url",
+        _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          variant: SnackBarType.error,
+          message: "Error in opening url!!",
         );
       }
     } catch (e) {
-      showErrorToast(
-        "Error in opening url",
+      _snackBarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        variant: SnackBarType.error,
+        message: "Error in opening url!!",
       );
     }
   }
@@ -44,8 +51,10 @@ class ShareServiceImpl implements ShareService {
       }
     } catch (e) {
       log.e(e);
-      showErrorToast(
-        "Error occured please try again!",
+      _snackBarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        variant: SnackBarType.error,
+        message: "Error occured",
       );
     }
   }
@@ -97,8 +106,11 @@ class ShareServiceImpl implements ShareService {
         print(e);
       }
     } else {
-      showWarningToast(
-        "Please enable storage access",
+      _snackBarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        variant: SnackBarType.error,
+        title: "No Permission",
+        message: "Enable storage permission",
       );
     }
   }

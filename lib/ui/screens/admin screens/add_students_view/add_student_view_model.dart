@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
@@ -19,6 +19,8 @@ class AddStudentViewModel extends BaseViewModel {
   int index = 0;
   List<UserModel> userModelList = [];
   final NavigationService _navigationService = locator<NavigationService>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final TextEditingController userController = TextEditingController();
   final FilePickerUtil _filePickerUtil = FilePickerUtil();
   final ExcelService _excelService = locator<ExcelService>();
@@ -94,10 +96,15 @@ class AddStudentViewModel extends BaseViewModel {
     var result = await _studentService.updateStudent(userModel);
     setBusy(false);
     if (result) {
-      showSuccessToast("Updated User Successfully",
-        );
+      _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          message: "Updated user successfully!",
+          variant: SnackBarType.success);
     } else {
-      showErrorToast("Failed to update user");
+      _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          message: "Failed to update user",
+          variant: SnackBarType.error);
     }
   }
 
@@ -112,10 +119,15 @@ class AddStudentViewModel extends BaseViewModel {
       setBusy(false);
 
       if (result) {
-        showSuccessToast("Deleted User Successfully",
-          );
+        _snackBarService.showCustomSnackBar(
+            duration: Duration(seconds: 2),
+            message: "Deleted user successfully!",
+            variant: SnackBarType.success);
       } else {
-        showErrorToast("Failed to delete user");
+        _snackBarService.showCustomSnackBar(
+            duration: Duration(seconds: 2),
+            message: "Failed to delete",
+            variant: SnackBarType.error);
       }
     }
   }
@@ -129,7 +141,8 @@ class AddStudentViewModel extends BaseViewModel {
     _shareService.shareData(
         title: "${userModel.fullName} Data", description: data);
   }
-  downloadSample(){
+
+  downloadSample() {
     _excelService.downloadExcelSample();
   }
 }

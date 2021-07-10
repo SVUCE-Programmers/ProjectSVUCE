@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
@@ -18,6 +18,8 @@ class UsersRepositoryImpl implements UsersRepository {
   final log = getLogger("UsersRepositoryImpl");
   static FirebaseFirestore firestore = locator<FirebaseFirestore>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
   static CollectionReference _userRef = firestore.collection("users");
   final StreamController<UserModel> _userController =
@@ -122,26 +124,36 @@ class UsersRepositoryImpl implements UsersRepository {
       var data = await _userRef.doc(email).get();
       if (data.exists && data != null && data.data() != null) {
         if (Map<String, dynamic>.from(data.data())["id"] != null) {
-          showWarningToast(
-            commonErrorTitle +
-                "\n" +
-                "Your account already exists, try logging in",
+          _snackBarService.showCustomSnackBar(
+                        duration: Duration(seconds: 2),
+
+            title: commonErrorTitle,
+            variant: SnackBarType.info,
+            message: "Your account already exists, try logging in",
           );
           return false;
         } else {
           return true;
         }
       } else {
-        showErrorToast(
-          "User not found in our database",
+        _snackBarService.showCustomSnackBar(
+                      duration: Duration(seconds: 2),
+
+          title: commonErrorTitle,
+          variant: SnackBarType.error,
+          message: "User Not found",
         );
 
         return false;
       }
     } catch (e) {
-      showErrorToast(
-        commonErrorTitle + "\n" + "$e",
-      );
+      _snackBarService.showCustomSnackBar(
+                    duration: Duration(seconds: 2),
+
+            title: commonErrorTitle,
+            variant: SnackBarType.error,
+            message: "$e",
+          );
       return false;
     }
   }

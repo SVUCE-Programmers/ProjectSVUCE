@@ -18,7 +18,6 @@ import 'package:svuce_app/ui/screens/login/login_view.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 import 'package:svuce_app/ui/screens/main/main_view.dart';
 import 'package:svuce_app/ui/screens/notifications/notifications_view.dart';
-import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 import 'package:svuce_app/ui/screens/signup/signup_view.dart';
 import 'package:svuce_app/ui/screens/startup/startup_view.dart';
 import 'package:svuce_app/ui/screens/time_table/time_table_view.dart';
@@ -41,7 +40,6 @@ import 'package:svuce_app/ui/screens/user_profile/user_profile_view.dart';
     MaterialRoute(page: AddStudentView),
     MaterialRoute(page: AddEditTimeTableView),
     MaterialRoute(page: AttendanceStaffView),
-    MaterialRoute(page: PlacementView),
     MaterialRoute(page: CreateEventView),
     MaterialRoute(page: CreatePost),
     MaterialRoute(page: CalenderEventsView),

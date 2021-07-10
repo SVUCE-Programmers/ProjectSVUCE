@@ -4,7 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/event/event.dart' as eventModel;
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
 import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
@@ -13,6 +13,7 @@ import 'package:timezone/timezone.dart';
 
 class NotifyService {
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   final log = getLogger("Notify Service");
@@ -41,8 +42,10 @@ class NotifyService {
       _analyticsService.logEvent(
           name: "Event Added to calendar", parameters: eventModel.toMap());
     } else {
-      showErrorToast(
+      _snackBarService.showCustomSnackBar(message:
         "Error in adding event",
+        variant:SnackBarType.error,            duration: Duration(seconds: 2),
+
       );
     }
   }

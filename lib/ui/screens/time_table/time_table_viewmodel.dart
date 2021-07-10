@@ -2,7 +2,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
 import 'package:svuce_app/core/services/alarm_service.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
@@ -16,6 +15,8 @@ class TimeTableViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final NotifyService _notifyService = NotifyService();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
+
   TimeTable timeTable;
   bool hasAdminAccess = false;
 
@@ -98,8 +99,10 @@ class TimeTableViewModel extends BaseViewModel {
         int.parse(minute));
     if (schedulingTime.millisecondsSinceEpoch <
         dateTime.millisecondsSinceEpoch) {
-      showWarningToast(
-        "Can't schedule alarm at this time",
+      _snackbarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        title: "Wrong schedule",
+        message: "Can't schedule alarm at this time",
       );
     } else {
       _notifyService.addAlarm(context,

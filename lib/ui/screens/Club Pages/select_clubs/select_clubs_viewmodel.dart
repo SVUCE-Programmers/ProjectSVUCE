@@ -4,6 +4,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
@@ -21,6 +22,8 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
   final log = getLogger("Select Clubs View Model");
   final AuthService _authenticationService = locator<AuthService>();
   final ClubsRepository _clubsRepository = locator<ClubsRepository>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final UserClubsRepository _userClubsRepository =
       locator<UserClubsRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -72,7 +75,9 @@ class SelectClubsViewModel extends BaseViewModel with SnackbarHelper {
       flags[index] = true;
       setBusy(false);
     } catch (e) {
-      showErrorMessage(
+      _snackBarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        variant: SnackBarType.error,
         title: commonErrorTitle,
         message: commonErrorInfo,
       );

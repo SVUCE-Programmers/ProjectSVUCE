@@ -25,15 +25,6 @@ class SignUpView extends StatelessWidget {
                   color: uiHelpers.textPrimaryColor,
                 ),
                 onPressed: model.gotoLogin),
-            actions: <Widget>[
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.info,
-                  color: uiHelpers.primaryColor,
-                ),
-              )
-            ],
           ),
           body: Form(
             key: model.formKey,

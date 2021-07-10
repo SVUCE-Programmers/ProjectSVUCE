@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/services/excel%20service/excel_service.dart';
 import 'dart:io';
@@ -17,6 +17,8 @@ import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 @Singleton(as: ExcelService)
 class ExcelServiceImpl implements ExcelService {
   Excel _excel;
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final log = getLogger("ExcelServiceImpl");
 
   // ? Functions For Staff
@@ -232,9 +234,10 @@ class ExcelServiceImpl implements ExcelService {
           ..createSync(recursive: true)
           ..writeAsBytesSync(bytes);
       }
-      showSuccessToast(
-        "Downloaded Successfully",
-      );
+      _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          message: "Downloaded Successfully",
+          variant: SnackBarType.success);
     } catch (e) {
       log.e(e);
     }

@@ -9,7 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/repositories/users_repository/users_repository.dart';
 import 'package:svuce_app/core/utils/date_utils.dart';
@@ -25,6 +25,7 @@ class AuthServiceImpl implements AuthService {
   final SharedPreferences _sharedPreferences = locator<SharedPreferences>();
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
 
   // for testing
 
@@ -158,20 +159,26 @@ class AuthServiceImpl implements AuthService {
 
       if (newUser != null && newUser.user != null) {
         await user.updatePassword(newPassword);
-        showSuccessToast(
-          "Changed password successfully!",
+        _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          variant: SnackBarType.success,
+          message: "Changed password successfully!",
         );
         return true;
       }
     } catch (e) {
       if (e.message == "Password should be at least 6 characters") {
-        showWarningToast(
-          "Password is too weak",
+        _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          variant: SnackBarType.info,
+          message: "Password is too weak",
         );
       } else {
         log.e(e);
-        showErrorToast(
-          "Error occured,please login again!!",
+        _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          variant: SnackBarType.error,
+          message: "Error occured,please login again!!",
         );
       }
       return false;

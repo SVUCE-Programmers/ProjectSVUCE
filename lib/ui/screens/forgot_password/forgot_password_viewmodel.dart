@@ -1,7 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
 import 'package:svuce_app/core/mixins/validators.dart';
@@ -11,6 +11,8 @@ class ForgotPasswordViewModel extends BaseViewModel with Validators {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final AuthService _authenticationService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final TextEditingController emailController = TextEditingController();
   void resetPassword() async {
     if (formKey.currentState.validate()) {
@@ -19,11 +21,15 @@ class ForgotPasswordViewModel extends BaseViewModel with Validators {
           await _authenticationService.resetPassword(emailController.text);
 
       if (resetPasswordResult is String) {
-        showErrorToast(
-          commonErrorInfo,
-        );
+        _snackBarService.showCustomSnackBar(
+            duration: Duration(seconds: 2),
+            message: commonErrorInfo,
+            variant: SnackBarType.error);
       } else {
-        showSuccessToast(successEmailSentInfo);
+        _snackBarService.showCustomSnackBar(
+            duration: Duration(seconds: 2),
+            message: successEmailSentInfo,
+            variant: SnackBarType.success);
       }
 
       setBusy(false);

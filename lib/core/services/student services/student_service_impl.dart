@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/student_add_Data_body.dart';
 import 'package:svuce_app/core/models/user/user.dart';
 import 'package:svuce_app/core/services/auth/auth_service.dart';
@@ -13,6 +13,8 @@ import 'package:svuce_app/ui/screens/main/consumers/imports.dart';
 
 @Singleton(as: StudentService)
 class StudentServiceImpl extends StudentService {
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   final log = getLogger("Student Servicce Impl");
   final CollectionReference _userCollection =
       locator<FirebaseFirestore>().collection("users");
@@ -69,9 +71,10 @@ class StudentServiceImpl extends StudentService {
         return false;
       }
     } else {
-      showWarningToast(
-        "You don't have access to perform this operation",
-      );
+      _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          message: "You don't have access to perform this operation",
+          variant: SnackBarType.error);
       return false;
     }
   }
@@ -87,9 +90,11 @@ class StudentServiceImpl extends StudentService {
         return false;
       }
     } else {
-      showWarningToast(
-        "You don't have access to perform this operation",
-      );
+      _snackBarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          message: "You don't have access to perform this operation",
+          variant: SnackBarType.error);
+
       return false;
     }
   }

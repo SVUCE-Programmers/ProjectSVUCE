@@ -1,6 +1,5 @@
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/ui/screens/admin%20screens/add_edit_time_table/add_edit_time_table.dart';
-import 'package:svuce_app/ui/screens/placements/placements_view.dart';
 
 import 'consumers/imports.dart';
 
@@ -9,6 +8,7 @@ class MainViewModel extends BaseViewModel {
   final UsersRepository _userRepository = locator<UsersRepository>();
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService _authService = locator<AuthService>();
   final ThemeService _themeService = locator<ThemeService>();
@@ -170,16 +170,13 @@ class MainViewModel extends BaseViewModel {
         duration: Duration(milliseconds: 900));
   }
 
-  navigateToPlacements() {
-    _navigationService.navigateWithTransition(PlacementView(),
-        transition: "rightToLeftWithFade",
-        duration: Duration(milliseconds: 900));
-  }
-
   navigateToExploreClubs() {
     if (isGuest) {
-      showInfoToast(
-        "Sorry only students of svuce can access this.",
+      _snackbarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        title: "No Access",
+        variant: SnackBarType.info,
+        message: "Sorry only students of svuce can access this.",
       );
     } else {
       _navigationService.navigateWithTransition(

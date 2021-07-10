@@ -2,7 +2,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
-import 'package:svuce_app/app/showToastConfigs.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/core/models/feed/feed.dart';
 import 'package:svuce_app/core/repositories/feed_repository/feed_repository.dart';
 import 'package:svuce_app/core/services/firebaseAnalyticsService.dart';
@@ -17,6 +17,8 @@ class FeedViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final SnackbarService _snackBarService = locator<SnackbarService>();
+
   bool isAdmin = false;
   List<Feed> _feedItems;
   List<Feed> get feedItems => _feedItems;
@@ -59,7 +61,11 @@ class FeedViewModel extends BaseViewModel {
       transition: "rightToLeftWithFade",
       duration: Duration(milliseconds: 900));
   downloadFile(String urlLink, Feed feed) async {
-    showInfoToast("Download will be started soon!", );
+    _snackBarService.showCustomSnackBar(
+      message: "Download will be started soon!!",
+      variant: SnackBarType.info,
+      duration: Duration(seconds: 2),
+    );
     await _shareService.downloadFile(urlLink, feed.title,
         pathName: "/Svuce/Feed/", extensionName: ".png");
     try {

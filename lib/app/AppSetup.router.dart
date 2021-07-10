@@ -30,7 +30,6 @@ import '../ui/screens/github%20pages/github_page_view.dart';
 import '../ui/screens/login/login_view.dart';
 import '../ui/screens/main/main_view.dart';
 import '../ui/screens/notifications/notifications_view.dart';
-import '../ui/screens/placements/placements_view.dart';
 import '../ui/screens/signup/signup_view.dart';
 import '../ui/screens/startup/startup_view.dart';
 import '../ui/screens/time_table/time_table_view.dart';
@@ -106,7 +105,6 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.addStudentView, page: AddStudentView),
     RouteDef(Routes.addEditTimeTableView, page: AddEditTimeTableView),
     RouteDef(Routes.attendanceStaffView, page: AttendanceStaffView),
-    RouteDef(Routes.placementView, page: PlacementView),
     RouteDef(Routes.createEventView, page: CreateEventView),
     RouteDef(Routes.createPost, page: CreatePost),
     RouteDef(Routes.calenderEventsView, page: CalenderEventsView),
@@ -213,12 +211,6 @@ class StackedRouter extends RouterBase {
     AttendanceStaffView: (data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => AttendanceStaffView(),
-        settings: data,
-      );
-    },
-    PlacementView: (data) {
-      return MaterialPageRoute<dynamic>(
-        builder: (context) => PlacementView(),
         settings: data,
       );
     },

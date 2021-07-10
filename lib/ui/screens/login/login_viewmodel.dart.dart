@@ -4,6 +4,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/core/mixins/snackbar_helper.dart';
@@ -23,6 +24,7 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
 
   void handleLogin() async {
     if (formKey.currentState.validate()) {
@@ -31,9 +33,12 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
       log.i(result);
 
       if (result) {
-        showInfoMessage(
-            title: commonErrorTitle,
-            message: "Please check your details and try again");
+        _snackbarService.showCustomSnackBar(
+          duration: Duration(seconds: 2),
+          title: commonErrorTitle,
+          variant: SnackBarType.info,
+          message: "Please check your details and try again",
+        );
 
         return;
       }
@@ -67,7 +72,9 @@ class LoginViewModel extends BaseViewModel with Validators, SnackbarHelper {
   }
 
   showCommonError() {
-    showErrorMessage(
+    _snackbarService.showCustomSnackBar(
+      duration: Duration(seconds: 2),
+      variant: SnackBarType.error,
       title: commonErrorTitle,
       message: commonErrorInfo,
     );

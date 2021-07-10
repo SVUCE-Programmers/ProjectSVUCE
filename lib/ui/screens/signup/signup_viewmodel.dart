@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:svuce_app/app/AppSetup.logger.dart';
 import 'package:svuce_app/app/locator.dart';
+import 'package:svuce_app/app/setupSnackbarUi.dart';
 import 'package:svuce_app/app/strings.dart';
 import 'package:svuce_app/app/AppSetup.router.dart';
 
@@ -19,6 +20,8 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
   final UsersRepository _usersRepository = locator<UsersRepository>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final SnackbarService _snackbarService = locator<SnackbarService>();
+
   final TextEditingController confirmPassController = TextEditingController();
   bool isEmailVerified = false;
   changeEmailVerified() {
@@ -28,7 +31,9 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
 
   handleSignup() async {
     if (passController.text != confirmPassController.text) {
-      showInfoMessage(
+      _snackbarService.showCustomSnackBar(
+        duration: Duration(seconds: 2),
+        variant: SnackBarType.error,
         title: commonErrorTitle,
         message: passwordMatchErrorInfo,
       );
@@ -45,10 +50,18 @@ class SignUpViewModel extends BaseViewModel with Validators, SnackbarHelper {
           _navigationService.navigateTo(Routes.selectClubsView,
               arguments: SelectClubsViewArguments(isSelectClubs: true));
         } else {
-          showErrorMessage(title: commonErrorTitle, message: commonErrorInfo);
+          _snackbarService.showCustomSnackBar(
+              duration: Duration(seconds: 2),
+              title: commonErrorTitle,
+              message: commonErrorInfo,
+              variant: SnackBarType.error);
         }
       } else {
-        showErrorMessage(title: commonErrorTitle, message: result);
+        _snackbarService.showCustomSnackBar(
+            duration: Duration(seconds: 2),
+            title: commonErrorTitle,
+            message: result,
+            variant: SnackBarType.error);
       }
     } else {
       if (emailController.text.isNotEmpty) {
