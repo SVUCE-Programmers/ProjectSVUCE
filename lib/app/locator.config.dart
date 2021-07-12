@@ -62,6 +62,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String environment, _i2.EnvironmentFilter environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerDependencies = _$RegisterDependencies();
+  gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());
+
   gh.singleton<_i14.SnackbarService>(registerDependencies.snackbarService);
 
   gh.singleton<_i14.BottomSheetService>(
@@ -73,7 +75,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i27.FirebaseFirestore>(registerDependencies.firestore);
   gh.singleton<_i28.HiveInterface>(registerDependencies.hive);
   gh.singleton<_i33.UsersRepository>(_i34.UsersRepositoryImpl());
-  gh.lazySingleton<_i6.ThemeService>(() => _i6.ThemeService());
   gh.singleton<_i15.Client>(registerDependencies.client);
   gh.singleton<_i12.AuthService>(_i13.AuthServiceImpl());
   gh.singleton<_i29.PushNotificationService>(_i30.PushNotificationServiceImp());

@@ -16,8 +16,8 @@ class MainViewModel extends BaseViewModel {
   final TimeTableService _timeTableService = locator<TimeTableService>();
   final GithubApiServices githubApiServices = GithubApiServices();
   Graph attendanceGraph;
-  bool get isGuest => _authService.isGuest;
-  bool get isAdmin => _authService.hasAdminAccess;
+  bool  isGuest =true;
+  bool isAdmin = false;
   TimeTable timeTable;
   List<Attendance> attendanceList = [];
   List<String> subjects = [];
@@ -55,6 +55,9 @@ class MainViewModel extends BaseViewModel {
   }
 
   init() {
+    isAdmin = _authService.hasAdminAccess;
+    isGuest=_authService.isGuest;
+    notifyListeners();
     log.d("Is Guest is:${_authService.isGuest}");
     if (!_authService.isGuest) {
       listenAttendanceStream();
